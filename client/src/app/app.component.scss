@@ -1,0 +1,43 @@
+p, h1{
+    padding-left: 10px;
+}
+
+.esq{
+    padding-left: 10px;
+}
+
+.destaque{
+    font-weight:500;
+}
+
+.container{
+    float:left;
+}
+
+label { margin-left: 5px; margin-right: 5px;}
+
+.colu{
+    float: left;
+    width: 13%;
+    color: rgb(24, 21, 21);
+    margin-left: 5px;
+}
+
+#footer{
+    background-color: #212529;
+    color: white;
+    padding-left: 10px;
+    padding-bottom: 5px;
+    padding-top: 5px;
+    font-size: small;
+}
+
+#body{/*para manter o footer sempre no fim da página*/
+    min-height: calc(100vh - 29px);
+}
+
+.navCoordinates{
+    font-size: 16px; 
+    font-weight: 500;
+    color:aquamarine;
+}
