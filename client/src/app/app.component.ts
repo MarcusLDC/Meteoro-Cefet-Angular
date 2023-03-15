@@ -1,15 +1,21 @@
 import { Component, NgModule } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.scss']
+  styleUrls: ['./app.component.scss'],
+
 })
 
 export class AppComponent {
   title = 'Meteoro-Cefet';
   form : FormGroup;
+
+  idEstacoes = new FormControl('');
+  estacoesLista: string[] = ['A201-1', 'A201-2', '6', '10'];
+  
   periodosGrafico = [
     { value: "1 minuto", key: 1 },
     { value: "10 minutos", key: 2 },

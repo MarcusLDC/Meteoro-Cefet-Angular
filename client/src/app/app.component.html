@@ -8,7 +8,7 @@
         </div>
     </nav>
     <div class='esq'>
-        <form [formGroup]="form">
+        <form style="float:left" [formGroup]="form">
             <mat-form-field appearance="fill">
                 <mat-label class="destaque">Insira o intervalo de datas</mat-label>
                 <mat-date-range-input [rangePicker]="picker">
@@ -20,6 +20,12 @@
                 <mat-date-range-picker #picker></mat-date-range-picker>
             </mat-form-field>
         </form>
+        <mat-form-field appearance="fill">
+            <mat-label>Insira as estações</mat-label>
+            <mat-select [formControl]="idEstacoes" multiple>
+              <mat-option *ngFor="let id of estacoesLista" [value]="id">{{id}}</mat-option>
+            </mat-select>
+          </mat-form-field>
     </div>
     <div class='esq'>
         <label class="destaque"> Consultar via: </label>
@@ -81,9 +87,9 @@
                     <mat-checkbox> Índice de calor </mat-checkbox>
                 </div>
             </div>
-            <mat-checkbox> Umidade relativa </mat-checkbox>
-        </div>
+                <mat-checkbox> Umidade relativa </mat-checkbox>
+            </div>
+        <button class="botao" mat-raised-button color="warn"> Consultar </button>
     </div>
-    <input class="botao" type="submit" value="Consultar" style="margin-top: 10px;">
 </div>
 <footer id="footer">Desenvolvedor: Estagiário Marcus Vinicius Lima da Costa</footer> <!-- Vitor Aguiar da Gama -->
