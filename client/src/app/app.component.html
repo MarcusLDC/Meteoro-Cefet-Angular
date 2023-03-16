@@ -7,12 +7,13 @@
             </h2>
         </div>
     </nav>
+    
     <div class='esq'>
-        <form style="float:left" [formGroup]="form">
+        <form [formGroup]="form">
             <mat-form-field appearance="fill">
                 <mat-label class="destaque">Insira o intervalo de datas</mat-label>
                 <mat-date-range-input [rangePicker]="picker">
-                    <input matInput formControlName="date">
+                    <input matInput formControlName="periodo">
                     <input matStartDate placeholder="Data Inicial">
                     <input matEndDate placeholder="Data Final">
                 </mat-date-range-input>
@@ -22,21 +23,22 @@
         </form>
         <mat-form-field appearance="fill">
             <mat-label>Insira as estações</mat-label>
-            <mat-select [formControl]="idEstacoes" multiple>
+            <mat-select formControlName="estacao" multiple>
               <mat-option *ngFor="let id of estacoesLista" [value]="id">{{id}}</mat-option>
             </mat-select>
           </mat-form-field>
     </div>
+
     <div class='esq'>
         <label class="destaque"> Consultar via: </label>
-        <mat-checkbox> Tabela </mat-checkbox>
-        <mat-checkbox> Gráfico </mat-checkbox>
+        <mat-checkbox formControlName="tabela"> Tabela </mat-checkbox>
+        <mat-checkbox formControlName="grafico"> Gráfico </mat-checkbox>
         <label class="destaque"> (1 ou 2 variáveis) </label>
     </div>
 
     <div class='esq'>
         <label for="intervalo" class="destaque"> Dados médios e total:</label>
-        <select name="intervalo" id="intervalo" (onchange)="selectIntervaloHandler">
+        <select formControlName="intervalo" name="intervalo" id="intervalo" (onchange)="selectIntervaloHandler">
             <option *ngFor="let item of periodosGrafico" value="item.key"> {{item.value}} </option>
         </select>
     </div>
@@ -45,51 +47,51 @@
         <div class="container">
             <div class="row">
                 <div class="col-sm">
-                    <mat-checkbox> Temperatura do ar </mat-checkbox>
+                    <mat-checkbox formControlName="tempAr"> Temperatura do ar </mat-checkbox>
                 </div>
                 <div class="col-sm">
-                    <mat-checkbox> Temperatura mínima </mat-checkbox>
+                    <mat-checkbox formControlName="tempMin"> Temperatura mínima </mat-checkbox>
                 </div>
                 <div class="col-sm">
-                    <mat-checkbox> Temperatura máxima </mat-checkbox>
+                    <mat-checkbox formControlName="tempMax"> Temperatura máxima </mat-checkbox>
                 </div>
                 <div class="col-sm">
-                    <mat-checkbox> Temperatura do ponto de orvalho </mat-checkbox>
+                    <mat-checkbox formControlName="tempOrv"> Temperatura do ponto de orvalho </mat-checkbox>
                 </div>
             </div>
 
             <div class="row">
                 <div class="col-sm">
-                    <mat-checkbox> Chuva </mat-checkbox>
+                    <mat-checkbox formControlName="chuva"> Chuva </mat-checkbox>
                 </div>
                 <div class="col-sm">
-                    <mat-checkbox> Direção do vento </mat-checkbox>
+                    <mat-checkbox formControlName="direcaoVento"> Direção do vento </mat-checkbox>
                 </div>
                 <div class="col-sm">
-                    <mat-checkbox> Velocidade do vento </mat-checkbox>
+                    <mat-checkbox formControlName="velocidadeVento"> Velocidade do vento </mat-checkbox>
                 </div>
                 <div class="col-sm">
-                    <mat-checkbox> Velocidade do vento Máxima </mat-checkbox>
+                    <mat-checkbox formControlName="velocidadeVentoMax"> Velocidade do vento Máxima </mat-checkbox>
                 </div>
             </div>
 
             <div class="row">
                 <div class="col-sm">
-                    <mat-checkbox> Bateria </mat-checkbox> <br>
+                    <mat-checkbox formControlName="bateria"> Bateria </mat-checkbox> <br>
                 </div>
                 <div class="col-sm">
-                    <mat-checkbox> Radiação solar global </mat-checkbox>
+                    <mat-checkbox formControlName="radiacao"> Radiação solar global </mat-checkbox>
                 </div>
                 <div class="col-sm">
-                    <mat-checkbox> Pressão atmosférica </mat-checkbox>
+                    <mat-checkbox formControlName="pressaoATM"> Pressão atmosférica </mat-checkbox>
                 </div>
                 <div class="col-sm">
-                    <mat-checkbox> Índice de calor </mat-checkbox>
+                    <mat-checkbox formControlName="indiceCalor"> Índice de calor </mat-checkbox>
                 </div>
             </div>
-                <mat-checkbox> Umidade relativa </mat-checkbox>
+                <mat-checkbox formControlName="umidadeRelativa"> Umidade relativa </mat-checkbox>
             </div>
-        <button class="botao" mat-raised-button color="warn"> Consultar </button>
+        <button class="botao" mat-raised-button color="warn" (click)="consultar"> Consultar </button>
     </div>
 </div>
 <footer id="footer">Desenvolvedor: Estagiário Marcus Vinicius Lima da Costa</footer> <!-- Vitor Aguiar da Gama -->

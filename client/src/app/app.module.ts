@@ -13,6 +13,7 @@ import { MatNativeDateModule, MatOptionModule, MAT_DATE_LOCALE } from '@angular/
 import { MatCheckboxModule} from '@angular/material/checkbox';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatSelectModule } from '@angular/material/select';
+import { HttpClientModule } from '@angular/common/http'; 
 
 
 @NgModule({
@@ -32,7 +33,8 @@ import { MatSelectModule } from '@angular/material/select';
     MatNativeDateModule,
     ReactiveFormsModule,
     MatOptionModule,
-    MatSelectModule
+    MatSelectModule,
+    HttpClientModule
   ],
   providers: [
     MatDatepickerModule,
