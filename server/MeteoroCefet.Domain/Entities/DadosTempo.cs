@@ -6,7 +6,7 @@
 
         public int Estacao { get; set; }
 
-        public double TempAr { get; set; }
+        public double TemperaturaAr { get; set; }
 
         public int UmidadeRelativaAr { get; set; }
 
