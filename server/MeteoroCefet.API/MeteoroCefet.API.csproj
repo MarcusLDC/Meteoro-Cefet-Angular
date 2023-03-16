@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk.Web">
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
     <TargetFramework>net7.0</TargetFramework>
@@ -15,6 +15,7 @@
   <ItemGroup>
     <ProjectReference Include="..\ClassLibrary1\MeteoroCefet.Domain.csproj" />
     <ProjectReference Include="..\MeteoroCefet.Application\MeteoroCefet.Application.csproj" />
+    <ProjectReference Include="..\MeteoroCefet.Domain\MeteoroCefet.Domain.csproj" />
     <ProjectReference Include="..\MeteoroCefet.Infra\MeteoroCefet.Infra.csproj" />
   </ItemGroup>
 
