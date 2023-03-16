@@ -22,7 +22,7 @@ if (app.Environment.IsDevelopment())
 app.MapPost("/consulta", Handler);
 app.Run();
 
-async Task<List<DadosTempo>> Handler(DadosTempoRepository repository, ConsultaModel model)
+static async Task<List<DadosTempo>> Handler(DadosTempoRepository repository, ConsultaModel model)
 {
     return await repository.Get((x) => x.Pressao > 0);
 }
