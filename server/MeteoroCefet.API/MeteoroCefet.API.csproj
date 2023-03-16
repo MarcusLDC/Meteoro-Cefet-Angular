@@ -13,7 +13,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\ClassLibrary1\MeteoroCefet.Domain.csproj" />
     <ProjectReference Include="..\MeteoroCefet.Application\MeteoroCefet.Application.csproj" />
     <ProjectReference Include="..\MeteoroCefet.Domain\MeteoroCefet.Domain.csproj" />
     <ProjectReference Include="..\MeteoroCefet.Infra\MeteoroCefet.Infra.csproj" />
