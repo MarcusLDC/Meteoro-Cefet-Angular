@@ -13,12 +13,17 @@ import { MatNativeDateModule, MatOptionModule, MAT_DATE_LOCALE } from '@angular/
 import { MatCheckboxModule} from '@angular/material/checkbox';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatSelectModule } from '@angular/material/select';
-import { HttpClientModule } from '@angular/common/http'; 
+import { HttpClientModule } from '@angular/common/http';
+import { DadosComponent } from './dados/dados.component';
+import { ConsultaComponent } from './consulta/consulta.component'; 
+import { MatTableModule } from '@angular/material/table';
 
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    DadosComponent,
+    ConsultaComponent
   ],
   imports: [
     BrowserModule,
@@ -34,7 +39,8 @@ import { HttpClientModule } from '@angular/common/http';
     ReactiveFormsModule,
     MatOptionModule,
     MatSelectModule,
-    HttpClientModule
+    HttpClientModule,
+    MatTableModule
   ],
   providers: [
     MatDatepickerModule,

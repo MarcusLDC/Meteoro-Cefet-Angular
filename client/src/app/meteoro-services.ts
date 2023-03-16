@@ -11,4 +11,8 @@ export class MeteoroServices {
     public consultar(model:ConsultaModel){
         return this.httpClient.post(environment.apiUrl,model)
     }
+    
+    public getDados(numEstacao:number){
+        
+    }
 }

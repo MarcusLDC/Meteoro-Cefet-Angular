@@ -1,0 +1,41 @@
+p, h1{
+    padding-left: 10px;
+}
+
+.esq{
+    padding-left: 10px;
+}
+
+.destaque{
+    font-weight:500;
+}
+
+.container{
+    float:left;
+    margin-right: 500px;
+    margin-top: 10px;
+}
+
+label { margin-left: 5px; margin-right: 5px;}
+
+.botao{
+    margin-top: 15px;
+    margin-left: 23px;
+}
+
+.colu{
+    float: left;
+    width: 13%;
+    color: rgb(24, 21, 21);
+    margin-left: 5px;
+}
+
+.navCoordinates{
+    font-size: 16px; 
+    font-weight: 500;
+}
+
+#body{/*para manter o footer sempre no fim da página*/
+    min-height: calc(100vh - 29px);
+    font-family: Roboto, "Helvetica Neue", sans-serif;
+}
