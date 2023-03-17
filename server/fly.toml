@@ -7,7 +7,7 @@ primary_region = "gru"
 processes = []
 
 [build]
-  dockerfile = "MeteoroCefet/API/Dockerfile"
+  dockerfile = "MeteoroCefet.API/Dockerfile"
 
 [env]
 
