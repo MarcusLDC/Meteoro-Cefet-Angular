@@ -5,7 +5,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddCors();
-builder.Services.ConfigurePrismaticServices();
+builder.Services.ConfigureMeteoroServices();
 builder.ConfigureMongoClient();
 
 var app = builder.Build();

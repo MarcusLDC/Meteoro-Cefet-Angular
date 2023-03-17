@@ -4,9 +4,10 @@ namespace MeteoroCefet.API
 {
     public static class MeteoroCefetServicesConfiguration
     {
-        public static void ConfigurePrismaticServices(this IServiceCollection services)
+        public static void ConfigureMeteoroServices(this IServiceCollection services)
         {
             services.AddTransient<DadosTempoRepository>();
+            services.AddTransient<EstacaoRepository>();
         }
     }
 }

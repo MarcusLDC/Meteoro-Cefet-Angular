@@ -1,14 +1,14 @@
 <div>
     <label for="intervalo"> Selecionar Estação: </label>
-    <select formControlName="estacoes" name="estacoes" id="estacoes" (onchange)="selectEstacoesHandler">
-        <option *ngFor="let item of periodosGrafico" value="item.key"> {{item.value}} </option>
+    <select #estacao formControlName="estacoes" name="estacoes" id="estacoes" (change)="selectEstacoesHandler(estacao.value)">
+        <option *ngFor="let item of estacoes" [value]="item.numero"> {{item.numero}} </option>
     </select>
 
     <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
 
         <ng-container matColumnDef="Data e Hora">
         <th mat-header-cell *matHeaderCellDef> Data e Hora </th>
-        <td mat-cell *matCellDef="let element"> {{element.dataHora}} </td>
+        <td mat-cell *matCellDef="let element"> {{element.dataHora | date : 'dd/MM/yyyy HH:mm'}} </td>
         </ng-container>
 
         <ng-container matColumnDef="Estação">

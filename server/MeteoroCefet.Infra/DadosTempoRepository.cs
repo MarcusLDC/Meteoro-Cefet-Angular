@@ -18,5 +18,14 @@ namespace MeteoroCefet.Infra
                 .Limit(tamanhoPaginacao)
                 .ToListAsync();
         }
+        public async Task<List<DadosTempo>> GetLastEstacao(int numeroEstacao, int numPagina, int tamanhoPaginacao)
+        {
+            return await Collection
+                .Find(x => x.Estacao == numeroEstacao)
+                .SortByDescending(x => x.DataHora)
+                .Skip((numPagina - 1) * tamanhoPaginacao)
+                .Limit(tamanhoPaginacao)
+                .ToListAsync();
+        }
     }
 }
