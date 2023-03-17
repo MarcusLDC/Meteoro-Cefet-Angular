@@ -24,6 +24,11 @@ namespace MeteoroCefet.Infra
             return entity.Id;
         }
 
+        public async Task AddRange(List<T> data) 
+        {
+            await Collection.InsertManyAsync(data);
+        }
+
         public async Task<T> Get(Guid id)
         {
             return await Collection.Find(x => x.Id == id).FirstOrDefaultAsync();
@@ -39,10 +44,13 @@ namespace MeteoroCefet.Infra
             await Collection.ReplaceOneAsync(x => x.Id == id, newEntity);
         }
 
-        public async Task<List<T>> GetPaginated(int numPagina, int tamanhoPaginacao) 
+        public async Task<List<T>> GetPaginated(int numPagina, int tamanhoPaginacao)
         {
-            return await Collection.Find(_ => true).Skip((numPagina-1) * tamanhoPaginacao)
-                .Limit(tamanhoPaginacao).ToListAsync();
+            return await Collection
+                .Find(_ => true)
+                .Skip((numPagina - 1) * tamanhoPaginacao)
+                .Limit(tamanhoPaginacao)
+                .ToListAsync();
         }
     }
 }

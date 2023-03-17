@@ -8,7 +8,7 @@ namespace MeteoroCefet.Tests
     public class Tests
     {
         [Test]
-        public async Task Test1()
+        public async Task MigrarDados()
         {
             var client = new MongoClient("mongodb+srv://cefetmeteoro:QOgajprRd25ZkB9D@meteorocefetcluster.kvvv7gn.mongodb.net/?retryWrites=true&w=majority");
             var repositoryDadosTempo = new DadosTempoRepository(client);
@@ -38,10 +38,7 @@ namespace MeteoroCefet.Tests
 
             await SalvarEstacoes(repositoryEstacao, dadosTempoExtraidos);
 
-            foreach (var dado in dadosTempoExtraidos)
-            {
-                await repositoryDadosTempo.Add(dado);
-            }
+            await repositoryDadosTempo.AddRange(dadosTempoExtraidos);
 
             Assert.Pass();
         }
