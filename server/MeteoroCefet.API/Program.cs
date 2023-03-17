@@ -1,12 +1,11 @@
 using MeteoroCefet.API;
-using MeteoroCefet.Infra;
 
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
-builder.Services.AddTransient<DadosTempoRepository>();
 builder.Services.AddCors();
+builder.Services.ConfigurePrismaticServices();
 builder.ConfigureMongoClient();
 
 var app = builder.Build();

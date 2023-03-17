@@ -1,22 +1,11 @@
 ﻿using Microsoft.AspNetCore.Diagnostics;
 using MongoDB.ApplicationInsights.DependencyInjection;
+using Newtonsoft.Json;
 using System.Reflection;
-using System.Xml;
-using JsonConvert = Newtonsoft.Json.JsonConvert;
 
 namespace MeteoroCefet.API
 {
-    public class DependencyConfiguration
-    {
-
-    }
-
-    public interface IEndpointDefinition
-    {
-        void DefineEndpoints(WebApplication app);
-    }
-
-    public static class EndpointDefinitonExtensions
+    public static class ProgramExtensions
     {
         public static void ConfigureMongoClient(this WebApplicationBuilder builder)
         {
@@ -70,5 +59,10 @@ namespace MeteoroCefet.API
             var types = Assembly.GetEntryAssembly()!.ExportedTypes;
             return types.Where(t => typeof(IEndpointDefinition).IsAssignableFrom(t) && !t.IsInterface);
         }
+    }
+
+    public interface IEndpointDefinition
+    {
+        void DefineEndpoints(WebApplication app);
     }
 }
