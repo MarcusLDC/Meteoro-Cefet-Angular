@@ -1,14 +1,13 @@
 using MeteoroCefet.API;
 using MeteoroCefet.Infra;
-using MongoDB.ApplicationInsights.DependencyInjection;
 
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
-builder.Services.AddMongoClient();
 builder.Services.AddTransient<DadosTempoRepository>();
 builder.Services.AddCors();
+builder.ConfigureMongoClient();
 
 var app = builder.Build();
 
