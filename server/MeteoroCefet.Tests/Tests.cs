@@ -10,7 +10,7 @@ namespace MeteoroCefet.Tests
         [Test]
         public async Task Test1()
         {
-            var client = new MongoClient("mongodb+srv://cefetmeteoro:yHDbnzYBpUQq7q26@meteorocefetcluster.kvvv7gn.mongodb.net/?retryWrites=true&w=majority");
+            var client = new MongoClient("mongodb+srv://cefetmeteoro:QOgajprRd25ZkB9D@meteorocefetcluster.kvvv7gn.mongodb.net/?retryWrites=true&w=majority");
             var repositoryDadosTempo = new DadosTempoRepository(client);
             var repositoryEstacao = new EstacaoRepository(client);
 
