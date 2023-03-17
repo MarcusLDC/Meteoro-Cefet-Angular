@@ -1,6 +1,6 @@
 # fly.toml file generated for meteoro-test on 2023-03-17T17:10:51-03:00
 
-app = "meteoro-test"
+app = "meteoro-cefet"
 kill_signal = "SIGINT"
 kill_timeout = 5
 primary_region = "gru"
