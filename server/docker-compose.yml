@@ -6,6 +6,8 @@ services:
     build:
       context: .
       dockerfile: MeteoroCefet.API/Dockerfile
+    ports:
+      - 5000:80
     environment:
       MONGO_PASSWORD: ${MONGO_PASSWORD}
       MONGO_USER: ${MONGO_USER} 
