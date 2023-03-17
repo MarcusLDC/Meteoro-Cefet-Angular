@@ -1,0 +1,11 @@
+version: '3.4'
+
+services:
+  meteorocefet.api:
+    image: ${DOCKER_REGISTRY-}meteorocefetapi
+    build:
+      context: .
+      dockerfile: MeteoroCefet.API/Dockerfile
+    environment:
+      MONGO_PASSWORD: ${MONGO_PASSWORD}
+      MONGO_USER: ${MONGO_USER} 
