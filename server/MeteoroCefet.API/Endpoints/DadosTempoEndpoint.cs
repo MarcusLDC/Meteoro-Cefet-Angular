@@ -13,7 +13,7 @@ namespace MeteoroCefet.API.Endpoints
 
         private static async Task<List<DadosTempo>> Handler(DadosTempoRepository repository, [FromBody] int numPagina)
         {
-            return await repository.GetPaginated(numPagina, 100);
+            return await repository.GetLast(numPagina, 100);
         }
     }
 }
