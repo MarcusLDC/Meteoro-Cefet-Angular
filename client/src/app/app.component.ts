@@ -1,8 +1,4 @@
-import { Component, NgModule } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { ConsultaModel } from './shared/models/consulta-model';
-import { MeteoroServices } from './shared/meteoro-services';
-
+import { Component } from '@angular/core';
 
 @Component({
   selector: 'app-root',
@@ -12,5 +8,5 @@ import { MeteoroServices } from './shared/meteoro-services';
 })
 
 export class AppComponent {
-  title = 'Meteoro-Cefet';
+  title = 'Meteoro Cefet';
 } 
