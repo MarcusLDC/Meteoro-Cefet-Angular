@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { FormGroup, FormControl, FormBuilder, Validators } from '@angular/forms';
 import { ConsultaModel } from '../shared/models/consulta-model';
 import { MeteoroServices } from '../shared/meteoro-services';
+import { Estacao } from '../shared/models/estacao-model';
 
 @Component({
   selector: 'app-consulta',
@@ -12,7 +13,7 @@ export class ConsultaComponent {
   form: FormGroup;
 
   idEstacoes = new FormControl('');
-  estacoesLista: string[] = ['A201-1', 'A201-2', '6', '10'];
+  estacoes: Estacao[] = [];
 
   periodosGrafico = [
     { value: "1 minuto", key: 1 },
@@ -44,8 +45,10 @@ export class ConsultaComponent {
       pressaoATM: [false, Validators.required],
       indiceCalor: [false, Validators.required],
       umidadeRelativa: [false, Validators.required],  // Fim-Checkboxes
-
     });
+
+    meteoroServices.getEstacoes().subscribe(x => this.estacoes = x);
+    
   }
 
   public consultar() {
