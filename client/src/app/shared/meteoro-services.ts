@@ -1,6 +1,6 @@
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
-import { environment } from "src/environment/environment";
+import { environment } from "src/environment/environments";
 import { ConsultaModel } from "./models/consulta-model";
 import { DadosTempo } from "./models/dados-tempo-model";
 import { Estacao } from "./models/estacao-model";
