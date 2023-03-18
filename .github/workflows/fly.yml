@@ -10,7 +10,7 @@ env:
 
 jobs:
   deploy_front:
-    name: Deploy app
+    name: Deploy Angular front-end
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
@@ -20,7 +20,7 @@ jobs:
       - run: flyctl deploy ./client --remote-only
 
   deploy_back:
-    name: Deploy app
+    name: Deploy .NET back-end
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
