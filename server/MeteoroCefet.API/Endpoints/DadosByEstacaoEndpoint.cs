@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace MeteoroCefet.API.Endpoints
 {
-    public class DadosEstacaoEndpoint : IEndpointDefinition
+    public class DadosByEstacaoEndpoint : IEndpointDefinition
     {
         public void DefineEndpoints(WebApplication app)
         {
