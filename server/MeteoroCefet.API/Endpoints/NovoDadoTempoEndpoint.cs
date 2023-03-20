@@ -16,7 +16,7 @@ namespace MeteoroCefet.API.Endpoints
 
             var pedacinhos = msg.Split(";");
 
-            var DataHora = DateTime.ParseExact(pedacinhos[0].ToString(), "dd/MM/yyyy HH:mm:ss", null);
+            var DataHora = DateTime.Now;
             var Estacao = int.Parse(pedacinhos[1]);
 
             double TemperaturaAr = ConverteDouble(pedacinhos[2]);
@@ -64,17 +64,13 @@ namespace MeteoroCefet.API.Endpoints
 
         private static double ConverteDouble(string text)
         {
-            var resultado = double.Parse(ConverteString(text));
-            return double.IsNaN(resultado) ? 0 : resultado;
+            double.TryParse(text, out var result);
+            return double.IsNaN(result) ? 0 : result;
         }
         private static int ConverteInt(string text)
         {
-            var resultado = int.Parse(ConverteString(text));
-            return resultado;
-        }
-        private static string ConverteString(string text)
-        {
-            return text == "" ? "0" : text;
+            int.TryParse(text, out var result);
+            return result;
         }
     }
 }

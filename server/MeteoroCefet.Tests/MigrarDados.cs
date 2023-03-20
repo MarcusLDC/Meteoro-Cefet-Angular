@@ -10,13 +10,13 @@ namespace MeteoroCefet.Tests
         [Test]
         public async Task Test()
         {
-            var client = new MongoClient("mongodb+srv://cefetmeteoro:QOgajprRd25ZkB9D@meteorocefetcluster.kvvv7gn.mongodb.net/?retryWrites=true&w=majority");
+            var client = new MongoClient("mongodb+srv://cefetmeteoro:SENHA@meteorocefetcluster.kvvv7gn.mongodb.net/?retryWrites=true&w=majority");
             var repositoryDadosTempo = new DadosTempoRepository(client);
             var repositoryEstacao = new EstacaoRepository(client);
 
             var dadosTempoExtraidos = JArray.Parse(File.ReadAllText("..\\..\\..\\tabela.json")).Select(item => new DadosTempo()
             {
-                DataHora = DateTime.ParseExact(item["DataHora"].ToString(), "dd/MM/yyyy HH:mm:ss", null),
+                DataHora = DateTime.ParseExact(item["DataHora"].ToString(), "dd/MM/yyyy HH:mm:ss", null).AddHours(3),
                 Estacao = item["Estacao"].Value<int>(),
                 TemperaturaAr = item["Tar"].Value<double>(),
                 UmidadeRelativaAr = item["URar"].Value<int>(),
@@ -36,7 +36,7 @@ namespace MeteoroCefet.Tests
                 Status = item["Status"].ToString(),
             }).ToList();
 
-            await SalvarEstacoes(repositoryEstacao, dadosTempoExtraidos);
+            //await SalvarEstacoes(repositoryEstacao, dadosTempoExtraidos);
 
             await repositoryDadosTempo.AddRange(dadosTempoExtraidos);
 
