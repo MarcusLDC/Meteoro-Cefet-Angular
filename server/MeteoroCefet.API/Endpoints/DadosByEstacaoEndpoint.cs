@@ -4,11 +4,11 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace MeteoroCefet.API.Endpoints
 {
-    public class DadosEstacaoEndpoint : IEndpointDefinition
+    public class DadosByEstacaoEndpoint : IEndpointDefinition
     {
         public void DefineEndpoints(WebApplication app)
         {
-            app.MapPost("/dadosEstacao", Handler);
+            app.MapPost("/dadosPorEstacao", Handler);
         }
         private static async Task<List<DadosTempo>> Handler([FromServices] DadosTempoRepository repository, [FromBody] Params p)
         {
