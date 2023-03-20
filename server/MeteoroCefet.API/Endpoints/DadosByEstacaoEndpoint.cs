@@ -8,7 +8,7 @@ namespace MeteoroCefet.API.Endpoints
     {
         public void DefineEndpoints(WebApplication app)
         {
-            app.MapPost("/dadosPorEstacao", Handler);
+            app.MapPost("/dadosEstacao", Handler);
         }
         private static async Task<List<DadosTempo>> Handler([FromServices] DadosTempoRepository repository, [FromBody] Params p)
         {
