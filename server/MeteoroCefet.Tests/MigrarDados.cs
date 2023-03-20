@@ -5,10 +5,10 @@ using Newtonsoft.Json.Linq;
 
 namespace MeteoroCefet.Tests
 {
-    public class Tests
+    public class MigrarDados
     {
         [Test]
-        public async Task MigrarDados()
+        public async Task Test()
         {
             var client = new MongoClient("mongodb+srv://cefetmeteoro:QOgajprRd25ZkB9D@meteorocefetcluster.kvvv7gn.mongodb.net/?retryWrites=true&w=majority");
             var repositoryDadosTempo = new DadosTempoRepository(client);
@@ -42,7 +42,6 @@ namespace MeteoroCefet.Tests
 
             Assert.Pass();
         }
-
         private static async Task SalvarEstacoes(EstacaoRepository repositoryEstacao, List<DadosTempo> saida)
         {
             var estacoes = saida.Select(x => x.Estacao).Distinct();
