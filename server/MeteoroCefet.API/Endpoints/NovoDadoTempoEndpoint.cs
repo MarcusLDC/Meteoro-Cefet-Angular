@@ -64,12 +64,12 @@ namespace MeteoroCefet.API.Endpoints
 
         private static double ConverteDouble(string text)
         {
-            double.TryParse(text, out var result);
+            _ = double.TryParse(text, out var result);
             return double.IsNaN(result) ? 0 : result;
         }
         private static int ConverteInt(string text)
         {
-            int.TryParse(text, out var result);
+            _ = int.TryParse(text, out var result);
             return result;
         }
     }
