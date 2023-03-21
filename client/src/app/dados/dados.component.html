@@ -10,7 +10,7 @@
             <ng-container matColumnDef="Estação">
                 <th mat-header-cell *matHeaderCellDef> Estação 
                     <select #estacao formControlName="estacoes" name="estacoes" id="estacoes" (change)="selectEstacoesHandler(estacao.value)">
-                        <option>Tudo</option>
+                        <option selected> Tudo </option>
                         <option *ngFor="let element of estacoes" [value]="element.numero"> {{element.numero}} </option>
                     </select>
                 </th>

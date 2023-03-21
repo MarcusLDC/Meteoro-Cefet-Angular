@@ -1,7 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { AfterViewInit, Component, OnInit } from '@angular/core';
 import { DadosTempo } from '../shared/models/dados-tempo-model';
 import { MeteoroServices } from '../shared/meteoro-services';
 import { Estacao } from '../shared/models/estacao-model';
+import { LocalStorage } from '@ngx-pwa/local-storage';
 
 @Component({
   selector: 'app-dados',
@@ -9,7 +10,8 @@ import { Estacao } from '../shared/models/estacao-model';
   styleUrls: ['./dados.component.scss']
 })
 
-export class DadosComponent {
+export class DadosComponent implements OnInit{
+
   displayedColumns: string[] = [
     'Data e Hora', 'Estação', 'Temperatura Ar', 'Temperatura Ponto de Orvalho', 'Precipitação', 'Índice Calor','Direção Vento',
     'Velocidade Vento', 'Umidade Relativa Ar', 'Pressão', 'Deficit Pressão Vapor', 'Radiação Solar', 'Bateria', 'Extra 1', 'Extra 2', 'Extra 3', 'Extra 4', 'Status'
@@ -17,21 +19,20 @@ export class DadosComponent {
 
   dataSource: DadosTempo[] = [];
 
-  estacoes: Estacao[] = [];
+  estacoes: Estacao[] = []; 
 
-  estacaoSelecionada: string = 'Tudo'; 
+  constructor(private meteoroServices: MeteoroServices, private localStorage: LocalStorage) {}
 
-  constructor(private meteoroServices: MeteoroServices) {
+  async ngOnInit(): Promise<void> {
+
+    let estacaoStorage = this.localStorage.getItem('estacao');
     this.atualizarDados();
     setInterval(() => {
       this.atualizarDados();
-    }, 60000); 
+    }, 10000); 
   }
 
   public selectEstacoesHandler(estacao: string) {
-
-    this.estacaoSelecionada = estacao; 
-
     if (estacao == "Tudo") {
       this.meteoroServices.getDados(1).subscribe(x => this.dataSource = x);
     } else {
@@ -40,16 +41,7 @@ export class DadosComponent {
   }
 
   private atualizarDados() {
-
-    let estacaoAnterior = this.estacaoSelecionada;
-
-    this.meteoroServices.getDados(1).subscribe(x => {
-      this.dataSource = x;
-      this.estacaoSelecionada = estacaoAnterior;
-      this.selectEstacoesHandler(this.estacaoSelecionada);
-    });
-
+    this.meteoroServices.getDados(1).subscribe(x => this.dataSource = x);
     this.meteoroServices.getEstacoes().subscribe(x => this.estacoes = x);
-    
   }
 }
