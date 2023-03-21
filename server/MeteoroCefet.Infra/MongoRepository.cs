@@ -7,7 +7,7 @@ namespace MeteoroCefet.Infra
 {
     public abstract class MongoRepository<T> : IRepository<T> where T : Entity
     {
-        protected IMongoCollection<T> Collection { get; }
+        public IMongoCollection<T> Collection { get; }
 
         protected string CollectionName { get; }
 
@@ -24,7 +24,7 @@ namespace MeteoroCefet.Infra
             return entity.Id;
         }
 
-        public async Task AddRange(List<T> data) 
+        public async Task AddRange(List<T> data)
         {
             await Collection.InsertManyAsync(data);
         }

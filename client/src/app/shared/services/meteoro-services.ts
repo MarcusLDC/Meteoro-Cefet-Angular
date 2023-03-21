@@ -1,12 +1,11 @@
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { environment } from "src/environments/environment";
-import { ConsultaModel } from "./models/consulta-model";
-import { DadosTempo } from "./models/dados-tempo-model";
-import { Estacao } from "./models/estacao-model";
+import { ConsultaModel } from "../models/consulta-model";
+import { DadosTempo } from "../models/dados-tempo-model";
+import { Estacao } from "../models/estacao-model";
 
 @Injectable({ providedIn: "root" })
-
 export class MeteoroServices {
     constructor(private httpClient : HttpClient){}
     

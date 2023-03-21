@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { FormGroup, FormControl, FormBuilder, Validators } from '@angular/forms';
 import { ConsultaModel } from '../shared/models/consulta-model';
-import { MeteoroServices } from '../shared/meteoro-services';
+import { MeteoroServices } from '../shared/services/meteoro-services';
 import { Estacao } from '../shared/models/estacao-model';
 
 @Component({
