@@ -24,7 +24,7 @@ namespace MeteoroCefet.Infra
             return entity.Id;
         }
 
-        public async Task AddRange(List<T> data) 
+        public async Task AddRange(List<T> data)
         {
             await Collection.InsertManyAsync(data);
         }
