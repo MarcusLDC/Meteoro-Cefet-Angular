@@ -11,7 +11,14 @@ namespace MeteoroCefet.Tests
             var client = new MongoClient("mongodb+srv://cefetmeteoro:SENHA@meteorocefetcluster.kvvv7gn.mongodb.net/?retryWrites=true&w=majority");
             var repositoryDadosTempo = new DadosTempoRepository(client);
 
-            var test = await repositoryDadosTempo.GetLast(1,10);
+            var testes = await repositoryDadosTempo.Collection.Find(x => x.Status == "V99").ToListAsync();
+
+            foreach (var item in testes)
+            {
+                await repositoryDadosTempo.Collection.DeleteOneAsync(x => x.Id == item.Id);
+            }
+
+            var ultimos = await repositoryDadosTempo.Collection.Count(x => x.DataHora > DateTime.Now.AddDays(-3)).ToListAsync();
 
             Assert.Pass();
         }
