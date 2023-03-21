@@ -18,7 +18,7 @@ namespace MeteoroCefet.Tests
                 await repositoryDadosTempo.Collection.DeleteOneAsync(x => x.Id == item.Id);
             }
 
-            var ultimos = await repositoryDadosTempo.Collection.Count(x => x.DataHora > DateTime.Now.AddDays(-3)).ToListAsync();
+            var ultimos = await repositoryDadosTempo.Collection.CountDocumentsAsync(x => x.DataHora > new DateTime(2023, 3, 16));
 
             Assert.Pass();
         }
