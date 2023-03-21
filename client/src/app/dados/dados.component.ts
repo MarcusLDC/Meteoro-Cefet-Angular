@@ -1,8 +1,8 @@
-import { AfterViewInit, Component, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { DadosTempo } from '../shared/models/dados-tempo-model';
-import { MeteoroServices } from '../shared/meteoro-services';
 import { Estacao } from '../shared/models/estacao-model';
-import { LocalStorage } from '@ngx-pwa/local-storage';
+import { MeteoroServices } from '../shared/services/meteoro-services';
+import { LocalStorageServices } from '../shared/services/local-storage-services';
 
 @Component({
   selector: 'app-dados',
@@ -21,11 +21,11 @@ export class DadosComponent implements OnInit{
 
   estacoes: Estacao[] = []; 
 
-  constructor(private meteoroServices: MeteoroServices, private localStorage: LocalStorage) {}
+  constructor(private meteoroServices: MeteoroServices, private localStorage: LocalStorageServices) {}
 
   async ngOnInit(): Promise<void> {
 
-    let estacaoStorage = this.localStorage.getItem('estacao');
+    let estacaoStorage = this.localStorage.get<string>('estacao');
     this.atualizarDados();
     setInterval(() => {
       this.atualizarDados();
