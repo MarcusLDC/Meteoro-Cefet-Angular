@@ -7,7 +7,7 @@ namespace MeteoroCefet.Infra
 {
     public abstract class MongoRepository<T> : IRepository<T> where T : Entity
     {
-        protected IMongoCollection<T> Collection { get; }
+        public IMongoCollection<T> Collection { get; }
 
         protected string CollectionName { get; }
 
