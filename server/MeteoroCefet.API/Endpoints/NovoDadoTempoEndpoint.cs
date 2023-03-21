@@ -10,53 +10,53 @@ namespace MeteoroCefet.API.Endpoints
         {
             app.MapPost("dados/new", Handler);
         }
-        private static async Task<Guid> Handler([FromServices] DadosTempoRepository repository, [FromServices] ILogger<NovoDadoTempoEndpoint> log, string msg, string key)
+        private static async Task<Guid> Handler([FromServices] DadosTempoRepository repository, [FromServices] ILogger<NovoDadoTempoEndpoint> log, HttpRequest req)
         {
+            var msg = req.Form["msg"];
+            var key = req.Form["key"];
+
             log.LogInformation("Recebi: {msg} {key}", msg, key);
+            var pedacinhos = msg.First()!.Split(";");
 
-            var pedacinhos = msg.Split(";");
-
-            var DataHora = DateTime.Now;
-            var Estacao = int.Parse(pedacinhos[1]);
-
-            double TemperaturaAr = ConverteDouble(pedacinhos[2]);
-            int UmidadeRelativaAr = ConverteInt(pedacinhos[3]);
-            double Pressao = ConverteDouble(pedacinhos[4]);
-            int RadSolar = ConverteInt(pedacinhos[5]);
-            double Precipitacao = ConverteDouble(pedacinhos[6]);
-            int DirecaoVento = ConverteInt(pedacinhos[7]);
-            int VelocidadeVento = ConverteInt(pedacinhos[8]);
-            double TempPontoOrvalho = ConverteDouble(pedacinhos[9]);
-            double IndiceCalor = ConverteDouble(pedacinhos[10]);
-            double DeficitPressaoVapor = ConverteDouble(pedacinhos[11]);
-            double Bateria = ConverteDouble(pedacinhos[12]);
-            double Extra1 = ConverteDouble(pedacinhos[13]);
-            double Extra2 = ConverteDouble(pedacinhos[14]);
-            double Extra3 = ConverteDouble(pedacinhos[15]);
-            double Extra4 = ConverteDouble(pedacinhos[16]);
-
-            var Status = pedacinhos[17];
+            var dataHora = DateTime.Now;
+            var estacao = int.Parse(pedacinhos[1]);
+            var temperaturaAr = ConverteDouble(pedacinhos[2]);
+            var umidadeRelativaAr = ConverteInt(pedacinhos[3]);
+            var pressao = ConverteDouble(pedacinhos[4]);
+            var radSolar = ConverteInt(pedacinhos[5]);
+            var precipitacao = ConverteDouble(pedacinhos[6]);
+            var direcaoVento = ConverteInt(pedacinhos[7]);
+            var velocidadeVento = ConverteInt(pedacinhos[8]);
+            var tempPontoOrvalho = ConverteDouble(pedacinhos[9]);
+            var indiceCalor = ConverteDouble(pedacinhos[10]);
+            var deficitPressaoVapor = ConverteDouble(pedacinhos[11]);
+            var bateria = ConverteDouble(pedacinhos[12]);
+            var extra1 = ConverteDouble(pedacinhos[13]);
+            var extra2 = ConverteDouble(pedacinhos[14]);
+            var extra3 = ConverteDouble(pedacinhos[15]);
+            var extra4 = ConverteDouble(pedacinhos[16]);
+            var status = pedacinhos[17];
 
             var dado = new DadosTempo
             {
-                DataHora = DataHora,
-                Estacao = Estacao,
-                TemperaturaAr = TemperaturaAr,
-                UmidadeRelativaAr = UmidadeRelativaAr,
-                Pressao = Pressao,
-                RadSolar = RadSolar,
-                Precipitacao = Precipitacao,
-                DirecaoVento = DirecaoVento,
-                VelocidadeVento = VelocidadeVento,
-                TempPontoOrvalho = TempPontoOrvalho,
-                IndiceCalor = IndiceCalor,
-                DeficitPressaoVapor = DeficitPressaoVapor,
-                Bateria = Bateria,
-                Extra1 = Extra1,
-                Extra2 = Extra2,
-                Extra3 = Extra3,
-                Extra4 = Extra4,
-                Status = Status
+                DataHora = dataHora,
+                Estacao = estacao,
+                TemperaturaAr = temperaturaAr,
+                UmidadeRelativaAr = umidadeRelativaAr,
+                Pressao = pressao,
+                RadSolar = radSolar,
+                Precipitacao = precipitacao,
+                DirecaoVento = direcaoVento,
+                VelocidadeVento = velocidadeVento,
+                TempPontoOrvalho = tempPontoOrvalho,
+                IndiceCalor = indiceCalor,
+                DeficitPressaoVapor = deficitPressaoVapor,
+                Bateria = bateria,
+                Extra1 = extra1,
+                Extra2 = extra2,
+                Extra3 = extra3,
+                Extra4 = extra4,
+                Status = status
             };
 
             return await repository.Add(dado);
