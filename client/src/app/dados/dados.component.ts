@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { DadosTempo } from '../shared/models/dados-tempo-model';
 import { MeteoroServices } from '../shared/meteoro-services';
 import { Estacao } from '../shared/models/estacao-model';
@@ -8,6 +8,7 @@ import { Estacao } from '../shared/models/estacao-model';
   templateUrl: './dados.component.html',
   styleUrls: ['./dados.component.scss']
 })
+
 export class DadosComponent {
   displayedColumns: string[] = [
     'Data e Hora', 'Estação', 'Temperatura Ar', 'Temperatura Ponto de Orvalho', 'Precipitação', 'Índice Calor','Direção Vento',
@@ -18,12 +19,37 @@ export class DadosComponent {
 
   estacoes: Estacao[] = [];
 
-  public selectEstacoesHandler(estacao: string) {
-    this.meteoroServices.getDadosEstacao(Number(estacao), 1).subscribe(x =>this.dataSource = x)
+  estacaoSelecionada: string = 'Tudo'; 
+
+  constructor(private meteoroServices: MeteoroServices) {
+    this.atualizarDados();
+    setInterval(() => {
+      this.atualizarDados();
+    }, 60000); 
   }
-  
-  constructor (private meteoroServices: MeteoroServices){
-    meteoroServices.getDados(1).subscribe(x => this.dataSource = x);
-    meteoroServices.getEstacoes().subscribe(x => this.estacoes = x);
+
+  public selectEstacoesHandler(estacao: string) {
+
+    this.estacaoSelecionada = estacao; 
+
+    if (estacao == "Tudo") {
+      this.meteoroServices.getDados(1).subscribe(x => this.dataSource = x);
+    } else {
+      this.meteoroServices.getDadosEstacao(Number(estacao), 1).subscribe(x => this.dataSource = x);
+    }
+  }
+
+  private atualizarDados() {
+
+    let estacaoAnterior = this.estacaoSelecionada;
+
+    this.meteoroServices.getDados(1).subscribe(x => {
+      this.dataSource = x;
+      this.estacaoSelecionada = estacaoAnterior;
+      this.selectEstacoesHandler(this.estacaoSelecionada);
+    });
+
+    this.meteoroServices.getEstacoes().subscribe(x => this.estacoes = x);
+    
   }
 }
