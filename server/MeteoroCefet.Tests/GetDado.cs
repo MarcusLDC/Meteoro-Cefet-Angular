@@ -10,7 +10,7 @@ namespace MeteoroCefet.Tests
         {
             var password = File.ReadAllText("..//..//..//..//.env").Split().Last()["MONGO_PASSWORD=".Length..];
             var connectionString = "mongodb+srv://cefetmeteoro:SENHA@meteorocefetcluster.kvvv7gn.mongodb.net/?retryWrites=true&w=majority".Replace("SENHA", password);
-            var client = new MongoClient();
+            var client = new MongoClient(connectionString);
             var repositoryDadosTempo = new DadosTempoRepository(client);
 
             //await ApagarTestes(repositoryDadosTempo);
