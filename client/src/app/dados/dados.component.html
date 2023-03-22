@@ -1,103 +1,105 @@
 <html>
     <div >
-        <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
-            <ng-container matColumnDef="Data e Hora">
-            <th mat-header-cell *matHeaderCellDef> Data e Hora local</th>
-            <td mat-cell *matCellDef="let element"> {{element.dataHora | date : 'dd/MM/yyyy HH:mm'}} </td>
-            </ng-container>
-            <form [formGroup] = "form">
-                <ng-container matColumnDef="Estação">
-                    <th mat-header-cell *matHeaderCellDef> Estação 
-                        <select #estacao formControlName="estacao" name="estacoes" id="estacoes" (change)="selectEstacoesHandler()">
-                            <option> Tudo </option>
-                            <option *ngFor="let element of estacoes" [value]="element.numero"> {{element.numero}} </option>
-                        </select>
-                    </th>
-                    <td mat-cell *matCellDef="let element"> {{element.estacao}} </td>
+        <mat-card class="card"><mat-card-content>
+            <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+                <ng-container matColumnDef="Data e Hora">
+                <th mat-header-cell *matHeaderCellDef> Data e Hora local</th>
+                <td mat-cell *matCellDef="let element"> {{element.dataHora | date : 'dd/MM/yyyy HH:mm'}} </td>
                 </ng-container>
-            </form>
-            <ng-container matColumnDef="Temperatura Ar">
-                <th mat-header-cell *matHeaderCellDef> Temperatura Ar </th>w
-                <td mat-cell *matCellDef="let element"> {{element.temperaturaAr}} </td>
-            </ng-container>
-
-            <ng-container matColumnDef="Temperatura Ponto de Orvalho">
-                <th mat-header-cell *matHeaderCellDef> Ponto Orvalho </th>w
-                <td mat-cell *matCellDef="let element"> {{element.tempPontoOrvalho}} </td>
-            </ng-container>
-
-            <ng-container matColumnDef="Índice Calor">
-                <th mat-header-cell *matHeaderCellDef> Índice Calor </th>w
-                <td mat-cell *matCellDef="let element"> {{element.indiceCalor}} </td>
-            </ng-container>
-
-            <ng-container matColumnDef="Umidade Relativa Ar">
-                <th mat-header-cell *matHeaderCellDef> Umidade Relativa Ar </th>w
-                <td mat-cell *matCellDef="let element"> {{element.umidadeRelativaAr}} </td>
-            </ng-container>
-
-            <ng-container matColumnDef="Pressão">
-                <th mat-header-cell *matHeaderCellDef> Pressão </th>w
-                <td mat-cell *matCellDef="let element"> {{element.pressao}} </td>
-            </ng-container>
-
-            <ng-container matColumnDef="Precipitação">
-                <th mat-header-cell *matHeaderCellDef> Chuva </th>w
-                <td mat-cell *matCellDef="let element"> {{element.precipitacao}} </td>
-            </ng-container>
-
-            <ng-container matColumnDef="Direção Vento">
-                <th mat-header-cell *matHeaderCellDef> Direção Vento </th>w
-                <td mat-cell *matCellDef="let element"> {{element.direcaoVento}} </td>
-            </ng-container>
-
-            <ng-container matColumnDef="Velocidade Vento">
-                <th mat-header-cell *matHeaderCellDef> Velocidade Vento </th>w
-                <td mat-cell *matCellDef="let element"> {{element.velocidadeVento}} </td>
-            </ng-container>
-
-            <ng-container matColumnDef="Deficit Pressão Vapor">
-                <th mat-header-cell *matHeaderCellDef> Deficit Pressão Vapor </th>w
-                <td mat-cell *matCellDef="let element"> {{element.deficitPressaoVapor}} </td>
-            </ng-container>
-
-            <ng-container matColumnDef="Radiação Solar">
-                <th mat-header-cell *matHeaderCellDef> Radiação Solar </th>w
-                <td mat-cell *matCellDef="let element"> {{element.radSolar}} </td>
-            </ng-container>
-
-            <ng-container matColumnDef="Extra1">
-                <th mat-header-cell *matHeaderCellDef> Extra1 </th>w
-                <td mat-cell *matCellDef="let element"> {{element.extra1}} </td>
-            </ng-container>
-
-            <ng-container matColumnDef="Extra2">
-                <th mat-header-cell *matHeaderCellDef> Extra2 </th>w
-                <td mat-cell *matCellDef="let element"> {{element.extra2}} </td>
-            </ng-container>
-
-            <ng-container matColumnDef="Extra3">
-                <th mat-header-cell *matHeaderCellDef> Extra3 </th>w
-                <td mat-cell *matCellDef="let element"> {{element.extra3}} </td>
-            </ng-container>
-
-            <ng-container matColumnDef="Extra4">
-                <th mat-header-cell *matHeaderCellDef> Extra4 </th>w
-                <td mat-cell *matCellDef="let element"> {{element.extra4}} </td>
-            </ng-container>
-
-            <ng-container matColumnDef="Bateria">
-                <th mat-header-cell *matHeaderCellDef> Bateria </th>w
-                <td mat-cell *matCellDef="let element"> {{element.bateria}} </td>
-            </ng-container>
-
-            <ng-container matColumnDef="Status">
-                <th mat-header-cell *matHeaderCellDef> Status </th>w
-                <td mat-cell *matCellDef="let element"> {{element.status}} </td>
-            </ng-container>
-
-            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-        </table>
+                <form [formGroup] = "form">
+                    <ng-container matColumnDef="Estação">
+                        <th mat-header-cell *matHeaderCellDef> Estação 
+                            <select #estacao formControlName="estacao" name="estacoes" id="estacoes" (change)="selectEstacoesHandler()">
+                                <option> Tudo </option>
+                                <option *ngFor="let element of estacoes" [value]="element.numero"> {{element.numero}} </option>
+                            </select>
+                        </th>
+                        <td mat-cell *matCellDef="let element"> {{element.estacao}} </td>
+                    </ng-container>
+                </form>
+                <ng-container matColumnDef="Temperatura Ar">
+                    <th mat-header-cell *matHeaderCellDef> Temperatura Ar </th>w
+                    <td mat-cell *matCellDef="let element"> {{element.temperaturaAr}} </td>
+                </ng-container>
+    
+                <ng-container matColumnDef="Temperatura Ponto de Orvalho">
+                    <th mat-header-cell *matHeaderCellDef> Ponto Orvalho </th>w
+                    <td mat-cell *matCellDef="let element"> {{element.tempPontoOrvalho}} </td>
+                </ng-container>
+    
+                <ng-container matColumnDef="Índice Calor">
+                    <th mat-header-cell *matHeaderCellDef> Índice Calor </th>w
+                    <td mat-cell *matCellDef="let element"> {{element.indiceCalor}} </td>
+                </ng-container>
+    
+                <ng-container matColumnDef="Umidade Relativa Ar">
+                    <th mat-header-cell *matHeaderCellDef> Umidade Relativa Ar </th>w
+                    <td mat-cell *matCellDef="let element"> {{element.umidadeRelativaAr}} </td>
+                </ng-container>
+    
+                <ng-container matColumnDef="Pressão">
+                    <th mat-header-cell *matHeaderCellDef> Pressão </th>w
+                    <td mat-cell *matCellDef="let element"> {{element.pressao}} </td>
+                </ng-container>
+    
+                <ng-container matColumnDef="Precipitação">
+                    <th mat-header-cell *matHeaderCellDef> Chuva </th>w
+                    <td mat-cell *matCellDef="let element"> {{element.precipitacao}} </td>
+                </ng-container>
+    
+                <ng-container matColumnDef="Direção Vento">
+                    <th mat-header-cell *matHeaderCellDef> Direção Vento </th>w
+                    <td mat-cell *matCellDef="let element"> {{element.direcaoVento}} </td>
+                </ng-container>
+    
+                <ng-container matColumnDef="Velocidade Vento">
+                    <th mat-header-cell *matHeaderCellDef> Velocidade Vento </th>w
+                    <td mat-cell *matCellDef="let element"> {{element.velocidadeVento}} </td>
+                </ng-container>
+    
+                <ng-container matColumnDef="Deficit Pressão Vapor">
+                    <th mat-header-cell *matHeaderCellDef> Deficit Pressão Vapor </th>w
+                    <td mat-cell *matCellDef="let element"> {{element.deficitPressaoVapor}} </td>
+                </ng-container>
+    
+                <ng-container matColumnDef="Radiação Solar">
+                    <th mat-header-cell *matHeaderCellDef> Radiação Solar </th>w
+                    <td mat-cell *matCellDef="let element"> {{element.radSolar}} </td>
+                </ng-container>
+    
+                <ng-container matColumnDef="Extra1">
+                    <th mat-header-cell *matHeaderCellDef> Extra1 </th>w
+                    <td mat-cell *matCellDef="let element"> {{element.extra1}} </td>
+                </ng-container>
+    
+                <ng-container matColumnDef="Extra2">
+                    <th mat-header-cell *matHeaderCellDef> Extra2 </th>w
+                    <td mat-cell *matCellDef="let element"> {{element.extra2}} </td>
+                </ng-container>
+    
+                <ng-container matColumnDef="Extra3">
+                    <th mat-header-cell *matHeaderCellDef> Extra3 </th>w
+                    <td mat-cell *matCellDef="let element"> {{element.extra3}} </td>
+                </ng-container>
+    
+                <ng-container matColumnDef="Extra4">
+                    <th mat-header-cell *matHeaderCellDef> Extra4 </th>w
+                    <td mat-cell *matCellDef="let element"> {{element.extra4}} </td>
+                </ng-container>
+    
+                <ng-container matColumnDef="Bateria">
+                    <th mat-header-cell *matHeaderCellDef> Bateria </th>w
+                    <td mat-cell *matCellDef="let element"> {{element.bateria}} </td>
+                </ng-container>
+    
+                <ng-container matColumnDef="Status">
+                    <th mat-header-cell *matHeaderCellDef> Status </th>w
+                    <td mat-cell *matCellDef="let element"> {{element.status}} </td>
+                </ng-container>
+    
+                <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+            </table>
+        </mat-card-content></mat-card>  
     </div>
 </html>
