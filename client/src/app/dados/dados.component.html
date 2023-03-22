@@ -2,7 +2,7 @@
     <div >
         <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
             <ng-container matColumnDef="Data e Hora">
-            <th mat-header-cell *matHeaderCellDef> Data e Hora </th>
+            <th mat-header-cell *matHeaderCellDef> Data e Hora local</th>
             <td mat-cell *matCellDef="let element"> {{element.dataHora | date : 'dd/MM/yyyy HH:mm'}} </td>
             </ng-container>
             <form [formGroup] = "form">
@@ -22,28 +22,13 @@
             </ng-container>
 
             <ng-container matColumnDef="Temperatura Ponto de Orvalho">
-                <th mat-header-cell *matHeaderCellDef> Temperatura Ponto de Orvalho </th>w
+                <th mat-header-cell *matHeaderCellDef> Ponto Orvalho </th>w
                 <td mat-cell *matCellDef="let element"> {{element.tempPontoOrvalho}} </td>
-            </ng-container>
-
-            <ng-container matColumnDef="Precipitação">
-                <th mat-header-cell *matHeaderCellDef> Precipitação </th>w
-                <td mat-cell *matCellDef="let element"> {{element.precipitacao}} </td>
             </ng-container>
 
             <ng-container matColumnDef="Índice Calor">
                 <th mat-header-cell *matHeaderCellDef> Índice Calor </th>w
                 <td mat-cell *matCellDef="let element"> {{element.indiceCalor}} </td>
-            </ng-container>
-
-            <ng-container matColumnDef="Direção Vento">
-                <th mat-header-cell *matHeaderCellDef> Direção Vento </th>w
-                <td mat-cell *matCellDef="let element"> {{element.direcaoVento}} </td>
-            </ng-container>
-
-            <ng-container matColumnDef="Velocidade Vento">
-                <th mat-header-cell *matHeaderCellDef> Velocidade Vento </th>w
-                <td mat-cell *matCellDef="let element"> {{element.velocidadeVento}} </td>
             </ng-container>
 
             <ng-container matColumnDef="Umidade Relativa Ar">
@@ -56,6 +41,21 @@
                 <td mat-cell *matCellDef="let element"> {{element.pressao}} </td>
             </ng-container>
 
+            <ng-container matColumnDef="Precipitação">
+                <th mat-header-cell *matHeaderCellDef> Chuva </th>w
+                <td mat-cell *matCellDef="let element"> {{element.precipitacao}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="Direção Vento">
+                <th mat-header-cell *matHeaderCellDef> Direção Vento </th>w
+                <td mat-cell *matCellDef="let element"> {{element.direcaoVento}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="Velocidade Vento">
+                <th mat-header-cell *matHeaderCellDef> Velocidade Vento </th>w
+                <td mat-cell *matCellDef="let element"> {{element.velocidadeVento}} </td>
+            </ng-container>
+
             <ng-container matColumnDef="Deficit Pressão Vapor">
                 <th mat-header-cell *matHeaderCellDef> Deficit Pressão Vapor </th>w
                 <td mat-cell *matCellDef="let element"> {{element.deficitPressaoVapor}} </td>
@@ -66,29 +66,29 @@
                 <td mat-cell *matCellDef="let element"> {{element.radSolar}} </td>
             </ng-container>
 
-            <ng-container matColumnDef="Bateria">
-                <th mat-header-cell *matHeaderCellDef> Bateria </th>w
-                <td mat-cell *matCellDef="let element"> {{element.bateria}} </td>
-            </ng-container>
-
-            <ng-container matColumnDef="Extra 1">
-                <th mat-header-cell *matHeaderCellDef> Extra 1 </th>w
+            <ng-container matColumnDef="Extra1">
+                <th mat-header-cell *matHeaderCellDef> Extra1 </th>w
                 <td mat-cell *matCellDef="let element"> {{element.extra1}} </td>
             </ng-container>
 
-            <ng-container matColumnDef="Extra 2">
-                <th mat-header-cell *matHeaderCellDef> Extra 2 </th>w
+            <ng-container matColumnDef="Extra2">
+                <th mat-header-cell *matHeaderCellDef> Extra2 </th>w
                 <td mat-cell *matCellDef="let element"> {{element.extra2}} </td>
             </ng-container>
 
-            <ng-container matColumnDef="Extra 3">
-                <th mat-header-cell *matHeaderCellDef> Extra 3 </th>w
+            <ng-container matColumnDef="Extra3">
+                <th mat-header-cell *matHeaderCellDef> Extra3 </th>w
                 <td mat-cell *matCellDef="let element"> {{element.extra3}} </td>
             </ng-container>
 
-            <ng-container matColumnDef="Extra 4">
-                <th mat-header-cell *matHeaderCellDef> Extra 4 </th>w
+            <ng-container matColumnDef="Extra4">
+                <th mat-header-cell *matHeaderCellDef> Extra4 </th>w
                 <td mat-cell *matCellDef="let element"> {{element.extra4}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="Bateria">
+                <th mat-header-cell *matHeaderCellDef> Bateria </th>w
+                <td mat-cell *matCellDef="let element"> {{element.bateria}} </td>
             </ng-container>
 
             <ng-container matColumnDef="Status">

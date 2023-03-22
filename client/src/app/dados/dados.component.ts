@@ -14,8 +14,24 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 export class DadosComponent implements OnInit{
 
   displayedColumns: string[] = [
-    'Data e Hora', 'Estação', 'Temperatura Ar', 'Temperatura Ponto de Orvalho', 'Precipitação', 'Índice Calor','Direção Vento',
-    'Velocidade Vento', 'Umidade Relativa Ar', 'Pressão', 'Deficit Pressão Vapor', 'Radiação Solar', 'Bateria', 'Extra 1', 'Extra 2', 'Extra 3', 'Extra 4', 'Status'
+    'Data e Hora', 
+    'Estação', 
+    'Temperatura Ar',
+    'Umidade Relativa Ar', 
+    'Índice Calor', 
+    'Temperatura Ponto de Orvalho', 
+    'Pressão', 
+    'Precipitação', 
+    'Direção Vento',
+    'Velocidade Vento', 
+    'Deficit Pressão Vapor', 
+    'Radiação Solar', 
+    'Extra1', 
+    'Extra2', 
+    'Extra3', 
+    'Extra4', 
+    'Bateria', 
+    'Status',
   ];
 
   form: FormGroup;
