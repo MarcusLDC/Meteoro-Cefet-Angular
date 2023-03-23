@@ -70,8 +70,6 @@ namespace MeteoroCefet.API.Endpoints
 
             log.LogInformation("Lista de estacoes: {listaEstacoes}", listaEstacoes);
 
-            
-
             return await repository.Add(dado);
         }
 
