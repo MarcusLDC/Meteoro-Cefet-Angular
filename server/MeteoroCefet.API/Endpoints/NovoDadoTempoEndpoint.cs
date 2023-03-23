@@ -64,11 +64,15 @@ namespace MeteoroCefet.API.Endpoints
                 Numero = estacao
             };
 
-            log.LogInformation("Estacao: {estacoes.Numero}", estacoes.Numero);
-
             var listaEstacoes = await estacaoRepository.Get(_ => true);
 
-            log.LogInformation("Lista de estacoes: {listaEstacoes}", listaEstacoes);
+            foreach (var element in listaEstacoes)
+            {
+                log.LogInformation("EstacoesLista : {element}", element.Numero);
+                log.LogInformation("EstacoesNova: {estacoes}", estacoes);
+
+                
+            }
 
             return await repository.Add(dado);
         }
