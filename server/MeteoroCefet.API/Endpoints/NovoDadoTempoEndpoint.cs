@@ -10,7 +10,7 @@ namespace MeteoroCefet.API.Endpoints
         {
             app.MapPost("dados/new", Handler);
         }
-        private static async Task<Guid> Handler([FromServices] DadosTempoRepository repository, [FromServices] ILogger<NovoDadoTempoEndpoint> log, HttpRequest req)
+        private static async Task<Guid> Handler([FromServices] DadosTempoRepository repository,[FromServices] EstacaoRepository estacaoRepository, [FromServices] ILogger<NovoDadoTempoEndpoint> log, HttpRequest req)
         {
             var msg = req.Form["msg"];
             var key = req.Form["key"];
@@ -58,6 +58,19 @@ namespace MeteoroCefet.API.Endpoints
                 Extra4 = extra4,
                 Status = status
             };
+
+            var estacoes = new Estacao
+            {
+                Numero = estacao
+            };
+
+            log.LogInformation("Estacao: ", estacoes.Numero);
+
+            var listaEstacoes = await estacaoRepository.Get(_ => true);
+
+            log.LogInformation("Lista de estacoes: ", listaEstacoes);
+
+            
 
             return await repository.Add(dado);
         }
