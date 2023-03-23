@@ -1,6 +1,7 @@
 ﻿using MeteoroCefet.Domain.Entities;
 using MeteoroCefet.Infra;
 using Microsoft.AspNetCore.Mvc;
+using MongoDB.Driver;
 
 namespace MeteoroCefet.API.Endpoints
 {
@@ -10,7 +11,7 @@ namespace MeteoroCefet.API.Endpoints
         {
             app.MapPost("dados/new", Handler);
         }
-        private static async Task<Guid> Handler([FromServices] DadosTempoRepository repository, [FromServices] ILogger<NovoDadoTempoEndpoint> log, HttpRequest req)
+        private static async Task<Guid> Handler([FromServices] DadosTempoRepository dadosTempoRepository, [FromServices] EstacaoRepository estacaoRepository, [FromServices] ILogger<NovoDadoTempoEndpoint> log, HttpRequest req)
         {
             var msg = req.Form["msg"];
             var key = req.Form["key"];
@@ -59,7 +60,14 @@ namespace MeteoroCefet.API.Endpoints
                 Status = status
             };
 
-            return await repository.Add(dado);
+            var estacaoExiste = await estacaoRepository.Collection.Find(x => x.Numero == dado.Estacao).AnyAsync();
+
+            if (!estacaoExiste)
+            {
+                await estacaoRepository.Add(new Estacao { Numero = dado.Estacao });
+            }
+
+            return await dadosTempoRepository.Add(dado);
         }
 
         private static double ConverteDouble(string text)
