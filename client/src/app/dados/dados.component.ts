@@ -13,7 +13,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 export class DadosComponent implements OnInit{
 
-  displayedColumns: string[] = [
+  displayedColumns: string[] = [ //ordem das colunas
     'Data e Hora', 
     'Estação', 
     'Temperatura Ar',
