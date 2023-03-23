@@ -41,7 +41,6 @@ import { Component } from '@angular/core';
     MatSelectModule,
     HttpClientModule,
     MatTableModule,
-    
   ],
   providers: [
     MatDatepickerModule,

@@ -16,6 +16,7 @@ export class ConsultaComponent {
   estacoes: Estacao[] = [];
 
   periodosGrafico = [
+    { value: "", key: 0},
     { value: "1 minuto", key: 1 },
     { value: "10 minutos", key: 2 },
     { value: "30 minutos", key: 3 },
