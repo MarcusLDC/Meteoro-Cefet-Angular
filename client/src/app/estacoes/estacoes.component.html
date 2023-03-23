@@ -1,10 +1,14 @@
 <mat-card class="card" *ngFor="let item of estacoes | async"  >
     <mat-card-content class="cardContent">
-        Ano e mês de início: {{item.dataInicio | date : 'MM/yyyy'}} <br><br>
-        Numero da estação: {{item.numero}} <br>
-        Nome da estação: {{item.nome}} <br>
-        Latitude: {{item.latitude}} <br>
-        Longitude: {{item.longitude}} <br>
-        Altitude: {{item.altitude}} <br>
+
+        Estação ({{item.numero}}) - {{item.nome}} <br>
+        Local: Maracanã - RJ <br>
+        Lat.: {{item.latitude}}  Lon.: {{item.longitude}}  Alt.: {{item.altitude}}<br>
+        Status: WIP
+
     </mat-card-content>
+    <mat-card-actions>
+        <button class="botao" routerLink="editar"> Editar </button>
+    </mat-card-actions>
 </mat-card>
+<router-outlet></router-outlet>

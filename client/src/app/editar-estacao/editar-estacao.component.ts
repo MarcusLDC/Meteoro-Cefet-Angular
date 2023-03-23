@@ -5,11 +5,12 @@ import { Estacao } from '../shared/models/estacao-model';
 import { MeteoroServices } from '../shared/services/meteoro-services';
 
 @Component({
-  selector: 'app-estacoes',
-  templateUrl: './estacoes.component.html',
-  styleUrls: ['./estacoes.component.scss']
+  selector: 'app-editar-estacao',
+  templateUrl: './editar-estacao.component.html',
+  styleUrls: ['./editar-estacao.component.scss']
 })
-export class EstacoesComponent{
+
+export class EditarEstacaoComponent {
   form: FormGroup;
   estacoes: Observable<Estacao[]>;
 
@@ -19,4 +20,8 @@ export class EstacoesComponent{
     });
     this.estacoes = this.meteoroServices.getEstacoes();
   }
+
 }
+
+
+
