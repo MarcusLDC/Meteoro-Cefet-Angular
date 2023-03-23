@@ -19,6 +19,7 @@ import { ConsultaComponent } from './consulta/consulta.component';
 import { MatTableModule } from '@angular/material/table';
 import { EstacoesComponent } from './estacoes/estacoes.component';
 import { LoginComponent } from './login/login.component';
+import { EditarEstacaoComponent } from './editar-estacao/editar-estacao.component';
 
 @NgModule({
   declarations: [
@@ -26,7 +27,8 @@ import { LoginComponent } from './login/login.component';
     DadosComponent,
     ConsultaComponent,
     EstacoesComponent,
-    LoginComponent
+    LoginComponent,
+    EditarEstacaoComponent
   ],
   imports: [
     BrowserModule,
