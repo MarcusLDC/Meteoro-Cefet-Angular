@@ -11,60 +11,44 @@ namespace MeteoroCefet.API.Endpoints
         {
             app.MapPost("dados/new", Handler);
         }
+
         private static async Task<Guid> Handler([FromServices] DadosTempoRepository dadosTempoRepository, [FromServices] EstacaoRepository estacaoRepository, [FromServices] ILogger<NovoDadoTempoEndpoint> log, HttpRequest req)
         {
             var msg = req.Form["msg"];
             var key = req.Form["key"];
 
             log.LogInformation("Recebi: {msg} {key}", msg, key);
-            var pedacinhos = msg.First()!.Split(";");
-
-            var dataHora = DateTime.Now;
-            var estacao = int.Parse(pedacinhos[1]);
-            var temperaturaAr = ConverteDouble(pedacinhos[2]);
-            var umidadeRelativaAr = ConverteInt(pedacinhos[3]);
-            var pressao = ConverteDouble(pedacinhos[4]);
-            var radSolar = ConverteInt(pedacinhos[5]);
-            var precipitacao = ConverteDouble(pedacinhos[6]);
-            var direcaoVento = ConverteInt(pedacinhos[7]);
-            var velocidadeVento = ConverteInt(pedacinhos[8]);
-            var tempPontoOrvalho = ConverteDouble(pedacinhos[9]);
-            var indiceCalor = ConverteDouble(pedacinhos[10]);
-            var deficitPressaoVapor = ConverteDouble(pedacinhos[11]);
-            var bateria = ConverteDouble(pedacinhos[12]);
-            var extra1 = ConverteDouble(pedacinhos[13]);
-            var extra2 = ConverteDouble(pedacinhos[14]);
-            var extra3 = ConverteDouble(pedacinhos[15]);
-            var extra4 = ConverteDouble(pedacinhos[16]);
-            var status = pedacinhos[17];
+            var pedacinhos = msg.First()!.Split(";");      
 
             var dado = new DadosTempo
             {
-                DataHora = dataHora,
-                Estacao = estacao,
-                TemperaturaAr = temperaturaAr,
-                UmidadeRelativaAr = umidadeRelativaAr,
-                Pressao = pressao,
-                RadSolar = radSolar,
-                Precipitacao = precipitacao,
-                DirecaoVento = direcaoVento,
-                VelocidadeVento = velocidadeVento,
-                TempPontoOrvalho = tempPontoOrvalho,
-                IndiceCalor = indiceCalor,
-                DeficitPressaoVapor = deficitPressaoVapor,
-                Bateria = bateria,
-                Extra1 = extra1,
-                Extra2 = extra2,
-                Extra3 = extra3,
-                Extra4 = extra4,
-                Status = status
+                DataHora = DateTime.Now,
+                Estacao = int.Parse(pedacinhos[1]),
+                TemperaturaAr = ConverteDouble(pedacinhos[2]),
+                UmidadeRelativaAr = ConverteInt(pedacinhos[3]),
+                Pressao = ConverteDouble(pedacinhos[4]),
+                RadSolar = ConverteInt(pedacinhos[5]),
+                Precipitacao = ConverteDouble(pedacinhos[6]),
+                DirecaoVento = ConverteInt(pedacinhos[7]),
+                VelocidadeVento = ConverteInt(pedacinhos[8]),
+                TempPontoOrvalho = ConverteDouble(pedacinhos[9]),
+                IndiceCalor = ConverteDouble(pedacinhos[10]),
+                DeficitPressaoVapor = ConverteDouble(pedacinhos[11]),
+                Bateria = ConverteDouble(pedacinhos[12]),
+                Extra1 = ConverteDouble(pedacinhos[13]),
+                Extra2 = ConverteDouble(pedacinhos[14]),
+                Extra3 = ConverteDouble(pedacinhos[15]),
+                Extra4 = ConverteDouble(pedacinhos[16]),
+                Status = pedacinhos[17]
             };
 
             var estacaoExiste = await estacaoRepository.Collection.Find(x => x.Numero == dado.Estacao).AnyAsync();
 
             if (!estacaoExiste)
             {
-                await estacaoRepository.Add(new Estacao { Numero = dado.Estacao });
+                var estacao = new Estacao { Numero = dado.Estacao };
+                await estacaoRepository.Add(estacao);
+                log.LogInformation("Nova estação adicionada: {estacao}", estacao);
             }
 
             return await dadosTempoRepository.Add(dado);
