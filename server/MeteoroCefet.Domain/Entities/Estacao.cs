@@ -7,6 +7,8 @@
         public string Nome { get; set; }
         public decimal Latitude { get; set; } 
         public decimal Longitude { get; set; } 
-        public decimal Altitude { get; set; }    
+        public decimal Altitude { get; set; }
+        public decimal Altura { get; set; }
+        public bool Status { get; set; }
     }
 }

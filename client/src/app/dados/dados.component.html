@@ -1,5 +1,24 @@
 <html>
-    <div >
+    <div>
+        
+        <mat-card class="card" *ngIf="estacaoSelecionada">
+            <mat-card-content class="cardContent">
+                <p> <strong> ESTAÇÃO DE MONITORAMENTO AMBIENTAL - ID: ({{estacaoSelecionada.numero}})  </strong></p>
+                <p> <strong> Maracanã </strong> | {{gmtDateTime | date : 'HH:mm:ss'}} BRT - {{gmtDateTime | date : "HH:mm:ss":"+0000"}} UTC </p>
+                <p> <strong> Nome: </strong>{{estacaoSelecionada.nome}} - <strong> Numero: </strong>({{estacaoSelecionada.numero}})</p> 
+                <p> <strong> Responsável: </strong> LAPA\CoMet/CEFET-RJ </p>
+                <p> <strong> Desde: </strong> {{estacaoSelecionada.dataInicio | date : 'MM/yyyy'}} </p>
+                <p> <strong> Visitas: </strong> WIP </p>
+
+                <p> <strong> Localização: </strong>  Rio de Janeiro - Brasil </p>
+                <p> <strong> Cidade: </strong>   Rio de Janeiro </p>
+                <p> <strong> Coordenadas: </strong> {{estacaoSelecionada.latitude}} , {{estacaoSelecionada.longitude}} </p>
+                <p> <strong> Altitude: </strong> {{estacaoSelecionada.altitude}}m </p>
+                <p> <strong> Altura: </strong> {{estacaoSelecionada.altura}}m </p>
+                <p> <strong> Status: </strong> {{estacaoSelecionada.status}}
+            </mat-card-content>
+        </mat-card>
+        
         <mat-card class="card"><mat-card-content>
             <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
                 <ng-container matColumnDef="Data e Hora">
