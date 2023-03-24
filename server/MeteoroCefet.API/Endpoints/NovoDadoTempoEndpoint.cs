@@ -46,7 +46,7 @@ namespace MeteoroCefet.API.Endpoints
 
             if (!estacaoExiste)
             {
-                var estacao = new Estacao { Numero = dado.Estacao };
+                var estacao = new Estacao { Numero = dado.Estacao , DataInicio = dado.DataHora};
                 await estacaoRepository.Add(estacao);
                 log.LogInformation("Nova estação adicionada: {estacao}", estacao);
             }

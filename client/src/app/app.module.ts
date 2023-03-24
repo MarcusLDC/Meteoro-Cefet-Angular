@@ -6,7 +6,7 @@ import { AppComponent } from './app.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatDatepickerModule } from '@angular/material/datepicker'
-import { MatButton, MatButtonModule } from '@angular/material/button';
+import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatNativeDateModule, MatOptionModule, MAT_DATE_LOCALE } from '@angular/material/core';
@@ -17,13 +17,18 @@ import { HttpClientModule } from '@angular/common/http';
 import { DadosComponent } from './dados/dados.component';
 import { ConsultaComponent } from './consulta/consulta.component'; 
 import { MatTableModule } from '@angular/material/table';
-import { Component } from '@angular/core';
+import { EstacoesComponent } from './estacoes/estacoes.component';
+import { LoginComponent } from './login/login.component';
+import { EditarEstacaoComponent } from './editar-estacao/editar-estacao.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     DadosComponent,
-    ConsultaComponent
+    ConsultaComponent,
+    EstacoesComponent,
+    LoginComponent,
+    EditarEstacaoComponent
   ],
   imports: [
     BrowserModule,
