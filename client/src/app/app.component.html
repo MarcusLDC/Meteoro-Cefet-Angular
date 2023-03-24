@@ -3,14 +3,15 @@
         <div class="container-fluid">
             <span class="navbar-brand">
                 <a href="http://meteoro.cefet-rj.br/" title="http://meteoro.cefet-rj.br/" style="color: white;"> CoMet - LAPA - Monitoramento Ambiental </a>
-                <br>Banco de dados - Estação Maracanã <br> Lat.: -22,91° Lon.: -43,22° Alt.: 32m
+                <br>Banco de dados - Estação Maracanã <br> 
+                Lat.: -22,91° Lon.: -43,22° Alt.: 32m
             </span>
         </div>
     </nav>
     <div class="divLinks">
-        <button class="buttonLinks" routerLink="dados"> DADOS </button>
-        <button class="buttonLinks" routerLink="consulta"> WIP-CONSULTA AO BD </button>
-        <button class="buttonLinks" routerLink="estacoes"> WIP-ESTACOES </button> 
+        <button class="buttonLinks" routerLink="dados" title="Ver os últimos 100 dados das estações meteorológicas"> DADOS </button>
+        <button class="buttonLinks" routerLink="consulta" title="Realizar uma consulta específica ao Banco de Dados"> WIP-CONSULTA AO BD </button>
+        <button class="buttonLinks" routerLink="estacoes" title="Mais informações sobre as estações"> WIP-ESTACOES </button> 
         <button class="buttonLinks buttonEnd" routerLink="login"> WIP-LOGIN </button>
     </div>
     <router-outlet></router-outlet>

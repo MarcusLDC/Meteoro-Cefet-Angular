@@ -4,11 +4,11 @@
         Estação ({{item.numero}}) - {{item.nome}} <br>
         Local: Maracanã - RJ <br>
         Lat.: {{item.latitude}}  Lon.: {{item.longitude}}  Alt.: {{item.altitude}}<br>
-        Status: WIP
+        Status: {{item.status}}
 
     </mat-card-content>
     <mat-card-actions>
-        <button class="botao" routerLink="editar"> Editar </button>
+        <button mat-raised-button color="warn" class="botao" routerLink="editar"> Editar </button>
     </mat-card-actions>
 </mat-card>
 <router-outlet></router-outlet>
