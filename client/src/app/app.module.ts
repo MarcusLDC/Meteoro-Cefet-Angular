@@ -20,6 +20,7 @@ import { MatTableModule } from '@angular/material/table';
 import { EstacoesComponent } from './estacoes/estacoes.component';
 import { LoginComponent } from './login/login.component';
 import { EditarEstacaoComponent } from './editar-estacao/editar-estacao.component';
+import { MatGridListModule } from '@angular/material/grid-list';
 
 @NgModule({
   declarations: [
@@ -46,6 +47,7 @@ import { EditarEstacaoComponent } from './editar-estacao/editar-estacao.componen
     MatSelectModule,
     HttpClientModule,
     MatTableModule,
+    MatGridListModule
   ],
   providers: [
     MatDatepickerModule,

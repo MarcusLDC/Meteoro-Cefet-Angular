@@ -37,6 +37,8 @@ export class DadosComponent implements OnInit{
   form: FormGroup;
   dataSource: DadosTempo[] = [];
   estacoes: Estacao[] = [];
+  estacaoSelecionada: Estacao | undefined;
+  gmtDateTime = new Date().toUTCString();
 
   constructor(private meteoroServices: MeteoroServices, private localStorage: LocalStorageServices, private builder: FormBuilder){
     this.form = builder.group({
@@ -45,7 +47,11 @@ export class DadosComponent implements OnInit{
   }
 
   async ngOnInit(): Promise<void> {
-    this.meteoroServices.getEstacoes().subscribe(x => this.estacoes = x);
+
+    this.meteoroServices.getEstacoes().subscribe(x => {
+      this.estacoes = x;
+      this.setSelectedEstacao((this.form.get('estacao')?.value));
+    });
 
     let estacaoStorage = await this.localStorage.get<string>('estacao')??'Tudo';
 
@@ -54,18 +60,32 @@ export class DadosComponent implements OnInit{
     this.atualizarDados();
     setInterval(() => {
       this.atualizarDados();
-    }, 60000); 
+    }, 60000);
+
+    setInterval(() =>{
+      this.gmtDateTime = new Date().toUTCString();
+    }, 1000);
+
   }
 
   public selectEstacoesHandler() {
+    
+    this.setSelectedEstacao(this.form.get('estacao')?.value)
     this.localStorage.set('estacao', this.form.get('estacao')?.value);
     this.atualizarDados();
   }
 
   private atualizarDados() {
-    if(this.form.get('estacao')?.value == 'Tudo')
+    
+    if(this.form.get('estacao')?.value == 'Tudo'){
       this.meteoroServices.getDados(1).subscribe(x => this.dataSource = x);
-    else
+    }
+    else{
       this.meteoroServices.getDadosEstacao(Number(this.form.get('estacao')?.value), 1).subscribe(x => this.dataSource = x);
+    }
+  }
+
+  private setSelectedEstacao(num: string){
+    this.estacaoSelecionada = this.estacoes.find(x => x.numero === Number(num));
   }
 }

@@ -6,5 +6,6 @@ export interface Estacao{
     latitude: number;
     longitude: number;
     altitude: number;
+    altura: number;
     status: boolean;
 }
