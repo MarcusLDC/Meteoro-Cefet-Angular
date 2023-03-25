@@ -58,18 +58,6 @@ export class ConsultaComponent {
   }
 
   public selectIntervaloHandler() {
-    var element = document.getElementById('mensagem') as HTMLElement;
-    var el = document.getElementById('intervalo') as HTMLInputElement;
-    if (el.value == '1') {
-      element.style.display = '';
-      element.innerHTML = ` - <b class='destaque'>Aviso:</b> Não é possível criar gráficos para esse intervalo.`;
-    }
-    if (el.value == '600') {
-      element.style.display = '';
-      element.innerHTML = ` - <b class='destaque'>Aviso:</b> Apenas gráficos de até 4 dias para 1 estação ou 2 dias para 2 estações podem ser feitos.`;
-    }
-    if (el.value != '600' && el.value != '1') {
-      element.style.display = 'none';
-    }
+
   }
 }
