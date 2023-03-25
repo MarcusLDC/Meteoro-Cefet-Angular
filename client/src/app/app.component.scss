@@ -1,7 +1,7 @@
-#body{
-   font-family: Arial;
-}
 
+.body{
+  padding-top: 50px;
+}
 
 #footer{
     background-color: #000000;
@@ -16,30 +16,47 @@
     left: 0;
 }
 
-.divLinks{
-    width: 100%;
-    background-color: #1c2024;
-}
-
 .buttonLinks{
   border: 2px;
   color: white;
-  padding: 15px 25px;
+  padding: 15px 15px;
   text-align: center;
   font-size: 15px;
   text-decoration: underline;
   display: inline-block;
-  background-color: #1c2024;
-}
-
-.buttonEnd{
-  float:right;
-}
-
-.bold{
-  font-size: 500px;
+  background-color: #161B22;
 }
 
 button:hover {
-  background-color: #212529;
+  background-color: #0e1216;
+}
+
+.navBar{
+  max-width: 100%;
+  background-color: #161B22;
+  width: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 999;
+}
+
+.container {
+  display: flex;
+  justify-content: space-between;
+}
+
+.left-column {
+  width: 50%;
+}
+
+.right-column {
+  width: 50%;
+  text-align: end;
+}
+
+.navBarLogo{
+  margin-top: 15px;
+  margin-left: 15px;
+  margin-bottom: 0px;
 }

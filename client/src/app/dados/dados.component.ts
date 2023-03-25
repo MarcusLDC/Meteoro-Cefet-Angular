@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit} from '@angular/core';
 import { DadosTempo } from '../shared/models/dados-tempo-model';
 import { Estacao } from '../shared/models/estacao-model';
 import { MeteoroServices } from '../shared/services/meteoro-services';

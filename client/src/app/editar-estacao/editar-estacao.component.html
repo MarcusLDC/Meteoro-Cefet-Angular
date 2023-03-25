@@ -1,14 +1,16 @@
-<mat-card class="card" *ngFor="let item of estacoes | async"  >
-    <mat-card-content class="cardContent">
-        Ano e mês de início: {{item.dataInicio | date : 'MM/yyyy'}} <br><br>
-        Numero da estação: {{item.numero}} <br>
-        Nome da estação: {{item.nome}} <br>
-        Latitude: {{item.latitude}} <br>
-        Longitude: {{item.longitude}} <br>
-        Altitude: {{item.altitude}} <br>
-    </mat-card-content>
-    <mat-card-actions>
-        <button mat-raised-button color="warn" class="botao" routerLink="editar"> Confirmar </button>
-        <button mat-raised-button class="botao" routerLink="/estacoes"> Cancelar </button>
-    </mat-card-actions>
-</mat-card>
+<div class="body">
+    <mat-card class="card" *ngFor="let item of estacoes | async"  >
+        <mat-card-content class="cardContent">
+            Ano e mês de início: {{item.dataInicio | date : 'MM/yyyy'}} <br><br>
+            Numero da estação: {{item.numero}} <br>
+            Nome da estação: {{item.nome}} <br>
+            Latitude: {{item.latitude}} <br>
+            Longitude: {{item.longitude}} <br>
+            Altitude: {{item.altitude}} <br>
+        </mat-card-content>
+        <mat-card-actions>
+            <button mat-raised-button color="warn" class="botao" routerLink="editar"> Confirmar </button>
+            <button mat-raised-button class="botao" routerLink="/estacoes"> Cancelar </button>
+        </mat-card-actions>
+    </mat-card>
+</div> 
