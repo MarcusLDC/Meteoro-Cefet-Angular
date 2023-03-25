@@ -1,14 +1,16 @@
-<mat-card class="card" *ngFor="let item of estacoes | async"  >
-    <mat-card-content class="cardContent">
+<div class="body">
+    <mat-card class="card" *ngFor="let item of estacoes | async"  >
+        <mat-card-content class="cardContent">
 
-        Estação ({{item.numero}}) - {{item.nome}} <br>
-        Local: Maracanã - RJ <br>
-        Lat.: {{item.latitude}}  Lon.: {{item.longitude}}  Alt.: {{item.altitude}}<br>
-        Status: {{item.status}}
+            Estação ({{item.numero}}) - {{item.nome}} <br>
+            Local: Maracanã - RJ <br>
+            Lat.: {{item.latitude}}  Lon.: {{item.longitude}}  Alt.: {{item.altitude}}<br>
+            Status: {{item.status}}
 
-    </mat-card-content>
-    <mat-card-actions>
-        <button mat-raised-button color="warn" class="botao" routerLink="editar"> Editar </button>
-    </mat-card-actions>
-</mat-card>
+        </mat-card-content>
+        <mat-card-actions>
+            <button mat-raised-button color="warn" class="botao" routerLink="editar"> Editar </button>
+        </mat-card-actions>
+    </mat-card>
+</div>
 <router-outlet></router-outlet>
