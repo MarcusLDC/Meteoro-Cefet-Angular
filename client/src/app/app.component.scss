@@ -1,19 +1,21 @@
 
 .body{
   padding-top: 50px;
+  padding-top: 50px;
+  max-width: 90%;
+  margin: auto;
 }
 
 #footer{
-    background-color: #000000;
+    background-color: #161B22;
     color: white;
-    padding-left: 10px;
-    padding-bottom: 5px;
-    padding-top: 5px;
-    font-size: small;
+    max-width: 100%;
     width: 100%;
-    position: absolute;
-    bottom: 0;
+    position: fixed;
+    top: 98%;
     left: 0;
+    z-index: 999;
+    text-align: center;
 }
 
 .buttonLinks{
@@ -25,6 +27,10 @@
   text-decoration: underline;
   display: inline-block;
   background-color: #161B22;
+}
+
+.buttonEnd{
+  margin-right: 80px;
 }
 
 button:hover {
@@ -57,6 +63,5 @@ button:hover {
 
 .navBarLogo{
   margin-top: 15px;
-  margin-left: 15px;
-  margin-bottom: 0px;
+  margin-left: 95px;
 }

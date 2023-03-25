@@ -15,23 +15,22 @@
                     </mat-form-field>
                 </form>
 
-                <mat-form-field appearance="fill">
+                <mat-form-field appearance="fill" [formGroup]="form">
                     <mat-label>Insira as estações</mat-label>
                     <mat-select formControlName="estacao" multiple>
                     <mat-option *ngFor="let item of estacoes" [value]="item">{{item.numero}}</mat-option>
                     </mat-select>
                 </mat-form-field>
-
             </div>
 
-            <div class='container'>
+            <div class='container' [formGroup]="form">
                 <label class="destaque"> Consultar via: </label>
                 <mat-checkbox formControlName="tabela"> Tabela </mat-checkbox>
                 <mat-checkbox formControlName="grafico"> Gráfico </mat-checkbox>
                 <label class="destaque"> (1 ou 2 variáveis) </label>
             </div>
 
-            <div class='container'>
+            <div class='container' [formGroup]="form">
                 <label for="intervalo" class="destaque"> Dados médios e total:</label>
                 <select formControlName="intervalo" name="intervalo" id="intervalo" (onchange)="selectIntervaloHandler">
                     <option *ngFor="let item of periodosGrafico" value="item.key"> {{item.value}} </option>
@@ -39,7 +38,7 @@
             </div>
 
             <div>
-                <div class="container">
+                <div class="container" [formGroup]="form">
                     <div class="row">
                         <div class="col-sm">
                             <mat-checkbox formControlName="tempAr"> Temperatura do ar </mat-checkbox>
