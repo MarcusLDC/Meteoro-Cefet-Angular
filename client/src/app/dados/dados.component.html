@@ -1,41 +1,71 @@
 <html>
     <div class="body">
-        <mat-card class="card" *ngIf="estacaoSelecionada">
-            <mat-card-header>
-                <p class="paddingLeft"> <strong> ESTAÇÃO DE MONITORAMENTO AMBIENTAL </strong></p>
-            </mat-card-header>
-            <mat-card-content class="cardContent">
-                <div class="container">
-                    <div class="left-column">
-                        <p> <strong> Maracanã ({{estacaoSelecionada.numero}}) </strong> | {{gmtDateTime | date : 'HH:mm:ss'}} BRT - {{gmtDateTime | date : "HH:mm:ss":"+0000"}} UTC </p>
-                        <p> <strong> Nome: </strong>{{estacaoSelecionada.nome}} - <strong> Numero: </strong>({{estacaoSelecionada.numero}})</p> 
-                        <p> <strong> Responsável: </strong> LAPA\CoMet/CEFET-RJ </p>
-                        <p> <strong> Desde: </strong> {{estacaoSelecionada.dataInicio | date : 'MM/yyyy'}} </p>
-                    </div>
-                    <div class="middle-column">
-                        <p> <strong> Cidade: </strong>   Rio de Janeiro </p>
-                        <p> <strong> Localização: </strong>  Rio de Janeiro - Brasil </p>
-                        <p> <strong> Hora local: </strong> {{gmtDateTime | date : 'HH:mm:ss'}} BRT - {{gmtDateTime | date : "HH:mm:ss":"+0000"}} UTC</p>
-                    </div>
-                    <div class="right-column">
-                        <p> <strong> Coordenadas: </strong> {{estacaoSelecionada.latitude}} , {{estacaoSelecionada.longitude}} </p>
-                        <p> <strong> Altitude: </strong> {{estacaoSelecionada.altitude}}m </p>
-                        <p> <strong> Altura: </strong> {{estacaoSelecionada.altura}}m </p>
-                        <p> <strong> Status: </strong> {{estacaoSelecionada.status}}
-                    </div>
-                </div>
-            </mat-card-content>
-        </mat-card>
+        <div class="half">
 
+            <mat-card class="card" *ngIf="estacaoSelecionada">
+                <mat-card-header class="cardHeader borderBottom">
+                    <mat-card-title> <p class="cardHeaderContent title"> Estação de monitoramento ambiental - ID: ({{estacaoSelecionada.numero}})</p> </mat-card-title>
+                    <mat-card-subtitle> <p class="cardHeaderContent subtitle"> 
+                        <a href="https://goo.gl/maps/2YeTQncCuSJDingo7" style="text-decoration: none;" title="Maracanã - Google Maps">🗺️</a> 
+                        Maracanã, Rio de Janeiro - RJ
+                    </p></mat-card-subtitle>
+                </mat-card-header>
+                <mat-card-content class="cardContent">
+                    <div class="container">
+                        <div>
+                            <p> <strong> Nome: </strong>{{estacaoSelecionada.nome}} - <strong> ID: </strong>({{estacaoSelecionada.numero}})</p> 
+                            <p> <strong> Responsável: </strong> LAPA\CoMet/CEFET-RJ </p>
+                            <p> <strong> Desde: </strong> {{estacaoSelecionada.dataInicio | date : 'MM/yyyy'}} </p>
+                            <p class="borderBottom"> </p>
+                            <p> <strong> Status: </strong> {{estacaoSelecionada.status}}
+                            <p> <strong> Cidade: </strong>   Rio de Janeiro </p>
+                            <p> <strong> Localização: </strong>  Rio de Janeiro - Brasil </p>
+                            <p class="borderBottom"> </p>
+                            <p> <strong> Coordenadas: </strong> {{estacaoSelecionada.latitude}} , {{estacaoSelecionada.longitude}} </p>
+                            <p> <strong> Altitude: </strong> {{estacaoSelecionada.altitude}}m </p>
+                            <p> <strong> Altura: </strong> {{estacaoSelecionada.altura}}m </p>
+                        </div>
+                    </div>
+                </mat-card-content>
+            </mat-card>
+            
+            <mat-card class="card" *ngIf="estacaoSelecionada">
+                <mat-card-header class="borderBottom">
+                    <mat-card-title> <p class="cardHeaderContent title"> Ultima atualização: </p> </mat-card-title>
+                    <mat-card-subtitle> <p class="cardHeaderContent subtitle"> 
+                        ({{firstDataHora | date : 'dd/MM/yyyy HH:mm:ss'}} - BRT)
+                        ({{firstDataHora | date : "dd/MM/yyyy HH:mm:ss":"+0000"}} - UTC)
+                    </p></mat-card-subtitle>
+                </mat-card-header>
+                <mat-card-content class="cardContent">
+                    <div class="container">
+                        <div>
+                            <iframe 
+                            width="425" height="350" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" 
+                            src="https://www.openstreetmap.org/export/embed.html?bbox=
+                            -43.226855993270874%2C
+                            -22.9132783444043%2C
+                            -43.22331547737122%2C
+                            -22.911020224751685
+                            &amp;layer=mapnik" 
+                            style="border: 1px solid black">
+                        </iframe>
+                            <br/><small><a href="https://www.openstreetmap.org/#map=19/-22.91215/-43.22509">Ver mapa ampliado</a></small>
+                        </div>
+                    </div>
+                </mat-card-content>
+            </mat-card>
+
+        </div>
         <mat-card class="card"><mat-card-content>
             <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
                 <ng-container matColumnDef="Data e Hora">
-                <th mat-header-cell *matHeaderCellDef> Data e Hora Local (BRT)</th>
+                <th mat-header-cell *matHeaderCellDef> Data e Hora (BRT)</th>
                 <td mat-cell *matCellDef="let element"> {{element.dataHora | date : 'dd/MM/yyyy HH:mm'}} </td>
                 </ng-container>
                 <form [formGroup] = "form">
                     <ng-container matColumnDef="Estação">
-                        <th mat-header-cell *matHeaderCellDef> Estação 
+                        <th mat-header-cell *matHeaderCellDef> Estação(ID)
                             <select #estacao formControlName="estacao" name="estacoes" id="estacoes" (change)="selectEstacoesHandler()">
                                 <option> Tudo </option>
                                 <option *ngFor="let element of estacoes" [value]="element.numero"> {{element.numero}} </option>

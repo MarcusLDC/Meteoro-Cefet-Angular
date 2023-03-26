@@ -39,7 +39,8 @@ export class DadosComponent implements OnInit{
   estacoes: Estacao[] = [];
   estacaoSelecionada: Estacao | undefined;
   gmtDateTime = new Date().toUTCString();
-
+  firstDataHora: Date | undefined;
+  
   constructor(private meteoroServices: MeteoroServices, private localStorage: LocalStorageServices, private builder: FormBuilder){
     this.form = builder.group({
       estacao: ['Tudo', Validators.required]
@@ -76,12 +77,15 @@ export class DadosComponent implements OnInit{
   }
 
   private atualizarDados() {
-    
+
     if(this.form.get('estacao')?.value == 'Tudo'){
       this.meteoroServices.getDados(1).subscribe(x => this.dataSource = x);
     }
     else{
-      this.meteoroServices.getDadosEstacao(Number(this.form.get('estacao')?.value), 1).subscribe(x => this.dataSource = x);
+      this.meteoroServices.getDadosEstacao(Number(this.form.get('estacao')?.value), 1).subscribe(x => {
+        this.dataSource = x,
+        this.firstDataHora = this.dataSource[0].dataHora;
+      });
     }
   }
 
