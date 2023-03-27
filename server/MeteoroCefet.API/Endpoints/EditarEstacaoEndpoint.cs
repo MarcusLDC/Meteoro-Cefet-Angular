@@ -12,7 +12,7 @@ namespace MeteoroCefet.API.Endpoints
         }
         private static async void Handler([FromServices] EstacaoRepository repository, [FromBody] Estacao estacao)
         {
-            await repository.Replace(estacao.Id, estacao);
+            await repository.ReplaceEstacao(estacao.Numero, estacao);
         }
     }
 }

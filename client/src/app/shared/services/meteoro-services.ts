@@ -25,4 +25,8 @@ export class MeteoroServices {
         let endpoint = `${environment.apiUrl}/dadosEstacao`
         return this.httpClient.post<DadosTempo[]>(endpoint, {numeroEstacao, numPagina})
     }
+    public editarEstacao(numeroEstacao: number, estacao: Estacao){
+        let endpoint = `${environment.apiUrl}/estacoesEditar`
+        return this.httpClient.post<Estacao[]>(endpoint, {numeroEstacao, estacao})
+    }
 }
