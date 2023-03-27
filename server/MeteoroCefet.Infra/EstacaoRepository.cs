@@ -1,4 +1,5 @@
 ﻿using MeteoroCefet.Domain.Entities;
+using Microsoft.Extensions.Logging;
 using MongoDB.Driver;
 
 namespace MeteoroCefet.Infra
@@ -7,6 +8,10 @@ namespace MeteoroCefet.Infra
     {
         public EstacaoRepository(IMongoClient mongoClient) : base(mongoClient)
         {
+        }
+        public async Task ReplaceEstacao(int numeroEstacao, Estacao estacao)
+        {
+            await Collection.ReplaceOneAsync(x => x.Numero == numeroEstacao, estacao);
         }
     }
 }

@@ -12,16 +12,13 @@ import { MeteoroServices } from '../shared/services/meteoro-services';
 
 export class EditarEstacaoComponent {
   form: FormGroup;
-  estacoes: Observable<Estacao[]>;
+  estacoes: Estacao[] = [];
 
   constructor(private builder: FormBuilder, private meteoroServices: MeteoroServices) {
     this.form = builder.group({
     
     });
-    this.estacoes = this.meteoroServices.getEstacoes();
+    this.meteoroServices.getEstacoes().subscribe(x => this.estacoes = x);
+
   }
-
 }
-
-
-
