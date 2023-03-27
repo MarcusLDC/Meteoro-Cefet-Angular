@@ -30,21 +30,22 @@
 }
 
 .buttonEnd{
-  margin-right: 80px;
+  margin-right: 9%;
 }
 
-button:hover {
+.buttonLinks:hover {
   background-color: #0e1216;
 }
 
 .navBar{
-  max-width: 100%;
+  max-width: 100%; // 1400px max
   background-color: #161B22;
   width: 100%;
   position: fixed;
   top: 0;
   left: 0;
   z-index: 999;
+  align-items: center;
 }
 
 .container {
@@ -63,5 +64,45 @@ button:hover {
 
 .navBarLogo{
   margin-top: 15px;
-  margin-left: 95px;
+  margin-left: 10%;
+}
+
+.menuDropdown{
+  margin-right: 4%;
+}
+
+.logoDropdown{
+  margin-left: 5%;
+}
+
+.divDropdown{
+  background-color: #161B22;
+  display: block;
+  position: absolute;
+  top: 49px;
+  right: calc(2% + 4%);
+  z-index: 9999;
+  text-align: center;
+}
+
+.esconder {
+  display: none;
+}
+
+@media screen and (max-width: 1400px) {
+  .right-column{
+    display: none;
+  }
+  .menuDropdown{
+    display: block;
+  }
+}
+
+@media screen and (max-width: 640px) {
+  .left-column{
+    display: none;
+  }
+  .logoDropdown{
+    display: block;
+  }
 }
