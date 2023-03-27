@@ -4,6 +4,7 @@ import { Estacao } from '../shared/models/estacao-model';
 import { MeteoroServices } from '../shared/services/meteoro-services';
 import { LocalStorageServices } from '../shared/services/local-storage-services';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import * as L from 'leaflet';
 
 @Component({
   selector: 'app-dados',
@@ -40,7 +41,16 @@ export class DadosComponent implements OnInit{
   estacaoSelecionada: Estacao | undefined;
   gmtDateTime = new Date().toUTCString();
   firstDataHora: Date | undefined;
-  
+
+  map: any;
+
+  myIcon = L.icon({
+    iconUrl: '/favicon.ico',
+    iconSize: [38, 38],
+    iconAnchor: [19, 38],
+    popupAnchor: [0, -38]
+  });
+
   constructor(private meteoroServices: MeteoroServices, private localStorage: LocalStorageServices, private builder: FormBuilder){
     this.form = builder.group({
       estacao: ['Tudo', Validators.required]
@@ -48,16 +58,27 @@ export class DadosComponent implements OnInit{
   }
 
   async ngOnInit(): Promise<void> {
-
+  
     this.meteoroServices.getEstacoes().subscribe(x => {
       this.estacoes = x;
       this.setSelectedEstacao((this.form.get('estacao')?.value));
+      if(this.estacaoSelecionada != undefined){
+        this.map = L.map('map').setView([this.estacaoSelecionada.latitude, this.estacaoSelecionada.longitude], 16);
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+          attribution: 
+            'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, ' +
+            '<a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, ' +
+            'Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
+          maxZoom: 18
+        }).addTo(this.map);
+        L.marker([this.estacaoSelecionada.latitude, this.estacaoSelecionada.longitude], {icon: this.myIcon}).addTo(this.map);
+      }
     });
 
     let estacaoStorage = await this.localStorage.get<string>('estacao')??'Tudo';
 
     this.form.get('estacao')?.setValue(estacaoStorage);
-
+    
     this.atualizarDados();
     setInterval(() => {
       this.atualizarDados();
@@ -66,7 +87,6 @@ export class DadosComponent implements OnInit{
     setInterval(() =>{
       this.gmtDateTime = new Date().toUTCString();
     }, 1000);
-
   }
 
   public selectEstacoesHandler() {
@@ -77,6 +97,22 @@ export class DadosComponent implements OnInit{
   }
 
   private atualizarDados() {
+
+    if(this.map){
+      this.map.remove();
+    }
+
+    if(this.estacaoSelecionada != undefined){
+      this.map = L.map('map').setView([this.estacaoSelecionada.latitude, this.estacaoSelecionada.longitude], 16);
+      L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        attribution: 
+          'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, ' +
+          '<a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, ' +
+          'Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
+        maxZoom: 18
+      }).addTo(this.map);
+      L.marker([this.estacaoSelecionada.latitude, this.estacaoSelecionada.longitude], {icon: this.myIcon}).addTo(this.map);
+    }
 
     if(this.form.get('estacao')?.value == 'Tudo'){
       this.meteoroServices.getDados(1).subscribe(x => this.dataSource = x);

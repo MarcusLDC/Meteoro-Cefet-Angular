@@ -27,16 +27,11 @@
                 </mat-card-content>
             </mat-card>
             
-            <mat-card class="card" *ngIf="estacaoSelecionada">
-                <mat-card-content class="cardContent">
-                    <div class="container">
-                        <div>
-                            
-                        </div>
-                    </div>
+            <mat-card class="card">
+                <mat-card-content class="cardContent map" id="map">
+                    <app-map></app-map>
                 </mat-card-content>
             </mat-card>
-
         </div>
         <mat-card class="card"><mat-card-content>
             <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
