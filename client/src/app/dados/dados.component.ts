@@ -43,6 +43,14 @@ export class DadosComponent implements OnInit{
   firstDataHora: Date | undefined;
 
   map: any;
+  numAnterior: string | undefined;
+  numAnteriorAnterior: string | undefined;
+
+  showMap = false;
+
+  ngAfterViewInit(): void {
+    this.showMap = true;
+  }
 
   myIcon = L.icon({
     iconUrl: '/favicon.ico',
@@ -90,17 +98,36 @@ export class DadosComponent implements OnInit{
   }
 
   public selectEstacoesHandler() {
-    
-    this.setSelectedEstacao(this.form.get('estacao')?.value)
+    this.setSelectedEstacao(this.form.get('estacao')?.value);
     this.localStorage.set('estacao', this.form.get('estacao')?.value);
     this.atualizarDados();
   }
 
   private atualizarDados() {
-
-    if(this.map){
-      this.map.remove();
+    if(this.form.get('estacao')?.value == 'Tudo'){
+      this.meteoroServices.getDados(1).subscribe(x =>{
+        this.dataSource = x
+      });
     }
+    else{
+      this.meteoroServices.getDadosEstacao(Number(this.form.get('estacao')?.value), 1).subscribe(x => {
+        this.dataSource = x,
+        this.firstDataHora = this.dataSource[0].dataHora;
+      });
+    }
+  }
+
+  private setSelectedEstacao(num: string){
+    
+    this.estacaoSelecionada = this.estacoes.find(x => x.numero === Number(num));
+
+    if(this.map != undefined && this.numAnterior != 'Tudo' && this.numAnteriorAnterior !='Tudo'){
+      this.map.remove();
+      console.log(this.map);
+    }
+
+    this.numAnteriorAnterior = this.numAnterior; // Isso aqui tem história
+    this.numAnterior = num;
 
     if(this.estacaoSelecionada != undefined){
       this.map = L.map('map').setView([this.estacaoSelecionada.latitude, this.estacaoSelecionada.longitude], 16);
@@ -113,19 +140,5 @@ export class DadosComponent implements OnInit{
       }).addTo(this.map);
       L.marker([this.estacaoSelecionada.latitude, this.estacaoSelecionada.longitude], {icon: this.myIcon}).addTo(this.map);
     }
-
-    if(this.form.get('estacao')?.value == 'Tudo'){
-      this.meteoroServices.getDados(1).subscribe(x => this.dataSource = x);
-    }
-    else{
-      this.meteoroServices.getDadosEstacao(Number(this.form.get('estacao')?.value), 1).subscribe(x => {
-        this.dataSource = x,
-        this.firstDataHora = this.dataSource[0].dataHora;
-      });
-    }
-  }
-
-  private setSelectedEstacao(num: string){
-    this.estacaoSelecionada = this.estacoes.find(x => x.numero === Number(num));
   }
 }
