@@ -109,7 +109,9 @@ export class DadosComponent implements OnInit{
 
     if(this.estacaoSelecionada != undefined){
       this.criado = true;
-      this.map = L.map('map').setView([this.estacaoSelecionada.latitude, this.estacaoSelecionada.longitude], 16);
+
+      this.map = L.map('map', {scrollWheelZoom: false}).setView([this.estacaoSelecionada.latitude, this.estacaoSelecionada.longitude], 16);
+      
       L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
         attribution: 
           'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, ' +
@@ -123,7 +125,9 @@ export class DadosComponent implements OnInit{
 
     }else{
       this.criado = true;
-      this.map = L.map('map').setView([-22.4,-43.5], 8);
+
+      this.map = L.map('map', {scrollWheelZoom: false,}).setView([-22.4,-43.5], 8);
+
       L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
         attribution: 
           'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, ' +
