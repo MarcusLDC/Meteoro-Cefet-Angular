@@ -1,12 +1,11 @@
 <body>
     <div class="body">
         <div class="half">
-
             <mat-card class="card card30" *ngIf="estacaoSelecionada">
                 <mat-card-header class="cardHeader borderBottom">
                     <mat-card-title> <p class="cardHeaderContent title"> Estação de monitoramento ambiental</p> </mat-card-title>
                     <mat-card-subtitle> <p class="cardHeaderContent subtitle"> 
-                        <strong>Local: </strong> Rio de Janeiro - RJ, Brasil
+                        <strong>Local: </strong> {{estacaoSelecionada.nome}}
                     </p></mat-card-subtitle>
                 </mat-card-header>
                 <mat-card-content class="cardContent">
@@ -17,7 +16,8 @@
                             <p> <strong> Desde: </strong> {{estacaoSelecionada.dataInicio | date : 'MM/yyyy'}}
                             <p> <strong> Status: </strong> {{estacaoSelecionada.status}} </p>
                             <p class="borderBottom"> </p>
-                            <p> <strong> Coordenadas: </strong> {{estacaoSelecionada.latitude}} , {{estacaoSelecionada.longitude}} </p>
+                            <p> <strong> Coordenadas: </strong> {{estacaoSelecionada.latitude.toFixed(6)}} <strong>{{ estacaoSelecionada.latitude < 0 ? 'S' : 'N'}}</strong> ,
+                                                                {{estacaoSelecionada.longitude.toFixed(6)}} <strong>{{ estacaoSelecionada.longitude < 0 ? 'W' : 'E' }}</strong> </p>
                             <p> <strong> Altitude: </strong> {{estacaoSelecionada.altitude}}m
                             <strong> Altura: </strong> {{estacaoSelecionada.altura}}m </p>
                             <strong> Ultima atualização: </strong>{{firstDataHora | date : 'dd/MM/yyyy HH:mm'}}h
@@ -30,7 +30,7 @@
                 <mat-card-header class="cardHeader borderBottom">
                     <mat-card-title> <p class="cardHeaderContent title"> Estações de monitoramento ambiental</p> </mat-card-title>
                     <mat-card-subtitle> <p class="cardHeaderContent subtitle"> 
-                        <strong>Local: </strong> Rio de Janeiro - RJ, Brasil
+                        <strong>Locais: </strong> Rio de Janeiro e Espírito Santo
                     </p></mat-card-subtitle>
                 </mat-card-header>
                 <mat-card-content class="cardContent">
@@ -39,11 +39,11 @@
                             <p> <strong> Numero de estações: </strong> </p> 
                             <p> <strong> Responsável: </strong> LAPA\CoMet/CEFET-RJ </p>
                             <p> <strong> Desde: </strong>
-                            <p> <strong> Status: </strong> </p>
+                            <p> <strong> Quantidade total de dados: </strong> </p>
                             <p class="borderBottom"> </p>
-                            <p> <strong> Coordenadas: </strong>  </p>
-                            <p> <strong> Altitude: </strong> </p>
-                            <p> <strong> Ultima atualização: </strong> </p>
+                            <p> <strong> Ultima atualização: </strong>  </p>
+                            <p> <strong> Nome da estação: </strong> </p>
+                            <p> <strong> Data: </strong> </p>
                         </div>
                     </div>
                 </mat-card-content>
