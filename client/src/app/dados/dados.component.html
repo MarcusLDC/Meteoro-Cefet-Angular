@@ -26,13 +26,34 @@
                     </div>
                 </mat-card-content>
             </mat-card>
-            <mat-card class="card card70" *ngIf="estacaoSelecionada">
+            <mat-card class="card card30" *ngIf="!estacaoSelecionada">
+                <mat-card-header class="cardHeader borderBottom">
+                    <mat-card-title> <p class="cardHeaderContent title"> Estações de monitoramento ambiental</p> </mat-card-title>
+                    <mat-card-subtitle> <p class="cardHeaderContent subtitle"> 
+                        <strong>Local: </strong> Rio de Janeiro - RJ, Brasil
+                    </p></mat-card-subtitle>
+                </mat-card-header>
+                <mat-card-content class="cardContent">
+                    <div class="container">
+                        <div>
+                            <p> <strong> Numero de estações: </strong> </p> 
+                            <p> <strong> Responsável: </strong> LAPA\CoMet/CEFET-RJ </p>
+                            <p> <strong> Desde: </strong>
+                            <p> <strong> Status: </strong> </p>
+                            <p class="borderBottom"> </p>
+                            <p> <strong> Coordenadas: </strong>  </p>
+                            <p> <strong> Altitude: </strong> </p>
+                            <p> <strong> Ultima atualização: </strong> </p>
+                        </div>
+                    </div>
+                </mat-card-content>
+            </mat-card>
+            <mat-card class="card card70" >
                 <mat-card-content class="cardContent map" id="map">
                     <app-map></app-map>
                 </mat-card-content>
             </mat-card>
         </div>
-
         <mat-card class="card">
             <mat-card-header class="fixed center" *ngIf="estacaoSelecionada">
                 Estação de monitoramento ambiental <strong> {{estacaoSelecionada.nome}} </strong> - ID: {{estacaoSelecionada.numero}}

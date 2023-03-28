@@ -107,9 +107,7 @@ export class DadosComponent implements OnInit{
       this.criado = false;
     }
 
-    var mapContainer = document.getElementById("map");
-
-    if(this.estacaoSelecionada != undefined && mapContainer){
+    if(this.estacaoSelecionada != undefined){
       this.criado = true;
       this.map = L.map('map').setView([this.estacaoSelecionada.latitude, this.estacaoSelecionada.longitude], 16);
       L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
@@ -119,7 +117,23 @@ export class DadosComponent implements OnInit{
           'Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
         maxZoom: 18
       }).addTo(this.map);
-      L.marker([this.estacaoSelecionada.latitude, this.estacaoSelecionada.longitude], {icon: this.myIcon}).addTo(this.map);
+      this.estacoes.forEach(estacao => {
+        L.marker([estacao.latitude, estacao.longitude], {icon: this.myIcon}).addTo(this.map);
+      });
+
+    }else{
+      this.criado = true;
+      this.map = L.map('map').setView([-22.4,-43.5], 8);
+      L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        attribution: 
+          'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, ' +
+          '<a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, ' +
+          'Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
+        maxZoom: 18
+      }).addTo(this.map);
+      this.estacoes.forEach(estacao => {
+        L.marker([estacao.latitude, estacao.longitude], {icon: this.myIcon}).addTo(this.map);
+      });
     }
   }
 }
