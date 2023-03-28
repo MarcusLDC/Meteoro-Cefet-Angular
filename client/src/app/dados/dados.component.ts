@@ -43,14 +43,7 @@ export class DadosComponent implements OnInit{
   firstDataHora: Date | undefined;
 
   map: any;
-  numAnterior: string | undefined;
-  numAnteriorAnterior: string | undefined;
-
-  showMap = false;
-
-  ngAfterViewInit(): void {
-    this.showMap = true;
-  }
+  criado: boolean = true;
 
   myIcon = L.icon({
     iconUrl: '/favicon.ico',
@@ -70,17 +63,6 @@ export class DadosComponent implements OnInit{
     this.meteoroServices.getEstacoes().subscribe(x => {
       this.estacoes = x;
       this.setSelectedEstacao((this.form.get('estacao')?.value));
-      if(this.estacaoSelecionada != undefined){
-        this.map = L.map('map').setView([this.estacaoSelecionada.latitude, this.estacaoSelecionada.longitude], 16);
-        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-          attribution: 
-            'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, ' +
-            '<a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, ' +
-            'Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
-          maxZoom: 18
-        }).addTo(this.map);
-        L.marker([this.estacaoSelecionada.latitude, this.estacaoSelecionada.longitude], {icon: this.myIcon}).addTo(this.map);
-      }
     });
 
     let estacaoStorage = await this.localStorage.get<string>('estacao')??'Tudo';
@@ -118,18 +100,15 @@ export class DadosComponent implements OnInit{
   }
 
   private setSelectedEstacao(num: string){
-    
     this.estacaoSelecionada = this.estacoes.find(x => x.numero === Number(num));
 
-    if(this.map != undefined && this.numAnterior != 'Tudo' && this.numAnteriorAnterior !='Tudo'){
+    if(this.map != undefined && this.criado){
       this.map.remove();
-      console.log(this.map);
+      this.criado = false;
     }
 
-    this.numAnteriorAnterior = this.numAnterior; // Isso aqui tem história
-    this.numAnterior = num;
-
     if(this.estacaoSelecionada != undefined){
+      this.criado = true;
       this.map = L.map('map').setView([this.estacaoSelecionada.latitude, this.estacaoSelecionada.longitude], 16);
       L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
         attribution: 
@@ -138,7 +117,23 @@ export class DadosComponent implements OnInit{
           'Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
         maxZoom: 18
       }).addTo(this.map);
-      L.marker([this.estacaoSelecionada.latitude, this.estacaoSelecionada.longitude], {icon: this.myIcon}).addTo(this.map);
+      this.estacoes.forEach(estacao => {
+        L.marker([estacao.latitude, estacao.longitude], {icon: this.myIcon}).addTo(this.map);
+      });
+
+    }else{
+      this.criado = true;
+      this.map = L.map('map').setView([-22.4,-43.5], 8);
+      L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        attribution: 
+          'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, ' +
+          '<a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, ' +
+          'Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
+        maxZoom: 18
+      }).addTo(this.map);
+      this.estacoes.forEach(estacao => {
+        L.marker([estacao.latitude, estacao.longitude], {icon: this.myIcon}).addTo(this.map);
+      });
     }
   }
 }
