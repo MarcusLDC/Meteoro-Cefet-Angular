@@ -39,8 +39,11 @@ export class DadosComponent implements OnInit {
   dataSource: DadosTempo[] = [];
   estacoes: Estacao[] = [];
   estacaoSelecionada: Estacao | undefined;
-  gmtDateTime = new Date().toUTCString();
+
   firstDataHora: Date | undefined;
+  firstNumero: number | undefined;
+  numEstacoes: number = 0;
+  numDados: number = 0;
 
   map: any;
   criado: boolean = true;
@@ -49,7 +52,7 @@ export class DadosComponent implements OnInit {
     iconUrl: '/favicon.ico',
     iconSize: [30, 30],
     iconAnchor: [19, 30],
-    popupAnchor: [0, -38]
+    popupAnchor: [0, -30]
   });
 
   constructor(private meteoroServices: MeteoroServices, private localStorage: LocalStorageServices, private builder: FormBuilder) {
@@ -63,6 +66,7 @@ export class DadosComponent implements OnInit {
     this.meteoroServices.getEstacoes().subscribe(x => {
       this.estacoes = x;
       this.setSelectedEstacao((this.form.get('estacao')?.value));
+      this.numEstacoes = this.estacoes.length;
     });
 
     let estacaoStorage = await this.localStorage.get<string>('estacao') ?? 'Tudo';
@@ -73,10 +77,6 @@ export class DadosComponent implements OnInit {
     setInterval(() => {
       this.atualizarDados();
     }, 60000);
-
-    setInterval(() => {
-      this.gmtDateTime = new Date().toUTCString();
-    }, 1000);
   }
 
   public selectEstacoesHandler() {
@@ -88,7 +88,9 @@ export class DadosComponent implements OnInit {
   private atualizarDados() {
     if (this.form.get('estacao')?.value == 'Tudo') {
       this.meteoroServices.getDados(1).subscribe(x => {
-        this.dataSource = x
+        this.dataSource = x;
+        this.firstDataHora = this.dataSource[0].dataHora;
+        this.firstNumero = this.dataSource[0].estacao;
       });
     }
     else {
@@ -110,28 +112,23 @@ export class DadosComponent implements OnInit {
     if (this.estacaoSelecionada != undefined) {
       this.criado = true;
       this.map = L.map('map', { scrollWheelZoom: false }).setView([this.estacaoSelecionada.latitude, this.estacaoSelecionada.longitude], 16);
-      L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-        attribution:
-          'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, ' +
-          '<a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, ' +
-          'Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
-        maxZoom: 19
-      }).addTo(this.map);
+      this.tileLayer();
       this.markAll();
-
     } else {
-
       this.criado = true;
       this.map = L.map('map', { scrollWheelZoom: false, }).setView([-22, -43.5], 7);
-      L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-        attribution:
-          'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, ' +
-          '<a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, ' +
-          'Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
-        maxZoom: 19
-      }).addTo(this.map);
+      this.tileLayer();
       this.markAll();
     }
+  }
+
+  private tileLayer() {
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, ' +
+        '<a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, ' +
+        'Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
+      maxZoom: 19
+    }).addTo(this.map);
   }
 
   private markAll() {

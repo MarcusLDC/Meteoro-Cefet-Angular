@@ -36,14 +36,17 @@
                 <mat-card-content class="cardContent">
                     <div class="container">
                         <div>
-                            <p> <strong> Numero de estações: </strong> </p> 
+                            <p> <strong> Quantidade de estações: </strong> {{numEstacoes}} </p> 
                             <p> <strong> Responsável: </strong> LAPA\CoMet/CEFET-RJ </p>
-                            <p> <strong> Desde: </strong>
-                            <p> <strong> Quantidade total de dados: </strong> </p>
+                            <p> <strong> Desde: </strong> 02/23
+                            <p> <strong> Quantidade total de dados: </strong> {{numDados}} </p>
                             <p class="borderBottom"> </p>
-                            <p> <strong> Ultima atualização: </strong>  </p>
-                            <p> <strong> Nome da estação: </strong> </p>
-                            <p> <strong> Data: </strong> </p>
+                            <p> <strong> Ultima atualização: </strong> {{firstDataHora | date : 'dd/MM/yyyy'}} </p>
+                            <p> <strong> ID da estação: </strong> {{firstNumero}} </p>
+                            <p> <strong> Hora: </strong>
+                                {{firstDataHora | date : 'HH:mm'}}h
+                                ({{firstDataHora | date : "HH:mm":"+0000"}}h - UTC)
+                            </p>
                         </div>
                     </div>
                 </mat-card-content>
