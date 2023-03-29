@@ -16,8 +16,8 @@
                             <p> <strong> Desde: </strong> {{estacaoSelecionada.dataInicio | date : 'MM/yyyy'}}
                             <p> <strong> Status: </strong> {{estacaoSelecionada.status}} </p>
                             <p class="borderBottom"> </p>
-                            <p> <strong> Coordenadas: </strong> {{estacaoSelecionada.latitude.toFixed(6)}} <strong>{{ estacaoSelecionada.latitude < 0 ? 'S' : 'N'}}</strong> ,
-                                                                {{estacaoSelecionada.longitude.toFixed(6)}} <strong>{{ estacaoSelecionada.longitude < 0 ? 'W' : 'E' }}</strong> </p>
+                            <p> <strong> Coordenadas: </strong> {{estacaoSelecionada.latitude.toFixed(6)}}<strong>{{estacaoSelecionada.latitude < 0 ? 'S' : 'N'}}</strong> ,
+                                                                {{estacaoSelecionada.longitude.toFixed(6)}}<strong>{{estacaoSelecionada.longitude < 0 ? 'W' : 'E' }}</strong> </p>
                             <p> <strong> Altitude: </strong> {{estacaoSelecionada.altitude}}m
                             <strong> Altura: </strong> {{estacaoSelecionada.altura}}m </p>
                             <strong> Ultima atualização: </strong>{{firstDataHora | date : 'dd/MM/yyyy HH:mm'}}h
