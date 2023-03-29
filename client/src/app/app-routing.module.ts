@@ -11,7 +11,7 @@ const routes: Routes = [
   {path: "consulta", component: ConsultaComponent},
   {path: "estacoes", component: EstacoesComponent},
   {path: "login", component: LoginComponent},
-  {path: "estacoes/editar", component: EditarEstacaoComponent},
+  {path: "estacoes/editar/:id", component: EditarEstacaoComponent},
 ];
 
 @NgModule({

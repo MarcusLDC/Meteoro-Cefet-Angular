@@ -1,16 +1,69 @@
 <div class="body">
-    <mat-card class="card" *ngFor="let item of estacoes"  >
+    <div *ngIf="estacaoSelecionada">
+        <mat-card class="card">
+            <mat-card-header>
+                <p class="title"> Dados originais - ESTAÇÃO ID: {{estacaoSelecionada.numero}}</p>
+            </mat-card-header>
+            <mat-card-content class="cardContent">
+                <div style="display: flex; flex-flow: row nowrap;">
+                    <div style="padding-right: 20px;">
+                        <strong> Nome: </strong> {{estacaoSelecionada.nome}} <br><br>
+                        <strong> Latitude: </strong> {{estacaoSelecionada.latitude}} <br><br>
+                        <strong> Longitude: </strong> {{estacaoSelecionada.longitude}} <br>
+                    </div>
+                <div style="display: inline-block; vertical-align: top;">
+                        <strong> Status: </strong> {{estacaoSelecionada.status}} <br><br>
+                        <strong> Altitude: </strong> {{estacaoSelecionada.altitude}}m <br><br>
+                        <strong> Altura: </strong> {{estacaoSelecionada.altura}}m <br>
+                </div>
+            </div>  
+            </mat-card-content>
+        </mat-card>
+        <mat-card class="card">
+            <mat-card-header>
+                <p class="title"> Dados editados - ESTAÇÃO ID: {{estacaoSelecionada.numero}}</p>
+                <p class="subtitle"> Tudo que não for editado permanecerá com o mesmo valor do dado original</p>
+            </mat-card-header>
+            <mat-card-content [formGroup]="form">
+                <mat-form-field appearance="outline" class="padded">
+                    <mat-label>Nome:</mat-label>
+                    <input formControlName="nome" matInput>
+                </mat-form-field>
+                <mat-form-field  appearance="outline" class="padded">
+                    <mat-label>Status:</mat-label>
+                    <input formControlName="status" matInput>
+                </mat-form-field>
+                <br>
+                <mat-form-field appearance="outline" class="padded">
+                    <mat-label>Latitude:</mat-label>
+                    <input formControlName="latitude" matInput>
+                </mat-form-field>
+                <mat-form-field appearance="outline" class="padded">
+                    <mat-label>Longitude:</mat-label>
+                    <input formControlName="longitude" matInput>
+                </mat-form-field>
+                <br>
+                <mat-form-field appearance="outline" class="padded">
+                    <mat-label>Altitude:</mat-label>
+                    <input formControlName="altitude" matInput>
+                </mat-form-field>
+                <mat-form-field appearance="outline" class="padded">
+                    <mat-label>Altura:</mat-label>
+                    <input formControlName="altura" matInput>
+                </mat-form-field>
+                <br>
+            </mat-card-content>
+            <mat-card-actions>
+                <button mat-raised-button color="warn" class="botao" (click)="confirmar()"> Confirmar </button>
+                <button mat-raised-button class="botao" routerLink="/estacoes"> Cancelar </button>
+            </mat-card-actions>
+        </mat-card>
+    </div>
+    <mat-card class="card" *ngIf="!estacaoSelecionada">
         <mat-card-content class="cardContent">
-            Numero da estação: {{item.numero}} <br>
-            Nome da estação: {{item.nome}} <br>
-            Latitude: {{item.latitude.toFixed(6)}} <br>
-            Longitude: {{item.longitude.toFixed(6)}} <br>
-            Altitude: {{item.altitude}} <br>
-            Altura: {{item.altura}} <br>
-            Status: {{item.status}}
+            <p> A estação não existe ou você não está logado como administrador</p>
         </mat-card-content>
         <mat-card-actions>
-            <button mat-raised-button color="warn" class="botao"> Confirmar </button>
             <button mat-raised-button class="botao" routerLink="/estacoes"> Cancelar </button>
         </mat-card-actions>
     </mat-card>

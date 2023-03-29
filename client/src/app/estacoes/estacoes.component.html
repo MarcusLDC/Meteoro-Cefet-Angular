@@ -1,18 +1,21 @@
-<div class="body">
-    <mat-card class="card" *ngFor="let item of estacoes | async"  >
-        <mat-card-content class="cardContent">
+<body>
+    <div class="body">
+        <mat-card class="card" *ngFor="let item of estacoes | async"  >
+            <mat-card-content class="cardContent">
 
-            <strong> Estação ({{item.numero}}) </strong> - Nome: {{item.nome}} <br>
-            <strong> Lat.: </strong> {{item.latitude.toFixed(6)}}  
-            <strong> Lon.: </strong> {{item.longitude.toFixed(6)}} <br>
-            <strong> Altitude: </strong> {{item.altitude}}  
-            <strong> Altura </strong> {{item.altura}} <br>
-            <strong> Status: </strong> {{item.status}}
+                <strong> Estação ({{item.numero}}) </strong><br>
+                <strong> Nome: </strong> {{item.nome}} <br>
+                <strong> Lat.: </strong> {{item.latitude.toFixed(6)}}  <br>
+                <strong> Lon.: </strong> {{item.longitude.toFixed(6)}} <br>
+                <strong> Altitude: </strong> {{item.altitude}}m
+                <strong> Altura </strong> {{item.altura}}m <br>
+                <strong> Status: </strong> {{item.status}}
 
-        </mat-card-content>
-        <mat-card-actions>
-            <button mat-raised-button color="warn" class="botao" routerLink="editar"> Editar </button>
-        </mat-card-actions>
-    </mat-card>
-</div>
+            </mat-card-content>
+            <mat-card-actions>
+                <button mat-raised-button color="warn" class="botao" [routerLink]="['editar', item.numero]">Editar</button>
+            </mat-card-actions>
+        </mat-card>
+    </div>
+</body>
 <router-outlet></router-outlet>
