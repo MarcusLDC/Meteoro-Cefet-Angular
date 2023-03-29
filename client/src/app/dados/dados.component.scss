@@ -13,7 +13,7 @@ th.mat-sort-header-sorted {
 .fixed {
     position: sticky;
     width: 100%;
-    top: 50px;
+    top: 49px;
     z-index: 9999; 
 }
 
@@ -67,7 +67,7 @@ th.mat-sort-header-sorted {
 .center{
     text-align: center;
     font-weight: 500;
-    background-color: rgb(133, 255, 122);
+    background-color: rgb(146, 233, 138);
     min-width: 1543px;
 }
 
@@ -82,12 +82,13 @@ th.mat-sort-header-sorted {
 }
 
 .subtitle{
-    font-size: 15px;
+    font-size: 14px;
     font-weight: 400;
 }
 
 .cardContent{
     padding: 13px;
+    font-size: 14px;
 }
 
 .borderBottom{

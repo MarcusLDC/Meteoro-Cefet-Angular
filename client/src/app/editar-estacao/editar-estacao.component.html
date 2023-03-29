@@ -3,9 +3,11 @@
         <mat-card-content class="cardContent">
             Numero da estação: {{item.numero}} <br>
             Nome da estação: {{item.nome}} <br>
-            Latitude: {{item.latitude}} <br>
-            Longitude: {{item.longitude}} <br>
+            Latitude: {{item.latitude.toFixed(6)}} <br>
+            Longitude: {{item.longitude.toFixed(6)}} <br>
             Altitude: {{item.altitude}} <br>
+            Altura: {{item.altura}} <br>
+            Status: {{item.status}}
         </mat-card-content>
         <mat-card-actions>
             <button mat-raised-button color="warn" class="botao"> Confirmar </button>

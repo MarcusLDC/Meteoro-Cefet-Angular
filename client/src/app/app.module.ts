@@ -21,6 +21,7 @@ import { EstacoesComponent } from './estacoes/estacoes.component';
 import { LoginComponent } from './login/login.component';
 import { EditarEstacaoComponent } from './editar-estacao/editar-estacao.component';
 import { MatGridListModule } from '@angular/material/grid-list';
+import { transform } from '../app/shared/pipes/transform';
 
 @NgModule({
   declarations: [
@@ -29,7 +30,8 @@ import { MatGridListModule } from '@angular/material/grid-list';
     ConsultaComponent,
     EstacoesComponent,
     LoginComponent,
-    EditarEstacaoComponent
+    EditarEstacaoComponent,
+    transform,
   ],
   imports: [
     BrowserModule,

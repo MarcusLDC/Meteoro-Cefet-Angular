@@ -2,10 +2,12 @@
     <mat-card class="card" *ngFor="let item of estacoes | async"  >
         <mat-card-content class="cardContent">
 
-            Estação ({{item.numero}}) - {{item.nome}} <br>
-            Local: Maracanã - RJ <br>
-            Lat.: {{item.latitude}}  Lon.: {{item.longitude}}  Alt.: {{item.altitude}}<br>
-            Status: {{item.status}}
+            <strong> Estação ({{item.numero}}) </strong> - Nome: {{item.nome}} <br>
+            <strong> Lat.: </strong> {{item.latitude.toFixed(6)}}  
+            <strong> Lon.: </strong> {{item.longitude.toFixed(6)}} <br>
+            <strong> Altitude: </strong> {{item.altitude}}  
+            <strong> Altura </strong> {{item.altura}} <br>
+            <strong> Status: </strong> {{item.status}}
 
         </mat-card-content>
         <mat-card-actions>
