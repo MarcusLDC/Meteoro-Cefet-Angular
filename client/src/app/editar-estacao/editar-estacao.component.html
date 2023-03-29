@@ -5,12 +5,18 @@
                 <p class="title"> Dados originais - ESTAÇÃO ID: {{estacaoSelecionada.numero}}</p>
             </mat-card-header>
             <mat-card-content class="cardContent">
-                <strong> Nome: </strong> {{estacaoSelecionada.nome}}<br>
-                <strong> Latitude: </strong> {{estacaoSelecionada.latitude}}<br>
-                <strong> Longitude: </strong> {{estacaoSelecionada.longitude}}<br>
-                <strong> Altitude: </strong> {{estacaoSelecionada.altitude}}<br>
-                <strong> Altura: </strong> {{estacaoSelecionada.altura}}<br>
-                <strong> Status: </strong> {{estacaoSelecionada.status}}
+                <div style="display: flex; flex-flow: row nowrap;">
+                    <div style="padding-right: 20px;">
+                        <strong> Nome: </strong> {{estacaoSelecionada.nome}} <br><br>
+                        <strong> Latitude: </strong> {{estacaoSelecionada.latitude}} <br><br>
+                        <strong> Longitude: </strong> {{estacaoSelecionada.longitude}} <br>
+                    </div>
+                <div style="display: inline-block; vertical-align: top;">
+                        <strong> Status: </strong> {{estacaoSelecionada.status}} <br><br>
+                        <strong> Altitude: </strong> {{estacaoSelecionada.altitude}}m <br><br>
+                        <strong> Altura: </strong> {{estacaoSelecionada.altura}}m <br>
+                </div>
+            </div>  
             </mat-card-content>
         </mat-card>
         <mat-card class="card">
