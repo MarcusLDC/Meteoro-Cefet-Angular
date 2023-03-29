@@ -53,11 +53,11 @@ export class EditarEstacaoComponent {
         altitude: this.form.value.altitude,
         altura: this.form.value.altura
       }
-      this.meteoroServices.editarEstacao(this.estacaoEditada).subscribe();
     }
     
     if (window.confirm('Deseja confirmar essa ação?')) {
-      alert('Estação editada com sucesso!');
+      alert('Esta é uma simulação do que aconteceria se estivesse liberada a edição');
+      //alert('Estação editada com sucesso!');
       window.location.href = '/estacoes';
     }
   }

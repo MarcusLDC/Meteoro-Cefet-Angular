@@ -13,7 +13,6 @@ namespace MeteoroCefet.API.Endpoints
         }
         private static async void Handler([FromServices] ILogger<EditarEstacaoEndpoint> log, [FromServices] EstacaoRepository repository, [FromBody] Estacao estacao)
         {
-            log.LogInformation("Troquei: {estacao.Numero} {estacao}", estacao.Numero, estacao);
             await repository.ReplaceEstacao(estacao.Numero, estacao);
         }
     }
