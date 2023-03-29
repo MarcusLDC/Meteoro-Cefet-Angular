@@ -1,5 +1,6 @@
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
+import { end } from "@popperjs/core";
 import { environment } from "src/environments/environment";
 import { ConsultaModel } from "../models/consulta-model";
 import { DadosTempo } from "../models/dados-tempo-model";
@@ -25,8 +26,8 @@ export class MeteoroServices {
         let endpoint = `${environment.apiUrl}/dadosEstacao`
         return this.httpClient.post<DadosTempo[]>(endpoint, {numeroEstacao, numPagina})
     }
-    public editarEstacao(numeroEstacao: number, estacao: Estacao){
+    public editarEstacao(estacao: Estacao){
         let endpoint = `${environment.apiUrl}/estacoesEditar`
-        return this.httpClient.post<Estacao[]>(endpoint, {numeroEstacao, estacao})
+        return this.httpClient.post<Estacao[]>(endpoint, estacao)
     }
 }

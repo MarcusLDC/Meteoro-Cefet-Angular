@@ -11,7 +11,7 @@
 
         </mat-card-content>
         <mat-card-actions>
-            <button mat-raised-button color="warn" class="botao" routerLink="editar"> Editar </button>
+            <button mat-raised-button color="warn" class="botao" [routerLink]="['editar', item.numero]">Editar</button>
         </mat-card-actions>
     </mat-card>
 </div>
