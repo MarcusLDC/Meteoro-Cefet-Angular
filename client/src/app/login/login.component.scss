@@ -1,4 +1,27 @@
+.body{
+    padding-top: 50px;
+    max-width: 90%;
+    margin: auto;
+}
+
 .card{
     margin: 10px;
     padding: 1px;
+}
+
+.padded{
+    padding-top: 15px;
+    padding-left: 15px;
+}
+
+.botao{
+    margin-left: 15px;
+    margin-bottom: 15px;
+}
+
+.title{
+    padding-left: 15px;
+    padding-top: 15px;
+    font-size: 22px;
+    font-weight: 400;
 }

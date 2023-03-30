@@ -55,7 +55,7 @@ export class EditarEstacaoComponent {
         altitude: this.form.value.altitude,
         altura: this.form.value.altura
       }
-      this.meteoroServices.editarEstacao(this.estacaoEditada).subscribe();
+      // this.meteoroServices.editarEstacao(this.estacaoEditada).subscribe();
     }
     
     if (window.confirm('Deseja confirmar essa ação?')) {

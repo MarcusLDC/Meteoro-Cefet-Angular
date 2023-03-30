@@ -13,14 +13,14 @@ namespace MeteoroCefet.API.Endpoints
         {
             app.MapPost("usuario/new", Handler);
         }
-        private static async Task<Guid> Handler([FromServices] UsersRepository repository, string username, string password, string role)
+        private static async Task<Guid> Handler([FromServices] UsersRepository repository, string username, string password)
         {
             ApplicationUser user = new ApplicationUser
             {
                 Id = Guid.NewGuid(),
                 Username = username,
                 Password = HashPassword(password),
-                Role = role
+                Role = "Moderador"
             };
             return await repository.Add(user);
         }
