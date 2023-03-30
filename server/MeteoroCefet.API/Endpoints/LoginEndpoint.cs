@@ -16,7 +16,7 @@ namespace MeteoroCefet.API.Endpoints
         {
             app.MapPost("login", Handler);
         }
-        private static async Task<AuthorizationDTO> Handler([FromServices] UsersRepository repository, [FromBody] UserInformationDTO userDTO)
+        private static async Task<string> Handler([FromServices] UsersRepository repository, [FromBody] UserInformationDTO userDTO)
         {
             var usuario = await repository.GetByUsername(userDTO.Username);
 
