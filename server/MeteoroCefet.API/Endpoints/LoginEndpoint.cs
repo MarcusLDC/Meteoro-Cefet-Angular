@@ -16,19 +16,23 @@ namespace MeteoroCefet.API.Endpoints
         {
             app.MapPost("login", Handler);
         }
-        private static async Task<string> Handler([FromServices] UsersRepository repository, string username, string password)
+        private static async Task<AuthorizationDTO> Handler([FromServices] UsersRepository repository, [FromBody] UserInformationDTO userDTO)
         {
-            
-            var user = await repository.GetByUsername(username);
+            var usuario = await repository.GetByUsername(userDTO.Username);
 
-            bool acesso = Verify(password, user.Password);
+            if (usuario != null)
+            {
+                bool acesso = Verify(userDTO.Password, usuario.Password);
 
-            if (acesso)
-            {
-                return GenerateToken(user.Username);
-            }
-            else
-            {
+                if (acesso)
+                {
+                    return GenerateToken(usuario.Username);
+                }
+                else
+                {
+                    return "Acesso negado";
+                }
+            } else {
                 return "Acesso negado";
             }
         }
@@ -62,5 +66,6 @@ namespace MeteoroCefet.API.Endpoints
 
             return newTokenString;
         }
+        
     }
 }

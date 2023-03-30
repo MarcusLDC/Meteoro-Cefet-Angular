@@ -15,7 +15,7 @@ namespace MeteoroCefet.Infra
         }
         public async Task<ApplicationUser> GetByUsername(string username)
         {
-            return await Collection.Find(ApplicationUser => ApplicationUser.Username == username)
+            return await Collection.Find(x => x.Username == username)
                 .FirstOrDefaultAsync();
         }
     }

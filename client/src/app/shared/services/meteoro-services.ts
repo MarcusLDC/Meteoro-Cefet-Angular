@@ -5,6 +5,7 @@ import { environment } from "src/environments/environment";
 import { ConsultaModel } from "../models/consulta-model";
 import { DadosTempo } from "../models/dados-tempo-model";
 import { Estacao } from "../models/estacao-model";
+import { UserModel } from "../models/user-model";
 
 @Injectable({ providedIn: "root" })
 export class MeteoroServices {
@@ -29,5 +30,9 @@ export class MeteoroServices {
     public editarEstacao(estacao: Estacao){
         let endpoint = `${environment.apiUrl}/estacoesEditar`
         return this.httpClient.post<Estacao[]>(endpoint, estacao)
+    }
+    public login(user: UserModel){
+        let endpoint = `${environment.apiUrl}/login`
+        return this.httpClient.post<String>(endpoint, user)
     }
 }
