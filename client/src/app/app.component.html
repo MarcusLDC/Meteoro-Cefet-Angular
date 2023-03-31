@@ -9,7 +9,10 @@
         <button class="buttonLinks" routerLink="dados" title="Ver os últimos 100 dados das estações meteorológicas"> DADOS </button>
         <button class="buttonLinks" routerLink="consulta" title="Realizar uma consulta específica ao Banco de Dados"> WIP-CONSULTA AO BD </button>
         <button class="buttonLinks" routerLink="estacoes" title="Mais informações sobre as estações"> ESTAÇÕES </button> 
-        <button class="buttonLinks buttonEnd" routerLink="login"> LOGIN </button>
+
+        <button class="buttonLinks buttonEnd" *ngIf="!logado" routerLink="login"> LOGIN </button>
+        <button class="buttonLinks buttonEnd logado" *ngIf="logado" routerLink="login"> ADMINISTRADOR </button>
+
     </div> 
     <div class="logoDropdown esconder">
         <p class="navBarLogo"> <a href="http://meteoro.cefet-rj.br/" title="http://meteoro.cefet-rj.br/" style="color: white;"> CoMet</a> <p>
@@ -24,7 +27,10 @@
     <button class="buttonLinks" routerLink="dados" title="Ver os últimos 100 dados das estações meteorológicas"> DADOS </button> <br>
     <button class="buttonLinks" routerLink="consulta" title="Realizar uma consulta específica ao Banco de Dados"> CONSULTA </button> <br>
     <button class="buttonLinks" routerLink="estacoes" title="Mais informações sobre as estações"> ESTAÇÕES </button> <br>
-    <button class="buttonLinks" routerLink="login"> LOGIN </button> <br>
+
+    <button class="buttonLinks buttonEnd" *ngIf="!logado" routerLink="login"> LOGIN </button>
+    <button class="buttonLinks buttonEnd logado" *ngIf="logado" routerLink="login"> ADMINISTRADOR </button>
+    
 </div>
 
 <router-outlet></router-outlet>
