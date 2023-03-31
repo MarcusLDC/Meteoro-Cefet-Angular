@@ -28,11 +28,26 @@
   background-color: #161B22;
 }
 
+.buttonMenu{
+  border: 2px;
+  width: 100%;
+  color: white;
+  padding: 15px 15px;
+  text-align: center;
+  font-size: 15px;
+  display: inline-block;
+  background-color: #161B22;
+}
+
 .buttonEnd{
   margin-right: 9%;
 }
 
 .buttonLinks:hover {
+  background-color: #0c0f13;
+}
+
+.buttonMenu:hover{
   background-color: #0c0f13;
 }
 
@@ -90,12 +105,12 @@
 }
 
 .admin{
-  color: rgb(0, 255, 191);
+  color: rgb(0, 255, 255);
   font-size: 16px;
 }
 
 .moderador{
-  color: rgb(0, 255, 85);
+  color: rgb(168, 253, 253);
   font-size: 16px;
 }
 
