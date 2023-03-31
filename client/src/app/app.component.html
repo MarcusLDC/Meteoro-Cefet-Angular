@@ -5,7 +5,7 @@
              CoMet - LAPA - Monitoramento Ambiental </a> <p>
     </div>
     <div class="right-column">
-        
+
         <button class="buttonLinks" routerLink="" title="Home - ainda em desenvolvimento"> HOME </button>
         <button class="buttonLinks" routerLink="dados" title="Ver os últimos 100 dados das estações meteorológicas"> DADOS </button>
         <button class="buttonLinks" routerLink="consulta" title="Realizar uma consulta específica ao Banco de Dados"> WIP-CONSULTA AO BD </button>
@@ -25,13 +25,15 @@
 </div>
 
 <div class="divDropdown esconder"> 
-    <button class="buttonLinks" routerLink="" title="Home - ainda em desenvolvimento"> HOME </button> <br>
-    <button class="buttonLinks" routerLink="dados" title="Ver os últimos 100 dados das estações meteorológicas"> DADOS </button> <br>
-    <button class="buttonLinks" routerLink="consulta" title="Realizar uma consulta específica ao Banco de Dados"> CONSULTA </button> <br>
-    <button class="buttonLinks" routerLink="estacoes" title="Mais informações sobre as estações"> ESTAÇÕES </button> <br>
 
-    <button class="buttonLinks buttonEnd" *ngIf="!logado" routerLink="login"> LOGIN </button>
-    <button class="buttonLinks buttonEnd logado" *ngIf="logado" routerLink="login"> ADMINISTRADOR </button>
+    <button class="buttonMenu logado admin" *ngIf="(logado && admin)" routerLink="login"> ADMINISTRADOR </button>
+    <button class="buttonMenu logado moderador" *ngIf="(logado && !admin)" routerLink="login"> MODERADOR </button>
+
+    <button class="buttonMenu" routerLink="" title="Home - ainda em desenvolvimento"> HOME </button> <br>
+    <button class="buttonMenu" routerLink="dados" title="Ver os últimos 100 dados das estações meteorológicas"> DADOS </button> <br>
+    <button class="buttonMenu" routerLink="consulta" title="Realizar uma consulta específica ao Banco de Dados"> CONSULTA </button> <br>
+    <button class="buttonMenu" routerLink="estacoes" title="Mais informações sobre as estações"> ESTAÇÕES </button> <br>
+    <button class="buttonMenu" *ngIf="!logado" routerLink="login"> LOGIN </button>
     
 </div>
 

@@ -28,11 +28,26 @@
   background-color: #161B22;
 }
 
+.buttonMenu{
+  border: 2px;
+  width: 100%;
+  color: white;
+  padding: 15px 15px;
+  text-align: center;
+  font-size: 15px;
+  display: inline-block;
+  background-color: #161B22;
+}
+
 .buttonEnd{
   margin-right: 9%;
 }
 
 .buttonLinks:hover {
+  background-color: #0c0f13;
+}
+
+.buttonMenu:hover{
   background-color: #0c0f13;
 }
 
