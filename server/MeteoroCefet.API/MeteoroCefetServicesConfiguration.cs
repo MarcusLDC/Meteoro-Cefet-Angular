@@ -8,6 +8,7 @@ namespace MeteoroCefet.API
         {
             services.AddTransient<DadosTempoRepository>();
             services.AddTransient<EstacaoRepository>();
+            services.AddTransient<UsersRepository>();
         }
     }
 }

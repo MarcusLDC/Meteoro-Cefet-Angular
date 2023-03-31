@@ -2,7 +2,7 @@
     <div *ngIf="estacaoSelecionada">
         <mat-card class="card">
             <mat-card-header>
-                <p class="title"> Dados originais - ESTAÇÃO ID: {{estacaoSelecionada.numero}}</p>
+                <p class="title"> Dados originais - Estação de ID: ({{estacaoSelecionada.numero}})</p>
             </mat-card-header>
             <mat-card-content class="cardContent">
                 <div style="display: flex; flex-flow: row nowrap;">
@@ -11,17 +11,17 @@
                         <strong> Latitude: </strong> {{estacaoSelecionada.latitude}} <br><br>
                         <strong> Longitude: </strong> {{estacaoSelecionada.longitude}} <br>
                     </div>
-                <div style="display: inline-block; vertical-align: top;">
-                        <strong> Status: </strong> {{estacaoSelecionada.status}} <br><br>
-                        <strong> Altitude: </strong> {{estacaoSelecionada.altitude}}m <br><br>
-                        <strong> Altura: </strong> {{estacaoSelecionada.altura}}m <br>
-                </div>
-            </div>  
+                    <div style="display: inline-block; vertical-align: top;">
+                            <strong> Altura: </strong> {{estacaoSelecionada.altura}}m <br><br>
+                            <strong> Altitude: </strong> {{estacaoSelecionada.altitude}}m <br><br>
+                            <strong> Status: </strong> {{estacaoSelecionada.status}} <br>
+                    </div>
+                </div>  
             </mat-card-content>
         </mat-card>
         <mat-card class="card">
             <mat-card-header>
-                <p class="title"> Dados editados - ESTAÇÃO ID: {{estacaoSelecionada.numero}}</p>
+                <p class="title"> Editar dados para a Estação de ID: ({{estacaoSelecionada.numero}})</p>
                 <p class="subtitle"> Tudo que não for editado permanecerá com o mesmo valor do dado original</p>
             </mat-card-header>
             <mat-card-content [formGroup]="form">

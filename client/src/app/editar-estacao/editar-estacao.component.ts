@@ -29,30 +29,33 @@ export class EditarEstacaoComponent {
     this.meteoroServices.getEstacoes().subscribe(x => {
       this.estacoes = x
       this.route.params.subscribe(params => {
-          this.estacaoSelecionada = this.estacoes.find(item => item.numero === Number(params['id']));
+          this.estacaoSelecionada = this.estacoes.find(item => item.numero === Number(params['id'])); // busca a estação que veio pelo id da rota
       });
     });
   }
 
   public confirmar(){
     if(this.estacaoSelecionada != undefined){
-      if(this.form.value.nome == null) this.form.patchValue({nome: this.estacaoSelecionada.nome});
+      if(this.form.value.nome == null) this.form.patchValue({nome: this.estacaoSelecionada.nome}); // se nulo, repetir o valor
       if(this.form.value.status == null) this.form.patchValue({status: this.estacaoSelecionada.status});
       if(this.form.value.latitude == null) this.form.patchValue({latitude: this.estacaoSelecionada.latitude});
       if(this.form.value.longitude == null) this.form.patchValue({longitude: this.estacaoSelecionada.longitude});
       if(this.form.value.altitude == null) this.form.patchValue({altitude: this.estacaoSelecionada.altitude});
       if(this.form.value.altura == null) this.form.patchValue({altura: this.estacaoSelecionada.altura});
       this.estacaoEditada = {
-        id: this.estacaoSelecionada.id,
+
+        id: this.estacaoSelecionada.id, // dados imutáveis
         numero: this.estacaoSelecionada.numero,
-        dataInicio: this.estacaoSelecionada.dataInicio,
-        nome: this.form.value.nome,
+        dataInicio: this.estacaoSelecionada.dataInicio, // fim-dados imutáveis
+
+        nome: this.form.value.nome, 
         status: this.form.value.status,
         latitude: this.form.value.latitude,
         longitude: this.form.value.longitude,
         altitude: this.form.value.altitude,
         altura: this.form.value.altura
       }
+      // this.meteoroServices.editarEstacao(this.estacaoEditada).subscribe();
     }
     
     if (window.confirm('Deseja confirmar essa ação?')) {

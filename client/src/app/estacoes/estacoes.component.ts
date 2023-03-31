@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { Observable } from 'rxjs';
 import { Estacao } from '../shared/models/estacao-model';
+import { LocalStorageServices } from '../shared/services/local-storage-services';
 import { MeteoroServices } from '../shared/services/meteoro-services';
 
 @Component({
@@ -13,10 +14,13 @@ export class EstacoesComponent{
   form: FormGroup;
   estacoes: Observable<Estacao[]>;
 
-  constructor(private builder: FormBuilder, private meteoroServices: MeteoroServices) {
+  constructor(private builder: FormBuilder, private localStorage: LocalStorageServices, private meteoroServices: MeteoroServices) {
     this.form = builder.group({
     
     });
-    this.estacoes = this.meteoroServices.getEstacoes();
+    this.estacoes = this.meteoroServices.getEstacoes(); 
+  }
+  async ngOnInit(): Promise<void> {
+    
   }
 }
