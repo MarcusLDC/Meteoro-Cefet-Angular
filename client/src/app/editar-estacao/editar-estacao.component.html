@@ -1,5 +1,5 @@
 <div class="body">
-    <div *ngIf="estacaoSelecionada">
+    <div *ngIf="(estacaoSelecionada && logado)">
         <mat-card class="card">
             <mat-card-header>
                 <p class="title"> Dados originais - Estação de ID: ({{estacaoSelecionada.numero}})</p>
@@ -59,7 +59,7 @@
             </mat-card-actions>
         </mat-card>
     </div>
-    <mat-card class="card" *ngIf="!estacaoSelecionada">
+    <mat-card class="card" *ngIf="(!estacaoSelecionada || !logado)">
         <mat-card-content class="cardContent">
             <p> A estação não existe ou você não está logado como administrador</p>
         </mat-card-content>

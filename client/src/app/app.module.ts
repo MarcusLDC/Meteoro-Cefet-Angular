@@ -22,6 +22,7 @@ import { LoginComponent } from './login/login.component';
 import { EditarEstacaoComponent } from './editar-estacao/editar-estacao.component';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { transform } from '../app/shared/pipes/transform';
+import { JwtModule } from '@auth0/angular-jwt';
 
 @NgModule({
   declarations: [
@@ -35,6 +36,13 @@ import { transform } from '../app/shared/pipes/transform';
   ],
   imports: [
     BrowserModule,
+    JwtModule.forRoot({
+      config: {
+        tokenGetter: tokenGet,
+        allowedDomains: ['localhost:4200', 'https://meteoro-cefet-front.fly.dev/'],
+        disallowedRoutes: ['localhost:4200/login', 'https://meteoro-cefet-front.fly.dev/login'],
+      },
+    }),
     AppRoutingModule,
     NgbModule,
     BrowserAnimationsModule,
@@ -49,7 +57,7 @@ import { transform } from '../app/shared/pipes/transform';
     MatSelectModule,
     HttpClientModule,
     MatTableModule,
-    MatGridListModule
+    MatGridListModule,
   ],
   providers: [
     MatDatepickerModule,
@@ -59,4 +67,11 @@ import { transform } from '../app/shared/pipes/transform';
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   bootstrap: [AppComponent]
 })
+
 export class AppModule { }
+
+export function tokenGet() {
+  return localStorage.getItem('token');
+}
+
+

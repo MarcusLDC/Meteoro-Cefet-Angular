@@ -1,5 +1,5 @@
 <div class="body">
-    <mat-card class="card">
+    <mat-card class="card" *ngIf="!logado">
         <mat-card-header class="title">
             Realizando login: 
         </mat-card-header>
@@ -15,6 +15,14 @@
         </mat-card-content>
         <mat-card-actions>
             <button mat-raised-button color="warn" class="botao" (click)="confirmar()"> Logar </button>
+            <button mat-raised-button class="botao" routerLink="/dados"> Cancelar </button>
+        </mat-card-actions>
+    </mat-card>
+    <mat-card class="card" *ngIf="logado">
+        <mat-card-header class="title">
+            Você já está logado!
+        </mat-card-header>
+        <mat-card-actions>
             <button mat-raised-button class="botao" routerLink="/dados"> Cancelar </button>
         </mat-card-actions>
     </mat-card>

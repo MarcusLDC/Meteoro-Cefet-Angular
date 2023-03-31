@@ -59,7 +59,7 @@ namespace MeteoroCefet.API.Endpoints
             var tokenDescriptor = new SecurityTokenDescriptor
             {
                 Subject = claims,
-                Expires = DateTime.UtcNow.AddMinutes(2),
+                Expires = DateTime.UtcNow.AddMinutes(30),
                 Issuer = "Comet-Lapa",
                 Audience = "MeteoroCefet",
                 SigningCredentials = new SigningCredentials(key, SecurityAlgorithms.HmacSha256Signature)
@@ -68,8 +68,6 @@ namespace MeteoroCefet.API.Endpoints
             var token = tokenHandler.CreateToken(tokenDescriptor);
 
             var newTokenString = tokenHandler.WriteToken(token);
-
-            // var newTokenString = JsonConvert.SerializeObject(token);
 
             return newTokenString;
         }

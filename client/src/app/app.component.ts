@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { AuthService } from '../app/shared/services/auth-services';
 
 @Component({
   selector: 'app-root',
@@ -12,8 +13,11 @@ export class AppComponent {
   
   buttonMenu!: HTMLElement | null;
   divDropdown!: HTMLElement | null;
+  logado: boolean = false;
 
-  ngOnInit(): void {
+  constructor(private auth: AuthService){}
+
+  async ngOnInit(): Promise<void> {
     this.buttonMenu = document.getElementById('buttonMenu');
     this.divDropdown = document.querySelector('.divDropdown');
 
@@ -22,5 +26,10 @@ export class AppComponent {
         this.divDropdown!.classList.toggle('esconder');
       });
     }
+
+    this.logado = await this.auth.isLogged();
+    setInterval(async () => {
+      this.logado = await this.auth.isLogged();
+    }, 30000);
   }
 } 
