@@ -50,8 +50,8 @@ export class DadosComponent implements OnInit {
 
   myIcon = L.icon({
     iconUrl: 'assets/marker.png',
-    iconSize: [25, 30],
-    iconAnchor: [20, 30],
+    iconSize: [25, 35],
+    iconAnchor: [20, 35],
     popupAnchor: [0, -30]
   });
 

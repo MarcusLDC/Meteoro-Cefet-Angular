@@ -15,7 +15,6 @@ export class AppComponent {
   divDropdown!: HTMLElement | null;
   logado: boolean = false;
   admin: boolean = false;
-
   constructor(private auth: AuthService){}
 
   async ngOnInit(): Promise<void> {
@@ -27,6 +26,13 @@ export class AppComponent {
         this.divDropdown!.classList.toggle('esconder');
       });
     }
+
+    document.addEventListener('click', (event) => {
+      const isClickedInside = this.divDropdown!.contains(event.target as Node) || this.buttonMenu!.contains(event.target as Node);
+      if (!isClickedInside) {
+        this.divDropdown!.classList.add('esconder');
+      }
+    });
 
     this.logado = await this.auth.isLogged();
     setInterval(async () => {

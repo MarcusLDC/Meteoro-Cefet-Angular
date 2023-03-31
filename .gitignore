@@ -6,3 +6,4 @@
 obj
 bin
 .env
+/server/MeteoroCefet.API/Endpoints/LoginEndpoint.cs

@@ -5,21 +5,22 @@
              CoMet - LAPA - Monitoramento Ambiental </a> <p>
     </div>
     <div class="right-column">
+        
         <button class="buttonLinks" routerLink="" title="Home - ainda em desenvolvimento"> HOME </button>
         <button class="buttonLinks" routerLink="dados" title="Ver os últimos 100 dados das estações meteorológicas"> DADOS </button>
         <button class="buttonLinks" routerLink="consulta" title="Realizar uma consulta específica ao Banco de Dados"> WIP-CONSULTA AO BD </button>
         <button class="buttonLinks" routerLink="estacoes" title="Mais informações sobre as estações"> ESTAÇÕES </button> 
 
         <button class="buttonLinks buttonEnd" *ngIf="!logado" routerLink="login"> LOGIN </button>
-        <button class="buttonLinks buttonEnd admin" *ngIf="(logado && admin)" routerLink="login"> ADMINISTRADOR </button>
         <button class="buttonLinks buttonEnd moderador" *ngIf="(logado && !admin)" routerLink="login"> MODERADOR </button>
+        <button class="buttonLinks buttonEnd admin" *ngIf="(logado && admin)" routerLink="login"> ADMINISTRADOR </button>
 
     </div> 
     <div class="logoDropdown esconder">
         <p class="navBarLogo"> <a href="http://meteoro.cefet-rj.br/" title="http://meteoro.cefet-rj.br/" style="color: white;"> CoMet</a> <p>
     </div>
     <div class="menuDropdown esconder">
-        <button class="buttonLinks" id="buttonMenu"> <img src="../assets/menu.png" height="30px" width="30px"> </button>
+        <button class="buttonLinks" id="buttonMenu"> MENU </button>
     </div>
 </div>
 
@@ -30,8 +31,7 @@
     <button class="buttonLinks" routerLink="estacoes" title="Mais informações sobre as estações"> ESTAÇÕES </button> <br>
 
     <button class="buttonLinks buttonEnd" *ngIf="!logado" routerLink="login"> LOGIN </button>
-    <button class="buttonLinks buttonEnd admin" *ngIf="(logado && admin)" routerLink="login"> ADMINISTRADOR </button>
-    <button class="buttonLinks buttonEnd moderador" *ngIf="(logado && !admin)" routerLink="login"> MODERADOR </button>
+    <button class="buttonLinks buttonEnd logado" *ngIf="logado" routerLink="login"> ADMINISTRADOR </button>
     
 </div>
 
