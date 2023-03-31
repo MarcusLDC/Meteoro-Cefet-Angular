@@ -36,17 +36,18 @@ namespace MeteoroCefet.API.Endpoints
 
             if (acesso)
             {
-                return new() { Success = true, Jwt = GenerateToken(usuario.Username)};
+                return new() { Success = true, Jwt = GenerateToken(usuario.Username, usuario.Role)};
             }
 
             return new() { Success = false, Message = "Credenciais incorretas" };
         }
-        private static string GenerateToken(string username)
+        private static string GenerateToken(string username, string role)
         {
             var tokenHandler = new JwtSecurityTokenHandler();
 
             var claims = new ClaimsIdentity(new[] {
-                new Claim("username", username)
+                new Claim("username", username),
+                new Claim("role", role)
             });
 
             var key = new SymmetricSecurityKey(new byte[32]);
@@ -59,7 +60,7 @@ namespace MeteoroCefet.API.Endpoints
             var tokenDescriptor = new SecurityTokenDescriptor
             {
                 Subject = claims,
-                Expires = DateTime.UtcNow.AddMinutes(30),
+                Expires = DateTime.UtcNow.AddDays(1),
                 Issuer = "Comet-Lapa",
                 Audience = "MeteoroCefet",
                 SigningCredentials = new SigningCredentials(key, SecurityAlgorithms.HmacSha256Signature)

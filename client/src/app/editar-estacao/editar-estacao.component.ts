@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Estacao } from '../shared/models/estacao-model';
 import { AuthService } from '../shared/services/auth-services';
 import { MeteoroServices } from '../shared/services/meteoro-services';
@@ -19,7 +19,7 @@ export class EditarEstacaoComponent {
   estacaoSelecionada: Estacao | undefined;
   estacaoEditada: Estacao | undefined;
 
-  constructor(private route: ActivatedRoute, private builder: FormBuilder, private meteoroServices: MeteoroServices, private auth: AuthService) {
+  constructor(private route: ActivatedRoute, private builder: FormBuilder, private meteoroServices: MeteoroServices, private auth: AuthService, private router: Router) {
     this.form = builder.group({
       nome: [null],
       status: [null],
@@ -59,7 +59,7 @@ export class EditarEstacaoComponent {
           dataInicio: this.estacaoSelecionada.dataInicio, // fim-dados imutáveis
 
           nome: this.form.value.nome, 
-          status: this.form.value.status,
+          status: this.form.value.status, // alterar depois!!!!!!
           latitude: this.form.value.latitude,
           longitude: this.form.value.longitude,
           altitude: this.form.value.altitude,
@@ -70,11 +70,11 @@ export class EditarEstacaoComponent {
       
       if (window.confirm('Deseja confirmar essa ação?')) {
         alert('Estação editada com sucesso!');
-        window.location.href = '/estacoes';
+        this.router.navigate(['/estacoes']);
       }
     }else{
        alert('Você não está logado ou sua sessão expirou');
-       window.location.href = '/estacoes';
+       this.router.navigate(['/login']);
     }
   }
 }

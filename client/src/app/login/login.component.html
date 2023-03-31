@@ -19,10 +19,14 @@
         </mat-card-actions>
     </mat-card>
     <mat-card class="card" *ngIf="logado">
-        <mat-card-header class="title">
-            Você já está logado!
+        <mat-card-header class="title" *ngIf="admin">
+            Você está logado como <strong> Administrador </strong>
+        </mat-card-header>
+        <mat-card-header class="title" *ngIf="!admin">
+            Você está logado como <strong> Moderador </strong>
         </mat-card-header>
         <mat-card-actions>
+            <button mat-raised-button color="warn" class="botao" routerLink="/dados" (click)="logout()"> Deslogar </button>
             <button mat-raised-button class="botao" routerLink="/dados"> Cancelar </button>
         </mat-card-actions>
     </mat-card>

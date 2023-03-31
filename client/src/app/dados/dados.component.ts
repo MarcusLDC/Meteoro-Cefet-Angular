@@ -49,9 +49,9 @@ export class DadosComponent implements OnInit {
   criado: boolean = true;
 
   myIcon = L.icon({
-    iconUrl: 'assets/cefet_logo.png',
-    iconSize: [30, 30],
-    iconAnchor: [19, 30],
+    iconUrl: 'assets/marker.png',
+    iconSize: [25, 30],
+    iconAnchor: [20, 30],
     popupAnchor: [0, -30]
   });
 
