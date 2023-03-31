@@ -59,7 +59,7 @@ export class EditarEstacaoComponent {
           dataInicio: this.estacaoSelecionada.dataInicio, // fim-dados imutáveis
 
           nome: this.form.value.nome, 
-          status: this.form.value.status,
+          status: this.estacaoSelecionada.status, // alterar depois!!!!!!
           latitude: this.form.value.latitude,
           longitude: this.form.value.longitude,
           altitude: this.form.value.altitude,
