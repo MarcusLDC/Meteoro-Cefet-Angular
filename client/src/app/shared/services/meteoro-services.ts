@@ -6,6 +6,7 @@ import { ConsultaModel } from "../models/consulta-model";
 import { DadosTempo } from "../models/dados-tempo-model";
 import { Estacao } from "../models/estacao-model";
 import { UserModel } from "../models/user-model";
+import { AuthenticationDTO } from "./DTOs/authentication-DTO";
 
 @Injectable({ providedIn: "root" })
 export class MeteoroServices {
@@ -33,6 +34,6 @@ export class MeteoroServices {
     }
     public login(user: UserModel){
         let endpoint = `${environment.apiUrl}/login`
-        return this.httpClient.post<String>(endpoint, user)
+        return this.httpClient.post<AuthenticationDTO>(endpoint, user)
     }
 }

@@ -1,4 +1,4 @@
 export class UserModel {
-    usuario: string = '';
-    senha: string = '';
+    username: string = '';
+    password: string = '';
 }

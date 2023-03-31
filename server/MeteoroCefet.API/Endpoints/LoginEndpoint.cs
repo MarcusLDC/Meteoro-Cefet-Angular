@@ -7,6 +7,9 @@ using Microsoft.IdentityModel.Tokens;
 using System;
 using System.Text;
 using System.Security.Cryptography;
+using MeteoroCefet.Domain.Entities;
+using Microsoft.Extensions.Logging;
+using Newtonsoft.Json;
 
 namespace MeteoroCefet.API.Endpoints
 {
@@ -14,27 +17,29 @@ namespace MeteoroCefet.API.Endpoints
     {
         public void DefineEndpoints(WebApplication app)
         {
-            app.MapPost("login", Handler);
+            app.MapPost("/login", Handler);
         }
-        private static async Task<string> Handler([FromServices] UsersRepository repository, [FromBody] UserInformationDTO userDTO)
+        private static async Task<AuthorizationDTO> Handler([FromServices] ILogger<ApplicationUser> log, [FromServices] UsersRepository repository, [FromBody] UserInformationDTO userDTO)
         {
             var usuario = await repository.GetByUsername(userDTO.Username);
 
-            if (usuario != null)
+            if (usuario is null)
             {
-                bool acesso = Verify(userDTO.Password, usuario.Password);
+                log.LogInformation("Tentativa de login com usuário inválido: {userDTO.Username}", userDTO.Username);
 
-                if (acesso)
-                {
-                    return GenerateToken(usuario.Username);
-                }
-                else
-                {
-                    return "Acesso negado";
-                }
-            } else {
-                return "Acesso negado";
+                return new() { Success = false, Message = "Credenciais incorretas"};
             }
+
+            bool acesso = Verify(userDTO.Password, usuario.Password);
+
+            log.LogInformation("Tentativa de login: {userDTO.Username} , Status de acesso: {acesso} ", userDTO.Username, acesso);
+
+            if (acesso)
+            {
+                return new() { Success = true, Jwt = GenerateToken(usuario.Username)};
+            }
+
+            return new() { Success = false, Message = "Credenciais incorretas" };
         }
         private static string GenerateToken(string username)
         {
@@ -54,7 +59,7 @@ namespace MeteoroCefet.API.Endpoints
             var tokenDescriptor = new SecurityTokenDescriptor
             {
                 Subject = claims,
-                Expires = DateTime.UtcNow.AddMinutes(10),
+                Expires = DateTime.UtcNow.AddMinutes(2),
                 Issuer = "Comet-Lapa",
                 Audience = "MeteoroCefet",
                 SigningCredentials = new SigningCredentials(key, SecurityAlgorithms.HmacSha256Signature)
@@ -64,8 +69,9 @@ namespace MeteoroCefet.API.Endpoints
 
             var newTokenString = tokenHandler.WriteToken(token);
 
+            // var newTokenString = JsonConvert.SerializeObject(token);
+
             return newTokenString;
         }
-        
     }
 }

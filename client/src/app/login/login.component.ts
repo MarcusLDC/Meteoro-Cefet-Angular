@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { UserModel } from '../shared/models/user-model';
+import { LocalStorageServices } from '../shared/services/local-storage-services';
 import { MeteoroServices } from '../shared/services/meteoro-services';
 
 @Component({
@@ -11,24 +12,28 @@ import { MeteoroServices } from '../shared/services/meteoro-services';
 export class LoginComponent {
 
   form: FormGroup;
-  usuario: UserModel | undefined;
+  user: UserModel | undefined;
+  token: string | undefined;
 
-  constructor(private builder: FormBuilder, private meteoroServices: MeteoroServices) {
+  constructor(private builder: FormBuilder, private localStorage: LocalStorageServices, private meteoroServices: MeteoroServices) {
     this.form = builder.group({
       usuario: [null, Validators.required],
       senha: [null, Validators.required],
     });
   }
 
-  public confirmar(){
+  public async confirmar(){
     if(this.form.value.usuario == null || this.form.value.senha == null){
       alert("Um ou mais campos não preenchidos.");
     }else{
-      this.usuario = {
-        usuario: this.form.value.usuario,
-        senha: this.form.value.senha
+      this.user = {
+        username: this.form.value.usuario,
+        password: this.form.value.senha
       }
-      console.log(this.meteoroServices.login(this.usuario).subscribe());
+      this.meteoroServices.login(this.user).subscribe(x => {   //this.localStorage.get<string>('token');
+        this.token = x.jwt;
+        this.localStorage.set('token', this.token);
+      });
     }
   }
 }
