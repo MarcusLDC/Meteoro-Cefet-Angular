@@ -24,6 +24,8 @@ import { MatGridListModule } from '@angular/material/grid-list';
 import { transform } from '../app/shared/pipes/transform';
 import { JwtModule } from '@auth0/angular-jwt';
 import { AdminComponent } from './admin/admin.component';
+import { MatIconModule } from '@angular/material/icon';
+import { MatMenuModule } from '@angular/material/menu';
 
 @NgModule({
   declarations: [
@@ -60,6 +62,8 @@ import { AdminComponent } from './admin/admin.component';
     HttpClientModule,
     MatTableModule,
     MatGridListModule,
+    MatIconModule,
+    MatMenuModule
   ],
   providers: [
     MatDatepickerModule,

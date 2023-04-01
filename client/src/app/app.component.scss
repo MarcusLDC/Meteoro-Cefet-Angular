@@ -6,6 +6,10 @@
   margin: auto;
 }
 
+.menu{
+  padding-right: 2.5rem;
+}
+
 #footer{
     background-color: #161B22;
     color: white;
@@ -29,7 +33,7 @@
 }
 
 .buttonMenu{
-  border: 2px;
+  border: 1px;
   width: 100%;
   color: white;
   padding: 15px 15px;
@@ -83,21 +87,11 @@
 }
 
 .menuDropdown{
-  margin-right: 4%;
+  padding: 0px;
 }
 
 .logoDropdown{
   margin-left: 5%;
-}
-
-.divDropdown{
-  background-color: #161B22;
-  display: block;
-  position: absolute;
-  top: 49px;
-  right: calc(2% + 4%);
-  z-index: 9999;
-  text-align: center;
 }
 
 .esconder {

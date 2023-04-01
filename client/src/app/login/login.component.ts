@@ -18,12 +18,14 @@ export class LoginComponent {
   token: string | undefined;
   logado: boolean = false;
   admin: boolean = false;
+  hide = true;
 
   constructor(private builder: FormBuilder, private localStorage: LocalStorageServices, private meteoroServices: MeteoroServices, private auth: AuthService, private router: Router) {
     this.form = builder.group({
       usuario: [null, Validators.required],
       senha: [null, Validators.required],
     });
+    
   }
 
   async ngOnInit(): Promise<void> {

@@ -20,21 +20,20 @@
         <p class="navBarLogo"> <a href="http://meteoro.cefet-rj.br/" title="http://meteoro.cefet-rj.br/" style="color: white;"> CoMet</a> <p>
     </div>
     <div class="menuDropdown esconder">
-        <button class="buttonLinks" id="buttonMenu"> MENU </button>
+        <button mat-button [matMenuTriggerFor]="beforeMenu" class="menu"><img src="../assets/menu.png" height="30px"></button>
+        <mat-menu #beforeMenu="matMenu" xPosition="before">
+
+            <button class="buttonMenu logado admin" *ngIf="(logado && admin)" routerLink="login"> ADMINISTRADOR </button>
+            <button class="buttonMenu logado moderador" *ngIf="(logado && !admin)" routerLink="login"> MODERADOR </button>
+
+            <button class="buttonMenu" routerLink="" title="Home - ainda em desenvolvimento"> HOME </button>
+            <button class="buttonMenu" routerLink="dados" title="Ver os últimos 100 dados das estações meteorológicas"> DADOS </button> <br>
+            <button class="buttonMenu" routerLink="consulta" title="Realizar uma consulta específica ao Banco de Dados"> CONSULTA </button> <br>
+            <button class="buttonMenu" routerLink="estacoes" title="Mais informações sobre as estações"> ESTAÇÕES </button> <br>
+            <button class="buttonMenu" *ngIf="!logado" routerLink="login"> LOGIN </button>
+
+        </mat-menu>
     </div>
-</div>
-
-<div class="divDropdown esconder"> 
-
-    <button class="buttonMenu logado admin" *ngIf="(logado && admin)" routerLink="login"> ADMINISTRADOR </button>
-    <button class="buttonMenu logado moderador" *ngIf="(logado && !admin)" routerLink="login"> MODERADOR </button>
-
-    <button class="buttonMenu" routerLink="" title="Home - ainda em desenvolvimento"> HOME </button> <br>
-    <button class="buttonMenu" routerLink="dados" title="Ver os últimos 100 dados das estações meteorológicas"> DADOS </button> <br>
-    <button class="buttonMenu" routerLink="consulta" title="Realizar uma consulta específica ao Banco de Dados"> CONSULTA </button> <br>
-    <button class="buttonMenu" routerLink="estacoes" title="Mais informações sobre as estações"> ESTAÇÕES </button> <br>
-    <button class="buttonMenu" *ngIf="!logado" routerLink="login"> LOGIN </button>
-    
 </div>
 
 <router-outlet></router-outlet>
