@@ -26,6 +26,7 @@ import { JwtModule } from '@auth0/angular-jwt';
 import { AdminComponent } from './admin/admin.component';
 import { MatIconModule } from '@angular/material/icon';
 import { MatMenuModule } from '@angular/material/menu';
+import { MatExpansionModule } from '@angular/material/expansion';
 
 @NgModule({
   declarations: [
@@ -63,7 +64,8 @@ import { MatMenuModule } from '@angular/material/menu';
     MatTableModule,
     MatGridListModule,
     MatIconModule,
-    MatMenuModule
+    MatMenuModule,
+    MatExpansionModule
   ],
   providers: [
     MatDatepickerModule,

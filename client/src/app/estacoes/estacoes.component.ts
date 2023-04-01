@@ -16,6 +16,7 @@ export class EstacoesComponent{
   form: FormGroup;
   estacoes: Observable<Estacao[]>;
   logado: boolean = false;
+  panelOpenState = false;
 
   constructor
     (private jwtHelper: JwtHelperService, private builder: FormBuilder, 
