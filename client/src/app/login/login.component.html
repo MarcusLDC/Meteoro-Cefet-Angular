@@ -10,7 +10,10 @@
             </mat-form-field>
             <mat-form-field appearance="outline" class="padded">
                 <mat-label>Senha:</mat-label>
-                <input formControlName="senha" matInput type="password"> <!-- fazer o olhinho que toggla ver a senha -->
+                <input formControlName="senha" matInput [type]="hide ? 'password' : 'text'"> <!-- fazer o olhinho que toggla ver a senha -->
+                <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+                    <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+                </button>
             </mat-form-field>
         </mat-card-content>
         <mat-card-actions>

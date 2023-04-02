@@ -10,6 +10,10 @@
     margin-top: 20px;
 }
 
+.example-container mat-form-field + mat-form-field {
+    margin-left: 8px;
+}
+
 .padded{
     padding-top: 15px;
     padding-left: 15px;

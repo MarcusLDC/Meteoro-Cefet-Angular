@@ -24,6 +24,11 @@ import { MatGridListModule } from '@angular/material/grid-list';
 import { transform } from '../app/shared/pipes/transform';
 import { JwtModule } from '@auth0/angular-jwt';
 import { AdminComponent } from './admin/admin.component';
+import { MatIconModule } from '@angular/material/icon';
+import { MatMenuModule } from '@angular/material/menu';
+import { MatExpansionModule } from '@angular/material/expansion';
+import { MatDividerModule } from '@angular/material/divider';
+import { LoginModalComponent } from './login-modal/login-modal.component';
 
 @NgModule({
   declarations: [
@@ -35,6 +40,7 @@ import { AdminComponent } from './admin/admin.component';
     EditarEstacaoComponent,
     transform,
     AdminComponent,
+    LoginModalComponent,
   ],
   imports: [
     BrowserModule,
@@ -60,6 +66,10 @@ import { AdminComponent } from './admin/admin.component';
     HttpClientModule,
     MatTableModule,
     MatGridListModule,
+    MatIconModule,
+    MatMenuModule,
+    MatExpansionModule,
+    MatDividerModule
   ],
   providers: [
     MatDatepickerModule,
