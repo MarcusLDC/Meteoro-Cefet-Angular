@@ -4,12 +4,8 @@ using static BCrypt.Net.BCrypt;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using Microsoft.IdentityModel.Tokens;
-using System;
-using System.Text;
 using System.Security.Cryptography;
 using MeteoroCefet.Domain.Entities;
-using Microsoft.Extensions.Logging;
-using Newtonsoft.Json;
 
 namespace MeteoroCefet.API.Endpoints
 {
