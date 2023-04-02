@@ -31,7 +31,7 @@
         Você está logado como <strong> Moderador </strong>
     </mat-card-header>
     <mat-card-actions>
-        <button mat-raised-button color="primary" class="botao" routerLink="/admin" *ngIf="admin"> Configurações </button>
+        <button mat-raised-button color="primary" class="botao" routerLink="/admin" *ngIf="admin" (click)="closeDialog()"> Configurações </button>
         <button mat-raised-button color="warn" class="botao" (click)="logout()"> Deslogar </button>
         <button mat-raised-button class="botao" (click)="closeDialog()"> Retornar </button>
     </mat-card-actions>
