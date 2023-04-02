@@ -24,8 +24,8 @@
         <button mat-button [matMenuTriggerFor]="beforeMenu" class="menu"><img src="../assets/menu.png" height="30px"></button>
         <mat-menu #beforeMenu="matMenu" xPosition="before">
 
-            <button class="buttonMenu logado admin" *ngIf="(logado && admin)" routerLink="login"> ADMINISTRADOR </button>
-            <button class="buttonMenu logado moderador" *ngIf="(logado && !admin)" routerLink="login"> MODERADOR </button>
+            <button class="buttonMenu logado admin" *ngIf="(logado && admin)" (click)="openDialog()"> ADMINISTRADOR </button>
+            <button class="buttonMenu logado moderador" *ngIf="(logado && !admin)" (click)="openDialog()"> MODERADOR </button>
 
             <button class="buttonMenu" routerLink="" title="Home - ainda em desenvolvimento"> HOME </button>
             <button class="buttonMenu" routerLink="dados" title="Ver os últimos 100 dados das estações meteorológicas"> DADOS </button> <br>
