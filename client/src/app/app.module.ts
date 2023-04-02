@@ -27,6 +27,8 @@ import { AdminComponent } from './admin/admin.component';
 import { MatIconModule } from '@angular/material/icon';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatExpansionModule } from '@angular/material/expansion';
+import { MatDividerModule } from '@angular/material/divider';
+import { LoginModalComponent } from './login-modal/login-modal.component';
 
 @NgModule({
   declarations: [
@@ -38,6 +40,7 @@ import { MatExpansionModule } from '@angular/material/expansion';
     EditarEstacaoComponent,
     transform,
     AdminComponent,
+    LoginModalComponent,
   ],
   imports: [
     BrowserModule,
@@ -65,7 +68,8 @@ import { MatExpansionModule } from '@angular/material/expansion';
     MatGridListModule,
     MatIconModule,
     MatMenuModule,
-    MatExpansionModule
+    MatExpansionModule,
+    MatDividerModule
   ],
   providers: [
     MatDatepickerModule,

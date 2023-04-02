@@ -1,5 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, Inject} from '@angular/core';
 import { AuthService } from '../app/shared/services/auth-services';
+import { MatDialog, MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
+import { LoginModalComponent } from './login-modal/login-modal.component';
 
 @Component({
   selector: 'app-root',
@@ -14,7 +16,8 @@ export class AppComponent {
   buttonMenu!: HTMLElement | null;
   divDropdown!: HTMLElement | null;
   logado: boolean = false;
-  admin: boolean = false;
+  admin: boolean = false; 
+
   constructor(private auth: AuthService){}
 
   async ngOnInit(): Promise<void> {

@@ -12,6 +12,7 @@
         <button class="buttonLinks" routerLink="estacoes" title="Mais informações sobre as estações"> ESTAÇÕES </button> 
 
         <button class="buttonLinks buttonEnd" *ngIf="!logado" routerLink="login"> LOGIN </button>
+
         <button class="buttonLinks buttonEnd moderador" *ngIf="(logado && !admin)" routerLink="login"> MODERADOR </button>
         <button class="buttonLinks buttonEnd admin" *ngIf="(logado && admin)" routerLink="login"> ADMINISTRADOR </button>
 
@@ -30,6 +31,7 @@
             <button class="buttonMenu" routerLink="dados" title="Ver os últimos 100 dados das estações meteorológicas"> DADOS </button> <br>
             <button class="buttonMenu" routerLink="consulta" title="Realizar uma consulta específica ao Banco de Dados"> CONSULTA </button> <br>
             <button class="buttonMenu" routerLink="estacoes" title="Mais informações sobre as estações"> ESTAÇÕES </button> <br>
+
             <button class="buttonMenu" *ngIf="!logado" routerLink="login"> LOGIN </button>
 
         </mat-menu>

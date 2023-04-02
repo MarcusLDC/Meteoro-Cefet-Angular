@@ -29,7 +29,7 @@
   text-align: center;
   font-size: 15px;
   display: inline-block;
-  background-color: #161B22;
+  background-color: inherit;
 }
 
 .buttonMenu{
@@ -48,7 +48,7 @@
 }
 
 .buttonLinks:hover {
-  background-color: #0c0f13;
+  background-color: #070e18;
 }
 
 .buttonMenu:hover{
@@ -57,7 +57,7 @@
 
 .navBar{
   max-width: 100%; // 1400px max
-  background-color: #161B22;
+  background-color: #121d2e;
   width: 100%;
   position: fixed;
   top: 0;
@@ -98,13 +98,14 @@
   display: none;
 }
 
+
 .admin{
-  color: rgb(0, 255, 255);
+  color: rgb(255, 187, 0);
   font-size: 16px;
 }
 
 .moderador{
-  color: rgb(168, 253, 253);
+  color: rgb(0, 255, 106);
   font-size: 16px;
 }
 
