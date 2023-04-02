@@ -23,7 +23,7 @@ export class AuthService {
   }
 
   public async logout(): Promise<void>{
-    await this.localStorage.set<string>('token', 'null');
+    await this.localStorage.remove('token');
   }
 
   private async getToken(): Promise<string>{

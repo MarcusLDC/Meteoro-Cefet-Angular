@@ -27,7 +27,8 @@ th.mat-sort-header-sorted {
 }
 
 .body{
-    padding-top: 50px;
+    font-family: Roboto, "Helvetica Neue", sans-serif;
+    padding-top: 60px;
     max-width: 90%;
     margin: auto;
     display: flex;
@@ -49,6 +50,7 @@ th.mat-sort-header-sorted {
 }
 
 .card{
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.3);
     margin-bottom: 10px;
     margin-top: 10px;
 }
@@ -66,6 +68,7 @@ th.mat-sort-header-sorted {
 }
 
 .center{
+    font-size: 16px;
     text-align: center;
     font-weight: 500;
     background-color: #9df095;

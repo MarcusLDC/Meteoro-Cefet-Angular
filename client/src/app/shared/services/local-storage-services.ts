@@ -13,4 +13,7 @@ export class LocalStorageServices {
     public async set<T>(key: string, value: T): Promise<void> {
         await new Promise<void>(r => this.localStorage.setItem(key, value).subscribe(_ => r()));
     }
+    public async remove(key: string): Promise<void> {
+        await new Promise<void>(r => this.localStorage.removeItem(key).subscribe(_ => r()));
+    }
 }
