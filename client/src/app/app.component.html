@@ -11,10 +11,10 @@
         <button class="buttonLinks" routerLink="consulta" title="Realizar uma consulta específica ao Banco de Dados"> WIP-CONSULTA AO BD </button>
         <button class="buttonLinks" routerLink="estacoes" title="Mais informações sobre as estações"> ESTAÇÕES </button> 
 
-        <button class="buttonLinks buttonEnd" *ngIf="!logado" routerLink="login"> LOGIN </button>
+        <button class="buttonLinks buttonEnd" *ngIf="!logado" (click)="openDialog()"> LOGIN </button>
 
-        <button class="buttonLinks buttonEnd moderador" *ngIf="(logado && !admin)" routerLink="login"> MODERADOR </button>
-        <button class="buttonLinks buttonEnd admin" *ngIf="(logado && admin)" routerLink="login"> ADMINISTRADOR </button>
+        <button class="buttonLinks buttonEnd moderador" *ngIf="(logado && !admin)" (click)="openDialog()"> MODERADOR </button>
+        <button class="buttonLinks buttonEnd admin" *ngIf="(logado && admin)" (click)="openDialog()"> ADMINISTRADOR </button>
 
     </div> 
     <div class="logoDropdown esconder">
@@ -32,7 +32,7 @@
             <button class="buttonMenu" routerLink="consulta" title="Realizar uma consulta específica ao Banco de Dados"> CONSULTA </button> <br>
             <button class="buttonMenu" routerLink="estacoes" title="Mais informações sobre as estações"> ESTAÇÕES </button> <br>
 
-            <button class="buttonMenu" *ngIf="!logado" routerLink="login"> LOGIN </button>
+            <button class="buttonMenu" *ngIf="!logado" (click)="openDialog()"> LOGIN </button>
 
         </mat-menu>
     </div>

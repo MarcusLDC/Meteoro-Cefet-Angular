@@ -2,6 +2,7 @@ import { Component, Inject} from '@angular/core';
 import { AuthService } from '../app/shared/services/auth-services';
 import { MatDialog, MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
 import { LoginModalComponent } from './login-modal/login-modal.component';
+import { LoginDialog } from './shared/services/Dialogs/login-dialog';
 
 @Component({
   selector: 'app-root',
@@ -13,12 +14,13 @@ import { LoginModalComponent } from './login-modal/login-modal.component';
 export class AppComponent {
   title = 'Meteoro Cefet';
   
+  modalAberto = false;
   buttonMenu!: HTMLElement | null;
   divDropdown!: HTMLElement | null;
   logado: boolean = false;
   admin: boolean = false; 
 
-  constructor(private auth: AuthService){}
+  constructor(private auth: AuthService, private dialogService: LoginDialog, public dialog: MatDialog){}
 
   async ngOnInit(): Promise<void> {
     
@@ -31,5 +33,21 @@ export class AppComponent {
     setInterval(async () => {
       this.admin = await this.auth.isAdmin();
     }, 30000);
+  }
+
+  openDialog() {
+    if(this.modalAberto)
+      return;
+
+    var dialogRef = this.dialog.open(LoginModalComponent, {
+      width: '300px',
+      data: { name: 'Angular' }
+    });
+
+    this.modalAberto = true;
+
+    dialogRef.afterClosed().subscribe(() => {
+      this.modalAberto = false;
+    });
   }
 } 
