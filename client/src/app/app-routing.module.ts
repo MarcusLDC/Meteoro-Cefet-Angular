@@ -4,7 +4,6 @@ import { ConsultaComponent } from './consulta/consulta.component';
 import { DadosComponent } from './dados/dados.component';
 import { EditarEstacaoComponent } from './editar-estacao/editar-estacao.component';
 import { EstacoesComponent } from './estacoes/estacoes.component';
-import { LoginComponent } from './login/login.component';
 import { AdminComponent } from './admin/admin.component';
 import { AuthService } from './shared/services/auth-services';
 
@@ -12,7 +11,6 @@ const routes: Routes = [
   {path: "dados", component: DadosComponent},
   {path: "consulta", component: ConsultaComponent},
   {path: "estacoes", component: EstacoesComponent},
-  {path: "login", component: LoginComponent},
   {path: "estacoes/editar/:id", component: EditarEstacaoComponent},
   {path: "admin", component: AdminComponent, canActivate: [AuthService]}
 ];

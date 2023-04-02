@@ -18,7 +18,6 @@ import { DadosComponent } from './dados/dados.component';
 import { ConsultaComponent } from './consulta/consulta.component'; 
 import { MatTableModule } from '@angular/material/table';
 import { EstacoesComponent } from './estacoes/estacoes.component';
-import { LoginComponent } from './login/login.component';
 import { EditarEstacaoComponent } from './editar-estacao/editar-estacao.component';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { transform } from '../app/shared/pipes/transform';
@@ -29,6 +28,7 @@ import { MatMenuModule } from '@angular/material/menu';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { MatDividerModule } from '@angular/material/divider';
 import { LoginModalComponent } from './login-modal/login-modal.component';
+import { MatDialogModule } from '@angular/material/dialog';
 
 @NgModule({
   declarations: [
@@ -36,7 +36,6 @@ import { LoginModalComponent } from './login-modal/login-modal.component';
     DadosComponent,
     ConsultaComponent,
     EstacoesComponent,
-    LoginComponent,
     EditarEstacaoComponent,
     transform,
     AdminComponent,
@@ -69,7 +68,8 @@ import { LoginModalComponent } from './login-modal/login-modal.component';
     MatIconModule,
     MatMenuModule,
     MatExpansionModule,
-    MatDividerModule
+    MatDividerModule,
+    MatDialogModule
   ],
   providers: [
     MatDatepickerModule,
