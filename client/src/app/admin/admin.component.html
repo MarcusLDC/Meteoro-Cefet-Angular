@@ -24,14 +24,14 @@
             <mat-expansion-panel hideToggle>
               <mat-expansion-panel-header>
                 <mat-panel-title>
-                    <strong> Nome_Moderador:  {{item.username}}</strong>
+                    <strong> Usuario:  {{item.username}}</strong>
                 </mat-panel-title>
                 <mat-panel-description>
-                    Moderador
+                    Cargo: Moderador
                 </mat-panel-description>
                 <mat-icon>supervised_user_circle</mat-icon>
               </mat-expansion-panel-header>
-              <button mat-raised-button color="warn" class="botao" (click)="excluirUsuario(item.username)"> Excluir moderador </button>
+              <button mat-raised-button color="warn" (click)="excluirUsuario(item.username, item.password)"> Excluir moderador </button>
             </mat-expansion-panel>
         </mat-accordion>
     </div>

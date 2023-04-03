@@ -8,6 +8,7 @@ import { Estacao } from "../models/estacao-model";
 import { UserModel } from "../models/user-model";
 import { AuthenticationDTO } from "./DTOs/authentication-DTO";
 import { ApplicationUser } from "../models/application-user-model";
+import { NewUserDTO } from "./DTOs/new-user-DTO";
 
 @Injectable({ providedIn: "root" })
 export class MeteoroServices {
@@ -35,11 +36,11 @@ export class MeteoroServices {
     }
     public novoUsuario(user: UserModel){
         let endpoint = `${environment.apiUrl}/usuario/new`
-        return this.httpClient.post<UserModel>(endpoint, user);
+        return this.httpClient.post<NewUserDTO>(endpoint, user);
     }
     public deleteUsuario(user: UserModel){
         let endpoint = `${environment.apiUrl}/usuario/delete`
-        return this.httpClient.post<UserModel>(endpoint, user);
+        return this.httpClient.post<NewUserDTO>(endpoint, user);
     }
     public editarEstacao(estacao: Estacao){
         let endpoint = `${environment.apiUrl}/estacoesEditar`
