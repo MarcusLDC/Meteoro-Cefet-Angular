@@ -28,14 +28,28 @@ export class AuthService {
     });
   }
 
-  public async newUser(user: string, password: string){
+  public async newUser(user: string, password: string){ // mover para user-services
     this.user = {
       username: user,
       password: password
     }
     this.meteoroServices.novoUsuario(this.user).subscribe(async x => {
+      if(x.message)
+        alert(x.message);
       location.reload();
     });
+  }
+
+  public async deleteUser(user: string, password: string){
+    this.user = {
+      username: user,
+      password: password
+    }
+    this.meteoroServices.deleteUsuario(this.user).subscribe(async x=>{
+      if(x.message)
+        alert(x.message);
+      location.reload();
+    })
   }
 
   public async isLogged(): Promise<boolean> {

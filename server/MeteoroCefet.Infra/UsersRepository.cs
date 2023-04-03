@@ -18,5 +18,9 @@ namespace MeteoroCefet.Infra
             return await Collection.Find(x => x.Username == username)
                 .FirstOrDefaultAsync();
         }
+        public async Task RemoveOneByUsername(string username)
+        {
+            await Collection.DeleteOneAsync(x => x.Username == username);
+        }
     }
 }

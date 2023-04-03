@@ -12,25 +12,24 @@ import { Observable } from 'rxjs';
 })
 export class AdminComponent {
 
-form: FormGroup;
-moderadores: Observable<ApplicationUser[]>;
+  form: FormGroup;
+  moderadores: Observable<ApplicationUser[]>;
 
-constructor(private auth: AuthService, private builder: FormBuilder, private meteoroServices: MeteoroServices) {
-  this.form = builder.group({
-    nome: [null],
-    senha: [null],
-  });
-  this.moderadores = this.meteoroServices.getModeradores();
-}
+  constructor(private auth: AuthService, private builder: FormBuilder, private meteoroServices: MeteoroServices) {
+    this.form = builder.group({
+      nome: [null],
+      senha: [null],
+    });
+    this.moderadores = this.meteoroServices.getModeradores();
+  }
 
-public async novoUsuario(){
-  await this.auth.newUser(this.form.value.nome, this.form.value.senha);
-  location.reload();
-}
+  public async novoUsuario(){
+    await this.auth.newUser(this.form.value.nome, this.form.value.senha);
+  }
 
-public async excluirUsuario(username: string){
-  window.confirm("Você está excluindo o moderador > " + username + " < , confirme a ação.");
-  location.reload();
-}
-
+  public async excluirUsuario(username: string, password: string){
+    if(window.confirm("Você está excluindo o moderador > " + username + " < , confirme a ação.")){
+      await this.auth.deleteUser(username, password);
+    }
+  }
 }
