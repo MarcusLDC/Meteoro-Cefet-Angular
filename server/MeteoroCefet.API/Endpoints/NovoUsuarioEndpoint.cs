@@ -13,16 +13,22 @@ namespace MeteoroCefet.API.Endpoints
         {
             app.MapPost("usuario/new", Handler);
         }
-        private static async Task<Guid> Handler([FromServices] UsersRepository repository, string username, string password)
+        private static async Task<NewUserDTO> Handler([FromServices] UsersRepository repository, [FromBody] UserInformationDTO userDTO)
         {
-            ApplicationUser user = new ApplicationUser
+            var usuario = await repository.GetByUsername(userDTO.Username);
+            if (usuario is null)
             {
-                Id = Guid.NewGuid(),
-                Username = username,
-                Password = HashPassword(password),
-                Role = "Moderador"
-            };
-            return await repository.Add(user);
+                ApplicationUser user = new ApplicationUser
+                {
+                    Id = Guid.NewGuid(),
+                    Username = userDTO.Username,
+                    Password = HashPassword(userDTO.Password),
+                    Role = "Moderador"
+                };
+                await repository.Add(user);
+                return new() { Success = true, Message = "Moderador criado com sucesso!"};
+            }
+            return new() { Success = false, Message = "Nome de usuário já existe, cancelando." };
         }
     }
 }

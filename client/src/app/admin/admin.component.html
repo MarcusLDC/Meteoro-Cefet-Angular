@@ -1,1 +1,38 @@
-<p>admin works!</p>
+<body>
+    <div class="body">
+        <mat-card class="card">
+            <mat-card-header>
+                <p class="title"> Criando novo usuário moderador: </p>
+            </mat-card-header>
+            <mat-card-content [formGroup]="form">
+                <mat-form-field appearance="outline" class="padded">
+                    <mat-label>Nome:</mat-label>
+                    <input formControlName="nome" matInput>
+                </mat-form-field>
+                <mat-form-field  appearance="outline" class="padded">
+                    <mat-label>Senha:</mat-label>
+                    <input formControlName="senha" matInput>
+                </mat-form-field>
+                <br>
+            </mat-card-content>
+            <mat-card-actions>
+                <button mat-raised-button color="warn" class="botao" (click)="novoUsuario()"> Confirmar </button>
+                <button mat-raised-button class="botao" routerLink="/dados"> Cancelar </button>
+            </mat-card-actions>
+        </mat-card>
+        <mat-accordion class="card" *ngFor="let item of moderadores | async">
+            <mat-expansion-panel hideToggle>
+              <mat-expansion-panel-header>
+                <mat-panel-title>
+                    <strong> Nome_Moderador:  {{item.username}}</strong>
+                </mat-panel-title>
+                <mat-panel-description>
+                    Moderador
+                </mat-panel-description>
+                <mat-icon>supervised_user_circle</mat-icon>
+              </mat-expansion-panel-header>
+              <button mat-raised-button color="warn" class="botao" (click)="excluirUsuario(item.username)"> Excluir moderador </button>
+            </mat-expansion-panel>
+        </mat-accordion>
+    </div>
+</body>

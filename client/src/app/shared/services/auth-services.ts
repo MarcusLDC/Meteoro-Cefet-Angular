@@ -2,11 +2,41 @@ import { Injectable } from '@angular/core';
 import { JwtHelperService } from '@auth0/angular-jwt';
 import { LocalStorageServices } from '../services/local-storage-services'
 import { ActivatedRouteSnapshot, Router, RouterStateSnapshot } from '@angular/router';
+import { CookieService } from 'ngx-cookie-service';
+import { MeteoroServices } from './meteoro-services';
+import { UserModel } from '../models/user-model';
 
 @Injectable({providedIn: 'root'})
 
 export class AuthService {
-  constructor(private localStorage: LocalStorageServices, private jwtHelper: JwtHelperService, private router: Router) {}
+
+  user: UserModel | undefined;
+  
+  constructor(private cookieService: CookieService, private localStorage: LocalStorageServices, private jwtHelper: JwtHelperService, private router: Router, private meteoroServices: MeteoroServices) {}
+
+  public async login(user: string, password: string){
+    this.user = {
+      username: user,
+      password: password
+    }
+    this.meteoroServices.login(this.user).subscribe(async x => {
+      var token = x.jwt;
+      if(x.message)
+        alert(x.message);
+      this.setToken(token)
+      location.reload();
+    });
+  }
+
+  public async newUser(user: string, password: string){
+    this.user = {
+      username: user,
+      password: password
+    }
+    this.meteoroServices.novoUsuario(this.user).subscribe(async x => {
+      location.reload();
+    });
+  }
 
   public async isLogged(): Promise<boolean> {
     var token = await this.getToken();
@@ -23,11 +53,11 @@ export class AuthService {
   }
 
   public async logout(): Promise<void>{
-    await this.localStorage.remove('token');
+    this.cookieService.delete('token');
   }
 
   private async getToken(): Promise<string>{
-    return await this.localStorage.get<string>('token');
+    return this.cookieService.get('token');
   }
 
   async canActivate(
@@ -42,5 +72,9 @@ export class AuthService {
     }
 
     return isAdmin;
+  }
+
+  public setToken(token: string): void {
+    this.cookieService.set('token', token, undefined, undefined, undefined, true, 'Strict');
   }
 }
