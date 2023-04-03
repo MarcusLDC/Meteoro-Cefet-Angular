@@ -5,21 +5,21 @@
                 <mat-card-header class="cardHeader borderBottom">
                     <mat-card-title> <p class="cardHeaderContent title"> Estação de monitoramento ambiental</p> </mat-card-title>
                     <mat-card-subtitle> <p class="cardHeaderContent subtitle"> 
-                        <strong>Local: </strong> {{estacaoSelecionada.nome}}
+                        <strong>Local: </strong> {{estacaoSelecionada.nome}} (placeholder) <strong> ID: </strong>{{estacaoSelecionada.numero}} 
                     </p></mat-card-subtitle>
                 </mat-card-header>
                 <mat-card-content class="cardContent">
                     <div class="container">
                         <div>
-                            <p> <strong> Nome: </strong> {{estacaoSelecionada.nome}} - <strong> ID: </strong>{{estacaoSelecionada.numero}}</p> 
                             <p> <strong> Responsável: </strong> LAPA\CoMet/CEFET-RJ </p>
+                            <p> <strong> Nome: </strong> {{estacaoSelecionada.nome}} </p>
                             <p> <strong> Desde: </strong> {{estacaoSelecionada.dataInicio | date : 'MM/yyyy'}}
                             <p> <strong> Status: </strong> {{estacaoSelecionada.status}} </p>
                             <p class="borderBottom"> </p>
-                            <p> <strong> Coordenadas: </strong> {{estacaoSelecionada.latitude.toFixed(6)}}<strong>{{estacaoSelecionada.latitude < 0 ? 'S' : 'N'}}</strong> ,
-                                                                {{estacaoSelecionada.longitude.toFixed(6)}}<strong>{{estacaoSelecionada.longitude < 0 ? 'W' : 'E' }}</strong> </p>
-                            <p> <strong> Altitude: </strong> {{estacaoSelecionada.altitude}}m
-                            <strong> Altura: </strong> {{estacaoSelecionada.altura}}m </p>
+                            <p> <strong> Coordenadas: </strong> {{estacaoSelecionada.latitude.toFixed(6)}} <strong>{{estacaoSelecionada.latitude < 0 ? 'S' : 'N'}}</strong> ,
+                                                                {{estacaoSelecionada.longitude.toFixed(6)}} <strong>{{estacaoSelecionada.longitude < 0 ? 'W' : 'E' }}</strong> </p>
+                            <p> <strong> Altitude: </strong> {{estacaoSelecionada.altitude}}m </p>
+                            <p> <strong> Altura: </strong> {{estacaoSelecionada.altura}}m </p>
                             <strong> Ultima atualização: </strong>{{firstDataHora | date : 'dd/MM/yyyy HH:mm'}}h
                             ({{firstDataHora | date : "HH:mm":"+0000"}}h - UTC)
                         </div>
@@ -36,17 +36,18 @@
                 <mat-card-content class="cardContent">
                     <div class="container">
                         <div>
-                            <p> <strong> Quantidade de estações: </strong> {{numEstacoes}} </p> 
+                            <p> <strong> Número de estações: </strong> {{numEstacoes}} </p> 
+                            <p> <strong> Número total de dados: </strong> {{numDados}} (Placeholder) </p>
                             <p> <strong> Responsável: </strong> LAPA\CoMet/CEFET-RJ </p>
                             <p> <strong> Desde: </strong> 02/23
-                            <p> <strong> Quantidade total de dados: </strong> {{numDados}} (Placeholder) </p>
                             <p class="borderBottom"> </p>
-                            <p> <strong> Ultima atualização: </strong> {{firstDataHora | date : 'dd/MM/yyyy'}} </p>
-                            <p> <strong> ID da estação: </strong> {{firstNumero}} </p>
-                            <p> <strong> Hora: </strong>
+                            <p> <strong> Ultima atualização - Dia: </strong> {{firstDataHora | date : 'dd/MM/yyyy'}} </p>
+                            <p> <strong> Ultima atualização - Hora: </strong>
                                 {{firstDataHora | date : 'HH:mm'}}h
                                 ({{firstDataHora | date : "HH:mm":"+0000"}}h - UTC)
                             </p>
+                            <p> <strong> Ultima atualização - ID: </strong> {{firstNumero}} </p>
+                            <strong> O intervalo de chegada dos dados varia por estação</strong>
                         </div>
                     </div>
                 </mat-card-content>
