@@ -41,17 +41,7 @@ export class LoginModalComponent {
   }
 
   public async confirmar(){
-    this.user = {
-      username: this.form.value.usuario,
-      password: this.form.value.senha
-    }
-    this.meteoroServices.login(this.user).subscribe(async x => {   //this.localStorage.get<string>('token');
-      this.token = x.jwt;
-      if(x.message)
-        alert(x.message);
-      await this.localStorage.set('token', this.token);
-      location.reload();
-    });
+    this.auth.login(this.form.value.usuario, this.form.value.senha);
   }
 
   public async logout(): Promise<void>{

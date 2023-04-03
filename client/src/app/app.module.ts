@@ -29,6 +29,8 @@ import { MatExpansionModule } from '@angular/material/expansion';
 import { MatDividerModule } from '@angular/material/divider';
 import { LoginModalComponent } from './login-modal/login-modal.component';
 import { MatDialogModule } from '@angular/material/dialog';
+import { CookieService } from 'ngx-cookie-service';
+
 
 @NgModule({
   declarations: [
@@ -74,6 +76,7 @@ import { MatDialogModule } from '@angular/material/dialog';
   providers: [
     MatDatepickerModule,
     MatNativeDateModule,
+    CookieService,
     {provide: MAT_DATE_LOCALE, useValue: 'pt-BR'}
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
