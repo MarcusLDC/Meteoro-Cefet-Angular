@@ -28,6 +28,16 @@ export class AuthService {
     });
   }
 
+  public async newUser(user: string, password: string){
+    this.user = {
+      username: user,
+      password: password
+    }
+    this.meteoroServices.novoUsuario(this.user).subscribe(async x => {
+      location.reload();
+    });
+  }
+
   public async isLogged(): Promise<boolean> {
     var token = await this.getToken();
     return !this.jwtHelper.isTokenExpired(token);

@@ -7,6 +7,7 @@ import { DadosTempo } from "../models/dados-tempo-model";
 import { Estacao } from "../models/estacao-model";
 import { UserModel } from "../models/user-model";
 import { AuthenticationDTO } from "./DTOs/authentication-DTO";
+import { ApplicationUser } from "../models/application-user-model";
 
 @Injectable({ providedIn: "root" })
 export class MeteoroServices {
@@ -27,6 +28,18 @@ export class MeteoroServices {
     public getDadosEstacao(numeroEstacao: number, numPagina:number){
         let endpoint = `${environment.apiUrl}/dadosEstacao`
         return this.httpClient.post<DadosTempo[]>(endpoint, {numeroEstacao, numPagina})
+    }
+    public getModeradores(){
+        let endpoint = `${environment.apiUrl}/moderadores`
+        return this.httpClient.get<ApplicationUser[]>(endpoint)
+    }
+    public novoUsuario(user: UserModel){
+        let endpoint = `${environment.apiUrl}/usuario/new`
+        return this.httpClient.post<UserModel>(endpoint, user);
+    }
+    public deleteUsuario(user: UserModel){
+        let endpoint = `${environment.apiUrl}/usuario/delete`
+        return this.httpClient.post<UserModel>(endpoint, user);
     }
     public editarEstacao(estacao: Estacao){
         let endpoint = `${environment.apiUrl}/estacoesEditar`
