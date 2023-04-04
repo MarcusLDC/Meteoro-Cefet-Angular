@@ -18,7 +18,7 @@ export class AppComponent {
   buttonMenu!: HTMLElement | null;
   divDropdown!: HTMLElement | null;
   logado: boolean = false;
-  admin: boolean = false; 
+  admin: boolean = false;
 
   constructor(private auth: AuthService, private dialogService: LoginDialog, public dialog: MatDialog){}
 
@@ -49,5 +49,9 @@ export class AppComponent {
     dialogRef.afterClosed().subscribe(() => {
       this.modalAberto = false;
     });
+  }
+
+  public async sair(){
+    this.auth.logout();
   }
 } 

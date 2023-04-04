@@ -46,7 +46,6 @@ export class LoginModalComponent {
 
   public async logout(): Promise<void>{
     await this.auth.logout();
-    location.reload();
   }
 
   public closeDialog(): void {
