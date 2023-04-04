@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { DadosTempo } from '../shared/models/dados-tempo-model';
-import { Estacao } from '../shared/models/estacao-model';
+import { Estacao, Status } from '../shared/models/estacao-model';
 import { MeteoroServices } from '../shared/services/meteoro-services';
 import { LocalStorageServices } from '../shared/services/local-storage-services';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
@@ -13,6 +13,8 @@ import * as L from 'leaflet';
 })
 
 export class DadosComponent implements OnInit {
+
+  status = Status;
 
   displayedColumns: string[] = [ //ordem das colunas
     'Data e Hora',
