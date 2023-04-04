@@ -5,12 +5,15 @@ import { ActivatedRouteSnapshot, Router, RouterStateSnapshot } from '@angular/ro
 import { CookieService } from 'ngx-cookie-service';
 import { MeteoroServices } from './meteoro-services';
 import { UserModel } from '../models/user-model';
+import { ApplicationUser } from '../models/application-user-model';
+import { BoundElementProperty } from '@angular/compiler';
 
 @Injectable({providedIn: 'root'})
 
 export class AuthService {
 
   user: UserModel | undefined;
+  applicationUsers: ApplicationUser[] = [];
   
   constructor(private cookieService: CookieService, private localStorage: LocalStorageServices, private jwtHelper: JwtHelperService, private router: Router, private meteoroServices: MeteoroServices) {}
 
@@ -44,17 +47,40 @@ export class AuthService {
     this.user = {
       username: user,
       password: password
-    }
+    };
     this.meteoroServices.deleteUsuario(this.user).subscribe(async x=>{
       if(x.message)
         alert(x.message);
       location.reload();
-    })
+    });
   }
 
   public async isLogged(): Promise<boolean> {
     var token = await this.getToken();
+    await this.userExists();
     return !this.jwtHelper.isTokenExpired(token);
+  }
+
+  public async userExists(): Promise<void>{
+    var token = await this.getToken();
+    var isAdmin = await this.isAdmin(); 
+    if(token && !isAdmin){
+      var exists : boolean = false;
+      this.meteoroServices.getModeradores().subscribe(async x => {
+        this.applicationUsers = x;
+        var decodedToken: any = this.jwtHelper.decodeToken(token);
+        this.applicationUsers.forEach(element => {
+          if(element.username == decodedToken.username){
+            exists = true; 
+          }
+        });
+        if(!exists){
+          this.logout();
+          alert("Acesso revogado, deslogando");
+        }
+      });
+    };
+    return;
   }
 
   public async isAdmin(): Promise<boolean>{
@@ -68,6 +94,7 @@ export class AuthService {
 
   public async logout(): Promise<void>{
     this.cookieService.delete('token');
+    location.reload();
   }
 
   private async getToken(): Promise<string>{

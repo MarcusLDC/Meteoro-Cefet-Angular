@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Estacao } from '../shared/models/estacao-model';
+import { Estacao, Status } from '../shared/models/estacao-model';
 import { AuthService } from '../shared/services/auth-services';
 import { MeteoroServices } from '../shared/services/meteoro-services';
 
@@ -16,8 +16,15 @@ export class EditarEstacaoComponent {
   estacoes: Estacao[] = [];
   logado: boolean = false;
 
+  statusList = [
+    {value: 0, name: "Funcionando"},
+    {value: 1, name: "Desligada"},
+    {value: 1, name: "Em manutenção"},
+  ];
+
   estacaoSelecionada: Estacao | undefined;
   estacaoEditada: Estacao | undefined;
+  status = Status;
 
   constructor(private route: ActivatedRoute, private builder: FormBuilder, private meteoroServices: MeteoroServices, private auth: AuthService, private router: Router) {
     this.form = builder.group({
@@ -59,7 +66,7 @@ export class EditarEstacaoComponent {
           dataInicio: this.estacaoSelecionada.dataInicio, // fim-dados imutáveis
 
           nome: this.form.value.nome, 
-          status: this.form.value.status, // alterar depois!!!!!!
+          status: this.form.value.status, 
           latitude: this.form.value.latitude,
           longitude: this.form.value.longitude,
           altitude: this.form.value.altitude,

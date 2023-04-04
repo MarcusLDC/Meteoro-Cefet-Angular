@@ -7,5 +7,11 @@ export interface Estacao{
     longitude: number;
     altitude: number;
     altura: number;
-    status: boolean;
+    status: Status;
+}
+
+export enum Status{
+    Funcionando,
+    Desligada,
+    Manutencao 
 }

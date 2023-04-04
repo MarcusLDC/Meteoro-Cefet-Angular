@@ -16,7 +16,7 @@
                 <strong> Lon.: </strong> {{item.longitude.toFixed(6)}} <br>
                 <strong> Altitude: </strong> {{item.altitude}}m  <br>
                 <strong> Altura </strong> {{item.altura}}m <br>
-                <strong> Status: </strong> {{item.status}} <br>
+                <strong> Status: </strong> {{status[item.status]}} <br>
                 <button  mat-raised-button color="warn" class="botao" *ngIf="logado" [routerLink]="['editar', item.numero]">Editar<mat-icon>assignment_ind</mat-icon></button>
             </mat-expansion-panel>
         </mat-accordion>

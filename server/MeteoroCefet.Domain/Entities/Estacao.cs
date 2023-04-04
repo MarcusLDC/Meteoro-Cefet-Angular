@@ -9,6 +9,13 @@
         public decimal Longitude { get; set; } 
         public decimal Altitude { get; set; }
         public decimal Altura { get; set; }
-        public bool Status { get; set; }
+        public Status Status { get; set; }
     }
+    public enum Status 
+    { 
+        Funcionando, 
+        Desligada, 
+        Manutencao
+    }
+
 }

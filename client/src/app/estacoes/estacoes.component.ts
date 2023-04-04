@@ -1,12 +1,8 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { Component } from '@angular/core';
 import { Observable } from 'rxjs';
-import { Estacao } from '../shared/models/estacao-model';
-import { LocalStorageServices } from '../shared/services/local-storage-services';
+import { Estacao, Status } from '../shared/models/estacao-model';
 import { MeteoroServices } from '../shared/services/meteoro-services';
-import { JwtHelperService } from '@auth0/angular-jwt';
 import { AuthService } from '../shared/services/auth-services';
-import { MatAccordion } from '@angular/material/expansion';
 
 @Component({
   selector: 'app-estacoes',
@@ -15,21 +11,12 @@ import { MatAccordion } from '@angular/material/expansion';
 })
 
 export class EstacoesComponent{
-  form: FormGroup;
+  status = Status;
   estacoes: Observable<Estacao[]>;
   logado: boolean = false;
   panelOpenState = false;
 
-  constructor
-    (
-    private jwtHelper: JwtHelperService, private builder: FormBuilder, 
-    private localStorage: LocalStorageServices, private meteoroServices: MeteoroServices,
-    private auth: AuthService
-    )
-    {
-    this.form = builder.group({
-    
-    });
+  constructor(private meteoroServices: MeteoroServices,private auth: AuthService){
     this.estacoes = this.meteoroServices.getEstacoes(); 
   }
 

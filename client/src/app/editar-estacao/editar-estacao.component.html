@@ -14,7 +14,7 @@
                     <div style="display: inline-block; vertical-align: top;">
                             <strong> Altura: </strong> {{estacaoSelecionada.altura}}m <br><br>
                             <strong> Altitude: </strong> {{estacaoSelecionada.altitude}}m <br><br>
-                            <strong> Status: </strong> {{estacaoSelecionada.status}} <br>
+                            <strong> Status: </strong> {{status[estacaoSelecionada.status]}} <br>
                     </div>
                 </div>  
             </mat-card-content>
@@ -31,7 +31,9 @@
                 </mat-form-field>
                 <mat-form-field  appearance="outline" class="padded">
                     <mat-label>Status:</mat-label>
-                    <input formControlName="status" matInput>
+                    <mat-select formControlName="status">
+                        <mat-option *ngFor="let item of statusList" [value]="item.value">{{item.name}}</mat-option>
+                    </mat-select>
                 </mat-form-field>
                 <br>
                 <mat-form-field appearance="outline" class="padded">
