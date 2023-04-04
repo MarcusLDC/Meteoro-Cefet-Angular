@@ -14,7 +14,7 @@
                     <div style="display: inline-block; vertical-align: top;">
                             <strong> Altura: </strong> {{estacaoSelecionada.altura}}m <br><br>
                             <strong> Altitude: </strong> {{estacaoSelecionada.altitude}}m <br><br>
-                            <strong> Status: </strong> {{status[estacaoSelecionada.status]}} <br>
+                            <strong> Status: </strong> <span [ngStyle]="{ 'color': status[estacaoSelecionada.status] == 'Desligada' ? 'red' : status[estacaoSelecionada.status] == 'Funcionando' ? 'green' : 'blue' }" *ngIf="status[estacaoSelecionada.status]">{{status[estacaoSelecionada.status]}}</span> <br>
                     </div>
                 </div>  
             </mat-card-content>

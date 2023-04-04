@@ -14,7 +14,8 @@
                             <p> <strong> Responsável: </strong> LAPA\CoMet/CEFET-RJ </p>
                             <p> <strong> Nome: </strong> {{estacaoSelecionada.nome}} </p>
                             <p> <strong> Desde: </strong> {{estacaoSelecionada.dataInicio | date : 'MM/yyyy'}}
-                            <p> <strong> Status: </strong> {{estacaoSelecionada.status}} </p>
+                            <p> <strong> Status: </strong> 
+                                <span [ngStyle]="{ 'color': status[estacaoSelecionada.status] == 'Desligada' ? 'red' : status[estacaoSelecionada.status] == 'Funcionando' ? 'green' : 'blue' }" *ngIf="status[estacaoSelecionada.status]"> {{status[estacaoSelecionada.status]}}</span> </p>
                             <p class="borderBottom"> </p>
                             <p> <strong> Coordenadas: </strong> {{estacaoSelecionada.latitude.toFixed(6)}} <strong>{{estacaoSelecionada.latitude < 0 ? 'S' : 'N'}}</strong> ,
                                                                 {{estacaoSelecionada.longitude.toFixed(6)}} <strong>{{estacaoSelecionada.longitude < 0 ? 'W' : 'E' }}</strong> </p>
