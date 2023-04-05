@@ -121,7 +121,11 @@ namespace MeteoroCefet.API
                 options.TokenValidationParameters = tokenValidationParameters;
             });
 
-            services.AddAuthorization();
+            services.AddAuthorization(options =>
+            {
+                options.AddPolicy("RequireAdmin", policy => policy.RequireRole("Admin"));
+                options.AddPolicy("RequireModerator", policy => policy.RequireRole("Moderator"));
+            });
 
             services.AddTransient<IdentityService>();
         }
