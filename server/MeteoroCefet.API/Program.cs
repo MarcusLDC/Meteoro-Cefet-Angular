@@ -1,5 +1,10 @@
 using MeteoroCefet.API;
-using static BCrypt.Net.BCrypt;
+using MeteoroCefet.Domain.Entities;
+using MeteoroCefet.Domain.Entities.Identity;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.IdentityModel.Tokens;
+using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -8,6 +13,34 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddCors();
 builder.Services.ConfigureMeteoroServices();
 builder.Services.AddSingleton<BCrypt.Net.BCrypt>();
+
+builder.Services
+.AddIdentity<ApplicationUser, ApplicationRole>()
+
+.AddMongoDbStores<ApplicationUser, ApplicationRole, Guid>
+(
+    builder.GetConnectionString(), "Identity"
+);
+
+builder.Services.AddAuthentication(options =>
+{
+    options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+    options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+})
+    .AddJwtBearer(options =>
+    {
+        options.TokenValidationParameters = new TokenValidationParameters
+        {
+            ValidateIssuer = true,
+            ValidateAudience = true,
+            ValidateLifetime = true,
+            ValidateIssuerSigningKey = true,
+            ValidIssuer = "Comet-Lapa",
+            ValidAudience = "MeteoroCefet",
+            IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("senhasecretadocefet"))
+        };
+    });
+
 builder.Logging.AddConsole();
 builder.ConfigureMongoClient();
 

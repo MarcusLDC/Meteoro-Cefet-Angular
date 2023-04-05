@@ -1,10 +1,12 @@
 ﻿
+using AspNetCore.Identity.MongoDbCore.Models;
+using MongoDbGenericRepository.Attributes;
+
 namespace MeteoroCefet.Domain.Entities
 {
-    public class ApplicationUser : Entity
+    [CollectionName("Users")]
+    public class ApplicationUser : MongoIdentityUser<Guid>
     {
         public string Username { get; set; }
-        public string Password { get; set; }
-        public string Role { get; set; }
     }
 }

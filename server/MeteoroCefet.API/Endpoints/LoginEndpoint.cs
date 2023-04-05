@@ -1,11 +1,11 @@
-﻿using MeteoroCefet.Infra;
+﻿
 using Microsoft.AspNetCore.Mvc;
-using static BCrypt.Net.BCrypt;
 using System.IdentityModel.Tokens.Jwt;
-using System.Security.Claims;
 using Microsoft.IdentityModel.Tokens;
-using System.Security.Cryptography;
 using MeteoroCefet.Domain.Entities;
+using Microsoft.AspNetCore.Identity;
+using System.Text;
+using System.Security.Claims;
 
 namespace MeteoroCefet.API.Endpoints
 {
@@ -15,9 +15,9 @@ namespace MeteoroCefet.API.Endpoints
         {
             app.MapPost("/login", Handler);
         }
-        private static async Task<AuthorizationDTO> Handler([FromServices] ILogger<ApplicationUser> log, [FromServices] UsersRepository repository, [FromBody] UserInformationDTO userDTO)
+        private static async Task<AuthorizationDTO> Handler([FromServices] ILogger<ApplicationUser> log, [FromServices] UserManager<ApplicationUser> userManager, [FromBody] UserInformationDTO userDTO)
         {
-            var usuario = await repository.GetByUsername(userDTO.Username);
+            var usuario = await userManager.FindByNameAsync(userDTO.Username);
 
             if (usuario is null)
             {
@@ -26,47 +26,45 @@ namespace MeteoroCefet.API.Endpoints
                 return new() { Success = false, Message = "Credenciais incorretas"};
             }
 
-            bool acesso = Verify(userDTO.Password, usuario.Password);
+            bool acesso = await userManager.CheckPasswordAsync(usuario, userDTO.Password);
 
             log.LogInformation("Tentativa de login: {userDTO.Username} , Status de acesso: {acesso} ", userDTO.Username, acesso);
 
             if (acesso)
             {
-                return new() { Success = true, Jwt = GenerateToken(usuario.Username, usuario.Role)};
+                return new() { Success = true, Jwt = await GenerateTokenAsync(userManager, usuario)};
             }
 
             return new() { Success = false, Message = "Credenciais incorretas" };
         }
-        private static string GenerateToken(string username, string role)
+        private static async Task<string> GenerateTokenAsync(Microsoft.AspNetCore.Identity.UserManager<ApplicationUser> userManager, ApplicationUser usuario)
         {
-            var tokenHandler = new JwtSecurityTokenHandler();
-
-            var claims = new ClaimsIdentity(new[] {
-                new Claim("username", username),
-                new Claim("role", role)
-            });
-
-            var key = new SymmetricSecurityKey(new byte[32]);
-
-            using (var generator = new RNGCryptoServiceProvider())
+            var claims = new List<Claim>
             {
-                generator.GetBytes(key.Key);
-            }
-
-            var tokenDescriptor = new SecurityTokenDescriptor
-            {
-                Subject = claims,
-                Expires = DateTime.UtcNow.AddDays(1),
-                Issuer = "Comet-Lapa",
-                Audience = "MeteoroCefet",
-                SigningCredentials = new SigningCredentials(key, SecurityAlgorithms.HmacSha256Signature)
+                new Claim(JwtRegisteredClaimNames.Sub, usuario.Username),
+                new Claim(JwtRegisteredClaimNames.Jti, usuario.Id.ToString()),
             };
 
-            var token = tokenHandler.CreateToken(tokenDescriptor);
+            var userRoles = await userManager.GetRolesAsync(usuario);
 
-            var newTokenString = tokenHandler.WriteToken(token);
+            foreach (var role in userRoles)
+            {
+                claims.Add(new Claim(ClaimTypes.Role, role));
+            }
 
-            return newTokenString;
+            var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("senhasecretadocefet"));
+            var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
+            var expires = DateTime.Now.AddDays(1);
+
+            var token = new JwtSecurityToken(
+                issuer: "Comet-Lapa",
+                audience: "MeteoroCefet",
+                claims,
+                expires: expires,
+                signingCredentials: creds
+            );
+
+            return new JwtSecurityTokenHandler().WriteToken(token);
         }
     }
 }

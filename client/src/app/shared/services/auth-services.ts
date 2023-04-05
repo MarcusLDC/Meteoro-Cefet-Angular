@@ -36,7 +36,7 @@ export class AuthService {
       username: user,
       password: password
     }
-    this.meteoroServices.novoUsuario(this.user).subscribe(async x => {
+    this.meteoroServices.novoModerador(this.user).subscribe(async x => {
       if(x.message)
         alert(x.message);
       location.reload();

@@ -9,6 +9,13 @@ namespace MeteoroCefet.API
     {
         public static void ConfigureMongoClient(this WebApplicationBuilder builder)
         {
+            string connectionStringWithSecrets = GetConnectionString(builder);
+
+            builder.Services.AddMongoClient(connectionStringWithSecrets);
+        }
+
+        public static string GetConnectionString(this WebApplicationBuilder builder)
+        {
             var mongoPassword = Environment.GetEnvironmentVariable("MONGO_PASSWORD") ??
                 throw new Exception("Environment Variable MONGO_PASSWORD not defined");
 
@@ -21,8 +28,7 @@ namespace MeteoroCefet.API
             var connectionStringWithSecrets = connectionString
                 .Replace("MONGO_PASSWORD", mongoPassword)
                 .Replace("MONGO_USER", mongoUser);
-
-            builder.Services.AddMongoClient(connectionStringWithSecrets);
+            return connectionStringWithSecrets;
         }
 
         public static void UseCustomExceptionHandler(this WebApplication app)

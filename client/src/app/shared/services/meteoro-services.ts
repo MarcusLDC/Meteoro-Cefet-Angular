@@ -34,8 +34,8 @@ export class MeteoroServices {
         let endpoint = `${environment.apiUrl}/moderadores`
         return this.httpClient.get<ApplicationUser[]>(endpoint)
     }
-    public novoUsuario(user: UserModel){
-        let endpoint = `${environment.apiUrl}/usuario/new`
+    public novoModerador(user: UserModel){
+        let endpoint = `${environment.apiUrl}/usuario/moderador/new`
         return this.httpClient.post<NewUserDTO>(endpoint, user);
     }
     public deleteUsuario(user: UserModel){
