@@ -17,14 +17,17 @@ namespace MeteoroCefet.Application
     {
         private readonly SignInManager<ApplicationUser> _signInManager;
         private readonly UserManager<ApplicationUser> _userManager;
+        private readonly RoleManager<ApplicationRole> _roleManager;
         private readonly JwtOptions _jwtOptions;
 
         public IdentityService(SignInManager<ApplicationUser> signInManager,
                                UserManager<ApplicationUser> userManager,
+                               RoleManager<ApplicationRole> roleManager,
                                IOptions<JwtOptions> jwtOptions)
         {
             _signInManager = signInManager;
             _userManager = userManager;
+            _roleManager = roleManager;
             _jwtOptions = jwtOptions.Value;
         }
 
@@ -32,23 +35,40 @@ namespace MeteoroCefet.Application
         {
             var user = new ApplicationUser
             {
-                UserName = request.Username,
+                UserName = request.Username
             };
 
             var result = await _userManager.CreateAsync(user, request.Password);
 
             if (result.Succeeded)
             {
+                await GarantirRolesCriadas(request);
+
                 await _userManager.AddToRolesAsync(user, request.Roles);
                 await _userManager.SetLockoutEnabledAsync(user, false);
             }
 
             var errors = result.Errors.Select(x => x.Description);
 
-            var response = new UserRegisterResponse(result.Succeeded, errors);
-
-            return response;
+            return new UserRegisterResponse(result.Succeeded, errors);
         }
+
+        private async Task GarantirRolesCriadas(UserRegisterRequest request)
+        {
+            var statusRoles = request.Roles.Select(r => new { existe = _roleManager.RoleExistsAsync(r), nome = r });
+
+            await Task.WhenAll(statusRoles.Select(e => e.existe));
+
+            var rolesNaoExistentes = statusRoles.Where(r => r.existe.Result == false);
+
+            var tarefasCriarRoleNaoExistente = rolesNaoExistentes.Select(r => _roleManager.CreateAsync(new ApplicationRole()
+            {
+                Name = r.nome
+            }));
+
+            await Task.WhenAll(tarefasCriarRoleNaoExistente);
+        }
+
         public async Task<Response<IdentityResult>> DeleteUser(string userName)
         {
             var user = await _userManager.FindByNameAsync(userName);
