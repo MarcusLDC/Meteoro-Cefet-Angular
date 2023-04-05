@@ -1,6 +1,5 @@
 ﻿using MeteoroCefet.Infra;
 using MongoDB.Driver;
-using System.Net.NetworkInformation;
 
 namespace MeteoroCefet.Tests
 {
@@ -14,8 +13,8 @@ namespace MeteoroCefet.Tests
             //await AtualizarEstacoesIniciais(repository);
 
             //await ApagarTestes(repositoryDadosTempo);
-
-            var ultimos = await repository.Collection.CountDocumentsAsync(x => x.DataHora > new DateTime(2023, 3, 16));
+            var dataImplementations = new DateTime(2023, 3, 16);
+            var ultimos = await repository.Collection.CountDocumentsAsync(x => x.DataHora > dataImplementations);
 
             Assert.Pass();
         }
