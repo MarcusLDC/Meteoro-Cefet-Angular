@@ -1,4 +1,4 @@
-﻿using MeteoroCefet.Domain.Entities;
+﻿using MeteoroCefet.Application;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
@@ -10,17 +10,10 @@ namespace MeteoroCefet.API.Endpoints
         {
             app.MapPost("usuario/delete", Handler);
         }
-        private static async Task<NewUserDTO> Handler([FromServices] ILogger<ApplicationUser> log, [FromServices] UserManager<ApplicationUser> userManager, [FromBody] UserInformationDTO userDTO)
+
+        private static async Task<Response<IdentityResult>> Handler([FromServices] ILogger<ExcluirModeradorEndpoint> log, [FromServices]  IdentityService identityService, [FromBody] string username)
         {
-            var usuario = await userManager.FindByNameAsync(userDTO.Username);
-
-            if (usuario is null)
-            {
-                return new() { Success = false, Message = "Cancelando." };
-            }
-
-            await userManager.DeleteAsync(usuario);
-            return new() { Success = true, Message = "Moderador deletado!" };
+            return await identityService.DeleteUser(username);
         }
     }
 }
