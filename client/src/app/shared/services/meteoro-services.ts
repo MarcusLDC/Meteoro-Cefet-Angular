@@ -7,7 +7,7 @@ import { Estacao } from "../models/estacao-model";
 import { UserModel } from "../models/user-model";
 import { AuthenticationDTO } from "./DTOs/authentication-DTO";
 import { NewUserDTO } from "./DTOs/new-user-DTO";
-import { RetornoDTO } from "./DTOs/retorno-dto";
+import { RetornoDTO } from "./DTOs/retorno-DTO";
 
 @Injectable({ providedIn: "root" })
 export class MeteoroServices {
