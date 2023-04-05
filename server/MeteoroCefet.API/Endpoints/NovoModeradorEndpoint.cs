@@ -7,7 +7,7 @@ namespace MeteoroCefet.API.Endpoints
     {
         public void DefineEndpoints(WebApplication app)
         {
-            app.MapPost("usuario/moderador/new", Handler);
+            app.MapPost("usuario/moderador/new", Handler).RequireAuthorization("RequireAdmin");
         }
         private static async Task<UserRegisterResponse> Handler([FromServices] IdentityService identityService, [FromBody] UserRegisterRequest userRegisterRequest)
         {
