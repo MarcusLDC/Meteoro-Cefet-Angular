@@ -1,5 +1,4 @@
-﻿using MeteoroCefet.Domain.Entities;
-using Microsoft.AspNetCore.Identity;
+﻿using MeteoroCefet.Application;
 using Microsoft.AspNetCore.Mvc;
 
 namespace MeteoroCefet.API.Endpoints
@@ -10,24 +9,9 @@ namespace MeteoroCefet.API.Endpoints
         {
             app.MapPost("usuario/moderador/new", Handler);
         }
-        private static async Task<NewUserDTO> Handler([FromServices] UserManager<ApplicationUser> userManager, [FromBody] UserInformationDTO userDTO)
+        private static async Task<UserRegisterResponse> Handler([FromServices] IdentityService identityService, [FromBody] UserRegisterRequest userRegisterRequest)
         {
-            var exists = await userManager.FindByNameAsync(userDTO.Username) is null;
-
-            if (exists)
-            {
-                return new() { Success = false, Message = "Nome de usuário já existe, cancelando." };
-            }
-
-            ApplicationUser user = new()
-            {
-                Username = userDTO.Username,
-            };
-            await userManager.CreateAsync(user, userDTO.Password);
-
-            await userManager.AddToRoleAsync(user, "Moderador");
-
-            return new() { Success = true, Message = "Moderador criado com sucesso!"};
+            return await identityService.RegisterUser(userRegisterRequest);
         }
     }
 }
