@@ -41,7 +41,7 @@ export class LoginModalComponent {
   }
 
   public async confirmar(){
-    this.auth.login(this.form.value.usuario, this.form.value.senha);
+    await this.auth.login(this.form.value.usuario, this.form.value.senha);
   }
 
   public async logout(): Promise<void>{

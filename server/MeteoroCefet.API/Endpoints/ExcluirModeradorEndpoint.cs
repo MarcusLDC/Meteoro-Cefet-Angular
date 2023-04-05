@@ -11,9 +11,10 @@ namespace MeteoroCefet.API.Endpoints
             app.MapPost("usuario/delete", Handler);
         }
 
-        private static async Task<Response<IdentityResult>> Handler([FromServices] ILogger<ExcluirModeradorEndpoint> log, [FromServices]  IdentityService identityService, [FromBody] string username)
+        private static async Task<Response<IdentityResult>> Handler([FromServices] ILogger<ExcluirModeradorEndpoint> log, [FromServices]  IdentityService identityService, [FromBody] ExcluirModeradorParams parameters)
         {
-            return await identityService.DeleteUser(username);
+            return await identityService.DeleteUser(parameters.Username);
         }
+        private record ExcluirModeradorParams(string Username);
     }
 }

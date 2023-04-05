@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.IdentityModel.Tokens;
 using MongoDB.ApplicationInsights.DependencyInjection;
+using MongoDB.Bson;
 using Newtonsoft.Json;
 using System.Reflection;
 using System.Text;
@@ -70,6 +71,11 @@ namespace MeteoroCefet.API
         {
             var types = Assembly.GetEntryAssembly()!.ExportedTypes;
             return types.Where(t => typeof(IEndpointDefinition).IsAssignableFrom(t) && !t.IsInterface);
+        }
+
+        public static void UseGuidRepresentation(this WebApplication app)
+        {
+            BsonDefaults.GuidRepresentation = GuidRepresentation.CSharpLegacy;
         }
 
         public static void ConfigureAuthorization(this IServiceCollection services, IConfiguration configuration)

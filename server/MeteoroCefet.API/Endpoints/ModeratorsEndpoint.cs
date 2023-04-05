@@ -15,7 +15,7 @@ namespace MeteoroCefet.API.Endpoints
         {
             app.MapGet("/moderadores", Handler);
         }
-        private static async Task<List<ApplicationUser>> Handler([FromServices] IdentityService identityService)
+        private static async Task<List<string>> Handler([FromServices] IdentityService identityService)
         {
             return await identityService.GetAllModerators();
         }

@@ -34,6 +34,6 @@ app.UseEndpointDefinitions();
 
 app.UseAuthentication();
 app.UseAuthorization();
+app.UseGuidRepresentation();
 
-BsonDefaults.GuidRepresentation = GuidRepresentation.CSharpLegacy;
 app.Run();

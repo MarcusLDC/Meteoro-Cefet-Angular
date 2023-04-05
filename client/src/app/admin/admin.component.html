@@ -11,7 +11,10 @@
                 </mat-form-field>
                 <mat-form-field  appearance="outline" class="padded">
                     <mat-label>Senha:</mat-label>
-                    <input formControlName="senha" matInput>
+                    <input formControlName="senha" matInput [type]="hide ? 'password' : 'text'">
+                    <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+                        <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+                    </button>
                 </mat-form-field>
                 <br>
             </mat-card-content>
@@ -24,14 +27,14 @@
             <mat-expansion-panel hideToggle>
               <mat-expansion-panel-header>
                 <mat-panel-title>
-                    <strong> Usuario:  {{item.username}}</strong>
+                    <strong> Usuario: {{item}}</strong>
                 </mat-panel-title>
                 <mat-panel-description>
                     Cargo: Moderador
                 </mat-panel-description>
                 <mat-icon>supervised_user_circle</mat-icon>
               </mat-expansion-panel-header>
-              <button mat-raised-button color="warn" (click)="excluirUsuario(item.username, item.password)"> Excluir moderador </button>
+              <button mat-raised-button color="warn" (click)="excluirUsuario(item)"> Excluir moderador </button>
             </mat-expansion-panel>
         </mat-accordion>
     </div>

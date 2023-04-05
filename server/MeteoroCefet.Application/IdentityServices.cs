@@ -145,10 +145,10 @@ namespace MeteoroCefet.Application
             return claims;
         }
 
-        public async Task<List<ApplicationUser>> GetAllModerators()
+        public async Task<List<string>> GetAllModerators()
         {
             var moderators = await _userManager.GetUsersInRoleAsync("Moderator");
-            return moderators.ToList();
+            return moderators.Select(x => x.UserName!).ToList();
         }
     }
 }
