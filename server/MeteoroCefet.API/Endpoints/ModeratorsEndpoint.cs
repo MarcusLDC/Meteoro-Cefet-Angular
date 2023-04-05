@@ -1,4 +1,6 @@
-﻿using MeteoroCefet.Domain.Entities;
+﻿using MeteoroCefet.Application;
+using MeteoroCefet.Domain.Entities;
+using MeteoroCefet.Domain.Entities.Identity;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -13,9 +15,9 @@ namespace MeteoroCefet.API.Endpoints
         {
             app.MapGet("/moderadores", Handler);
         }
-        private static async Task<List<ApplicationUser>> Handler([FromServices] UserManager<ApplicationUser> userManager)
+        private static async Task<List<ApplicationUser>> Handler([FromServices] IdentityService identityService)
         {
-            return await userManager.Users.Where(x => x.Roles.Intersect(x.Roles).Any()).ToListAsync();
+            return await identityService.GetAllModerators();
         }
     }
 }
