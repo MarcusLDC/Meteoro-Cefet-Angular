@@ -8,7 +8,7 @@ namespace MeteoroCefet.API.Endpoints
     {
         public void DefineEndpoints(WebApplication app)
         {
-            app.MapPost("usuario/delete", Handler);
+            app.MapPost("usuario/delete", Handler).RequireAuthorization("RequireAdmin");
         }
 
         private static async Task<Response<IdentityResult>> Handler([FromServices] ILogger<ExcluirModeradorEndpoint> log, [FromServices]  IdentityService identityService, [FromBody] ExcluirModeradorParams parameters)

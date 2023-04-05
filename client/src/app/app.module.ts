@@ -30,6 +30,7 @@ import { MatDividerModule } from '@angular/material/divider';
 import { LoginModalComponent } from './login-modal/login-modal.component';
 import { MatDialogModule } from '@angular/material/dialog';
 import { CookieService } from 'ngx-cookie-service';
+import { MatTabsModule } from '@angular/material/tabs';
 
 
 @NgModule({
@@ -71,7 +72,8 @@ import { CookieService } from 'ngx-cookie-service';
     MatMenuModule,
     MatExpansionModule,
     MatDividerModule,
-    MatDialogModule
+    MatDialogModule,
+    MatTabsModule,
   ],
   providers: [
     MatDatepickerModule,

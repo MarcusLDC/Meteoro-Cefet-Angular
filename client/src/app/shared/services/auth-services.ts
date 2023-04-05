@@ -36,7 +36,7 @@ export class AuthService {
       username: user,
       password: password
     }
-    this.meteoroServices.novoModerador(this.user, ["Moderator"]).subscribe(async x => {
+    this.meteoroServices.novoModerador(this.user, ["Moderator"], await this.getToken()).subscribe(async x => {
       if(!x.success){
         alert(x.errors);
         return;
@@ -47,7 +47,7 @@ export class AuthService {
   }
 
   public async deleteUser(username: string){
-    this.meteoroServices.deleteUsuario(username).subscribe(async x=>{
+    this.meteoroServices.deleteUsuario(username, await this.getToken()).subscribe(async x=>{
       if(x.success)
         alert("Moderador deletado.");
       location.reload();
@@ -56,7 +56,6 @@ export class AuthService {
 
   public async isLogged(): Promise<boolean> {
     var token = await this.getToken();
-   // await this.userExists();
     return !this.jwtHelper.isTokenExpired(token);
   }
 

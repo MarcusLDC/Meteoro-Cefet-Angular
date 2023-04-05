@@ -1,6 +1,6 @@
-import { Component, Inject} from '@angular/core';
+import { Component} from '@angular/core';
 import { AuthService } from '../app/shared/services/auth-services';
-import { MatDialog, MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
+import { MatDialog } from '@angular/material/dialog';
 import { LoginModalComponent } from './login-modal/login-modal.component';
 import { LoginDialog } from './shared/services/Dialogs/login-dialog';
 

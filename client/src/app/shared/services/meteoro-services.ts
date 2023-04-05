@@ -1,4 +1,4 @@
-import { HttpClient } from "@angular/common/http";
+import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { environment } from "src/environments/environment";
 import { ConsultaModel } from "../models/consulta-model";
@@ -13,6 +13,12 @@ import { RetornoDTO } from "./DTOs/retorno-DTO";
 export class MeteoroServices {
     constructor(private httpClient : HttpClient){}
     
+    private setBearer(token: string) {
+        let headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+        let options = { headers: headers };
+        return options;
+    }
+
     public consultar(model:ConsultaModel){
         return this.httpClient.post(environment.apiUrl,model)
     }
@@ -29,17 +35,24 @@ export class MeteoroServices {
         let endpoint = `${environment.apiUrl}/dadosEstacao`
         return this.httpClient.post<DadosTempo[]>(endpoint, {numeroEstacao, numPagina})
     }
+
+    // authentication
+
     public getModeradores(){
         let endpoint = `${environment.apiUrl}/moderadores`
         return this.httpClient.get<string[]>(endpoint)
     }
-    public novoModerador(user: UserModel, roles: string[]){
-        let endpoint = `${environment.apiUrl}/usuario/moderador/new`
-        return this.httpClient.post<NewUserDTO>(endpoint, {user, roles});
+
+    public novoModerador(user: UserModel, roles: string[], token: string){
+        let endpoint = `${environment.apiUrl}/usuario/moderador/new`;
+        let header = this.setBearer(token);
+        return this.httpClient.post<NewUserDTO>(endpoint, {username: user.username, password: user.password, roles}, header);
     }
-    public deleteUsuario(username: string){
+
+    public deleteUsuario(username: string, token: string){
         let endpoint = `${environment.apiUrl}/usuario/delete`
-        return this.httpClient.post<RetornoDTO<{errors: string[]}>>(endpoint, {username});
+        let header = this.setBearer(token);
+        return this.httpClient.post<RetornoDTO<{errors: string[]}>>(endpoint, {username}, header);
     }
     public editarEstacao(estacao: Estacao){
         let endpoint = `${environment.apiUrl}/estacoesEditar`
@@ -49,4 +62,6 @@ export class MeteoroServices {
         let endpoint = `${environment.apiUrl}/login`
         return this.httpClient.post<AuthenticationDTO>(endpoint, user)
     }
+
+    // end authentication
 }

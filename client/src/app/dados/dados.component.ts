@@ -50,12 +50,7 @@ export class DadosComponent implements OnInit {
   map: any;
   criado: boolean = true;
 
-  myIcon = L.icon({
-    iconUrl: 'assets/marker.png',
-    iconSize: [25, 35],
-    iconAnchor: [20, 35],
-    popupAnchor: [0, -30]
-  });
+
 
   constructor(private meteoroServices: MeteoroServices, private localStorage: LocalStorageServices, private builder: FormBuilder) {
     this.form = builder.group({
@@ -135,12 +130,25 @@ export class DadosComponent implements OnInit {
 
   private markAll() {
     this.estacoes.forEach(estacao => {
-      L.marker([estacao.latitude, estacao.longitude], { icon: this.myIcon }).addTo(this.map).on('click', () =>{
+
+      var icone = estacao.status == 0 ? this.createIcon('assets/markerVerde.png') : estacao.status == 1 ? this.createIcon('assets/markerVermelho.png') : this.createIcon('assets/markerAzul.png')
+       
+      L.marker([estacao.latitude, estacao.longitude], { icon: icone }).addTo(this.map).on('click', () =>{
         this.setSelectedEstacao(String(estacao.numero));
         this.form.setValue({estacao: String(estacao.numero)});
         this.localStorage.set('estacao', String(estacao.numero));
         this.atualizarDados();
       });
     });
+  }
+  
+  private createIcon(caminho: string) {
+    var icone = L.icon({
+       iconUrl: caminho,
+       iconSize: [25, 35],
+       iconAnchor: [20, 35],
+       popupAnchor: [0, -30]
+    });
+    return icone;
   }
 }
