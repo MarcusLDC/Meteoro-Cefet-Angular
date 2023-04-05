@@ -1,24 +1,102 @@
 <body>
     <div class="body">
-        <mat-accordion class="card" *ngFor="let item of estacoes | async">
-            <mat-expansion-panel hideToggle>
-              <mat-expansion-panel-header>
-                <mat-panel-title>
-                    <strong> Estação de ID: ({{item.numero}}) </strong>
-                </mat-panel-title>
-                <mat-panel-description>
-                    {{item.nome}}
-                </mat-panel-description>
-                <mat-icon>settings_input_antenna</mat-icon>
-              </mat-expansion-panel-header>
-                <strong> Nome:  </strong> {{item.nome}}  <br>
-                <strong> Lat.: </strong> {{item.latitude.toFixed(6)}}  <br>
-                <strong> Lon.: </strong> {{item.longitude.toFixed(6)}} <br>
-                <strong> Altitude: </strong> {{item.altitude}}m  <br>
-                <strong> Altura </strong> {{item.altura}}m <br>
-                <strong> Status: </strong> <span [ngStyle]="{ 'color': status[item.status] == 'Desligada' ? 'red' : status[item.status] == 'Funcionando' ? 'green' : 'blue' }" *ngIf="status[item.status]"> {{status[item.status]}} </span><br>
-                <button  mat-raised-button color="warn" class="botao" *ngIf="logado" [routerLink]="['editar', item.numero]">Editar<mat-icon>assignment_ind</mat-icon></button>
-            </mat-expansion-panel>
-        </mat-accordion>
+        <mat-card class="card">
+        <mat-tab-group>
+            <mat-tab>
+              <ng-template mat-tab-label>
+                <mat-icon class="example-tab-icon">wifi</mat-icon>
+                    Funcionando
+            </ng-template>
+                <mat-accordion *ngFor="let item of estacoes | async">
+                    <ng-container>
+                        <ng-container *ngIf="item.status == 0" >
+                        <mat-expansion-panel hideToggle>
+                        <mat-expansion-panel-header>
+                            <mat-panel-title>
+                                <strong> Estação de ID: ({{item.numero}}) </strong>
+                            </mat-panel-title>
+                            <mat-panel-description>
+                                {{item.nome}}
+                            </mat-panel-description>
+                            <mat-icon>settings_input_antenna</mat-icon>
+                        </mat-expansion-panel-header>
+                            <strong> Nome:  </strong> {{item.nome}}  <br>
+                            <strong> Lat.: </strong> {{item.latitude.toFixed(6)}}  <br>
+                            <strong> Lon.: </strong> {{item.longitude.toFixed(6)}} <br>
+                            <strong> Altitude: </strong> {{item.altitude}}m  <br>
+                            <strong> Altura </strong> {{item.altura}}m <br>
+                            <strong> Status: </strong> <span [ngStyle]="{ 'color': status[item.status] == 'Desligada' ? 'red' : status[item.status] == 'Funcionando' ? 'green' : 'blue' }" *ngIf="status[item.status]"> {{status[item.status]}} </span><br>
+                            <button  mat-raised-button color="warn" class="botao" *ngIf="logado" [routerLink]="['editar', item.numero]">Editar<mat-icon>assignment_ind</mat-icon></button>
+                        </mat-expansion-panel>
+                        </ng-container>
+                    </ng-container>
+                </mat-accordion>
+            </mat-tab>
+          
+            <mat-tab>
+              <ng-template mat-tab-label>
+                <mat-icon class="example-tab-icon">pause</mat-icon>
+                Em Manutenção
+              </ng-template>
+              <mat-accordion>
+                <ng-container *ngFor="let item of estacoes | async">
+                    <ng-container *ngIf="item.status == 2" >
+                    <mat-expansion-panel hideToggle>
+                    <mat-expansion-panel-header>
+                        <mat-panel-title>
+                            <strong> Estação de ID: ({{item.numero}}) </strong>
+                        </mat-panel-title>
+                        <mat-panel-description>
+                            {{item.nome}}
+                        </mat-panel-description>
+                        <mat-icon>settings_input_antenna</mat-icon>
+                    </mat-expansion-panel-header>
+                        <strong> Nome:  </strong> {{item.nome}}  <br>
+                        <strong> Lat.: </strong> {{item.latitude.toFixed(6)}}  <br>
+                        <strong> Lon.: </strong> {{item.longitude.toFixed(6)}} <br>
+                        <strong> Altitude: </strong> {{item.altitude}}m  <br>
+                        <strong> Altura </strong> {{item.altura}}m <br>
+                        <strong> Status: </strong> <span [ngStyle]="{ 'color': status[item.status] == 'Desligada' ? 'red' : status[item.status] == 'Funcionando' ? 'green' : 'blue' }" *ngIf="status[item.status]"> {{status[item.status]}} </span><br>
+                        <button  mat-raised-button color="warn" class="botao" *ngIf="logado" [routerLink]="['editar', item.numero]">Editar<mat-icon>assignment_ind</mat-icon></button>
+                    </mat-expansion-panel>
+                    </ng-container>
+                </ng-container>
+            </mat-accordion>
+            </mat-tab>
+          
+            <mat-tab>
+              <ng-template mat-tab-label>
+                <mat-icon class="example-tab-icon">wifi_off</mat-icon>
+                Desligadas
+              </ng-template>
+
+              <mat-accordion>
+                <ng-container *ngFor="let item of estacoes | async">
+                    <ng-container *ngIf="item.status == 1" >
+                    <mat-expansion-panel hideToggle>
+                    <mat-expansion-panel-header> 
+                        <mat-panel-title>
+                            <strong> Estação de ID: ({{item.numero}}) </strong>
+                        </mat-panel-title>
+                        <mat-panel-description>
+                            {{item.nome}}
+                        </mat-panel-description>
+                        <mat-icon>settings_input_antenna</mat-icon>
+                    </mat-expansion-panel-header>
+                        <strong> Nome:  </strong> {{item.nome}}  <br>
+                        <strong> Lat.: </strong> {{item.latitude.toFixed(6)}}  <br>
+                        <strong> Lon.: </strong> {{item.longitude.toFixed(6)}} <br>
+                        <strong> Altitude: </strong> {{item.altitude}}m  <br>
+                        <strong> Altura </strong> {{item.altura}}m <br>
+                        <strong> Status: </strong> <span [ngStyle]="{ 'color': status[item.status] == 'Desligada' ? 'red' : status[item.status] == 'Funcionando' ? 'green' : 'blue' }" *ngIf="status[item.status]"> {{status[item.status]}} </span><br>
+                        <button  mat-raised-button color="warn" class="botao" *ngIf="logado" [routerLink]="['editar', item.numero]">Editar<mat-icon>assignment_ind</mat-icon></button>
+                    </mat-expansion-panel>
+                    </ng-container>
+                </ng-container>
+            </mat-accordion>
+            </mat-tab>
+
+        </mat-tab-group>
+        </mat-card>
     </div>
 </body>

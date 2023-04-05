@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
 import { AuthService } from '../shared/services/auth-services';
 import { FormBuilder, FormGroup } from '@angular/forms';
-import { ApplicationUser } from '../shared/models/application-user-model';
 import { MeteoroServices } from '../shared/services/meteoro-services';
 import { Observable } from 'rxjs';
 

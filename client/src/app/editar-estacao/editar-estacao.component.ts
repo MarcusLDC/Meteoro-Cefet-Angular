@@ -38,7 +38,15 @@ export class EditarEstacaoComponent {
     this.meteoroServices.getEstacoes().subscribe(x => {
       this.estacoes = x
       this.route.params.subscribe(params => {
-          this.estacaoSelecionada = this.estacoes.find(item => item.numero === Number(params['id'])); // busca a estação que veio pelo id da rota
+          this.estacaoSelecionada = this.estacoes.find(item => item.numero === Number(params['id'])) as Estacao; // busca a estação que veio pelo id da rota
+          this.form.patchValue({
+            nome: this.estacaoSelecionada.nome, 
+            status: this.estacaoSelecionada.status, 
+            latitude: this.estacaoSelecionada.latitude, 
+            longitude: this.estacaoSelecionada.longitude, 
+            altitude: this.estacaoSelecionada.altitude, 
+            altura: this.estacaoSelecionada.altura
+          });
       });
     });
   }
@@ -51,37 +59,25 @@ export class EditarEstacaoComponent {
   }
 
   public async confirmar(){
-    if(await this.auth.isLogged()){
-      if(this.estacaoSelecionada != undefined){
-        if(this.form.value.nome == null) this.form.patchValue({nome: this.estacaoSelecionada.nome}); // se nulo, repetir o valor
-        if(this.form.value.status == null) this.form.patchValue({status: this.estacaoSelecionada.status});
-        if(this.form.value.latitude == null) this.form.patchValue({latitude: this.estacaoSelecionada.latitude});
-        if(this.form.value.longitude == null) this.form.patchValue({longitude: this.estacaoSelecionada.longitude});
-        if(this.form.value.altitude == null) this.form.patchValue({altitude: this.estacaoSelecionada.altitude});
-        if(this.form.value.altura == null) this.form.patchValue({altura: this.estacaoSelecionada.altura});
-        this.estacaoEditada = {
+    if(this.estacaoSelecionada != undefined){
+      this.estacaoEditada = {
 
-          id: this.estacaoSelecionada.id, // dados imutáveis
-          numero: this.estacaoSelecionada.numero,
-          dataInicio: this.estacaoSelecionada.dataInicio, // fim-dados imutáveis
+        id: this.estacaoSelecionada.id, // dados imutáveis
+        numero: this.estacaoSelecionada.numero,
+        dataInicio: this.estacaoSelecionada.dataInicio, // fim-dados imutáveis
 
-          nome: this.form.value.nome, 
-          status: this.form.value.status, 
-          latitude: this.form.value.latitude,
-          longitude: this.form.value.longitude,
-          altitude: this.form.value.altitude,
-          altura: this.form.value.altura
-        }
-        this.meteoroServices.editarEstacao(this.estacaoEditada).subscribe();
+        nome: this.form.value.nome, 
+        status: this.form.value.status, 
+        latitude: this.form.value.latitude,
+        longitude: this.form.value.longitude,
+        altitude: this.form.value.altitude,
+        altura: this.form.value.altura
       }
-      
-      if (window.confirm('Deseja confirmar essa ação?')) {
-        alert('Estação editada com sucesso!');
-        this.router.navigate(['/estacoes']);
-      }
-    }else{
-       alert('Você não está logado ou sua sessão expirou');
-       this.router.navigate(['/login']);
+      this.meteoroServices.editarEstacao(this.estacaoEditada).subscribe();
+    }
+    if(window.confirm('Deseja confirmar essa ação?')) {
+      alert('Estação editada com sucesso!');
+      this.router.navigate(['/estacoes']);
     }
   }
 }
