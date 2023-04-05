@@ -19,7 +19,7 @@ export class EditarEstacaoComponent {
   statusList = [
     {value: 0, name: "Funcionando"},
     {value: 1, name: "Desligada"},
-    {value: 1, name: "Em manutenção"},
+    {value: 2, name: "Em manutenção"},
   ];
 
   estacaoSelecionada: Estacao | undefined;

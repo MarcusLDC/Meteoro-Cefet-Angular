@@ -1,15 +1,24 @@
 using MeteoroCefet.API;
-using static BCrypt.Net.BCrypt;
+using MeteoroCefet.Domain.Entities.Identity;
+using Microsoft.AspNetCore.Identity;
+using MongoDB.Bson;
 
 var builder = WebApplication.CreateBuilder(args);
-
+builder
+    .Services
+    .AddIdentity<ApplicationUser, ApplicationRole>()
+    .AddMongoDbStores<ApplicationUser, ApplicationRole, Guid>(builder.Configuration.GetMongoConnectionString(), "Identity")
+    .AddDefaultTokenProviders();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddCors();
 builder.Services.ConfigureMeteoroServices();
-builder.Services.AddSingleton<BCrypt.Net.BCrypt>();
+builder.Services.ConfigureAuthorization(builder.Configuration);
+builder.Services.ConfigureMongoClient(builder.Configuration);
+
+
+
 builder.Logging.AddConsole();
-builder.ConfigureMongoClient();
 
 var app = builder.Build();
 
@@ -22,4 +31,9 @@ if (app.Environment.IsDevelopment())
 app.UseCors(b => b.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
 app.UseCustomExceptionHandler();
 app.UseEndpointDefinitions();
+
+app.UseAuthentication();
+app.UseAuthorization();
+app.UseGuidRepresentation();
+
 app.Run();

@@ -1,14 +1,13 @@
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
-import { end } from "@popperjs/core";
 import { environment } from "src/environments/environment";
 import { ConsultaModel } from "../models/consulta-model";
 import { DadosTempo } from "../models/dados-tempo-model";
 import { Estacao } from "../models/estacao-model";
 import { UserModel } from "../models/user-model";
 import { AuthenticationDTO } from "./DTOs/authentication-DTO";
-import { ApplicationUser } from "../models/application-user-model";
 import { NewUserDTO } from "./DTOs/new-user-DTO";
+import { RetornoDTO } from "./DTOs/retorno-dto";
 
 @Injectable({ providedIn: "root" })
 export class MeteoroServices {
@@ -32,15 +31,15 @@ export class MeteoroServices {
     }
     public getModeradores(){
         let endpoint = `${environment.apiUrl}/moderadores`
-        return this.httpClient.get<ApplicationUser[]>(endpoint)
+        return this.httpClient.get<string[]>(endpoint)
     }
-    public novoUsuario(user: UserModel){
-        let endpoint = `${environment.apiUrl}/usuario/new`
-        return this.httpClient.post<NewUserDTO>(endpoint, user);
+    public novoModerador(user: UserModel, roles: string[]){
+        let endpoint = `${environment.apiUrl}/usuario/moderador/new`
+        return this.httpClient.post<NewUserDTO>(endpoint, {user, roles});
     }
-    public deleteUsuario(user: UserModel){
+    public deleteUsuario(username: string){
         let endpoint = `${environment.apiUrl}/usuario/delete`
-        return this.httpClient.post<NewUserDTO>(endpoint, user);
+        return this.httpClient.post<RetornoDTO<{errors: string[]}>>(endpoint, {username});
     }
     public editarEstacao(estacao: Estacao){
         let endpoint = `${environment.apiUrl}/estacoesEditar`

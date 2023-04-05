@@ -6,7 +6,6 @@ import { CookieService } from 'ngx-cookie-service';
 import { MeteoroServices } from './meteoro-services';
 import { UserModel } from '../models/user-model';
 import { ApplicationUser } from '../models/application-user-model';
-import { BoundElementProperty } from '@angular/compiler';
 
 @Injectable({providedIn: 'root'})
 
@@ -23,45 +22,45 @@ export class AuthService {
       password: password
     }
     this.meteoroServices.login(this.user).subscribe(async x => {
-      var token = x.jwt;
-      if(x.message)
-        alert(x.message);
-      this.setToken(token)
+      if(!x.success){
+        alert("Credenciais incorretas.")
+        return;
+      }
+      this.setToken(x.token)
       location.reload();
     });
   }
 
-  public async newUser(user: string, password: string){ // mover para user-services
+  public async newUser(user: string, password: string){ 
     this.user = {
       username: user,
       password: password
     }
-    this.meteoroServices.novoUsuario(this.user).subscribe(async x => {
-      if(x.message)
-        alert(x.message);
+    this.meteoroServices.novoModerador(this.user, ["Moderator"]).subscribe(async x => {
+      if(!x.success){
+        alert(x.errors);
+        return;
+      }
+      alert("Moderador criado.");
       location.reload();
     });
   }
 
-  public async deleteUser(user: string, password: string){
-    this.user = {
-      username: user,
-      password: password
-    };
-    this.meteoroServices.deleteUsuario(this.user).subscribe(async x=>{
-      if(x.message)
-        alert(x.message);
+  public async deleteUser(username: string){
+    this.meteoroServices.deleteUsuario(username).subscribe(async x=>{
+      if(x.success)
+        alert("Moderador deletado.");
       location.reload();
     });
   }
 
   public async isLogged(): Promise<boolean> {
     var token = await this.getToken();
-    await this.userExists();
+   // await this.userExists();
     return !this.jwtHelper.isTokenExpired(token);
   }
 
-  public async userExists(): Promise<void>{
+ /* public async userExists(): Promise<void>{
     var token = await this.getToken();
     var isAdmin = await this.isAdmin(); 
     if(token && !isAdmin){
@@ -82,6 +81,7 @@ export class AuthService {
     };
     return;
   }
+*/
 
   public async isAdmin(): Promise<boolean>{
     var token = await this.getToken();
