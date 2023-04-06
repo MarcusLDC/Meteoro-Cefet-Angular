@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import { JwtHelperService } from '@auth0/angular-jwt';
-import { LocalStorageServices } from '../services/local-storage-services'
 import { ActivatedRouteSnapshot, Router, RouterStateSnapshot } from '@angular/router';
 import { CookieService } from 'ngx-cookie-service';
 import { MeteoroServices } from './meteoro-services';
@@ -14,45 +13,7 @@ export class AuthService {
   user: UserModel | undefined;
   applicationUsers: ApplicationUser[] = [];
   
-  constructor(private cookieService: CookieService, private localStorage: LocalStorageServices, private jwtHelper: JwtHelperService, private router: Router, private meteoroServices: MeteoroServices) {}
-
-  public async login(user: string, password: string){
-    this.user = {
-      username: user,
-      password: password
-    }
-    this.meteoroServices.login(this.user).subscribe(async x => {
-      if(!x.success){
-        alert("Credenciais incorretas.")
-        return;
-      }
-      this.setToken(x.token)
-      location.reload();
-    });
-  }
-
-  public async newUser(user: string, password: string){ 
-    this.user = {
-      username: user,
-      password: password
-    }
-    this.meteoroServices.novoModerador(this.user, ["Moderator"], await this.getToken()).subscribe(async x => {
-      if(!x.success){
-        alert(x.errors);
-        return;
-      }
-      alert("Moderador criado.");
-      location.reload();
-    });
-  }
-
-  public async deleteUser(username: string){
-    this.meteoroServices.deleteUsuario(username, await this.getToken()).subscribe(async x=>{
-      if(x.success)
-        alert("Moderador deletado.");
-      location.reload();
-    });
-  }
+  constructor(private cookieService: CookieService, private jwtHelper: JwtHelperService, private router: Router) {}
 
   public async isLogged(): Promise<boolean> {
     var token = await this.getToken();
@@ -96,7 +57,7 @@ export class AuthService {
     location.reload();
   }
 
-  private async getToken(): Promise<string>{
+  public async getToken(): Promise<string>{
     return this.cookieService.get('token');
   }
 

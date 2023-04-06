@@ -13,7 +13,7 @@ namespace MeteoroCefet.API.Endpoints
     {
         public void DefineEndpoints(WebApplication app)
         {
-            app.MapGet("/moderadores", Handler);
+            app.MapGet("/moderadores", Handler).RequireAuthorization("RequireAdmin");
         }
         private static async Task<List<string>> Handler([FromServices] IdentityService identityService)
         {

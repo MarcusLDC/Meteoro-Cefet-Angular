@@ -13,12 +13,6 @@ import { RetornoDTO } from "./DTOs/retorno-DTO";
 export class MeteoroServices {
     constructor(private httpClient : HttpClient){}
     
-    private setBearer(token: string) {
-        let headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
-        let options = { headers: headers };
-        return options;
-    }
-
     public consultar(model:ConsultaModel){
         return this.httpClient.post(environment.apiUrl,model)
     }
@@ -43,25 +37,24 @@ export class MeteoroServices {
         return this.httpClient.get<string[]>(endpoint)
     }
 
-    public novoModerador(user: UserModel, roles: string[], token: string){
+    public novoModerador(user: UserModel, roles: string[]){
         let endpoint = `${environment.apiUrl}/usuario/moderador/new`;
-        let header = this.setBearer(token);
-        return this.httpClient.post<NewUserDTO>(endpoint, {username: user.username, password: user.password, roles}, header);
+        return this.httpClient.post<NewUserDTO>(endpoint, {username: user.username, password: user.password, roles});
     }
 
-    public deleteUsuario(username: string, token: string){
+    public deleteUsuario(username: string){
         let endpoint = `${environment.apiUrl}/usuario/delete`
-        let header = this.setBearer(token);
-        return this.httpClient.post<RetornoDTO<{errors: string[]}>>(endpoint, {username}, header);
+        return this.httpClient.post<RetornoDTO<{errors: string[]}>>(endpoint, {username});
     }
+
     public editarEstacao(estacao: Estacao){
         let endpoint = `${environment.apiUrl}/estacoesEditar`
         return this.httpClient.post<Estacao[]>(endpoint, estacao)
     }
+
     public login(user: UserModel){
         let endpoint = `${environment.apiUrl}/login`
         return this.httpClient.post<AuthenticationDTO>(endpoint, user)
     }
-
     // end authentication
 }

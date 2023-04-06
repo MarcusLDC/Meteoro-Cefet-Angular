@@ -31,6 +31,7 @@ import { LoginModalComponent } from './login-modal/login-modal.component';
 import { MatDialogModule } from '@angular/material/dialog';
 import { CookieService } from 'ngx-cookie-service';
 import { MatTabsModule } from '@angular/material/tabs';
+import { InterceptorModule } from './shared/services/auth-interceptor';
 
 
 @NgModule({
@@ -74,6 +75,7 @@ import { MatTabsModule } from '@angular/material/tabs';
     MatDividerModule,
     MatDialogModule,
     MatTabsModule,
+    InterceptorModule
   ],
   providers: [
     MatDatepickerModule,

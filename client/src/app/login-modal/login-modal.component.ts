@@ -6,6 +6,7 @@ import { MeteoroServices } from '../shared/services/meteoro-services';
 import { AuthService } from '../shared/services/auth-services';
 import { Router } from '@angular/router';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+import { UserService } from '../shared/services/user-services';
 
 @Component({
   selector: 'app-login-modal',
@@ -20,7 +21,7 @@ export class LoginModalComponent {
   admin: boolean = false;
   hide = true;
 
-  constructor(private builder: FormBuilder, private localStorage: LocalStorageServices, private meteoroServices: MeteoroServices, 
+  constructor(private builder: FormBuilder, private meteoroServices: MeteoroServices, private userService: UserService,
     private auth: AuthService, private router: Router,  public dialogRef: MatDialogRef<LoginModalComponent>,  @Inject(MAT_DIALOG_DATA) public data: any) {
     this.form = builder.group({
       usuario: [null, Validators.required],
@@ -41,7 +42,7 @@ export class LoginModalComponent {
   }
 
   public async confirmar(){
-    await this.auth.login(this.form.value.usuario, this.form.value.senha);
+    await this.userService.login(this.form.value.usuario, this.form.value.senha);
   }
 
   public async logout(): Promise<void>{

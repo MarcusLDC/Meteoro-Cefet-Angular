@@ -47,7 +47,6 @@ export class EditarEstacaoComponent {
             altitude: this.estacaoSelecionada.altitude, 
             altura: this.estacaoSelecionada.altura
           });
-          console.log(this.estacaoSelecionada)
       });
     });
   }
