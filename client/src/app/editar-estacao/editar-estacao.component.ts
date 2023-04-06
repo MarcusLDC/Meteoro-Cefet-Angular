@@ -47,6 +47,7 @@ export class EditarEstacaoComponent {
             altitude: this.estacaoSelecionada.altitude, 
             altura: this.estacaoSelecionada.altura
           });
+          console.log(this.estacaoSelecionada)
       });
     });
   }
@@ -59,12 +60,14 @@ export class EditarEstacaoComponent {
   }
 
   public async confirmar(){
+
     if(this.estacaoSelecionada != undefined){
       this.estacaoEditada = {
 
         id: this.estacaoSelecionada.id, // dados imutáveis
         numero: this.estacaoSelecionada.numero,
-        dataInicio: this.estacaoSelecionada.dataInicio, // fim-dados imutáveis
+        dataInicio: this.estacaoSelecionada.dataInicio, 
+        ultimaModificacao: new Date(), // fim-dados imutáveis
 
         nome: this.form.value.nome, 
         status: this.form.value.status, 
@@ -73,6 +76,7 @@ export class EditarEstacaoComponent {
         altitude: this.form.value.altitude,
         altura: this.form.value.altura
       }
+      
       this.meteoroServices.editarEstacao(this.estacaoEditada).subscribe();
     }
     if(window.confirm('Deseja confirmar essa ação?')) {
