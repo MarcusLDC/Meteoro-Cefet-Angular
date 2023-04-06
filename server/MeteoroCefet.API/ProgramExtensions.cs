@@ -131,6 +131,8 @@ namespace MeteoroCefet.API
             {
                 options.AddPolicy("RequireAdmin", policy => policy.RequireRole("Admin"));
                 options.AddPolicy("RequireModerator", policy => policy.RequireRole("Moderator"));
+
+                options.AddPolicy("RequireAdminOrModerator", policy => policy.RequireRole("Admin", "Moderator"));
             });
 
             services.AddTransient<IdentityService>();

@@ -3,6 +3,7 @@ import { AuthService } from '../shared/services/auth-services';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { MeteoroServices } from '../shared/services/meteoro-services';
 import { Observable } from 'rxjs';
+import { UserService } from '../shared/services/user-services';
 
 @Component({
   selector: 'app-admin',
@@ -15,7 +16,7 @@ export class AdminComponent {
   form: FormGroup;
   moderadores: Observable<string[]>;
 
-  constructor(private auth: AuthService, private builder: FormBuilder, private meteoroServices: MeteoroServices) {
+  constructor(private user: UserService, private builder: FormBuilder, private meteoroServices: MeteoroServices) {
     this.form = builder.group({
       nome: [null],
       senha: [null],
@@ -24,12 +25,12 @@ export class AdminComponent {
   }
 
   public async novoUsuario(){
-    await this.auth.newUser(this.form.value.nome, this.form.value.senha);
+    await this.user.newUser(this.form.value.nome, this.form.value.senha);
   }
 
   public async excluirUsuario(username: string){
     if(window.confirm("Você está excluindo o moderador > " + username + " < , confirme a ação.")){
-      await this.auth.deleteUser(username);
+      await this.user.deleteUser(username);
     }
   }
 }

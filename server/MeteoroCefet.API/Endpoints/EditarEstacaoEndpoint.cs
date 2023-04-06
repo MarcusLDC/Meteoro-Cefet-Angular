@@ -9,7 +9,7 @@ namespace MeteoroCefet.API.Endpoints
     {
         public void DefineEndpoints(WebApplication app)
         {
-            app.MapPost("/estacoesEditar", Handler);
+            app.MapPost("/estacoesEditar", Handler).RequireAuthorization("RequireAdminOrModerator");
         }
         private static async void Handler([FromServices] ILogger<EditarEstacaoEndpoint> log, [FromServices] EstacaoRepository repository, [FromBody] Estacao estacao)
         {
