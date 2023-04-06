@@ -1,7 +1,6 @@
 using MeteoroCefet.API;
 using MeteoroCefet.Domain.Entities.Identity;
 using Microsoft.AspNetCore.Identity;
-using MongoDB.Bson;
 
 var builder = WebApplication.CreateBuilder(args);
 builder
@@ -15,8 +14,6 @@ builder.Services.AddCors();
 builder.Services.ConfigureMeteoroServices();
 builder.Services.ConfigureAuthorization(builder.Configuration);
 builder.Services.ConfigureMongoClient(builder.Configuration);
-
-
 
 builder.Logging.AddConsole();
 

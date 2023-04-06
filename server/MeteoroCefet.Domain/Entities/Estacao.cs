@@ -10,6 +10,7 @@
         public decimal Altitude { get; set; }
         public decimal Altura { get; set; }
         public Status Status { get; set; }
+        public DateTime UltimaModificacao { get; set; }
     }
     public enum Status 
     { 

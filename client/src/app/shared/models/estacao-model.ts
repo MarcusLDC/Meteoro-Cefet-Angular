@@ -8,6 +8,7 @@ export interface Estacao{
     altitude: number;
     altura: number;
     status: Status;
+    ultimaModificacao: Date;
 }
 
 export enum Status{

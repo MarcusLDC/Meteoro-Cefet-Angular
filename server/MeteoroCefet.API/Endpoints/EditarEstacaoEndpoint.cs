@@ -13,6 +13,7 @@ namespace MeteoroCefet.API.Endpoints
         }
         private static async void Handler([FromServices] ILogger<EditarEstacaoEndpoint> log, [FromServices] EstacaoRepository repository, [FromBody] Estacao estacao)
         {
+            estacao.UltimaModificacao = DateTime.Now;
             await repository.ReplaceEstacao(estacao.Numero, estacao);
         }
     }
