@@ -14,7 +14,8 @@ namespace MeteoroCefet.API.Endpoints
 
         private static async Task<List<DadosTempo>> Handler([FromServices] DadosTempoRepository repository, [FromBody] ConsultaModel model)
         {
-            return await repository.Get((x) => x.Pressao > 0);
+            var cu = model.Chuva;
+            return await repository.Get(x => x.Precipitacao > 0);
         }
     }
 }

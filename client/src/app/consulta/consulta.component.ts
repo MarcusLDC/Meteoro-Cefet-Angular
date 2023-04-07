@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { DadosTempo } from '../shared/models/dados-tempo-model';
 import { FormGroup, FormControl, FormBuilder, Validators } from '@angular/forms';
 import { ConsultaModel } from '../shared/models/consulta-model';
 import { MeteoroServices } from '../shared/services/meteoro-services';
@@ -19,8 +20,9 @@ export class ConsultaComponent {
   spinnerValue = 0;
 
   form: FormGroup;
-  idEstacoes = new FormControl('');
   estacoes: Estacao[] = [];
+
+  dados: DadosTempo[] = [];
 
   minDate = new Date
   maxDate = new Date
@@ -98,8 +100,14 @@ export class ConsultaComponent {
   }
 
   public consultar() {
+
     let formData = this.form.value as ConsultaModel;
-    this.meteoroServices.consultar(formData);
+    
+    console.log(formData)
+
+    this.meteoroServices.consultar(formData).subscribe(x => this.dados = x);
+    
+    console.log(this.dados)
   }
 
   public markAll(){
