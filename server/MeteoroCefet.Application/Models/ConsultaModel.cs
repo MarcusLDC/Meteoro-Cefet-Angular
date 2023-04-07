@@ -4,7 +4,7 @@
     {
         public DateTime PeriodoInicio { get; set; } = new DateTime();
         public DateTime PeriodoFim { get; set; } = new DateTime();
-        public string[] Estacao { get; set; } = Array.Empty<string>();
+        public int[] Estacao { get; set; } = Array.Empty<int>();
         public string Intervalo { get; set; } = "";
         public bool TempAr { get; set; } = false;  // Checkboxes
         public bool Tabela { get; set; } = false;
