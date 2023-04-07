@@ -1,7 +1,10 @@
 
 
 export class ConsultaModel {
-    periodo: Date = new Date();
+
+    periodoInicio: Date = new Date();
+    periodoFim: Date = new Date();
+
     estacao: string = '';
     intervalo: string = '';
 

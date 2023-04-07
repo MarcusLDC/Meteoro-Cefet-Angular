@@ -2,7 +2,8 @@
 {
     public class ConsultaModel
     {
-        public DateTime Periodo { get; set; } = DateTime.Now;
+        public DateTime PeriodoInicio { get; set; } = DateTime.Now;
+        public DateTime PeriodoFim { get; set; } = DateTime.Now;
         public string Estacao { get; set; } = "";
         public string Intervalo { get; set; } = "";
         public bool TempAr { get; set; } = false;  // Checkboxes
