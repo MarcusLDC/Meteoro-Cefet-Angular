@@ -1,6 +1,7 @@
 <div class="body">
     <mat-card class="card">
         <mat-card-content>
+
             <div class="container"> 
                 <mat-form-field class="padded" appearance="outline" [formGroup]="form">
                     <mat-label class="destaque">Insira o intervalo de datas</mat-label>
@@ -24,14 +25,18 @@
                 <label class="destaque"> Consultar via: </label>
                 <mat-checkbox formControlName="tabela"> Tabela </mat-checkbox>
                 <mat-checkbox formControlName="grafico"> Gráfico </mat-checkbox>
-                <label class="destaque"> (1 ou 2 variáveis) </label>
             </div>
 
             <div class='container' [formGroup]="form">
                 <label for="intervalo" class="destaque"> Intervalo entre os dados:</label>
-                <select formControlName="intervalo" name="intervalo" id="intervalo" (onchange)="selectIntervaloHandler">
+                <select formControlName="intervalo" name="intervalo" id="intervalo">
                     <option *ngFor="let item of periodosGrafico" [value]="item.value"> {{item.value}} </option>
                 </select>
+            </div>
+
+            <div class='container'>
+                <label class="destaque" color="warn"> Marcar todas: </label>
+                <mat-checkbox (click)="markAll()"> </mat-checkbox>
             </div>
 
             <div>

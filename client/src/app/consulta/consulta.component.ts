@@ -12,6 +12,9 @@ import { ThemePalette } from '@angular/material/core';
 })
 
 export class ConsultaComponent {
+  checkboxes = ['tempAr','tempMin','tempMax','tempOrv','chuva','direcaoVento','velocidadeVento','velocidadeVentoMax','bateria','radiacao','pressaoATM','indiceCalor','umidadeRelativa'];
+  marcarTodas = true;
+
   spinnerColor: ThemePalette = 'warn';
   spinnerValue = 0;
 
@@ -21,7 +24,6 @@ export class ConsultaComponent {
 
   minDate = new Date
   maxDate = new Date
-  
 
   periodosGrafico = [
     { value: null, key: 0},
@@ -72,26 +74,25 @@ export class ConsultaComponent {
 
   ngOnInit(){
     this.form.valueChanges.subscribe(x => {
-      let periodo = 0, estacao = 0, intervalo = 0, checkboxes = 0, opcao = 0
-
-      if(this.form.get('periodoInicio')?.value && this.form.get('periodoFim')?.value) {
-        periodo = 20;
-      }
-      if(this.form.get('estacao')?.value && this.form.get('estacao')?.value.length > 0){
-       estacao = 20;
-      }
-      if(this.form.get('intervalo')?.value && this.form.get('intervalo')?.value != "null"){
-        intervalo = 20;
-      }
-      if(this.form.get('tabela')?.value || this.form.get('grafico')?.value) {
-        opcao = 20;
-      }
-      if(this.form.get('tempAr')?.value || this.form.get('tempMin')?.value || this.form.get('tempMax')?.value || this.form.get('tempOrv')?.value ||
-          this.form.get('chuva')?.value || this.form.get('direcaoVento')?.value || this.form.get('velocidadeVento')?.value || 
-          this.form.get('velocidadeVentoMax')?.value || this.form.get('bateria')?.value || this.form.get('radiacao')?.value || 
-          this.form.get('pressaoATM')?.value || this.form.get('indiceCalor')?.value || this.form.get('umidadeRelativa')?.value){
-        checkboxes = 20;
-      }
+      let periodo = this.form.get('periodoInicio')?.value && this.form.get('periodoFim')?.value ? 20 : 0;
+      let estacao = this.form.get('estacao')?.value && this.form.get('estacao')?.value.length > 0 ? 20 : 0;
+      let intervalo = this.form.get('intervalo')?.value && this.form.get('intervalo')?.value != "null" ? 20 : 0;
+      let opcao = this.form.get('tabela')?.value || this.form.get('grafico')?.value ? 20 : 0;
+      let checkboxes = Boolean(
+        this.form.get('tempAr')?.value ||
+        this.form.get('tempMin')?.value ||
+        this.form.get('tempMax')?.value ||
+        this.form.get('tempOrv')?.value ||
+        this.form.get('chuva')?.value ||
+        this.form.get('direcaoVento')?.value ||
+        this.form.get('velocidadeVento')?.value ||
+        this.form.get('velocidadeVentoMax')?.value ||
+        this.form.get('bateria')?.value ||
+        this.form.get('radiacao')?.value ||
+        this.form.get('pressaoATM')?.value ||
+        this.form.get('indiceCalor')?.value ||
+        this.form.get('umidadeRelativa')?.value
+      ) ? 20 : 0;
       this.spinnerValue = checkboxes + periodo + estacao + intervalo + opcao;
     });
   }
@@ -101,7 +102,10 @@ export class ConsultaComponent {
     this.meteoroServices.consultar(formData);
   }
 
-  public selectIntervaloHandler() {
-
+  public markAll(){
+    this.checkboxes.forEach(checkbox => {
+      this.form.controls[checkbox].setValue(this.marcarTodas)
+    });
+    this.marcarTodas = !this.marcarTodas;
   }
 }

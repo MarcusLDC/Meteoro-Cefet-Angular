@@ -13,11 +13,12 @@ import { RetornoDTO } from "./DTOs/retorno-DTO";
 export class MeteoroServices {
     constructor(private httpClient : HttpClient){}
     
-    public consultar(model:ConsultaModel){
-        return this.httpClient.post(environment.apiUrl,model)
+    public consultar(model: ConsultaModel){
+        let endpoint = `${environment.apiUrl}` // faltando
+        return this.httpClient.post(endpoint, model)
     }
     
-    public getDados(numPagina:number){
+    public getDados(numPagina: number){
         let endpoint = `${environment.apiUrl}/dados`
         return this.httpClient.post<DadosTempo[]>(endpoint, numPagina)
     }
@@ -30,7 +31,7 @@ export class MeteoroServices {
         return this.httpClient.post<DadosTempo[]>(endpoint, {numeroEstacao, numPagina})
     }
 
-    // authentication
+    // authentication required
 
     public getModeradores(){
         let endpoint = `${environment.apiUrl}/moderadores`
@@ -56,5 +57,6 @@ export class MeteoroServices {
         let endpoint = `${environment.apiUrl}/login`
         return this.httpClient.post<AuthenticationDTO>(endpoint, user)
     }
-    // end authentication
+
+    // end authentication required
 }
