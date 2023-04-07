@@ -5,7 +5,7 @@
             <div class="container"> 
                 <mat-form-field class="padded" appearance="outline" [formGroup]="form">
                     <mat-label class="destaque">Insira o intervalo de datas</mat-label>
-                        <mat-date-range-input [rangePicker]="picker">
+                        <mat-date-range-input [min]="minDate" [max]="maxDate" [rangePicker]="picker">
                             <input matInput>
                             <input formControlName="periodoInicio" matStartDate placeholder="Data Inicial">
                             <input formControlName="periodoFim" matEndDate placeholder="Data Final">
@@ -16,15 +16,15 @@
                 <mat-form-field appearance="outline" [formGroup]="form">
                     <mat-label>Insira as estações</mat-label>
                     <mat-select formControlName="estacao" multiple>
-                    <mat-option *ngFor="let item of estacoes" [value]="item">{{item.numero}}</mat-option>
+                    <mat-option *ngFor="let item of estacoes" [value]="item.numero">{{item.numero}}</mat-option>
                     </mat-select>
                 </mat-form-field>
             </div>
 
             <div class='container' [formGroup]="form">
                 <label class="destaque"> Consultar via: </label>
-                <mat-checkbox formControlName="tabela"> Tabela </mat-checkbox>
-                <mat-checkbox formControlName="grafico"> Gráfico </mat-checkbox>
+                <mat-checkbox color="warn" formControlName="tabela"> Tabela </mat-checkbox>
+                <mat-checkbox color="warn" formControlName="grafico"> Gráfico </mat-checkbox>
             </div>
 
             <div class='container' [formGroup]="form">
@@ -36,7 +36,7 @@
 
             <div class='container'>
                 <label class="destaque" color="warn"> Marcar todas: </label>
-                <mat-checkbox (click)="markAll()"> </mat-checkbox>
+                <mat-checkbox color="warn" (click)="markAll()"> </mat-checkbox>
             </div>
 
             <div>

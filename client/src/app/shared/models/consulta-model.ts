@@ -2,10 +2,10 @@
 
 export class ConsultaModel {
 
-    periodoInicio: Date = new Date();
+    periodoInicio : Date = new Date();
     periodoFim: Date = new Date();
 
-    estacao: string = '';
+    estacao: string[] = [];
     intervalo: string = '';
 
     tempAr: boolean = false;  // Checkboxes

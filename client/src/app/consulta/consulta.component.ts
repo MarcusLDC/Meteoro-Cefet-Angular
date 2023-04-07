@@ -1,9 +1,11 @@
 import { Component } from '@angular/core';
-import { FormGroup, FormControl, FormBuilder, Validators } from '@angular/forms';
+import { DadosTempo } from '../shared/models/dados-tempo-model';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { ConsultaModel } from '../shared/models/consulta-model';
 import { MeteoroServices } from '../shared/services/meteoro-services';
 import { Estacao } from '../shared/models/estacao-model';
 import { ThemePalette } from '@angular/material/core';
+import * as Papa from 'papaparse';
 
 @Component({
   selector: 'app-consulta',
@@ -19,8 +21,9 @@ export class ConsultaComponent {
   spinnerValue = 0;
 
   form: FormGroup;
-  idEstacoes = new FormControl('');
   estacoes: Estacao[] = [];
+
+  dados: DadosTempo[] = [];
 
   minDate = new Date
   maxDate = new Date
@@ -36,10 +39,8 @@ export class ConsultaComponent {
   ];
 
   constructor(private builder: FormBuilder, private meteoroServices: MeteoroServices) {
-    const currentYear = new Date().getFullYear();
     
-    this.minDate = new Date(currentYear - 20, 0, 1);
-    this.maxDate = new Date(currentYear + 1, 11, 31);
+    this.minDate = new Date(2023, 1, 16);
     
     this.form = builder.group({
 
@@ -69,7 +70,7 @@ export class ConsultaComponent {
     });
 
     meteoroServices.getEstacoes().subscribe(x => this.estacoes = x);
-
+    meteoroServices.getDados(1).subscribe(x => this.maxDate = x[0].dataHora)
   }
 
   ngOnInit(){
@@ -97,9 +98,58 @@ export class ConsultaComponent {
     });
   }
 
-  public consultar() {
+  public async consultar() {
+
     let formData = this.form.value as ConsultaModel;
-    this.meteoroServices.consultar(formData);
+
+    this.meteoroServices.consultar(formData).subscribe(x => {
+
+      this.dados = x
+      if(this.dados.length > 0){
+        const config = {
+            delimiter: ",",
+            newline: "\r\n",
+            header: true,
+            trimHeaders: true,
+        };
+    
+        const csv = Papa.unparse(this.dados.map(x => ({
+            
+          'Data e Hora ': new Date(x.dataHora).toLocaleDateString('pt-BR',{
+            day: '2-digit',
+            month: '2-digit',
+            year: 'numeric',
+            hour: '2-digit',
+            minute: '2-digit',
+            second: '2-digit'
+          }) + ' ',
+
+          'Estacao ': x.estacao + ' ',
+    
+          'TempAr ': x.temperaturaAr + ' ',
+          'Umidade ': x.extra2 + ' ',
+          'IndiceCalor ': x.indiceCalor + ' ',
+          'PontoDeOrvalho ': x.tempPontoOrvalho + ' ',
+          'Pressao ': x.pressao + ' ',
+          'Chuva ': x.precipitacao + ' ',
+          'DirecaoVento ': x.direcaoVento + ' ',
+          'VelocidadeVento ': x.velocidadeVento + ' ',
+          'DeficitPressaoVapor ': x.deficitPressaoVapor + ' ',
+          'RadSolar ': x.radSolar + ' ',
+          'Bateria ': x.bateria + ' ',
+    
+        })), config);
+    
+        const blob = new Blob([csv], { type: 'text/csv' });
+        const url = window.URL.createObjectURL(blob);
+        const link = document.createElement('a');
+        link.setAttribute('href', url);
+        link.setAttribute('download', 'dadosTesteFiltroNaoFuncional.csv');
+        link.click();
+      }else{
+        alert("sua consulta não retornou resultado")
+      }
+    });
   }
 
   public markAll(){

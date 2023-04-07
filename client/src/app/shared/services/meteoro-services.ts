@@ -14,8 +14,8 @@ export class MeteoroServices {
     constructor(private httpClient : HttpClient){}
     
     public consultar(model: ConsultaModel){
-        let endpoint = `${environment.apiUrl}` // faltando
-        return this.httpClient.post(endpoint, model)
+        let endpoint = `${environment.apiUrl}/consulta`
+        return this.httpClient.post<DadosTempo[]>(endpoint, model)
     }
     
     public getDados(numPagina: number){
