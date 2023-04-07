@@ -16,6 +16,10 @@ p, h1{
     font-weight:500;
 }
 
+.padded{
+    margin-right: 10px;
+}
+
 .container{
     float:left;
     margin-right: 500px;
@@ -28,6 +32,8 @@ label { margin-left: 5px; margin-right: 5px;}
     margin-top: 15px;
     margin-left: 23px;
     margin-bottom: 15px;
+    margin-right: 50px;
+    float: left;
 }
 
 .colu{
@@ -53,3 +59,14 @@ label { margin-left: 5px; margin-right: 5px;}
     margin-right: 5px;
 }
 
+.spinner{
+    width: 20px;
+    height: 20px;
+}
+
+.warning{
+    padding-top: 5px;
+    padding-left: 23px;
+    color:red;
+    font-size: 15px;
+}

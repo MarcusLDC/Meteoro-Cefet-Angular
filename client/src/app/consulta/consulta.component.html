@@ -1,21 +1,19 @@
 <div class="body">
     <mat-card class="card">
         <mat-card-content>
-            <div class="container">
-                <form class="intervaloData" [formGroup]="form">
-                    <mat-form-field appearance="fill">
-                        <mat-label class="destaque">Insira o intervalo de datas</mat-label>
-                        <mat-date-range-input [rangePicker]="picker">
-                            <input matInput formControlName="periodo">
-                            <input matStartDate placeholder="Data Inicial">
-                            <input matEndDate placeholder="Data Final">
-                        </mat-date-range-input>
-                        <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
-                        <mat-date-range-picker #picker></mat-date-range-picker>
-                    </mat-form-field>
-                </form>
 
-                <mat-form-field appearance="fill" [formGroup]="form">
+            <div class="container"> 
+                <mat-form-field class="padded" appearance="outline" [formGroup]="form">
+                    <mat-label class="destaque">Insira o intervalo de datas</mat-label>
+                        <mat-date-range-input [rangePicker]="picker">
+                            <input matInput>
+                            <input formControlName="periodoInicio" matStartDate placeholder="Data Inicial">
+                            <input formControlName="periodoFim" matEndDate placeholder="Data Final">
+                        </mat-date-range-input>
+                    <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+                    <mat-date-range-picker #picker></mat-date-range-picker>
+                </mat-form-field>
+                <mat-form-field appearance="outline" [formGroup]="form">
                     <mat-label>Insira as estações</mat-label>
                     <mat-select formControlName="estacao" multiple>
                     <mat-option *ngFor="let item of estacoes" [value]="item">{{item.numero}}</mat-option>
@@ -27,14 +25,18 @@
                 <label class="destaque"> Consultar via: </label>
                 <mat-checkbox formControlName="tabela"> Tabela </mat-checkbox>
                 <mat-checkbox formControlName="grafico"> Gráfico </mat-checkbox>
-                <label class="destaque"> (1 ou 2 variáveis) </label>
             </div>
 
             <div class='container' [formGroup]="form">
-                <label for="intervalo" class="destaque"> Dados médios e total:</label>
-                <select formControlName="intervalo" name="intervalo" id="intervalo" (onchange)="selectIntervaloHandler">
-                    <option *ngFor="let item of periodosGrafico" value="item.key"> {{item.value}} </option>
+                <label for="intervalo" class="destaque"> Intervalo entre os dados:</label>
+                <select formControlName="intervalo" name="intervalo" id="intervalo">
+                    <option *ngFor="let item of periodosGrafico" [value]="item.value"> {{item.value}} </option>
                 </select>
+            </div>
+
+            <div class='container'>
+                <label class="destaque" color="warn"> Marcar todas: </label>
+                <mat-checkbox (click)="markAll()"> </mat-checkbox>
             </div>
 
             <div>
@@ -89,8 +91,15 @@
         </mat-card-content>
 
         <mat-card-actions>
-            <button class="botao" mat-raised-button color="warn" (click)="consultar"> Consultar </button>
+            <button class="botao" mat-raised-button color="warn" (click)="consultar()" *ngIf="spinnerValue == 100"> Consultar </button>
+            <button class="botao" mat-raised-button color="warn" disabled *ngIf="spinnerValue != 100"> Consultar </button>
+            <mat-progress-spinner class="botao" *ngIf="spinnerValue != 100"
+                class="spinner"
+                [diameter]="70"
+                [color]="spinnerColor"
+                [value]="spinnerValue">
+            </mat-progress-spinner>
+            <span class="warning" *ngIf="spinnerValue != 100"> Preencha pelo menos uma opção em cada grupo </span> 
         </mat-card-actions>
-        
     </mat-card> 
 </div>

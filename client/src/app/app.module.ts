@@ -32,6 +32,7 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { CookieService } from 'ngx-cookie-service';
 import { MatTabsModule } from '@angular/material/tabs';
 import { InterceptorModule } from './shared/services/auth-interceptor';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 
 @NgModule({
@@ -75,6 +76,7 @@ import { InterceptorModule } from './shared/services/auth-interceptor';
     MatDividerModule,
     MatDialogModule,
     MatTabsModule,
+    MatProgressSpinnerModule,
     InterceptorModule
   ],
   providers: [
