@@ -38,10 +38,10 @@ export class ConsultaComponent {
   ];
 
   constructor(private builder: FormBuilder, private meteoroServices: MeteoroServices) {
-    const currentYear = new Date().getFullYear();
     
-    this.minDate = new Date(currentYear - 20, 0, 1);
-    this.maxDate = new Date(currentYear + 1, 11, 31);
+    this.minDate = new Date(2023, 1, 16);
+
+    this.maxDate = new Date(2024, 3, 8); // alterar
     
     this.form = builder.group({
 

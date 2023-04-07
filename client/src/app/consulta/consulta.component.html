@@ -5,7 +5,7 @@
             <div class="container"> 
                 <mat-form-field class="padded" appearance="outline" [formGroup]="form">
                     <mat-label class="destaque">Insira o intervalo de datas</mat-label>
-                        <mat-date-range-input [rangePicker]="picker">
+                        <mat-date-range-input [min]="minDate" [max]="maxDate" [rangePicker]="picker">
                             <input matInput>
                             <input formControlName="periodoInicio" matStartDate placeholder="Data Inicial">
                             <input formControlName="periodoFim" matEndDate placeholder="Data Final">
