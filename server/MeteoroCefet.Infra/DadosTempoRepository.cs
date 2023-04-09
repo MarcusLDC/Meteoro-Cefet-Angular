@@ -27,5 +27,15 @@ namespace MeteoroCefet.Infra
                 .Limit(tamanhoPaginacao)
                 .ToListAsync();
         }
+
+        public async Task<DateTime> GetStationLastReceivedDate(int numeroEstacao)
+        {
+            var last =  await Collection
+                .Find(x => x.Estacao == numeroEstacao)
+                .SortByDescending(x => x.DataHora)
+                .FirstAsync();
+
+            return last.DataHora;
+        }
     }
 }
