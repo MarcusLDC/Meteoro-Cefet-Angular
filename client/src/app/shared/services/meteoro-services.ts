@@ -8,6 +8,7 @@ import { UserModel } from "../models/user-model";
 import { AuthenticationDTO } from "./DTOs/authentication-DTO";
 import { NewUserDTO } from "./DTOs/new-user-DTO";
 import { RetornoDTO } from "./DTOs/retorno-DTO";
+import { ConsultaResultModel } from "../models/consulta-result-model";
 
 @Injectable({ providedIn: "root" })
 export class MeteoroServices {
@@ -15,7 +16,7 @@ export class MeteoroServices {
     
     public consultar(model: ConsultaModel){
         let endpoint = `${environment.apiUrl}/consulta`
-        return this.httpClient.post<DadosTempo[]>(endpoint, model)
+        return this.httpClient.post<ConsultaResultModel[]>(endpoint, model)
     }
     
     public getDados(numPagina: number){

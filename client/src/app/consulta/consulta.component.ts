@@ -6,6 +6,7 @@ import { MeteoroServices } from '../shared/services/meteoro-services';
 import { Estacao } from '../shared/models/estacao-model';
 import { ThemePalette } from '@angular/material/core';
 import * as Papa from 'papaparse';
+import { ConsultaResultModel } from '../shared/models/consulta-result-model';
 
 @Component({
   selector: 'app-consulta',
@@ -23,7 +24,7 @@ export class ConsultaComponent {
   form: FormGroup;
   estacoes: Estacao[] = [];
 
-  dados: DadosTempo[] = [];
+  dados: ConsultaResultModel[] = [];
 
   minDate = new Date
   maxDate = new Date
@@ -104,50 +105,9 @@ export class ConsultaComponent {
 
     this.meteoroServices.consultar(formData).subscribe(x => {
 
-      this.dados = x
-      if(this.dados.length > 0){
-        const config = {
-            delimiter: ",",
-            newline: "\r\n",
-            header: true,
-            trimHeaders: true,
-        };
-    
-        const csv = Papa.unparse(this.dados.map(x => ({
-            
-          'Data e Hora ': new Date(x.dataHora).toLocaleDateString('pt-BR',{
-            day: '2-digit',
-            month: '2-digit',
-            year: 'numeric',
-            hour: '2-digit',
-            minute: '2-digit',
-          }) + ' ',
+      this.dados = x;
 
-          'Estacao ': x.estacao + ' ',
-    
-          'TempAr ': x.temperaturaAr + ' ',
-          'Umidade ': x.extra2 + ' ',
-          'IndiceCalor ': x.indiceCalor + ' ',
-          'PontoDeOrvalho ': x.tempPontoOrvalho + ' ',
-          'Pressao ': x.pressao + ' ',
-          'Chuva ': x.precipitacao + ' ',
-          'DirecaoVento ': x.direcaoVento + ' ',
-          'VelocidadeVento ': x.velocidadeVento + ' ',
-          'DeficitPressaoVapor ': x.deficitPressaoVapor + ' ',
-          'RadSolar ': x.radSolar + ' ',
-          'Bateria ': x.bateria + ' ',
-    
-        })), config);
-    
-        const blob = new Blob([csv], { type: 'text/csv' });
-        const url = window.URL.createObjectURL(blob);
-        const link = document.createElement('a');
-        link.setAttribute('href', url);
-        link.setAttribute('download', 'dadosTesteFiltroNaoFuncional.csv');
-        link.click();
-      }else{
-        alert("sua consulta não retornou resultado")
-      }
+      console.log(this.dados);
     });
   }
 
