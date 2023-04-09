@@ -1,8 +1,9 @@
 ﻿using MeteoroCefet.Domain.Entities;
-using MeteoroCefet.Infra;
+using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Logging;
 using MongoDB.Driver;
 
-namespace MeteoroCefet.API.BackgroundServices
+namespace MeteoroCefet.Infra.BackgroundServices
 {
     public class ShutdownStationsBackgroundService : BackgroundService
     {
