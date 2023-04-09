@@ -1,4 +1,5 @@
-﻿using MeteoroCefet.Domain.Entities;
+﻿using MeteoroCefet.API.BackgroundServices;
+using MeteoroCefet.Domain.Entities;
 using MeteoroCefet.Infra;
 using Microsoft.AspNetCore.Mvc;
 using MongoDB.Driver;
@@ -12,13 +13,13 @@ namespace MeteoroCefet.API.Endpoints
             app.MapPost("dados/new", Handler);
         }
 
-        private static async Task<Guid> Handler([FromServices] DadosTempoRepository dadosTempoRepository, [FromServices] EstacaoRepository estacaoRepository, [FromServices] ILogger<NovoDadoTempoEndpoint> log, HttpRequest req)
+        private static async Task<Guid> Handler([FromServices] DadosTempoRepository dadosTempoRepository, [FromServices] EstacaoRepository estacaoRepository, [FromServices] ILogger<NovoDadoTempoEndpoint> log, [FromServices] ShutdownStationsBackgroundService shutdownServices, HttpRequest req)
         {
             var msg = req.Form["msg"];
             var key = req.Form["key"];
 
             log.LogInformation("Recebi: {msg} {key}", msg, key);
-            var pedacinhos = msg.First()!.Split(";");      
+            var pedacinhos = msg.First()!.Split(";");
 
             var dado = new DadosTempo
             {
@@ -42,16 +43,29 @@ namespace MeteoroCefet.API.Endpoints
                 Status = pedacinhos[17]
             };
 
+            await StationGuarantees(estacaoRepository, log, shutdownServices, dado); //tem que mover esses serviços para uma classe Service / Handler
+
+            return await dadosTempoRepository.Add(dado);
+        }
+
+        private static async Task StationGuarantees(EstacaoRepository estacaoRepository, ILogger<NovoDadoTempoEndpoint> log, ShutdownStationsBackgroundService shutdownServices, DadosTempo dado)
+        {
             var estacaoExiste = await estacaoRepository.Collection.Find(x => x.Numero == dado.Estacao).AnyAsync();
 
             if (!estacaoExiste)
             {
-                var estacao = new Estacao { Numero = dado.Estacao , DataInicio = dado.DataHora , Status = Status.Funcionando , Nome = "Estação_Nova" };
-                await estacaoRepository.Add(estacao);
-                log.LogInformation("Nova estação adicionada: {estacao}", estacao);
+                var novaEstacao = new Estacao { Numero = dado.Estacao, DataInicio = dado.DataHora, Status = Status.Funcionando, Nome = "Estação_Nova" };
+                await estacaoRepository.Add(novaEstacao);
+                shutdownServices.ScheduleStationShutdown(dado.Estacao);
+                log.LogInformation("Nova estação adicionada: {estacao}", novaEstacao);
+                return;
             }
 
-            return await dadosTempoRepository.Add(dado);
+            var estacao = await estacaoRepository.Collection.Find(e => e.Numero == dado.Estacao).FirstAsync();
+            if (estacao.Status == Status.Desligada)
+            {
+                shutdownServices.ScheduleStationShutdown(dado.Estacao);
+            }
         }
 
         private static double ConverteDouble(string text)
