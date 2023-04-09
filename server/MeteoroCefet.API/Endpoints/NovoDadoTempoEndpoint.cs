@@ -1,6 +1,6 @@
-﻿using MeteoroCefet.API.BackgroundServices;
-using MeteoroCefet.Domain.Entities;
+﻿using MeteoroCefet.Domain.Entities;
 using MeteoroCefet.Infra;
+using MeteoroCefet.Infra.BackgroundServices;
 using Microsoft.AspNetCore.Mvc;
 using MongoDB.Driver;
 

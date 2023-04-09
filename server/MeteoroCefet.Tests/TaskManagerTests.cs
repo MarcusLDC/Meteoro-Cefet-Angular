@@ -1,4 +1,4 @@
-﻿using MeteoroCefet.API.BackgroundServices;
+﻿using MeteoroCefet.Infra.BackgroundServices;
 
 namespace MeteoroCefet.Tests
 {

@@ -1,5 +1,5 @@
-﻿using MeteoroCefet.API.BackgroundServices;
-using MeteoroCefet.Infra;
+﻿using MeteoroCefet.Infra;
+using MeteoroCefet.Infra.BackgroundServices;
 
 namespace MeteoroCefet.API
 {
