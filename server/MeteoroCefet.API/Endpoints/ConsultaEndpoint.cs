@@ -12,6 +12,7 @@ using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
 using MongoDB.Driver.Linq;
 using System.Runtime.InteropServices;
 using System.Runtime.CompilerServices;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
 
 namespace MeteoroCefet.API.Endpoints
 {
@@ -24,8 +25,6 @@ namespace MeteoroCefet.API.Endpoints
 
         private static async Task<List<ConsultaResultModel>> Handler([FromServices] DadosTempoRepository repository, [FromBody] ConsultaModel model)
         {
-            // 1 minuto, 10 minutos, 30 minutos, 1 hora, 24 horas, mensal
-
             model.PeriodoFim = model.PeriodoFim.AddHours(23).AddMinutes(59);
 
             var query = repository.Collection
@@ -36,33 +35,48 @@ namespace MeteoroCefet.API.Endpoints
             var result = await query;
 
             var groupedIntervalo = result.GroupBy(x => new {
-                            Estacao = x.Estacao,
-                            DataHora = new DateTime(x.DataHora.Year, x.DataHora.Month, x.DataHora.Day, x.DataHora.Hour, x.DataHora.Minute / 10 * 10, 0)
+                            x.Estacao,
+                            DataHora = GetIntervaloDataHora(x.DataHora, model.Intervalo)
                          })
                         .Select(g => new ConsultaResultModel 
                         {
                             DataHora = g.Key.DataHora,
-                            Estacao = g.Average(x => x.Estacao),
-                            TempAr = g.Average(x => x.TemperaturaAr),     // Falta > Implementar filtro para todos os intervalos
-                            TempMin = g.Average(x => x.TemperaturaAr),      // > Produzir o CSV e o grafico no backend
-                            TempMax = g.Average(x => x.TemperaturaAr),      // > Filtro para ignorar campos
-                            TempOrv = g.Average(x => x.TempPontoOrvalho),   // > Calcular a TempMax, TempMin e VelocidadeMax do vento
-                            Chuva = g.Average(x => x.Precipitacao),         // > Formatar a DataHora e limitar os decimais dos doubles.
-                            DirecaoVento = g.Average(x => x.DirecaoVento),
-                            VelocidadeVento = g.Average(x => x.VelocidadeVento),
-                            VelocidadeVentoMax = g.Average(x => x.VelocidadeVento),
-                            Bateria = g.Average(x => x.Bateria),
-                            Radiacao = g.Average(x => x.RadSolar),
-                            PressaoATM = g.Average(x => x.Pressao),
-                            IndiceCalor = g.Average(x => x.IndiceCalor),
-                            UmidadeRelativa = g.Average(x => x.Extra2),
+                            Estacao = g.Key.Estacao,
+                            TempAr = Math.Round(g.Average(x => x.TemperaturaAr), 2),    
+                            TempMin = Math.Round(g.Min(x => x.TemperaturaAr), 2),      
+                            TempMax = Math.Round(g.Max(x => x.TemperaturaAr), 2) ,       // > Filtro para ignorar campos
+                            TempOrv = Math.Round(g.Average(x => x.TempPontoOrvalho), 2),    
+                            Chuva = Math.Round(g.Average(x => x.Precipitacao), 2),         
+                            DirecaoVento = Math.Round(g.Average(x => x.DirecaoVento), 2),      // > Produzir o CSV e o grafico no backend
+                            VelocidadeVento = Math.Round(g.Average(x => x.VelocidadeVento), 2),
+                            VelocidadeVentoMax = g.Max(x => x.VelocidadeVento),
+                            Bateria = Math.Round(g.Average(x => x.Bateria), 2),
+                            Radiacao = Math.Round(g.Average(x => x.RadSolar), 2),
+                            PressaoATM = Math.Round(g.Average(x => x.Pressao), 2),
+                            IndiceCalor = Math.Round(g.Average(x => x.IndiceCalor), 2),
+                            UmidadeRelativa = Math.Round(g.Average(x => x.Extra2), 2),
                         })
                         .ToList();
 
             return groupedIntervalo;
         }
+        private static DateTime GetIntervaloDataHora(DateTime date, string intervalo)
+        {
+            var dataHora = intervalo switch
+            {
+                "1 minuto" => new DateTime(date.Year, date.Month, date.Day, date.Hour, date.Minute / 1 * 1, 0),
+                "10 minutos" => new DateTime(date.Year, date.Month, date.Day, date.Hour, date.Minute / 10 * 10, 0),
+                "30 minutos" => new DateTime(date.Year, date.Month, date.Day, date.Hour, date.Minute / 30 * 30, 0),
+                "1 hora" => new DateTime(date.Year, date.Month, date.Day, date.Hour, date.Minute / 60 * 60, 0),
+                "24 horas" => new DateTime(date.Year, date.Month, date.Day, 0, 0, 0).AddHours(24),
+                "Mensal" => new DateTime(date.Year, date.Month + 1, 1, 0, 0, 0).AddMonths(-1),
+                _ => throw new ArgumentException("Intervalo inválido"),
+            };
+            return dataHora;
+        }
     }
 }
+
 
 /* var memoryStream = new MemoryStream();
 var streamWriter = new StreamWriter(memoryStream, Encoding.UTF8);

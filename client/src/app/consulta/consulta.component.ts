@@ -24,7 +24,7 @@ export class ConsultaComponent {
   form: FormGroup;
   estacoes: Estacao[] = [];
 
-  dados: ConsultaResultModel | undefined;
+  dados: ConsultaResultModel[] = [];
 
   minDate = new Date
   maxDate = new Date
@@ -104,7 +104,9 @@ export class ConsultaComponent {
     let formData = this.form.value as ConsultaModel;
 
     this.meteoroServices.consultar(formData).subscribe(x => {
-      this.dados = x
+
+      this.dados = x;
+
       console.log(this.dados);
     });
   }
