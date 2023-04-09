@@ -2,7 +2,7 @@
 
 namespace MeteoroCefet.Tests
 {
-    internal class Utils
+    public class Utils
     {
         public static MongoClient MongoClient() 
         {
