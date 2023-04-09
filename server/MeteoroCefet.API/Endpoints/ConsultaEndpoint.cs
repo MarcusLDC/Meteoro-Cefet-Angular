@@ -1,18 +1,8 @@
 ﻿using MeteoroCefet.Application.Models;
-using MeteoroCefet.Domain.Entities;
 using MeteoroCefet.Infra;
 using Microsoft.AspNetCore.Mvc;
-using CsvHelper;
-using CsvHelper.Configuration;
-using System.Globalization;
-using System.IO;
-using System.Text;
 using MongoDB.Driver;
-using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
 using MongoDB.Driver.Linq;
-using System.Runtime.InteropServices;
-using System.Runtime.CompilerServices;
-using Microsoft.EntityFrameworkCore.Metadata.Internal;
 
 namespace MeteoroCefet.API.Endpoints
 {
@@ -27,12 +17,11 @@ namespace MeteoroCefet.API.Endpoints
         {
             model.PeriodoFim = model.PeriodoFim.AddHours(23).AddMinutes(59);
 
-            var query = repository.Collection
+            var result = await repository
+                .Collection
                 .Find(x => x.DataHora >= model.PeriodoInicio && x.DataHora <= model.PeriodoFim && model.Estacao.Contains(x.Estacao))
                 .SortBy(x => x.Estacao)
                 .ToListAsync();
-
-            var result = await query;
 
             var groupedIntervalo = result.GroupBy(x => new {
                             x.Estacao,
