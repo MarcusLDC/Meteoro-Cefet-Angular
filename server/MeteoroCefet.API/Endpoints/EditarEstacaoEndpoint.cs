@@ -1,7 +1,6 @@
 ﻿using MeteoroCefet.Domain.Entities;
 using MeteoroCefet.Infra;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore.Metadata.Internal;
 
 namespace MeteoroCefet.API.Endpoints
 {
