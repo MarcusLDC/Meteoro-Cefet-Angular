@@ -31,7 +31,7 @@ namespace MeteoroCefet.API.Endpoints
                         {
                             DataHora = g.Key.DataHora,
                             Estacao = g.Key.Estacao,
-                            TempAr = Math.Round(g.Average(x => x.TemperaturaAr), 2),    
+                            
                             TempMin = Math.Round(g.Min(x => x.TemperaturaAr), 2),      
                             TempMax = Math.Round(g.Max(x => x.TemperaturaAr), 2) ,       // > Filtro para ignorar campos
                             TempOrv = Math.Round(g.Average(x => x.TempPontoOrvalho), 2),    
@@ -57,8 +57,8 @@ namespace MeteoroCefet.API.Endpoints
                 "10 minutos" => new DateTime(date.Year, date.Month, date.Day, date.Hour, date.Minute / 10 * 10, 0),
                 "30 minutos" => new DateTime(date.Year, date.Month, date.Day, date.Hour, date.Minute / 30 * 30, 0),
                 "1 hora" => new DateTime(date.Year, date.Month, date.Day, date.Hour, date.Minute / 60 * 60, 0),
-                "24 horas" => new DateTime(date.Year, date.Month, date.Day, 0, 0, 0).AddHours(24),
-                "Mensal" => new DateTime(date.Year, date.Month + 1, 1, 0, 0, 0).AddMonths(-1),
+                "24 horas" => new DateTime(date.Year, date.Month, date.Day, 0, 0, 0),
+                "Mensal" => new DateTime(date.Year, date.Month, 1, 0, 0, 0),
                 _ => throw new ArgumentException("Intervalo inválido"),
             };
             return dataHora;
@@ -67,21 +67,3 @@ namespace MeteoroCefet.API.Endpoints
 }
 
 
-/* var memoryStream = new MemoryStream();
-var streamWriter = new StreamWriter(memoryStream, Encoding.UTF8);
-
-await streamWriter.WriteLineAsync("DataHora, Estacao");
-
-foreach (var registro in query)
-{
-    await streamWriter.WriteLineAsync($"{registro.DataHora},{registro.Estacao}");
-}
-
-await streamWriter.FlushAsync();
-memoryStream.Position = 0;
-return new FileStreamResult(memoryStream, "text/csv")
-{
-    FileDownloadName = "dados.csv"
-};
-
-*/
