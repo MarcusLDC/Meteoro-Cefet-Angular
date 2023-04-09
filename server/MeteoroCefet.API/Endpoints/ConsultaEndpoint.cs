@@ -35,14 +35,14 @@ namespace MeteoroCefet.API.Endpoints
             var result = await query;
 
             var groupedIntervalo = result.GroupBy(x => new {
-                            x.Estacao,
-                            DataHora = GetIntervaloDataHora(x.DataHora, model.Intervalo)
-                         })
-                        .Select(g => new ConsultaResultModel 
+                x.Estacao,
+                DataHora = GetIntervaloDataHora(x.DataHora, model.Intervalo)
+            })
+                        .Select(g => new ConsultaResultModel
                         {
                             DataHora = g.Key.DataHora,
                             Estacao = g.Key.Estacao,
-                            
+                            TempAr = Math.Round(g.Average(x => x.TemperaturaAr), 2),
                             TempMin = Math.Round(g.Min(x => x.TemperaturaAr), 2),      
                             TempMax = Math.Round(g.Max(x => x.TemperaturaAr), 2) ,       // > Filtro para ignorar campos
                             TempOrv = Math.Round(g.Average(x => x.TempPontoOrvalho), 2),    
