@@ -1,12 +1,11 @@
 import { Component } from '@angular/core';
-import { DadosTempo } from '../shared/models/dados-tempo-model';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { ConsultaModel } from '../shared/models/consulta-model';
 import { MeteoroServices } from '../shared/services/meteoro-services';
 import { Estacao } from '../shared/models/estacao-model';
 import { ThemePalette } from '@angular/material/core';
-import * as Papa from 'papaparse';
 import { ConsultaResultModel } from '../shared/models/consulta-result-model';
+import { saveAs } from 'file-saver';
 
 @Component({
   selector: 'app-consulta',
@@ -104,9 +103,7 @@ export class ConsultaComponent {
     let formData = this.form.value as ConsultaModel;
 
     this.meteoroServices.consultar(formData).subscribe(x => {
-
       this.dados = x;
-
       console.log(this.dados);
     });
   }
