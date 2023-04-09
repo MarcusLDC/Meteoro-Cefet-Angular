@@ -1,4 +1,5 @@
-﻿using MeteoroCefet.Infra;
+﻿using MeteoroCefet.API.BackgroundServices;
+using MeteoroCefet.Infra;
 
 namespace MeteoroCefet.API
 {
@@ -8,6 +9,9 @@ namespace MeteoroCefet.API
         {
             services.AddTransient<DadosTempoRepository>();
             services.AddTransient<EstacaoRepository>();
+
+            services.AddHostedService<ShutdownStationsBackgroundService>();
+            services.AddSingleton<ShutdownStationsBackgroundService>();
         }
     }
 }
