@@ -10,8 +10,12 @@ namespace MeteoroCefet.API
             services.AddTransient<DadosTempoRepository>();
             services.AddTransient<EstacaoRepository>();
 
-            services.AddHostedService<ShutdownStationsBackgroundService>();
             services.AddSingleton<ShutdownStationsBackgroundService>();
+        }
+
+        public static void ConfigureBackgroundServices(this IServiceCollection services)
+        {
+            services.AddHostedService<ShutdownStationsBackgroundService>();
         }
     }
 }
