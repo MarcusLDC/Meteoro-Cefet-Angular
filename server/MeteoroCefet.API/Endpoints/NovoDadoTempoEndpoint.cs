@@ -50,9 +50,9 @@ namespace MeteoroCefet.API.Endpoints
 
         private static async Task StationGuarantees(EstacaoRepository estacaoRepository, ILogger<NovoDadoTempoEndpoint> log, ShutdownStationsBackgroundService shutdownServices, DadosTempo dado)
         {
-            var estacaoExiste = await estacaoRepository.Collection.Find(x => x.Numero == dado.Estacao).AnyAsync();
+            var estacao = await estacaoRepository.Collection.Find(x => x.Numero == dado.Estacao).FirstOrDefaultAsync();
 
-            if (!estacaoExiste)
+            if (estacao is null)
             {
                 var novaEstacao = new Estacao { Numero = dado.Estacao, DataInicio = dado.DataHora, Status = Status.Funcionando, Nome = "Estação_Nova" };
                 await estacaoRepository.Add(novaEstacao);
@@ -61,9 +61,9 @@ namespace MeteoroCefet.API.Endpoints
                 return;
             }
 
-            var estacao = await estacaoRepository.Collection.Find(e => e.Numero == dado.Estacao).FirstAsync();
             if (estacao.Status == Status.Desligada)
             {
+                await estacaoRepository.AlterarStatus(estacao.Numero, Status.Funcionando);
                 shutdownServices.ScheduleStationShutdown(dado.Estacao);
             }
         }
