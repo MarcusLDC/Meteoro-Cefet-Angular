@@ -1,4 +1,4 @@
-import { HttpClient, HttpHeaders } from "@angular/common/http";
+import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { environment } from "src/environments/environment";
 import { ConsultaModel } from "../models/consulta-model";
@@ -8,7 +8,7 @@ import { UserModel } from "../models/user-model";
 import { AuthenticationDTO } from "./DTOs/authentication-DTO";
 import { NewUserDTO } from "./DTOs/new-user-DTO";
 import { RetornoDTO } from "./DTOs/retorno-DTO";
-import { ConsultaResultModel } from "../models/consulta-result-model";
+import { FileModel } from "../models/file-model";
 
 @Injectable({ providedIn: "root" })
 export class MeteoroServices {
@@ -16,7 +16,7 @@ export class MeteoroServices {
     
     public consultar(model: ConsultaModel){
         let endpoint = `${environment.apiUrl}/consulta`
-        return this.httpClient.post<ConsultaResultModel[]>(endpoint, model)
+        return this.httpClient.post<FileModel>(endpoint, model)
     }
     
     public getDados(numPagina: number){

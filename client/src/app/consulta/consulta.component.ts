@@ -4,8 +4,6 @@ import { ConsultaModel } from '../shared/models/consulta-model';
 import { MeteoroServices } from '../shared/services/meteoro-services';
 import { Estacao } from '../shared/models/estacao-model';
 import { ThemePalette } from '@angular/material/core';
-import { ConsultaResultModel } from '../shared/models/consulta-result-model';
-import { saveAs } from 'file-saver';
 
 @Component({
   selector: 'app-consulta',
@@ -22,8 +20,6 @@ export class ConsultaComponent {
 
   form: FormGroup;
   estacoes: Estacao[] = [];
-
-  dados: ConsultaResultModel[] = [];
 
   minDate = new Date
   maxDate = new Date
@@ -103,9 +99,25 @@ export class ConsultaComponent {
     let formData = this.form.value as ConsultaModel;
 
     this.meteoroServices.consultar(formData).subscribe(x => {
-      this.dados = x;
-      console.log(this.dados);
+      const imageBlob = this.dataURItoBlob(x.data);
+      const url = window.URL.createObjectURL(imageBlob);
+      const link = document.createElement('a');
+      link.href = url;
+      link.download = x.name;
+      link.click();
+      window.URL.revokeObjectURL(url);
     });
+  }
+
+  dataURItoBlob(data: string) {
+    const byteString = window.atob(data);
+    const arrayBuffer = new ArrayBuffer(byteString.length);
+    const int8Array = new Uint8Array(arrayBuffer);
+    for (let i = 0; i < byteString.length; i++) {
+      int8Array[i] = byteString.charCodeAt(i);
+    }
+    const blob = new Blob([int8Array], { type: 'image/png' });
+    return blob;
   }
 
   public markAll(){
