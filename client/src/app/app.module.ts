@@ -21,6 +21,7 @@ import { EstacoesComponent } from './estacoes/estacoes.component';
 import { EditarEstacaoComponent } from './editar-estacao/editar-estacao.component';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { transform } from '../app/shared/pipes/transform';
+import { degrees } from '../app/shared/pipes/degrees';
 import { JwtModule } from '@auth0/angular-jwt';
 import { AdminComponent } from './admin/admin.component';
 import { MatIconModule } from '@angular/material/icon';
@@ -43,6 +44,7 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
     EstacoesComponent,
     EditarEstacaoComponent,
     transform,
+    degrees,
     AdminComponent,
     LoginModalComponent,
   ],
@@ -94,5 +96,3 @@ export class AppModule { }
 export function tokenGet() {
   return localStorage.getItem('token');
 }
-
-

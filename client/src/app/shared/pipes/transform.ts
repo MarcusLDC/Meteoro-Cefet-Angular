@@ -13,5 +13,3 @@ import { Pipe, PipeTransform } from '@angular/core';
       }
     }
   }
-
-  //-17192 7200
