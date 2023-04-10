@@ -100,10 +100,12 @@ export class ConsultaComponent {
 
     this.meteoroServices.consultar(formData).subscribe(x => {
       const imageBlob = this.dataURItoBlob(x.data);
-      const imageFile = new File([imageBlob], x.name, { type: x.type });
-
-      const url = window.URL.createObjectURL(imageFile);
-      window.open(url)
+      const url = window.URL.createObjectURL(imageBlob);
+      const link = document.createElement('a');
+      link.href = url;
+      link.download = x.name;
+      link.click();
+      window.URL.revokeObjectURL(url);
     });
   }
 
