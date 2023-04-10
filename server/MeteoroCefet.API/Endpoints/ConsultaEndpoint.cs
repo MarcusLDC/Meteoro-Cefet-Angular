@@ -80,7 +80,7 @@ namespace MeteoroCefet.API.Endpoints
 
                     { "Bateria" , model.Bateria ? Math.Round(g.Average(x => x.Bateria), 2) : null},
                     { "Radiacao" , model.Radiacao ? Math.Round(g.Average(x => x.RadSolar), 2) : null},
-                    { "Pressão ATM" , model.PressaoATM ? Math.Round(g.Average(x => x.Pressao), 2) : null},
+                    { "Pressao ATM" , model.PressaoATM ? Math.Round(g.Average(x => x.Pressao), 2) : null},
                     { "Indice Calor" , model.IndiceCalor ? Math.Round(g.Average(x => x.IndiceCalor), 2) : null},
                     { "Umidade Relativa" , model.UmidadeRelativa ?  Math.Round(g.Average(x => x.Extra2), 2) : null}
                 })

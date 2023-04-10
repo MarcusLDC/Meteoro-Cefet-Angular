@@ -47,10 +47,11 @@ export class DadosComponent implements OnInit {
   numEstacoes: number = 0;
   numDados: number = 0;
 
+  cidade: string | undefined;
+  estado: string | undefined;
+
   map: any;
   criado: boolean = true;
-
-
 
   constructor(private meteoroServices: MeteoroServices, private localStorage: LocalStorageServices, private builder: FormBuilder) {
     this.form = builder.group({
@@ -111,12 +112,27 @@ export class DadosComponent implements OnInit {
       this.map = L.map('map', { scrollWheelZoom: false }).setView([this.estacaoSelecionada.latitude, this.estacaoSelecionada.longitude], 16);
       this.tileLayer();
       this.markAll();
+      this.geocode(this.estacaoSelecionada!);
     } else {
       this.criado = true;
-      this.map = L.map('map', { scrollWheelZoom: false, }).setView([-22, -43.5], 7);
+      this.map = L.map('map', { scrollWheelZoom: false, }).setView([this.getMiddleLatitude(), this.getMiddleLongitude()], 7); 
       this.tileLayer();
       this.markAll();
     }
+  }
+
+  private getMiddleLatitude(){
+    return this.getMiddleCoordinates(this.estacoes.map(x => x.latitude));
+  }
+
+  private getMiddleLongitude(){
+    return this.getMiddleCoordinates(this.estacoes.map(x => x.longitude));
+  }
+
+  private getMiddleCoordinates(coordenadas: number[]){
+    let coordenadasReais = coordenadas.filter(x => x != 0)
+    let somaCoordenadas = coordenadasReais.reduce((a, b) => a + b, 0)
+    return somaCoordenadas/coordenadasReais.length;
   }
 
   private tileLayer() {
@@ -150,5 +166,26 @@ export class DadosComponent implements OnInit {
        popupAnchor: [0, -30]
     });
     return icone;
+  }
+
+  private geocode(estacao: Estacao) {
+    var url = 'https://nominatim.openstreetmap.org/reverse?format=jsonv2&lat=' + estacao.latitude + '&lon=' + estacao.longitude;
+
+    const self = this;
+
+    fetch(url)
+      .then(function(response) {
+        return response.json();
+      })
+      .then(function(data) {
+
+        self.cidade = data.address.city;
+
+        if(data.address.city == undefined){
+          self.cidade = data.address.town;
+        }
+        
+        self.estado = data.address.state;
+      })
   }
 }
