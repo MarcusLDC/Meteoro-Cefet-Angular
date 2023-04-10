@@ -33,8 +33,12 @@ namespace MeteoroCefet.API.Endpoints
             WriteRecords(stationsAverageData, csv);
             csv.Flush();
 
+            var inicio = model.PeriodoInicio.AddHours(-3).ToString("d", new CultureInfo("pt-BR"));
+            var fim = model.PeriodoFim.AddHours(-3).ToString("d", new CultureInfo("pt-BR"));
 
-            return new File(Convert.ToBase64String(memoryStream.ToArray()), "text/csv" , "dados.csv");
+            var fileName = "dados-" + inicio + "_a_" + fim + "-" + model.Intervalo + ".csv";
+
+            return new File(Convert.ToBase64String(memoryStream.ToArray()), "text/csv" , fileName);
         }
 
         public record File(string Data, string Type, string Name);
@@ -48,6 +52,11 @@ namespace MeteoroCefet.API.Endpoints
                 .SortBy(x => x.Estacao)
                 .ToListAsync();
 
+            foreach(var data in result)
+            {
+                data.DataHora = data.DataHora.AddHours(-3);
+            }
+
             var groupedByIntervalo = result.GroupBy(x => new
             {
                 x.Estacao,
@@ -56,8 +65,8 @@ namespace MeteoroCefet.API.Endpoints
 
             var stationsAverageData = groupedByIntervalo.Select(g => new Dictionary<string, object?>
                 {
-                    { "Data Hora (UTC-3)" , g.Key.DataHora.AddHours(-3).ToString("g", new CultureInfo("pt-BR"))},
-                    { "Estação" , g.Key.Estacao },
+                    { "Data Hora (UTC-3)" , g.Key.DataHora.ToString("g", new CultureInfo("pt-BR"))},
+                    { "Estacao" , g.Key.Estacao },
 
                     { "Temp. Ar" , model.TempAr ? Math.Round(g.Average(x => x.TemperaturaAr), 2) : null},
                     { "Temp. Min" , model.TempMin ? Math.Round(g.Min(x => x.TemperaturaAr), 2) : null},
@@ -65,18 +74,19 @@ namespace MeteoroCefet.API.Endpoints
                     { "Temp. Orv" , model.TempOrv ? Math.Round(g.Average(x => x.TempPontoOrvalho), 2) : null},
 
                     { "Chuva" , model.Chuva ? Math.Round(g.Average(x => x.Precipitacao), 2) : null},
-                    { "Direção Vento" , model.DirecaoVento ? Math.Round(g.Average(x => x.DirecaoVento), 2) : null},
+                    { "Direcao Vento" , model.DirecaoVento ? Math.Round(g.Average(x => x.DirecaoVento), 2) : null},
                     { "VelocidadeVento" , model.VelocidadeVento ? Math.Round(g.Average(x => x.VelocidadeVento), 2) : null},
                     { "VelocidadeVentoMax" , model.VelocidadeVentoMax ? g.Max(x => x.VelocidadeVento) : null},
 
                     { "Bateria" , model.Bateria ? Math.Round(g.Average(x => x.Bateria), 2) : null},
-                    { "Radiação" , model.Radiacao ? Math.Round(g.Average(x => x.RadSolar), 2) : null},
+                    { "Radiacao" , model.Radiacao ? Math.Round(g.Average(x => x.RadSolar), 2) : null},
                     { "Pressão ATM" , model.PressaoATM ? Math.Round(g.Average(x => x.Pressao), 2) : null},
-                    { "Índice Calor" , model.IndiceCalor ? Math.Round(g.Average(x => x.IndiceCalor), 2) : null},
+                    { "Indice Calor" , model.IndiceCalor ? Math.Round(g.Average(x => x.IndiceCalor), 2) : null},
                     { "Umidade Relativa" , model.UmidadeRelativa ?  Math.Round(g.Average(x => x.Extra2), 2) : null}
                 })
                 .Select(x => x.Where(y => y.Value != null)
                 .ToDictionary(x => x.Key, x => x.Value));
+
             return stationsAverageData;
         }
 
