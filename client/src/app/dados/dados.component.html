@@ -11,7 +11,7 @@
                 <mat-card-header class="cardHeader borderBottom">
                     <mat-card-title> <p class="cardHeaderContent title"> Estação de monitoramento ambiental</p> </mat-card-title>
                     <mat-card-subtitle> <p class="cardHeaderContent subtitle"> 
-                        <strong>Local: </strong> {{estacaoSelecionada.nome}} (placeholder) <strong> ID: </strong>{{estacaoSelecionada.numero}} 
+                        <strong>Local: </strong> {{cidade}}, {{estado}} <strong> ID: </strong>{{estacaoSelecionada.numero}} 
                     </p></mat-card-subtitle>
                 </mat-card-header>
                 <mat-card-content class="cardContent">
@@ -23,8 +23,8 @@
                             <p> <strong> Status: </strong> 
                                 <span [ngStyle]="{ 'color': status[estacaoSelecionada.status] == 'Desligada' ? 'red' : status[estacaoSelecionada.status] == 'Funcionando' ? 'green' : 'blue' }" *ngIf="status[estacaoSelecionada.status]"> {{status[estacaoSelecionada.status]}}</span> </p>
                             <p class="borderBottom"> </p>
-                            <p> <strong> Coordenadas: </strong> {{estacaoSelecionada.latitude.toFixed(6)}} <strong>{{estacaoSelecionada.latitude < 0 ? 'S' : 'N'}}</strong> ,
-                                                                {{estacaoSelecionada.longitude.toFixed(6)}} <strong>{{estacaoSelecionada.longitude < 0 ? 'W' : 'E' }}</strong> </p>
+                            <p> <strong> Coordenadas: </strong> <span style="color:rgb(0, 110, 255)"> {{estacaoSelecionada.latitude | degrees}} </span> <strong>{{estacaoSelecionada.latitude < 0 ? 'S' : 'N'}}</strong> ,
+                                                                <span style="color:rgb(0, 110, 255)"> {{estacaoSelecionada.longitude | degrees}} </span> <strong>{{estacaoSelecionada.longitude < 0 ? 'W' : 'E' }}</strong> </p>
                             <p> <strong> Altitude: </strong> {{estacaoSelecionada.altitude}}m </p>
                             <p> <strong> Altura: </strong> {{estacaoSelecionada.altura}}m </p>
                             <strong> Ultima atualização: </strong>{{firstDataHora | date : 'dd/MM/yyyy HH:mm'}}h
