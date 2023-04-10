@@ -53,6 +53,7 @@ namespace MeteoroCefet.Infra.BackgroundServices
             foreach (var latestFromStation in latestPerStation)
             {
                 var timeoutTime = latestFromStation.DataHora + SHUTDOWN_TIMEOUT;
+                _log.LogInformation("Agendando verificação da estação {numero} para {data}", latestFromStation.Estacao, timeoutTime);
                 _taskManager.Enqueue(new()
                 {
                     ExecutionTime = timeoutTime,
@@ -80,12 +81,14 @@ namespace MeteoroCefet.Infra.BackgroundServices
         private async Task VerifyStationIn(int stationNumber, DateTime scheduled)
         {
             var lastReceivedDate = await _dadosRepository.GetStationLastReceivedDate(stationNumber);
+            _log.LogInformation("Agendamento das {scheduled}, Verificando estação {numero}, ultimo dado recebido em {last}", scheduled, stationNumber, lastReceivedDate);
 
             var timedOut = lastReceivedDate < scheduled;
 
             if (timedOut)
             {
                 await _estacaoRepository.AlterarStatus(stationNumber, Status.Desligada);
+                _log.LogInformation("Desligando estação {number}", stationNumber);
                 return;
             }
 
