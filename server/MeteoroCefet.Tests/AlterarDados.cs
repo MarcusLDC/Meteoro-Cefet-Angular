@@ -12,9 +12,8 @@ namespace MeteoroCefet.Tests
         public async Task Test()
         {
             var repository = new EstacaoRepository(Utils.MongoClient());
-            var updateDefinition = new UpdateDefinitionBuilder<Estacao>().Combine(Builders<Estacao>.Update.Set("Status", Status.Desligada));
 
-            repository.Collection.UpdateMany(_ => true, updateDefinition);
+            repository.Collection.UpdateMany(_ => true, Builders<Estacao>.Update.Set(x => x.Status, Status.Desligada));
 
             Assert.Pass();
         }

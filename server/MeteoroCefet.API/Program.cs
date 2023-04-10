@@ -12,6 +12,7 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddCors();
 builder.Services.ConfigureMeteoroServices();
+builder.Services.ConfigureBackgroundServices();
 builder.Services.ConfigureAuthorization(builder.Configuration);
 builder.Services.ConfigureMongoClient(builder.Configuration);
 
