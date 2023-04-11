@@ -1,10 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { DadosTempo } from '../shared/models/dados-tempo-model';
 import { Estacao, Status } from '../shared/models/estacao-model';
 import { MeteoroServices } from '../shared/services/meteoro-services';
 import { LocalStorageServices } from '../shared/services/local-storage-services';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import * as L from 'leaflet';
+import { MatPaginator } from '@angular/material/paginator';
 
 @Component({
   selector: 'app-dados',
@@ -13,6 +14,10 @@ import * as L from 'leaflet';
 })
 
 export class DadosComponent implements OnInit {
+
+  funcionando: number = 0
+  desligadas: number = 0
+  manutencao: number = 0
 
   status = Status;
 
@@ -44,8 +49,12 @@ export class DadosComponent implements OnInit {
 
   firstDataHora: Date | undefined;
   firstNumero: number | undefined;
+
   numEstacoes: number = 0;
   numDados: number = 0;
+  
+  paginator: number = 1;
+  pages = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
 
   cidade: string | undefined;
   estado: string | undefined;
@@ -60,7 +69,6 @@ export class DadosComponent implements OnInit {
   }
 
   async ngOnInit(): Promise<void> {
-
     this.meteoroServices.getEstacoes().subscribe(x => {
       this.estacoes = x;
       this.setSelectedEstacao((this.form.get('estacao')?.value));
@@ -85,23 +93,43 @@ export class DadosComponent implements OnInit {
 
   private atualizarDados() {
     if (this.form.get('estacao')?.value == 'Tudo') {
-      this.meteoroServices.getDados(1).subscribe(x => {
+      this.meteoroServices.getDados(this.paginator).subscribe(x => {
         this.dataSource = x;
-        this.firstDataHora = this.dataSource[0].dataHora;
-        this.firstNumero = this.dataSource[0].estacao;
       });
     }
     else {
-      this.meteoroServices.getDadosEstacao(Number(this.form.get('estacao')?.value), 1).subscribe(x => {
+      this.meteoroServices.getDadosEstacao(Number(this.form.get('estacao')?.value), this.paginator).subscribe(x => {
         this.dataSource = x,
           this.firstDataHora = this.dataSource[0].dataHora;
       });
     }
   }
 
+  public nextPage(){
+    if((this.paginator + 1) < 11){
+      this.paginator += 1;
+      this.atualizarDados();
+    }
+  }
+
+  public previousPage(){
+    if((this.paginator - 1) != 0){
+      this.paginator -= 1;
+      this.atualizarDados();
+    }
+  }
+
+  public setPage(num: number){
+      this.paginator = num;
+      this.atualizarDados();
+  }
+
   private setSelectedEstacao(num: string) {
     this.estacaoSelecionada = this.estacoes.find(x => x.numero === Number(num));
+    this.GenerateMap();
+  }
 
+  private GenerateMap() {
     if (this.map != undefined && this.criado) {
       this.map.remove();
       this.criado = false;
@@ -115,7 +143,7 @@ export class DadosComponent implements OnInit {
       this.geocode(this.estacaoSelecionada!);
     } else {
       this.criado = true;
-      this.map = L.map('map', { scrollWheelZoom: false, }).setView([this.getMiddleLatitude(), this.getMiddleLongitude()], 7); 
+      this.map = L.map('map', { scrollWheelZoom: false, }).setView([this.getMiddleLatitude(), this.getMiddleLongitude()], 7);
       this.tileLayer();
       this.markAll();
     }
@@ -146,6 +174,10 @@ export class DadosComponent implements OnInit {
 
   private markAll() {
     this.estacoes.forEach(estacao => {
+
+      this.funcionando = this.estacoes.filter(x => x.status == 0).length;
+      this.desligadas = this.estacoes.filter(x => x.status == 1).length;
+      this.manutencao = this.estacoes.filter(x => x.status == 2).length;
 
       var icone = estacao.status == 0 ? this.createIcon('assets/markerVerde.png') : estacao.status == 1 ? this.createIcon('assets/markerVermelho.png') : this.createIcon('assets/markerAzul.png')
        
