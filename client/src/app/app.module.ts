@@ -34,6 +34,7 @@ import { CookieService } from 'ngx-cookie-service';
 import { MatTabsModule } from '@angular/material/tabs';
 import { InterceptorModule } from './shared/services/auth-interceptor';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { MatPaginatorModule } from '@angular/material/paginator';
 
 
 @NgModule({
@@ -80,6 +81,7 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
     MatTabsModule,
     MatProgressSpinnerModule,
     InterceptorModule,
+    MatPaginatorModule,
   ],
   providers: [
     MatDatepickerModule,

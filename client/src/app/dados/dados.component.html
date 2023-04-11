@@ -48,9 +48,9 @@
                             <p> <strong> Responsável: </strong> LAPA\CoMet/CEFET-RJ </p>
                             <p> <strong> Desde: </strong> 02/23
                             <p class="borderBottom"> </p>
-                            <p> <strong> Estações  </strong> <span style="color:green"> Funcionando: </span> <img src="assets/markerVerde.png" height="20px"></p>
-                            <p> <strong> Estações  </strong> <span style="color:red"> Desligadas: </span> <img src="assets/markerVermelho.png" height="20px"></p>
-                            <p> <strong> Estações  </strong> <span style="color:blue"> Em Manutenção: </span> <img src="assets/markerAzul.png" height="20px"></p>
+                            <p> <strong> Estações  </strong> <span style="color:green"> Funcionando: {{funcionando}} </span> </p>
+                            <p> <strong> Estações  </strong> <span style="color:red"> Desligadas: {{desligadas}} </span> </p>
+                            <p> <strong> Estações  </strong> <span style="color:blue"> Em Manutenção: {{manutencao}} </span> </p>
                             <strong> O intervalo de chegada dos dados varia por estação</strong>
                         </div>
                     </div>
@@ -70,7 +70,7 @@
                 Todas as estações de monitoramento ambiental - LAPA
             </mat-card-header>
             <mat-card-content>
-                <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+                <table *ngIf="dataSource!.length > 0"  mat-table [dataSource]="dataSource" class="mat-elevation-z8">
                     <ng-container matColumnDef="Data e Hora">
                         <th mat-header-cell *matHeaderCellDef> Data e Hora (BRT)</th>
                         <td mat-cell *matCellDef="let element"> {{element.dataHora | date : 'dd/MM/yyyy HH:mm'}}h </td>
@@ -170,6 +170,15 @@
                     <tr mat-row *matRowDef="let row; index as i; columns: displayedColumns;"
                     [ngClass]="{ 'gray-background': i % 2 !== 0 }"></tr>
                 </table>
+            </mat-card-content>
+        </mat-card>
+        <mat-card class="paginator">
+            <mat-card-content class="paginatorContent">
+                <button mat-flat-button (click)="previousPage()" class="customButton"> < Página Anterior </button>
+
+                <button mat-flat-button (click)="setPage(page)" *ngFor="let page of pages" [ngClass]="{ 'active': paginator === page }" class="customButton">{{page}}</button>
+
+                <button mat-flat-button (click)="nextPage()" class="customButton" style="float:right"> <span> Próxima Página > </span></button>
             </mat-card-content>
         </mat-card>
     </div>
