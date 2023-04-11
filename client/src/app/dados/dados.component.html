@@ -48,12 +48,9 @@
                             <p> <strong> Responsável: </strong> LAPA\CoMet/CEFET-RJ </p>
                             <p> <strong> Desde: </strong> 02/23
                             <p class="borderBottom"> </p>
-                            <p> <strong> Ultima atualização - Dia: </strong> {{firstDataHora | date : 'dd/MM/yyyy'}} </p>
-                            <p> <strong> Ultima atualização - Hora: </strong>
-                                {{firstDataHora | date : 'HH:mm'}}h
-                                ({{firstDataHora | date : "HH:mm":"+0000"}}h - UTC)
-                            </p>
-                            <p> <strong> Ultima atualização - ID: </strong> {{firstNumero}} </p>
+                            <p> <strong> Estações  </strong> <span style="color:green"> Funcionando: </span> <img src="assets/markerVerde.png" height="20px"></p>
+                            <p> <strong> Estações  </strong> <span style="color:red"> Desligadas: </span> <img src="assets/markerVermelho.png" height="20px"></p>
+                            <p> <strong> Estações  </strong> <span style="color:blue"> Em Manutenção: </span> <img src="assets/markerAzul.png" height="20px"></p>
                             <strong> O intervalo de chegada dos dados varia por estação</strong>
                         </div>
                     </div>
@@ -174,6 +171,6 @@
                     [ngClass]="{ 'gray-background': i % 2 !== 0 }"></tr>
                 </table>
             </mat-card-content>
-        </mat-card>  
+        </mat-card>
     </div>
 </body>

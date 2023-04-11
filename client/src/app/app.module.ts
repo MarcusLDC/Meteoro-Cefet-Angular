@@ -79,7 +79,7 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
     MatDialogModule,
     MatTabsModule,
     MatProgressSpinnerModule,
-    InterceptorModule
+    InterceptorModule,
   ],
   providers: [
     MatDatepickerModule,

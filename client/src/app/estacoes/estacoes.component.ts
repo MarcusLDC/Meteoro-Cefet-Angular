@@ -15,7 +15,6 @@ export class EstacoesComponent{
   status = Status;
   estacoes: Observable<Estacao[]>;
   logado: boolean = false;
-  panelOpenState = false;
 
   constructor(private meteoroServices: MeteoroServices,private auth: AuthService){
     this.estacoes = this.meteoroServices.getEstacoes();
@@ -25,6 +24,7 @@ export class EstacoesComponent{
     this.logado = await this.auth.isLogged();
     setInterval(async () => {
       this.logado = await this.auth.isLogged();
+      this.estacoes = this.meteoroServices.getEstacoes();
     }, 30000);
   }
 }

@@ -14,5 +14,5 @@ export interface Estacao{
 export enum Status{
     Funcionando,
     Desligada,
-    Manutencao 
+    Manutenção 
 }

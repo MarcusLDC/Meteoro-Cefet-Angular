@@ -44,6 +44,7 @@ export class DadosComponent implements OnInit {
 
   firstDataHora: Date | undefined;
   firstNumero: number | undefined;
+
   numEstacoes: number = 0;
   numDados: number = 0;
 
@@ -87,8 +88,6 @@ export class DadosComponent implements OnInit {
     if (this.form.get('estacao')?.value == 'Tudo') {
       this.meteoroServices.getDados(1).subscribe(x => {
         this.dataSource = x;
-        this.firstDataHora = this.dataSource[0].dataHora;
-        this.firstNumero = this.dataSource[0].estacao;
       });
     }
     else {
@@ -101,7 +100,10 @@ export class DadosComponent implements OnInit {
 
   private setSelectedEstacao(num: string) {
     this.estacaoSelecionada = this.estacoes.find(x => x.numero === Number(num));
+    this.GenerateMap();
+  }
 
+  private GenerateMap() {
     if (this.map != undefined && this.criado) {
       this.map.remove();
       this.criado = false;
@@ -115,7 +117,7 @@ export class DadosComponent implements OnInit {
       this.geocode(this.estacaoSelecionada!);
     } else {
       this.criado = true;
-      this.map = L.map('map', { scrollWheelZoom: false, }).setView([this.getMiddleLatitude(), this.getMiddleLongitude()], 7); 
+      this.map = L.map('map', { scrollWheelZoom: false, }).setView([this.getMiddleLatitude(), this.getMiddleLongitude()], 7);
       this.tileLayer();
       this.markAll();
     }
