@@ -1,58 +1,34 @@
-﻿using Amazon.Runtime.Internal.Transform;
+﻿
+using MediatR;
 using MeteoroCefet.Application.Models;
+using MeteoroCefet.Domain.Repositories;
 using MeteoroCefet.Infra;
-using Microsoft.AspNetCore.Mvc;
 using MongoDB.Driver;
-using MongoDB.Driver.Linq;
-using System.Collections.Generic;
 using System.Globalization;
-using System.IO;
-using CsvHelper;
-using CsvHelper.Configuration;
-using DnsClient.Protocol;
-using System.Text;
 
-namespace MeteoroCefet.API.Endpoints
+namespace MeteoroCefet.Application.Features
 {
-    public class ConsultaEndpoint : IEndpointDefinition
+    public record ConsultaRequest(ConsultaModel Model) : IRequest<IEnumerable<Dictionary<string, object?>>>;
+    public class ConsultaHandler : IRequestHandler<ConsultaRequest, IEnumerable<Dictionary<string, object?>>>
     {
-        public void DefineEndpoints(WebApplication app)
+        private readonly DadosTempoRepository _repository;
+
+        public ConsultaHandler(DadosTempoRepository repository)
         {
-            app.MapPost("/consulta", Handler);
+            _repository = repository;
         }
-
-        private static async Task<File> Handler([FromServices] DadosTempoRepository repository, [FromBody] ConsultaModel model)
+        public async Task<IEnumerable<Dictionary<string, object?>>> Handle(ConsultaRequest request, CancellationToken ct)
         {
-            IEnumerable<Dictionary<string, object?>> stationsAverageData = await GetConsultaData(repository, model);
+            var model = request.Model;
 
-            var memoryStream = new MemoryStream();
-            var writer = new StreamWriter(memoryStream);
-            var csv = new CsvWriter(writer, CultureInfo.InvariantCulture);
-
-            WriteHeader(stationsAverageData, csv);
-            WriteRecords(stationsAverageData, csv);
-            csv.Flush();
-
-            var inicio = model.PeriodoInicio.AddHours(-3).ToString("d", new CultureInfo("pt-BR"));
-            var fim = model.PeriodoFim.AddHours(-3).ToString("d", new CultureInfo("pt-BR"));
-
-            var fileName = "dados-" + inicio + "_a_" + fim + "-" + model.Intervalo + ".csv";
-
-            return new File(Convert.ToBase64String(memoryStream.ToArray()), "text/csv" , fileName);
-        }
-
-        public record File(string Data, string Type, string Name);
-
-        private static async Task<IEnumerable<Dictionary<string, object?>>> GetConsultaData(DadosTempoRepository repository, ConsultaModel model)
-        {
             model.PeriodoFim = model.PeriodoFim.AddHours(23).AddMinutes(59);
 
-            var result = await repository.Collection
+            var result = await _repository.Collection
                 .Find(x => x.DataHora >= model.PeriodoInicio && x.DataHora <= model.PeriodoFim && model.Estacao.Contains(x.Estacao))
                 .SortBy(x => x.Estacao)
-                .ToListAsync();
+                .ToListAsync(ct);
 
-            foreach(var data in result)
+            foreach (var data in result)
             {
                 data.DataHora = data.DataHora.AddHours(-3);
             }
@@ -89,29 +65,6 @@ namespace MeteoroCefet.API.Endpoints
 
             return stationsAverageData;
         }
-
-        private static void WriteRecords(IEnumerable<Dictionary<string, object?>> stationsAverageData, CsvWriter csv)
-        {
-            foreach (var stationAverageData in stationsAverageData)
-            {
-                foreach (var averageData in stationAverageData)
-                {
-                    csv.WriteField(averageData.Value);
-                }
-                csv.NextRecord();
-            }
-        }
-
-        private static void WriteHeader(IEnumerable<Dictionary<string, object?>> stationsAverageData, CsvWriter csv)
-        {
-            foreach (var key in stationsAverageData.First().Keys)
-            {
-                csv.WriteField(key);
-            }
-
-            csv.NextRecord();
-        }
-
         private static DateTime GetIntervaloDataHora(DateTime date, string intervalo)
         {
             return intervalo switch

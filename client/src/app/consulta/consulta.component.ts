@@ -98,15 +98,24 @@ export class ConsultaComponent {
 
     let formData = this.form.value as ConsultaModel;
 
-    this.meteoroServices.consultar(formData).subscribe(x => {
-      const imageBlob = this.dataURItoBlob(x.data);
-      const url = window.URL.createObjectURL(imageBlob);
-      const link = document.createElement('a');
-      link.href = url;
-      link.download = x.name;
-      link.click();
-      window.URL.revokeObjectURL(url);
-    });
+    if(this.form.get('tabela')?.value){
+      this.meteoroServices.consultarTabela(formData).subscribe(x => {
+        const imageBlob = this.dataURItoBlob(x.data);
+        const url = window.URL.createObjectURL(imageBlob);
+        const link = document.createElement('a');
+        link.href = url;
+        link.download = x.name;
+        link.click();
+        window.URL.revokeObjectURL(url);
+      });
+    }
+
+    if(this.form.get('grafico')?.value){
+      this.meteoroServices.consultarGrafico(formData).subscribe(x => {
+        console.log(x);
+      });
+    }
+
   }
 
   dataURItoBlob(data: string) {

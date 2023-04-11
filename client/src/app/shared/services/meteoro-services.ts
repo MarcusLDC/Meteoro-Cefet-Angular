@@ -14,9 +14,14 @@ import { FileModel } from "../models/file-model";
 export class MeteoroServices {
     constructor(private httpClient : HttpClient){}
     
-    public consultar(model: ConsultaModel){
-        let endpoint = `${environment.apiUrl}/consulta`
+    public consultarTabela(model: ConsultaModel){
+        let endpoint = `${environment.apiUrl}/consulta/tabela`
         return this.httpClient.post<FileModel>(endpoint, model)
+    }
+
+    public consultarGrafico(model: ConsultaModel){
+        let endpoint = `${environment.apiUrl}/consulta/grafico`
+        return this.httpClient.post<any>(endpoint, model)
     }
     
     public getDados(numPagina: number){

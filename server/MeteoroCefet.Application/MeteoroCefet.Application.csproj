@@ -7,12 +7,14 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="MediatR" Version="12.0.1" />
     <PackageReference Include="Microsoft.AspNetCore.Identity" Version="2.2.0" />
     <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="6.27.0" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\MeteoroCefet.Domain\MeteoroCefet.Domain.csproj" />
+    <ProjectReference Include="..\MeteoroCefet.Infra\MeteoroCefet.Infra.csproj" />
   </ItemGroup>
 
 </Project>

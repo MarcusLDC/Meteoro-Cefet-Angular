@@ -9,8 +9,6 @@ export class ConsultaModel {
     intervalo: string = '';
 
     tempAr: boolean = false;  // Checkboxes
-    tabela: boolean = false;
-    grafico: boolean = false;
     tempMin: boolean = false;
     tempMax: boolean = false;
     tempOrv: boolean = false;

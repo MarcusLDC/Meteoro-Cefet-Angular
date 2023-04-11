@@ -7,8 +7,6 @@
         public int[] Estacao { get; set; } = Array.Empty<int>();
         public string Intervalo { get; set; } = "";
         public bool TempAr { get; set; } = false;  // Checkboxes
-        public bool Tabela { get; set; } = false;
-        public bool Grafico { get; set; } = false;
         public bool TempMin { get; set; } = false;
         public bool TempMax { get; set; } = false;
         public bool TempOrv { get; set; } = false;
