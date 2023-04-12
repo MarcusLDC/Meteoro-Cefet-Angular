@@ -1,9 +1,11 @@
-import { Component } from '@angular/core';
+import { Component, ElementRef, ViewChild } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { ConsultaModel } from '../shared/models/consulta-model';
 import { MeteoroServices } from '../shared/services/meteoro-services';
 import { Estacao } from '../shared/models/estacao-model';
 import { ThemePalette } from '@angular/material/core';
+import Chart from 'chart.js/auto';
+import { DadosGrafico } from '../shared/models/dados-grafico-model';
 
 @Component({
   selector: 'app-consulta',
@@ -12,6 +14,9 @@ import { ThemePalette } from '@angular/material/core';
 })
 
 export class ConsultaComponent {
+
+  
+
   checkboxes = ['tempAr','tempMin','tempMax','tempOrv','chuva','direcaoVento','velocidadeVento','velocidadeVentoMax','bateria','radiacao','pressaoATM','indiceCalor','umidadeRelativa'];
   marcarTodas = true;
 
@@ -21,8 +26,10 @@ export class ConsultaComponent {
   form: FormGroup;
   estacoes: Estacao[] = [];
 
-  minDate = new Date
-  maxDate = new Date
+  minDate = new Date;
+  maxDate = new Date;
+
+  dados: DadosGrafico[] = []
 
   periodosGrafico = [
     { value: null, key: 0},
@@ -112,10 +119,10 @@ export class ConsultaComponent {
 
     if(this.form.get('grafico')?.value){
       this.meteoroServices.consultarGrafico(formData).subscribe(x => {
-        console.log(x);
+        this.dados = x;
+        console.log(this.dados)
       });
     }
-
   }
 
   dataURItoBlob(data: string) {

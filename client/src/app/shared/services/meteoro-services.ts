@@ -9,6 +9,7 @@ import { AuthenticationDTO } from "./DTOs/authentication-DTO";
 import { NewUserDTO } from "./DTOs/new-user-DTO";
 import { RetornoDTO } from "./DTOs/retorno-DTO";
 import { FileModel } from "../models/file-model";
+import { DadosGrafico } from "../models/dados-grafico-model";
 
 @Injectable({ providedIn: "root" })
 export class MeteoroServices {
@@ -21,7 +22,7 @@ export class MeteoroServices {
 
     public consultarGrafico(model: ConsultaModel){
         let endpoint = `${environment.apiUrl}/consulta/grafico`
-        return this.httpClient.post<any>(endpoint, model)
+        return this.httpClient.post<DadosGrafico[]>(endpoint, model)
     }
     
     public getDados(numPagina: number){
