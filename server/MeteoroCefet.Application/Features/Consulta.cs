@@ -28,43 +28,35 @@ namespace MeteoroCefet.Application.Features
                 .SortBy(x => x.Estacao)
                 .ToListAsync(ct);
 
-            foreach (var data in result)
-            {
-                data.DataHora = data.DataHora.AddHours(-3);
-            }
-
             var groupedByIntervalo = result.GroupBy(x => new
             {
                 x.Estacao,
-                DataHora = GetIntervaloDataHora(x.DataHora, model.Intervalo)
+                DataHora = GetIntervaloDataHora(x.DataHora.AddHours(-3), model.Intervalo)
             });
 
-            var stationsAverageData = groupedByIntervalo.Select(g => new Dictionary<string, object?>
-                {
-                    { "Data Hora (UTC-3)" , g.Key.DataHora.ToString("g", new CultureInfo("pt-BR"))},
-                    { "Estacao" , g.Key.Estacao },
+            return groupedByIntervalo.Select(g => new Dictionary<string, object?>
+            {
+                { "Data Hora (UTC-3)" , g.Key.DataHora.ToString("g", new CultureInfo("pt-BR"))},
+                { "Estacao" , g.Key.Estacao },
 
-                    { "Temp. Ar" , model.TempAr ? Math.Round(g.Average(x => x.TemperaturaAr), 2) : null},
-                    { "Temp. Min" , model.TempMin ? Math.Round(g.Min(x => x.TemperaturaAr), 2) : null},
-                    { "Temp. Max" , model.TempMax ? Math.Round(g.Max(x => x.TemperaturaAr), 2) : null},
-                    { "Temp. Orv" , model.TempOrv ? Math.Round(g.Average(x => x.TempPontoOrvalho), 2) : null},
+                { "Temp. Ar" , model.TempAr ? Math.Round(g.Average(x => x.TemperaturaAr), 2) : null},
+                { "Temp. Min" , model.TempMin ? Math.Round(g.Min(x => x.TemperaturaAr), 2) : null},
+                { "Temp. Max" , model.TempMax ? Math.Round(g.Max(x => x.TemperaturaAr), 2) : null},
+                { "Temp. Orv" , model.TempOrv ? Math.Round(g.Average(x => x.TempPontoOrvalho), 2) : null},
 
-                    { "Chuva" , model.Chuva ? Math.Round(g.Average(x => x.Precipitacao), 2) : null},
-                    { "Direcao Vento" , model.DirecaoVento ? Math.Round(g.Average(x => x.DirecaoVento), 2) : null},
-                    { "VelocidadeVento" , model.VelocidadeVento ? Math.Round(g.Average(x => x.VelocidadeVento), 2) : null},
-                    { "VelocidadeVentoMax" , model.VelocidadeVentoMax ? g.Max(x => x.VelocidadeVento) : null},
+                { "Chuva" , model.Chuva ? Math.Round(g.Average(x => x.Precipitacao), 2) : null},
+                { "Direcao Vento" , model.DirecaoVento ? Math.Round(g.Average(x => x.DirecaoVento), 2) : null},
+                { "VelocidadeVento" , model.VelocidadeVento ? Math.Round(g.Average(x => x.VelocidadeVento), 2) : null},
+                { "VelocidadeVentoMax" , model.VelocidadeVentoMax ? g.Max(x => x.VelocidadeVento) : null},
 
-                    { "Bateria" , model.Bateria ? Math.Round(g.Average(x => x.Bateria), 2) : null},
-                    { "Radiacao" , model.Radiacao ? Math.Round(g.Average(x => x.RadSolar), 2) : null},
-                    { "Pressao ATM" , model.PressaoATM ? Math.Round(g.Average(x => x.Pressao), 2) : null},
-                    { "Indice Calor" , model.IndiceCalor ? Math.Round(g.Average(x => x.IndiceCalor), 2) : null},
-                    { "Umidade Relativa" , model.UmidadeRelativa ?  Math.Round(g.Average(x => x.Extra2), 2) : null}
-                })
-                .Select(x => x.Where(y => y.Value != null)
-                .ToDictionary(x => x.Key, x => x.Value));
-
-            return stationsAverageData;
+                { "Bateria" , model.Bateria ? Math.Round(g.Average(x => x.Bateria), 2) : null},
+                { "Radiacao" , model.Radiacao ? Math.Round(g.Average(x => x.RadSolar), 2) : null},
+                { "Pressao ATM" , model.PressaoATM ? Math.Round(g.Average(x => x.Pressao), 2) : null},
+                { "Indice Calor" , model.IndiceCalor ? Math.Round(g.Average(x => x.IndiceCalor), 2) : null},
+                { "Umidade Relativa" , model.UmidadeRelativa ?  Math.Round(g.Average(x => x.Extra2), 2) : null}
+            }).Select(x => x.Where(y => y.Value != null).ToDictionary(x => x.Key, x => x.Value));
         }
+
         private static DateTime GetIntervaloDataHora(DateTime date, string intervalo)
         {
             return intervalo switch
