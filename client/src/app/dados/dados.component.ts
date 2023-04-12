@@ -74,6 +74,8 @@ export class DadosComponent implements OnInit {
       this.numEstacoes = this.estacoes.length;
     });
 
+    this.meteoroServices.getDadosCount().subscribe(x => this.numDados = x);
+
     let estacaoStorage = await this.localStorage.get<string>('estacao') ?? 'Tudo';
 
     this.form.get('estacao')?.setValue(estacaoStorage);
