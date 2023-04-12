@@ -32,7 +32,7 @@ namespace MeteoroCefet.API.Endpoints
             var inicio = model.PeriodoInicio.AddHours(-3).ToString("d", new CultureInfo("pt-BR"));
             var fim = model.PeriodoFim.AddHours(-3).ToString("d", new CultureInfo("pt-BR"));
 
-            var fileName = "tabela-" + inicio + "_a_" + fim + "-" + model.Intervalo + ".csv";
+            var fileName = $"tabela-{inicio}_a_{fim}-{model.Intervalo}.csv";
 
             return new File(Convert.ToBase64String(memoryStream.ToArray()), "text/csv" , fileName);
         }
