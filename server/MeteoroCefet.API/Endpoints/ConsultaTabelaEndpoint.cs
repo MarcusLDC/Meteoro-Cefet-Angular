@@ -7,6 +7,7 @@ using System.Globalization;
 using CsvHelper;
 using MeteoroCefet.Application.Features;
 using MediatR;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
 
 namespace MeteoroCefet.API.Endpoints
 {
@@ -38,24 +39,31 @@ namespace MeteoroCefet.API.Endpoints
         }
 
         public record File(string Data, string Type, string Name);
-        private static void WriteRecords(IEnumerable<Dictionary<string, object?>> stationsAverageData, CsvWriter csv)
+        private static void WriteRecords(IEnumerable<Dictionary<int, ConsultaDTO>> stationsAverageData, CsvWriter csv)
         {
             foreach (var stationAverageData in stationsAverageData)
             {
                 foreach (var averageData in stationAverageData)
                 {
-                    csv.WriteField(averageData.Value);
+                    csv.WriteField(averageData.Value.DataHora);
+                    csv.WriteField(averageData.Key);
+                    foreach(var value in averageData.Value.Campos.Values)
+                    {
+                        csv.WriteField(value);
+                    }
                 }
                 csv.NextRecord();
             }
         }
-        private static void WriteHeader(IEnumerable<Dictionary<string, object?>> stationsAverageData, CsvWriter csv)
+        private static void WriteHeader(IEnumerable<Dictionary<int, ConsultaDTO>> stationsAverageData, CsvWriter csv)
         {
-            foreach (var key in stationsAverageData.First().Keys)
+            var station = stationsAverageData.First().Values.First();
+            csv.WriteField("Data Hora (UTC-3)");
+            csv.WriteField("Estacao");
+            foreach (var key in station.Campos.Keys)
             {
                 csv.WriteField(key);
             }
-
             csv.NextRecord();
         }
     }

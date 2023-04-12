@@ -18,14 +18,14 @@ export class MeteoroServices {
     constructor(private httpClient: HttpClient) { }
 
     public geocode(estacao: Estacao) {
-        const url = `https://nominatim.openstreetmap.org/reverse?format=jsonv2&lat=${estacao.latitude}'&lon=${estacao.longitude}`;
+        const url = `https://nominatim.openstreetmap.org/reverse?format=jsonv2&lat=${estacao.latitude}&lon=${estacao.longitude}`;
         return this.httpClient.get<GeoData>(url);
     }
 
     public getDadosCount() {
         const endpoint = `${environment.apiUrl}/dados/total`
         return this.httpClient.get<number>(endpoint);
-      }
+    }
 
     public consultarTabela(model: ConsultaModel) {
         const endpoint = `${environment.apiUrl}/consulta/tabela`
@@ -34,7 +34,7 @@ export class MeteoroServices {
 
     public consultarGrafico(model: ConsultaModel) {
         const endpoint = `${environment.apiUrl}/consulta/grafico`
-        return this.httpClient.post<DadosGrafico[]>(endpoint, model)
+        return this.httpClient.post<any[]>(endpoint, model)
     }
 
     public getDados(numPagina: number) {

@@ -6,6 +6,8 @@ import { Estacao } from '../shared/models/estacao-model';
 import { ThemePalette } from '@angular/material/core';
 import Chart from 'chart.js/auto';
 import { DadosGrafico } from '../shared/models/dados-grafico-model';
+import { ActivatedRoute, Router } from '@angular/router';
+import { LocalStorageServices } from '../shared/services/local-storage-services';
 
 @Component({
   selector: 'app-consulta',
@@ -41,7 +43,7 @@ export class ConsultaComponent {
     { value: "Mensal", key: 6 }
   ];
 
-  constructor(private builder: FormBuilder, private meteoroServices: MeteoroServices) {
+  constructor(private builder: FormBuilder, private meteoroServices: MeteoroServices, private route: ActivatedRoute, private router: Router, private localStorage: LocalStorageServices) {
     
     this.minDate = new Date(2023, 1, 16);
     
@@ -76,7 +78,8 @@ export class ConsultaComponent {
     meteoroServices.getDados(1).subscribe(x => this.maxDate = x[0].dataHora)
   }
 
-  ngOnInit(){
+  async ngOnInit(){
+
     this.form.valueChanges.subscribe(x => {
       let periodo = this.form.get('periodoInicio')?.value && this.form.get('periodoFim')?.value ? 20 : 0;
       let estacao = this.form.get('estacao')?.value && this.form.get('estacao')?.value.length > 0 ? 20 : 0;
@@ -99,11 +102,13 @@ export class ConsultaComponent {
       ) ? 20 : 0;
       this.spinnerValue = checkboxes + periodo + estacao + intervalo + opcao;
     });
+    this.form.patchValue(await this.localStorage.get<ConsultaModel>('graphParameters'));
   }
 
   public async consultar() {
 
     let formData = this.form.value as ConsultaModel;
+    this.localStorage.set('graphParameters', formData);
 
     if(this.form.get('tabela')?.value){
       this.meteoroServices.consultarTabela(formData).subscribe(x => {
@@ -119,8 +124,7 @@ export class ConsultaComponent {
 
     if(this.form.get('grafico')?.value){
       this.meteoroServices.consultarGrafico(formData).subscribe(x => {
-        this.dados = x;
-        console.log(this.dados)
+        console.log(x);
       });
     }
   }

@@ -8,8 +8,8 @@ using System.Globalization;
 
 namespace MeteoroCefet.Application.Features
 {
-    public record ConsultaRequest(ConsultaModel Model) : IRequest<IEnumerable<Dictionary<string, object?>>>;
-    public class ConsultaHandler : IRequestHandler<ConsultaRequest, IEnumerable<Dictionary<string, object?>>>
+    public record ConsultaRequest(ConsultaModel Model) : IRequest<IEnumerable<Dictionary<int, ConsultaDTO>>>;
+    public class ConsultaHandler : IRequestHandler<ConsultaRequest, IEnumerable<Dictionary<int, ConsultaDTO>>>
     {
         private readonly DadosTempoRepository _repository;
 
@@ -17,7 +17,7 @@ namespace MeteoroCefet.Application.Features
         {
             _repository = repository;
         }
-        public async Task<IEnumerable<Dictionary<string, object?>>> Handle(ConsultaRequest request, CancellationToken ct)
+        public async Task<IEnumerable<Dictionary<int, ConsultaDTO>>> Handle(ConsultaRequest request, CancellationToken ct)
         {
             var model = request.Model;
 
@@ -34,27 +34,33 @@ namespace MeteoroCefet.Application.Features
                 DataHora = GetIntervaloDataHora(x.DataHora.AddHours(-3), model.Intervalo)
             });
 
-            return groupedByIntervalo.Select(g => new Dictionary<string, object?>
+            return groupedByIntervalo.Select(g => new Dictionary<int, ConsultaDTO>
             {
-                { "Data Hora (UTC-3)" , g.Key.DataHora.ToString("g", new CultureInfo("pt-BR"))},
-                { "Estacao" , g.Key.Estacao },
+                { g.Key.Estacao, new ConsultaDTO
+                    {
+                        DataHora = g.Key.DataHora.ToString("g", new CultureInfo("pt-BR")),
+                        Campos = new Dictionary<string, object?>
+                        {
+                            { "Temp. Ar" , model.TempAr ? Math.Round(g.Average(x => x.TemperaturaAr), 2) : null},
+                            { "Temp. Min" , model.TempMin ? Math.Round(g.Min(x => x.TemperaturaAr), 2) : null},
+                            { "Temp. Max" , model.TempMax ? Math.Round(g.Max(x => x.TemperaturaAr), 2) : null},
+                            { "Temp. Orv" , model.TempOrv ? Math.Round(g.Average(x => x.TempPontoOrvalho), 2) : null},
 
-                { "Temp. Ar" , model.TempAr ? Math.Round(g.Average(x => x.TemperaturaAr), 2) : null},
-                { "Temp. Min" , model.TempMin ? Math.Round(g.Min(x => x.TemperaturaAr), 2) : null},
-                { "Temp. Max" , model.TempMax ? Math.Round(g.Max(x => x.TemperaturaAr), 2) : null},
-                { "Temp. Orv" , model.TempOrv ? Math.Round(g.Average(x => x.TempPontoOrvalho), 2) : null},
+                            { "Chuva" , model.Chuva ? Math.Round(g.Average(x => x.Precipitacao), 2) : null},
+                            { "Direcao Vento" , model.DirecaoVento ? Math.Round(g.Average(x => x.DirecaoVento), 2) : null},
+                            { "VelocidadeVento" , model.VelocidadeVento ? Math.Round(g.Average(x => x.VelocidadeVento), 2) : null},
+                            { "VelocidadeVentoMax" , model.VelocidadeVentoMax ? g.Max(x => x.VelocidadeVento) : null},
 
-                { "Chuva" , model.Chuva ? Math.Round(g.Average(x => x.Precipitacao), 2) : null},
-                { "Direcao Vento" , model.DirecaoVento ? Math.Round(g.Average(x => x.DirecaoVento), 2) : null},
-                { "VelocidadeVento" , model.VelocidadeVento ? Math.Round(g.Average(x => x.VelocidadeVento), 2) : null},
-                { "VelocidadeVentoMax" , model.VelocidadeVentoMax ? g.Max(x => x.VelocidadeVento) : null},
+                            { "Bateria" , model.Bateria ? Math.Round(g.Average(x => x.Bateria), 2) : null},
+                            { "Radiacao" , model.Radiacao ? Math.Round(g.Average(x => x.RadSolar), 2) : null},
+                            { "Pressao ATM" , model.PressaoATM ? Math.Round(g.Average(x => x.Pressao), 2) : null},
+                            { "Indice Calor" , model.IndiceCalor ? Math.Round(g.Average(x => x.IndiceCalor), 2) : null},
+                            { "Umidade Relativa" , model.UmidadeRelativa ?  Math.Round(g.Average(x => x.Extra2), 2) : null}
 
-                { "Bateria" , model.Bateria ? Math.Round(g.Average(x => x.Bateria), 2) : null},
-                { "Radiacao" , model.Radiacao ? Math.Round(g.Average(x => x.RadSolar), 2) : null},
-                { "Pressao ATM" , model.PressaoATM ? Math.Round(g.Average(x => x.Pressao), 2) : null},
-                { "Indice Calor" , model.IndiceCalor ? Math.Round(g.Average(x => x.IndiceCalor), 2) : null},
-                { "Umidade Relativa" , model.UmidadeRelativa ?  Math.Round(g.Average(x => x.Extra2), 2) : null}
-            }).Select(x => x.Where(y => y.Value != null).ToDictionary(x => x.Key, x => x.Value));
+                        }.Where(y => y.Value != null).ToDictionary(x => x.Key, x => x.Value)
+                    }
+                }
+            });
         }
 
         private static DateTime GetIntervaloDataHora(DateTime date, string intervalo)
@@ -70,5 +76,11 @@ namespace MeteoroCefet.Application.Features
                 _ => throw new ArgumentException("Intervalo inválido"),
             };
         }
+
+    }
+    public class ConsultaDTO
+    {
+        public required string DataHora { get; set; }
+        public required Dictionary<string, object?> Campos { get; set; }
     }
 }

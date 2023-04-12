@@ -1,7 +1,6 @@
 <div class="body">
-    <mat-card class="card">
+    <mat-card class="card consulta">
         <mat-card-content>
-
             <div class="container"> 
                 <mat-form-field class="padded" appearance="outline" [formGroup]="form">
                     <mat-label class="destaque">Insira o intervalo de datas</mat-label>
@@ -89,7 +88,6 @@
                 </div>
             </div>
         </mat-card-content>
-
         <mat-card-actions>
             <button class="botao" mat-raised-button color="warn" (click)="consultar()" *ngIf="spinnerValue == 100"> Consultar </button>
             <button class="botao" mat-raised-button color="warn" disabled *ngIf="spinnerValue != 100"> Consultar </button>
@@ -101,6 +99,21 @@
             </mat-progress-spinner>
             <span class="warning" *ngIf="spinnerValue != 100"> Preencha pelo menos uma opção em cada grupo </span> 
         </mat-card-actions>
-    </mat-card> 
-    <canvas id="meu-grafico"></canvas>
+    </mat-card>
+    <mat-accordion class="card">
+        <mat-expansion-panel hideToggle>
+            <mat-expansion-panel-header>
+                <mat-panel-title>
+                    Título
+                </mat-panel-title>
+            <mat-panel-description>
+                
+            </mat-panel-description>
+            <mat-icon> bar_chart</mat-icon>
+            </mat-expansion-panel-header>
+
+            <app-consulta-grafico></app-consulta-grafico>
+
+        </mat-expansion-panel>
+    </mat-accordion>
 </div>
