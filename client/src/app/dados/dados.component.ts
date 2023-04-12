@@ -5,7 +5,6 @@ import { MeteoroServices } from '../shared/services/meteoro-services';
 import { LocalStorageServices } from '../shared/services/local-storage-services';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import * as L from 'leaflet';
-import { MatPaginator } from '@angular/material/paginator';
 
 @Component({
   selector: 'app-dados',
@@ -52,7 +51,7 @@ export class DadosComponent implements OnInit {
 
   numEstacoes: number = 0;
   numDados: number = 0;
-  
+
   paginator: number = 1;
   pages = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
 
@@ -105,23 +104,23 @@ export class DadosComponent implements OnInit {
     }
   }
 
-  public nextPage(){
-    if((this.paginator + 1) < 11){
+  public nextPage() {
+    if ((this.paginator + 1) < 11) {
       this.paginator += 1;
       this.atualizarDados();
     }
   }
 
-  public previousPage(){
-    if((this.paginator - 1) != 0){
+  public previousPage() {
+    if ((this.paginator - 1) != 0) {
       this.paginator -= 1;
       this.atualizarDados();
     }
   }
 
-  public setPage(num: number){
-      this.paginator = num;
-      this.atualizarDados();
+  public setPage(num: number) {
+    this.paginator = num;
+    this.atualizarDados();
   }
 
   private setSelectedEstacao(num: string) {
@@ -149,18 +148,18 @@ export class DadosComponent implements OnInit {
     }
   }
 
-  private getMiddleLatitude(){
+  private getMiddleLatitude() {
     return this.getMiddleCoordinates(this.estacoes.map(x => x.latitude));
   }
 
-  private getMiddleLongitude(){
+  private getMiddleLongitude() {
     return this.getMiddleCoordinates(this.estacoes.map(x => x.longitude));
   }
 
-  private getMiddleCoordinates(coordenadas: number[]){
+  private getMiddleCoordinates(coordenadas: number[]) {
     let coordenadasReais = coordenadas.filter(x => x != 0)
     let somaCoordenadas = coordenadasReais.reduce((a, b) => a + b, 0)
-    return somaCoordenadas/coordenadasReais.length;
+    return somaCoordenadas / coordenadasReais.length;
   }
 
   private tileLayer() {
@@ -180,44 +179,30 @@ export class DadosComponent implements OnInit {
       this.manutencao = this.estacoes.filter(x => x.status == 2).length;
 
       var icone = estacao.status == 0 ? this.createIcon('assets/markerVerde.png') : estacao.status == 1 ? this.createIcon('assets/markerVermelho.png') : this.createIcon('assets/markerAzul.png')
-       
-      L.marker([estacao.latitude, estacao.longitude], { icon: icone }).addTo(this.map).on('click', () =>{
+
+      L.marker([estacao.latitude, estacao.longitude], { icon: icone }).addTo(this.map).on('click', () => {
         this.setSelectedEstacao(String(estacao.numero));
-        this.form.setValue({estacao: String(estacao.numero)});
+        this.form.setValue({ estacao: String(estacao.numero) });
         this.localStorage.set('estacao', String(estacao.numero));
         this.atualizarDados();
       });
     });
   }
-  
+
   private createIcon(caminho: string) {
     var icone = L.icon({
-       iconUrl: caminho,
-       iconSize: [25, 35],
-       iconAnchor: [20, 35],
-       popupAnchor: [0, -30]
+      iconUrl: caminho,
+      iconSize: [25, 35],
+      iconAnchor: [20, 35],
+      popupAnchor: [0, -30]
     });
     return icone;
   }
 
   private geocode(estacao: Estacao) {
-    var url = 'https://nominatim.openstreetmap.org/reverse?format=jsonv2&lat=' + estacao.latitude + '&lon=' + estacao.longitude;
-
-    const self = this;
-
-    fetch(url)
-      .then(function(response) {
-        return response.json();
-      })
-      .then(function(data) {
-
-        self.cidade = data.address.city;
-
-        if(data.address.city == undefined){
-          self.cidade = data.address.town;
-        }
-        
-        self.estado = data.address.state;
-      })
+    this.meteoroServices.geocode(estacao).subscribe(x => {
+      this.cidade = x.address.city ?? x.address.town ?? "Cidade não encontrada";
+      this.estado = x.address.state ?? "Estado não encontrado";
+    });
   }
 }
