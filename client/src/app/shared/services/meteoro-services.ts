@@ -9,9 +9,10 @@ import { AuthenticationDTO } from "./DTOs/authentication-DTO";
 import { NewUserDTO } from "./DTOs/new-user-DTO";
 import { RetornoDTO } from "./DTOs/retorno-DTO";
 import { FileModel } from "../models/file-model";
-import { DadosGrafico } from "../models/dados-grafico-model";
 
-type GeoData = { address: { city: string | null, town: string | null, state: string } };
+export type GeoData = { address: { city: string | null, town: string | null, state: string } };
+export type ConsultaDTO = {[key: number]: Dados[]}
+export type Dados = {estacao: number, dataHora: string, campos:{[key: string]: number}}
 
 @Injectable({ providedIn: "root" })
 export class MeteoroServices {
@@ -34,7 +35,7 @@ export class MeteoroServices {
 
     public consultarGrafico(model: ConsultaModel) {
         const endpoint = `${environment.apiUrl}/consulta/grafico`
-        return this.httpClient.post<any[]>(endpoint, model)
+        return this.httpClient.post<ConsultaDTO>(endpoint, model)
     }
 
     public getDados(numPagina: number) {

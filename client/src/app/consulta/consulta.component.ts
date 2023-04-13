@@ -1,11 +1,10 @@
 import { Component, ElementRef, ViewChild } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { ConsultaModel } from '../shared/models/consulta-model';
-import { MeteoroServices } from '../shared/services/meteoro-services';
+import { ConsultaDTO, MeteoroServices } from '../shared/services/meteoro-services';
 import { Estacao } from '../shared/models/estacao-model';
 import { ThemePalette } from '@angular/material/core';
 import Chart from 'chart.js/auto';
-import { DadosGrafico } from '../shared/models/dados-grafico-model';
 import { ActivatedRoute, Router } from '@angular/router';
 import { LocalStorageServices } from '../shared/services/local-storage-services';
 
@@ -31,8 +30,9 @@ export class ConsultaComponent {
   minDate = new Date;
   maxDate = new Date;
 
-  dadosGrafico: any;
-  dadosGraficoKeys: any;
+  dadosGrafico!: ConsultaDTO;
+
+  dadosGraficoKeys: number[] = [];
 
   periodosGrafico = [
     { value: null, key: 0},
@@ -126,7 +126,7 @@ export class ConsultaComponent {
     if(this.form.get('grafico')?.value){
       this.meteoroServices.consultarGrafico(formData).subscribe(x => {
         this.dadosGrafico = x;
-        this.dadosGraficoKeys = Object.keys(this.dadosGrafico);
+        this.dadosGraficoKeys = Object.keys(this.dadosGrafico).map(x => Number(x));
       });
     }
   }
