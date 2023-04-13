@@ -11,7 +11,7 @@ namespace MeteoroCefet.API.Endpoints
         {
             app.MapPost("/consulta/grafico", Handler);
         }
-        private static async Task<IEnumerable<Dictionary<int, ConsultaDTO>>> Handler(IMediator mediator , [FromBody] ConsultaModel model)
+        private static async Task<Dictionary<int, List<ConsultaDTO>>> Handler(IMediator mediator , [FromBody] ConsultaModel model)
         {
             return await mediator.Send(new ConsultaRequest(model));
         }

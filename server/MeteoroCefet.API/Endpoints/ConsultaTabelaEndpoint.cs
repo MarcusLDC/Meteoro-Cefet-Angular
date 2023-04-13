@@ -35,29 +35,30 @@ namespace MeteoroCefet.API.Endpoints
 
             var fileName = $"tabela-{inicio}_a_{fim}-{model.Intervalo}.csv";
 
-            return new File(Convert.ToBase64String(memoryStream.ToArray()), "text/csv" , fileName);
+            return new File(Convert.ToBase64String(memoryStream.ToArray()), "text/csv", fileName);
         }
 
         public record File(string Data, string Type, string Name);
-        private static void WriteRecords(IEnumerable<Dictionary<int, ConsultaDTO>> stationsAverageData, CsvWriter csv)
+        private static void WriteRecords(Dictionary<int, List<ConsultaDTO>> stationsAverageData, CsvWriter csv)
         {
             foreach (var stationAverageData in stationsAverageData)
             {
-                foreach (var averageData in stationAverageData)
+                foreach (var averageData in stationAverageData.Value)
                 {
-                    csv.WriteField(averageData.Value.DataHora);
-                    csv.WriteField(averageData.Key);
-                    foreach(var value in averageData.Value.Campos.Values)
+                    csv.WriteField(averageData.DataHora);
+                    csv.WriteField(averageData.Estacao);
+                    foreach (var value in averageData.Campos.Values)
                     {
                         csv.WriteField(value);
                     }
+                    csv.NextRecord();
                 }
-                csv.NextRecord();
             }
         }
-        private static void WriteHeader(IEnumerable<Dictionary<int, ConsultaDTO>> stationsAverageData, CsvWriter csv)
+        private static void WriteHeader(Dictionary<int, List<ConsultaDTO>> stationsAverageData, CsvWriter csv)
         {
-            var station = stationsAverageData.First().Values.First();
+            var station = stationsAverageData.Values.First().First();
+
             csv.WriteField("Data Hora (UTC-3)");
             csv.WriteField("Estacao");
             foreach (var key in station.Campos.Keys)
