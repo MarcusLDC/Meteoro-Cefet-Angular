@@ -105,8 +105,8 @@
         <span class="warning consulta" *ngIf="spinnerValue != 100"> Preencha pelo menos uma opção em cada grupo </span> 
     </mat-card>
 
-    <mat-accordion class="card" *ngIf="this.dadosGrafico">
-        <mat-expansion-panel hideToggle *ngFor="let key of dadosGraficoKeys">
+    <mat-accordion class="card" *ngFor="let key of dadosGraficoKeys">
+        <mat-expansion-panel hideToggle>
             <mat-expansion-panel-header>
 
                 <mat-panel-title>

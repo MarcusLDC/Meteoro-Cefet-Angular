@@ -26,26 +26,32 @@ export class ConsultaGraficoComponent {
 
   async ngOnInit() {
 
-    this.idGrafico = this.dadosGrafico[0]['estacao'];
+    console.log(this.dadosGrafico)
+
+    this.idGrafico = this.dadosGrafico[0].estacao;
+
+    let labelsDataHora = [];
+
+    for(let i = 0; i < this.dadosGrafico.length; i++){
+      labelsDataHora.push(this.dadosGrafico[i].dataHora);
+    }
+
+    let datasetsByKeys: { label: string, data: any, borderColor: string, fill: boolean }[] = [];
+
+    Object.keys(this.dadosGrafico[0].campos).forEach(key =>{
+      datasetsByKeys.push({
+        label: key,
+        data: Object.values(this.dadosGrafico).map((x: any) => x.campos[key]),
+        borderColor: 'blue',
+        fill: false
+      });
+    })
 
     this.chart = new Chart(this.graficoCanvas.nativeElement, {
       type: 'line',
       data: {
-        labels: ["1", "2"],
-        datasets: [
-          {
-            label: 'Exemplo',
-            data: [20, 22, 24, 23, 21, 18, 16, 18],
-            borderColor: 'red',
-            fill: false
-          },
-          {
-            label: 'Exemplo',
-            data: [60, 55, 50, 55, 65, 70, 75, 80],
-            borderColor: 'blue',
-            fill: false
-          }
-        ]
+        labels: labelsDataHora,
+        datasets: datasetsByKeys
       },
     });
   }
