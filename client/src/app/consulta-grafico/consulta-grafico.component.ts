@@ -26,8 +26,6 @@ export class ConsultaGraficoComponent {
 
   async ngOnInit() {
 
-    console.log(this.dadosGrafico)
-
     this.idGrafico = this.dadosGrafico[0].estacao;
 
     let labelsDataHora = [];
@@ -43,15 +41,15 @@ export class ConsultaGraficoComponent {
         label: key,
         data: Object.values(this.dadosGrafico).map((x: any) => x.campos[key]),
         borderColor: 'blue',
-        fill: false
+        fill: true
       });
     })
 
     this.chart = new Chart(this.graficoCanvas.nativeElement, {
       type: 'line',
       data: {
-        labels: labelsDataHora,
-        datasets: datasetsByKeys
+        labels: labelsDataHora.reverse(),
+        datasets: datasetsByKeys.reverse()
       },
     });
   }
