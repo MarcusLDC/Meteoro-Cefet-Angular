@@ -1,32 +1,34 @@
-import { Component, Input } from '@angular/core';
-import { Router } from '@angular/router';
+import { Component, ElementRef, Input, ViewChild } from '@angular/core';
 import { ChartData, ChartOptions} from 'chart.js';
 import Chart from 'chart.js/auto';
 import html2canvas from 'html2canvas';
 import { saveAs } from 'file-saver';
 import 'chartjs-plugin-annotation';
-import { LocalStorageServices } from '../shared/services/local-storage-services';
-import { DadosGrafico } from '../shared/models/dados-grafico-model';
-import { MeteoroServices } from '../shared/services/meteoro-services';
 
 @Component({
   selector: 'app-consulta-grafico',
   templateUrl: './consulta-grafico.component.html',
   styleUrls: ['./consulta-grafico.component.scss']
 })
+
 export class ConsultaGraficoComponent {
 
-  @Input() dados: any;
+  @Input() dadosGrafico: any;
 
   chart: Chart | undefined;
 
-  constructor(private router: Router, private localStorage: LocalStorageServices, private meteoroServices: MeteoroServices) {}
+  idGrafico!: string;  
+
+  @ViewChild('canvas', { static: true, read: ElementRef })
+  graficoCanvas!: ElementRef; 
+
+  constructor() {}
 
   async ngOnInit() {
 
-    console.log(this.dados)
+    this.idGrafico = this.dadosGrafico[0]['estacao'];
 
-    this.chart = new Chart('grafico', {
+    this.chart = new Chart(this.graficoCanvas.nativeElement, {
       type: 'line',
       data: {
         labels: ["1", "2"],
@@ -44,7 +46,7 @@ export class ConsultaGraficoComponent {
             fill: false
           }
         ]
-      }, 
+      },
     });
   }
   
