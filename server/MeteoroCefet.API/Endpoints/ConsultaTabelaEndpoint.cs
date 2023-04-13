@@ -37,7 +37,6 @@ namespace MeteoroCefet.API.Endpoints
 
             return new File(Convert.ToBase64String(memoryStream.ToArray()), "text/csv", fileName);
         }
-
         public record File(string Data, string Type, string Name);
         private static void WriteRecords(Dictionary<int, List<ConsultaDTO>> stationsAverageData, CsvWriter csv)
         {

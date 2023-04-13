@@ -31,7 +31,7 @@ export class ConsultaComponent {
   minDate = new Date;
   maxDate = new Date;
 
-  dados: DadosGrafico[] = []
+  dados: any;
 
   periodosGrafico = [
     { value: null, key: 0},
@@ -47,7 +47,7 @@ export class ConsultaComponent {
     
     this.minDate = new Date(2023, 1, 16);
     
-    this.form = builder.group({
+    this.form = this.builder.group({
 
       periodoInicio: [null, Validators.required], 
       periodoFim: [null, Validators.required], 
@@ -101,12 +101,13 @@ export class ConsultaComponent {
       ) ? 20 : 0;
       this.spinnerValue = checkboxes + periodo + estacao + intervalo + opcao;
     });
-    this.form.patchValue(await this.localStorage.get<ConsultaModel>('graphParameters'));
+    this.form.patchValue(await this.localStorage.get<ConsultaModel>('graphParameters') ?? this.resetar());
   }
 
   public async consultar() {
 
     let formData = this.form.value as ConsultaModel;
+
     this.localStorage.set('graphParameters', formData);
 
     if(this.form.get('tabela')?.value){
@@ -123,13 +124,14 @@ export class ConsultaComponent {
 
     if(this.form.get('grafico')?.value){
       this.meteoroServices.consultarGrafico(formData).subscribe(x => {
-        console.log(x);
+        
       });
     }
   }
 
-  public async resetar() {
-    this.form.reset();
+  public resetar() {
+    this.form.patchValue(new ConsultaModel)
+    this.form.patchValue({periodoInicio: null, periodoFim: null, tabela: false, grafico: false});
   }
 
   dataURItoBlob(data: string) {

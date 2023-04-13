@@ -87,23 +87,25 @@
                     <mat-checkbox formControlName="umidadeRelativa"> Umidade relativa </mat-checkbox>
                 </div>
             </div>
+
         </mat-card-content>
         <mat-card-actions class="consulta">
             <div style="float:left">
                 <button class="botao" mat-raised-button color="warn" (click)="consultar()" *ngIf="spinnerValue == 100"> Consultar </button>
                 <button class="botao" mat-raised-button color="warn" disabled *ngIf="spinnerValue != 100"> Consultar </button>
+                <button class="reset" mat-raised-button (click)="resetar()"> Resetar </button>
             </div>
             <mat-progress-spinner class="botao" *ngIf="spinnerValue != 100" (click)="resetar()"
                 class="spinner"
-                [diameter]="70"
+                [diameter]="60"
                 [color]="spinnerColor"
                 [value]="spinnerValue">
-            </mat-progress-spinner> 
-            <span class="warning" *ngIf="spinnerValue != 100"> Preencha pelo menos uma opção em cada grupo </span> 
+            </mat-progress-spinner>
         </mat-card-actions>
+        <span class="warning consulta" *ngIf="spinnerValue != 100"> Preencha pelo menos uma opção em cada grupo </span> 
     </mat-card>
 
-    <mat-accordion class="card">
+    <mat-accordion class="card" >
         <mat-expansion-panel hideToggle>
             <mat-expansion-panel-header>
                 <mat-panel-title>
@@ -115,7 +117,7 @@
             <mat-icon> bar_chart</mat-icon>
             </mat-expansion-panel-header>
 
-            <app-consulta-grafico></app-consulta-grafico>
+            <app-consulta-grafico [data]="this.dados"></app-consulta-grafico>
 
         </mat-expansion-panel>
     </mat-accordion>

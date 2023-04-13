@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { Router } from '@angular/router';
 import { ChartData, ChartOptions} from 'chart.js';
 import Chart from 'chart.js/auto';
@@ -16,11 +16,16 @@ import { MeteoroServices } from '../shared/services/meteoro-services';
 })
 export class ConsultaGraficoComponent {
 
+  @Input() dados: any;
+
   chart: Chart | undefined;
 
   constructor(private router: Router, private localStorage: LocalStorageServices, private meteoroServices: MeteoroServices) {}
 
-  async ngOnInit() { 
+  async ngOnInit() {
+
+    console.log(this.dados)
+
     this.chart = new Chart('grafico', {
       type: 'line',
       data: {
