@@ -31,7 +31,8 @@ export class ConsultaComponent {
   minDate = new Date;
   maxDate = new Date;
 
-  dados: any;
+  dadosGrafico: any;
+  dadosGraficoKeys: any;
 
   periodosGrafico = [
     { value: null, key: 0},
@@ -124,7 +125,8 @@ export class ConsultaComponent {
 
     if(this.form.get('grafico')?.value){
       this.meteoroServices.consultarGrafico(formData).subscribe(x => {
-        
+        this.dadosGrafico = x;
+        this.dadosGraficoKeys = Object.keys(this.dadosGrafico);
       });
     }
   }

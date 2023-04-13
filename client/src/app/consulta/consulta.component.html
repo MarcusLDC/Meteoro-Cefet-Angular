@@ -105,19 +105,23 @@
         <span class="warning consulta" *ngIf="spinnerValue != 100"> Preencha pelo menos uma opção em cada grupo </span> 
     </mat-card>
 
-    <mat-accordion class="card" >
+    <mat-accordion class="card" *ngFor="let key of dadosGraficoKeys">
         <mat-expansion-panel hideToggle>
             <mat-expansion-panel-header>
+
                 <mat-panel-title>
-                    (PLACEHOLDER) ESTAÇÃO
+                    ESTAÇÃO {{key}}
                 </mat-panel-title>
+
             <mat-panel-description>
-                (PLACEHOLDER) TIPO DO GRÁFICO
+                GRÁFICO
             </mat-panel-description>
+
             <mat-icon> bar_chart</mat-icon>
+
             </mat-expansion-panel-header>
 
-            <app-consulta-grafico [data]="this.dados"></app-consulta-grafico>
+            <app-consulta-grafico [dadosGrafico]="dadosGrafico[key]"></app-consulta-grafico>
 
         </mat-expansion-panel>
     </mat-accordion>
