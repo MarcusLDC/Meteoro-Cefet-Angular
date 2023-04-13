@@ -79,7 +79,6 @@ export class ConsultaComponent {
   }
 
   async ngOnInit(){
-
     this.form.valueChanges.subscribe(x => {
       let periodo = this.form.get('periodoInicio')?.value && this.form.get('periodoFim')?.value ? 20 : 0;
       let estacao = this.form.get('estacao')?.value && this.form.get('estacao')?.value.length > 0 ? 20 : 0;
@@ -127,6 +126,10 @@ export class ConsultaComponent {
         console.log(x);
       });
     }
+  }
+
+  public async resetar() {
+    this.form.reset();
   }
 
   dataURItoBlob(data: string) {
