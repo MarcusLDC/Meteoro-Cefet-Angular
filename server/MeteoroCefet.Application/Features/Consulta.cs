@@ -31,7 +31,7 @@ namespace MeteoroCefet.Application.Features
 
             var groupedByStation = wthinPeriod
                 .GroupBy(x => x.Estacao)
-                .Select(x => new { Estacao = x.Key, GroupedByData = x.GroupBy(x => FlattenDataRange(x.DataHora, model.Intervalo)) });
+                .Select(x => new { Estacao = x.Key, GroupedByData = x.GroupBy(x => FlattenDataRange(x.DataHora.AddHours(-3), model.Intervalo)) });
 
             var dataStatistics = groupedByStation.Select(x => x.GroupedByData.Select(g => new ConsultaDTO
             {
