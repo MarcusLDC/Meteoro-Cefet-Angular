@@ -27,13 +27,13 @@ export class ConsultaGraficoComponent {
         labels: ["1", "2"],
         datasets: [
           {
-            label: 'Temperatura',
+            label: 'Exemplo',
             data: [20, 22, 24, 23, 21, 18, 16, 18],
             borderColor: 'red',
             fill: false
           },
           {
-            label: 'Umidade',
+            label: 'Exemplo',
             data: [60, 55, 50, 55, 65, 70, 75, 80],
             borderColor: 'blue',
             fill: false
