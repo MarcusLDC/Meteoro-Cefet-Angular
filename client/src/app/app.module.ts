@@ -35,6 +35,7 @@ import { MatTabsModule } from '@angular/material/tabs';
 import { InterceptorModule } from './shared/services/auth-interceptor';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatPaginatorModule } from '@angular/material/paginator';
+import { ConsultaGraficoComponent } from './consulta-grafico/consulta-grafico.component';
 
 
 @NgModule({
@@ -48,6 +49,7 @@ import { MatPaginatorModule } from '@angular/material/paginator';
     degrees,
     AdminComponent,
     LoginModalComponent,
+    ConsultaGraficoComponent,
   ],
   imports: [
     BrowserModule,

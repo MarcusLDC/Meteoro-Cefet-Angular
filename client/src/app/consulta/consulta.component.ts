@@ -1,9 +1,13 @@
-import { Component } from '@angular/core';
+import { Component, ElementRef, ViewChild } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { ConsultaModel } from '../shared/models/consulta-model';
 import { MeteoroServices } from '../shared/services/meteoro-services';
 import { Estacao } from '../shared/models/estacao-model';
 import { ThemePalette } from '@angular/material/core';
+import Chart from 'chart.js/auto';
+import { DadosGrafico } from '../shared/models/dados-grafico-model';
+import { ActivatedRoute, Router } from '@angular/router';
+import { LocalStorageServices } from '../shared/services/local-storage-services';
 
 @Component({
   selector: 'app-consulta',
@@ -12,6 +16,9 @@ import { ThemePalette } from '@angular/material/core';
 })
 
 export class ConsultaComponent {
+
+  
+
   checkboxes = ['tempAr','tempMin','tempMax','tempOrv','chuva','direcaoVento','velocidadeVento','velocidadeVentoMax','bateria','radiacao','pressaoATM','indiceCalor','umidadeRelativa'];
   marcarTodas = true;
 
@@ -21,8 +28,10 @@ export class ConsultaComponent {
   form: FormGroup;
   estacoes: Estacao[] = [];
 
-  minDate = new Date
-  maxDate = new Date
+  minDate = new Date;
+  maxDate = new Date;
+
+  dados: DadosGrafico[] = []
 
   periodosGrafico = [
     { value: null, key: 0},
@@ -34,7 +43,7 @@ export class ConsultaComponent {
     { value: "Mensal", key: 6 }
   ];
 
-  constructor(private builder: FormBuilder, private meteoroServices: MeteoroServices) {
+  constructor(private builder: FormBuilder, private meteoroServices: MeteoroServices, private route: ActivatedRoute, private router: Router, private localStorage: LocalStorageServices) {
     
     this.minDate = new Date(2023, 1, 16);
     
@@ -69,7 +78,7 @@ export class ConsultaComponent {
     meteoroServices.getDados(1).subscribe(x => this.maxDate = x[0].dataHora)
   }
 
-  ngOnInit(){
+  async ngOnInit(){
     this.form.valueChanges.subscribe(x => {
       let periodo = this.form.get('periodoInicio')?.value && this.form.get('periodoFim')?.value ? 20 : 0;
       let estacao = this.form.get('estacao')?.value && this.form.get('estacao')?.value.length > 0 ? 20 : 0;
@@ -92,21 +101,35 @@ export class ConsultaComponent {
       ) ? 20 : 0;
       this.spinnerValue = checkboxes + periodo + estacao + intervalo + opcao;
     });
+    this.form.patchValue(await this.localStorage.get<ConsultaModel>('graphParameters'));
   }
 
   public async consultar() {
 
     let formData = this.form.value as ConsultaModel;
+    this.localStorage.set('graphParameters', formData);
 
-    this.meteoroServices.consultar(formData).subscribe(x => {
-      const imageBlob = this.dataURItoBlob(x.data);
-      const url = window.URL.createObjectURL(imageBlob);
-      const link = document.createElement('a');
-      link.href = url;
-      link.download = x.name;
-      link.click();
-      window.URL.revokeObjectURL(url);
-    });
+    if(this.form.get('tabela')?.value){
+      this.meteoroServices.consultarTabela(formData).subscribe(x => {
+        const imageBlob = this.dataURItoBlob(x.data);
+        const url = window.URL.createObjectURL(imageBlob);
+        const link = document.createElement('a');
+        link.href = url;
+        link.download = x.name;
+        link.click();
+        window.URL.revokeObjectURL(url);
+      });
+    }
+
+    if(this.form.get('grafico')?.value){
+      this.meteoroServices.consultarGrafico(formData).subscribe(x => {
+        console.log(x);
+      });
+    }
+  }
+
+  public async resetar() {
+    this.form.reset();
   }
 
   dataURItoBlob(data: string) {

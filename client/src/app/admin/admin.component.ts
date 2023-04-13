@@ -29,7 +29,7 @@ export class AdminComponent {
   }
 
   public async excluirUsuario(username: string){
-    if(window.confirm("Você está excluindo o moderador > " + username + " < , confirme a ação.")){
+    if(window.confirm(`Você está excluindo o moderador > ${username} < , confirme a ação.`)){
       await this.user.deleteUser(username);
     }
   }

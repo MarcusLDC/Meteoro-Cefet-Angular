@@ -1,4 +1,5 @@
 using MeteoroCefet.API;
+using MeteoroCefet.Application;
 using MeteoroCefet.Domain.Entities.Identity;
 using Microsoft.AspNetCore.Identity;
 
@@ -11,6 +12,7 @@ builder
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddCors();
+builder.Services.AddMediatR(x => x.RegisterServicesFromAssemblyContaining(typeof(AssemblyMarker)));
 builder.Services.ConfigureMeteoroServices();
 builder.Services.ConfigureBackgroundServices();
 builder.Services.ConfigureAuthorization(builder.Configuration);

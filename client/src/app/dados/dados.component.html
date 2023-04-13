@@ -23,7 +23,7 @@
                             <p> <strong> Status: </strong> 
                                 <span [ngStyle]="{ 'color': status[estacaoSelecionada.status] == 'Desligada' ? 'red' : status[estacaoSelecionada.status] == 'Funcionando' ? 'green' : 'blue' }" *ngIf="status[estacaoSelecionada.status]"> {{status[estacaoSelecionada.status]}}</span> </p>
                             <p class="borderBottom"> </p>
-                            <p> <strong> Coordenadas: </strong> <span style="color:rgb(0, 110, 255)"> {{estacaoSelecionada.latitude | degrees}} </span> <strong>{{estacaoSelecionada.latitude < 0 ? 'S' : 'N'}}</strong> ,
+                            <p> <strong> Coordenadas: </strong> <span style="color:rgb(0, 110, 255)"> {{estacaoSelecionada.latitude | degrees}} </span> <strong>{{estacaoSelecionada.latitude < 0 ? 'S' : 'N'}}</strong> - 
                                                                 <span style="color:rgb(0, 110, 255)"> {{estacaoSelecionada.longitude | degrees}} </span> <strong>{{estacaoSelecionada.longitude < 0 ? 'W' : 'E' }}</strong> </p>
                             <p> <strong> Altitude: </strong> {{estacaoSelecionada.altitude}}m </p>
                             <p> <strong> Altura: </strong> {{estacaoSelecionada.altura}}m </p>
@@ -44,7 +44,7 @@
                     <div class="container">
                         <div>
                             <p> <strong> Número de estações: </strong> {{numEstacoes}} </p> 
-                            <p> <strong> Número total de dados: </strong> {{numDados}} (Placeholder) </p>
+                            <p> <strong> Número total de dados coletados: </strong> {{numDados}} </p>
                             <p> <strong> Responsável: </strong> LAPA\CoMet/CEFET-RJ </p>
                             <p> <strong> Desde: </strong> 02/23
                             <p class="borderBottom"> </p>
