@@ -35,7 +35,7 @@ namespace MeteoroCefet.API.Endpoints
 
             var fileName = $"tabela-{inicio}_a_{fim}-{model.Intervalo}.csv";
 
-            return new File(Convert.ToBase64String(memoryStream.ToArray()), "text/csv" , fileName);
+            return new File(Convert.ToBase64String(memoryStream.ToArray()), "text/csv", fileName);
         }
 
         public record File(string Data, string Type, string Name);
@@ -47,12 +47,12 @@ namespace MeteoroCefet.API.Endpoints
                 {
                     csv.WriteField(averageData.DataHora);
                     csv.WriteField(averageData.Estacao);
-                    foreach(var value in averageData.Campos.Values)
+                    foreach (var value in averageData.Campos.Values)
                     {
                         csv.WriteField(value);
                     }
+                    csv.NextRecord();
                 }
-                csv.NextRecord();
             }
         }
         private static void WriteHeader(Dictionary<int, List<ConsultaDTO>> stationsAverageData, CsvWriter csv)
