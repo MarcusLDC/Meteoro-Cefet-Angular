@@ -8,7 +8,7 @@
 
         public double TemperaturaAr { get; set; }
 
-        public int UmidadeRelativaAr { get; set; }
+        public double UmidadeRelativaAr { get; set; }
 
         public double Pressao { get; set; }
 
