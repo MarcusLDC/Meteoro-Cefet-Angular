@@ -1,4 +1,4 @@
-import { Component, ElementRef, Input, ViewChild } from '@angular/core';
+import { Component, ElementRef, Input, QueryList, ViewChild, ViewChildren } from '@angular/core';
 import { ChartData, ChartOptions} from 'chart.js';
 import Chart from 'chart.js/auto';
 import html2canvas from 'html2canvas';
@@ -18,53 +18,111 @@ export class ConsultaGraficoComponent {
 
   @Input() dadosGrafico: Dados[] = [];
 
-  chart!: Chart;
+  charts: Chart[] = [];
 
-  idGrafico!: number; 
+  idGrafico!: number;
 
-  @ViewChild('canvas', { static: true, read: ElementRef }) graficoCanvas!: ElementRef; 
+  num: boolean[] = [];
+  
+  @ViewChildren('graph') graphCanvases!: QueryList<ElementRef>;
+
+  datasetTemperatura: DataSet[] = []
+  datasetChuva: DataSet[] = []
+  datasetVento: DataSet[] = []
+  datasetPressao: DataSet[] = []
+  datasetRadiacao: DataSet[] = []
+  datasetBateria: DataSet[] = []
 
   constructor() {}
 
-  async ngOnInit() {
-
-    this.idGrafico = this.dadosGrafico[0].estacao;
-
-    let labelsDataHora = this.GetDataHoraLabels();
-
-    let datasetTemperatura = this.GetDatasetTemperatura(Object.keys(this.dadosGrafico[0].campos));
-
-    let datasetChuva = this.GetDatasetChuva(Object.keys(this.dadosGrafico[0].campos));
-
-    let datasetVento = this.GetDatasetVento(Object.keys(this.dadosGrafico[0].campos));
-
-    this.createGraph(labelsDataHora, datasetTemperatura);
+  ngOnInit() {
     
+    this.datasetTemperatura = this.GetDatasetTemperatura(Object.keys(this.dadosGrafico[0].campos));
+
+    this.datasetChuva = this.GetDatasetChuva(Object.keys(this.dadosGrafico[0].campos));
+
+    this.datasetVento = this.GetDatasetVento(Object.keys(this.dadosGrafico[0].campos));
+
+    this.datasetPressao = this.GetDatasetPressao(Object.keys(this.dadosGrafico[0].campos))
+
+    this.datasetRadiacao = this.GetDatasetRadiacao(Object.keys(this.dadosGrafico[0].campos))
+
+    this.datasetBateria = this.GetDatasetBateria(Object.keys(this.dadosGrafico[0].campos))
+
+    if(this.datasetTemperatura.length != 0) this.num.push(true);
+    if(this.datasetChuva.length != 0) this.num.push(true);
+    if(this.datasetVento.length != 0) this.num.push(true);
+    if(this.datasetPressao.length != 0) this.num.push(true);
+    if(this.datasetRadiacao.length != 0) this.num.push(true);
+    if(this.datasetBateria.length != 0) this.num.push(true);
 
   }
 
-  private createGraph(labelsDataHora: string[], datasetsByKeys: any){
-    if(datasetsByKeys.length != 0){
-      this.chart = new Chart(this.graficoCanvas.nativeElement, {
-        data: {
-          labels: labelsDataHora.reverse(),
-          datasets: datasetsByKeys.reverse(),
-        },
-        options: {
-          responsive: true,
-          maintainAspectRatio: true,
-          backgroundColor: 'white',
-          scales: {
-            left: {
-              position: 'left',
-            },
-            right:{
-              position: 'right',
-            }
-          }
+  ngAfterViewInit() {
+
+    this.graphCanvases.forEach(element => {
+
+      let labelsDataHora = this.GetDataHoraLabels();
+
+      if(this.datasetTemperatura.length != 0){
+        this.charts.push(this.createGraph(labelsDataHora, this.datasetTemperatura, element));
+        this.datasetTemperatura = [];
+        return;
+      }
+  
+      if(this.datasetChuva.length != 0){
+        this.charts.push(this.createGraph(labelsDataHora, this.datasetChuva, element));
+        this.datasetChuva = [];
+        return;
+      }
+  
+      if(this.datasetVento.length != 0){
+        this.charts.push(this.createGraph(labelsDataHora, this.datasetVento, element));
+        this.datasetVento = [];
+        return;
+      }
+
+      if(this.datasetPressao.length != 0){
+        this.charts.push(this.createGraph(labelsDataHora, this.datasetPressao, element));
+        this.datasetPressao = [];
+        return;
+      }
+
+      if(this.datasetRadiacao.length != 0){
+        this.charts.push(this.createGraph(labelsDataHora, this.datasetRadiacao, element));
+        this.datasetRadiacao = [];
+        return;
+      }
+
+      if(this.datasetBateria.length != 0){
+        this.charts.push(this.createGraph(labelsDataHora, this.datasetBateria, element));
+        this.datasetBateria = [];
+        return;
+      }
+
+    });
+  }
+
+  private createGraph(labelsDataHora: string[], datasetsByKeys: any, grafico: ElementRef){
+    return new Chart(grafico.nativeElement, {
+      data: {
+        labels: labelsDataHora.reverse(),
+        datasets: datasetsByKeys.reverse(),
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: true,
+        backgroundColor: 'white',
+        scales: {
+          left: {
+            position: 'left',
+          },
+          right:{
+            position: 'right',
+          },
         }
-      });
-    }
+      }
+    });
   }
 
   private GetDatasetTemperatura(keys: string[]){
@@ -74,7 +132,7 @@ export class ConsultaGraficoComponent {
     keys.forEach(key => {
       if(key == 'Temp. Ar'){
         datasetsByKeys.push({
-          label: 'Temp. Ar(°C)',
+          label: 'Temp. Média(°C)',
           data: Object.values(this.dadosGrafico).map(x => x.campos[key]),
           borderColor: 'orange',
           fill: true,
@@ -83,7 +141,6 @@ export class ConsultaGraficoComponent {
           yAxisID: 'left'
         });
       }
-
       if(key == 'Temp. Min'){
         datasetsByKeys.push({
           label: 'Temp. Mínima(°C)',
@@ -95,7 +152,6 @@ export class ConsultaGraficoComponent {
           yAxisID: 'left'
         });
       }
-
       if(key == 'Temp. Max'){
         datasetsByKeys.push({
           label: 'Temp. Máxima(°C)',
@@ -107,16 +163,37 @@ export class ConsultaGraficoComponent {
           yAxisID: 'left'
         });
       }
-
       if(key == 'Umidade Relativa'){
         datasetsByKeys.push({
           label: 'Umidade Relativa(%)',
+          data: Object.values(this.dadosGrafico).map(x => x.campos[key]),
+          borderColor: 'blue',
+          fill: true,
+          type: 'line',
+          backgroundColor: 'rgba(0, 0, 0, 0)',
+          yAxisID: 'right',
+        });
+      }
+      if(key == 'Indice Calor'){
+        datasetsByKeys.push({
+          label: 'Sensação Térmica(°C)',
+          data: Object.values(this.dadosGrafico).map(x => x.campos[key]),
+          borderColor: 'red',
+          fill: true,
+          type: 'line',
+          backgroundColor: 'rgba(0, 0, 0, 0)',
+          yAxisID: 'left',
+        });
+      }
+      if(key == 'Temp. Orv'){
+        datasetsByKeys.push({
+          label: 'Ponto de Orvalho(°C)',
           data: Object.values(this.dadosGrafico).map(x => x.campos[key]),
           borderColor: 'purple',
           fill: true,
           type: 'line',
           backgroundColor: 'rgba(0, 0, 0, 0)',
-          yAxisID: 'right',
+          yAxisID: 'left',
         });
       }
     });
@@ -156,9 +233,9 @@ export class ConsultaGraficoComponent {
           data: Object.values(this.dadosGrafico).map(x => x.campos[key]),
           borderColor: 'blue',
           fill: true,
-          type: 'bar',
+          type: 'line',
           backgroundColor: 'rgba(135, 206, 250)',
-          yAxisID: 'left',
+          yAxisID: 'right',
         });
       }
       if(key == 'VelocidadeVento'){
@@ -167,7 +244,7 @@ export class ConsultaGraficoComponent {
           data: Object.values(this.dadosGrafico).map(x => x.campos[key]),
           borderColor: 'blue',
           fill: true,
-          type: 'bar',
+          type: 'line',
           backgroundColor: 'rgba(135, 206, 250)',
           yAxisID: 'left',
         });
@@ -178,13 +255,70 @@ export class ConsultaGraficoComponent {
           data: Object.values(this.dadosGrafico).map(x => x.campos[key]),
           borderColor: 'blue',
           fill: true,
-          type: 'bar',
+          type: 'scatter',
           backgroundColor: 'rgba(135, 206, 250)',
           yAxisID: 'left',
         });
       }
     });
 
+    return datasetsByKeys;
+  }
+
+  private GetDatasetPressao(keys: string[]){
+    let datasetsByKeys: DataSet[] = [];
+
+    keys.forEach(key => {
+      if(key == 'Pressao ATM'){
+        datasetsByKeys.push({
+          label: 'Pressão Atmosférica(hPa)',
+          data: Object.values(this.dadosGrafico).map(x => x.campos[key]),
+          borderColor: 'orange',
+          fill: true,
+          type: 'line',
+          backgroundColor: 'rgba(0, 0, 0, 0)',
+          yAxisID: 'left',
+        });
+      }
+    });
+    return datasetsByKeys;
+  }
+
+  private GetDatasetRadiacao(keys: string[]){
+    let datasetsByKeys: DataSet[] = [];
+
+    keys.forEach(key => {
+      if(key == 'Radiacao'){
+        datasetsByKeys.push({
+          label: 'Radiação Solar(W/m²)',
+          data: Object.values(this.dadosGrafico).map(x => x.campos[key]),
+          borderColor: 'orange',
+          fill: true,
+          type: 'line',
+          backgroundColor: 'rgba(0, 0, 0, 0)',
+          yAxisID: 'left',
+        });
+      }
+    });
+    return datasetsByKeys;
+  }
+
+  private GetDatasetBateria(keys: string[]){
+    let datasetsByKeys: DataSet[] = [];
+
+    keys.forEach(key => {
+      if(key == 'Bateria'){
+        datasetsByKeys.push({
+          label: 'Bateria(V)',
+          data: Object.values(this.dadosGrafico).map(x => x.campos[key]),
+          borderColor: 'green',
+          fill: true,
+          type: 'line',
+          backgroundColor: 'rgba(0, 0, 0, 0)',
+          yAxisID: 'left',
+        });
+      }
+    });
     return datasetsByKeys;
   }
 

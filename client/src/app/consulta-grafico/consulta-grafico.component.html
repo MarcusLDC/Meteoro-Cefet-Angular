@@ -1,7 +1,9 @@
 <div class="body">
-    <mat-card class="card">
+    <mat-card class="card" *ngFor="let i of num">
         <mat-card-content>
-            <canvas #canvas id="{{idGrafico}}"></canvas>
+            <ng-container>
+                <canvas #graph id="{{idGrafico}}{{i}}"></canvas>
+            </ng-container>
         </mat-card-content>
         <div class="justifyMiddle">
             <button mat-raised-button color="warn" (click)="baixarGrafico()" class="botao"> BAIXAR PNG </button>
