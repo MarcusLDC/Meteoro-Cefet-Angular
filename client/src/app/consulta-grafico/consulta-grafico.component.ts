@@ -6,7 +6,7 @@ import { saveAs } from 'file-saver';
 import 'chartjs-plugin-annotation';
 import { Dados } from '../shared/services/meteoro-services';
 
-type DataSet = { label: string, data: number[], borderColor: string, fill: boolean, type: string, backgroundColor: string, yAxisID: string};
+type DataSet = { label: string, data: number[], borderColor: string, fill: boolean, type: string, backgroundColor: string, yAxisID: string, z: number};
 
 @Component({
   selector: 'app-consulta-grafico',
@@ -104,12 +104,21 @@ export class ConsultaGraficoComponent {
   }
 
   private createGraph(labelsDataHora: string[], datasetsByKeys: any, grafico: ElementRef){
+
+    let titulo = "Estação " + this.dadosGrafico[0].estacao + " de " + this.dadosGrafico.pop()?.dataHora + " a " + this.dadosGrafico[0].dataHora;
+
     return new Chart(grafico.nativeElement, {
       data: {
         labels: labelsDataHora.reverse(),
         datasets: datasetsByKeys.reverse(),
       },
       options: {
+        plugins: {
+          title: {
+            display: true,
+            text: titulo
+          }
+        },
         responsive: true,
         maintainAspectRatio: true,
         backgroundColor: 'white',
@@ -138,7 +147,8 @@ export class ConsultaGraficoComponent {
           fill: true,
           type: 'line',
           backgroundColor: 'rgba(0, 0, 0, 0)',
-          yAxisID: 'left'
+          yAxisID: 'left',
+          z: 100,
         });
       }
       if(key == 'Temp. Min'){
@@ -147,9 +157,10 @@ export class ConsultaGraficoComponent {
           data: Object.values(this.dadosGrafico).map(x => x.campos[key]),
           borderColor: 'blue',
           fill: true,
-          type: 'bar',
-          backgroundColor: 'rgba(135, 206, 250, 0.75)',
-          yAxisID: 'left'
+          type: 'line',
+          backgroundColor: 'rgba(0, 0, 0, 0)',
+          yAxisID: 'left',
+          z: 100,
         });
       }
       if(key == 'Temp. Max'){
@@ -158,9 +169,10 @@ export class ConsultaGraficoComponent {
           data: Object.values(this.dadosGrafico).map(x => x.campos[key]),
           borderColor: 'red',
           fill: true,
-          type: 'bar',
-          backgroundColor: 'rgba(250, 128, 114, 0.75)',
-          yAxisID: 'left'
+          type: 'line',
+          backgroundColor: 'rgba(0, 0, 0, 0)',
+          yAxisID: 'left',
+          z: 100,
         });
       }
       if(key == 'Umidade Relativa'){
@@ -169,31 +181,34 @@ export class ConsultaGraficoComponent {
           data: Object.values(this.dadosGrafico).map(x => x.campos[key]),
           borderColor: 'blue',
           fill: true,
-          type: 'line',
-          backgroundColor: 'rgba(0, 0, 0, 0)',
+          type: 'bar',
+          backgroundColor: 'rgba(135, 206, 250, 0.5)',
           yAxisID: 'right',
+          z: 1,
         });
       }
       if(key == 'Indice Calor'){
         datasetsByKeys.push({
-          label: 'Sensação Térmica(°C)',
-          data: Object.values(this.dadosGrafico).map(x => x.campos[key]),
-          borderColor: 'red',
-          fill: true,
-          type: 'line',
-          backgroundColor: 'rgba(0, 0, 0, 0)',
-          yAxisID: 'left',
-        });
-      }
-      if(key == 'Temp. Orv'){
-        datasetsByKeys.push({
-          label: 'Ponto de Orvalho(°C)',
+          label: 'Índice Calor(°C)',
           data: Object.values(this.dadosGrafico).map(x => x.campos[key]),
           borderColor: 'purple',
           fill: true,
           type: 'line',
           backgroundColor: 'rgba(0, 0, 0, 0)',
           yAxisID: 'left',
+          z: 100,
+        });
+      }
+      if(key == 'Temp. Orv'){
+        datasetsByKeys.push({
+          label: 'Ponto de Orvalho(°C)',
+          data: Object.values(this.dadosGrafico).map(x => x.campos[key]),
+          borderColor: 'green',
+          fill: true,
+          type: 'line',
+          backgroundColor: 'rgba(0, 0, 0, 0)',
+          yAxisID: 'left',
+          z: 100,
         });
       }
     });
@@ -215,6 +230,7 @@ export class ConsultaGraficoComponent {
           type: 'bar',
           backgroundColor: 'rgba(135, 206, 250)',
           yAxisID: 'left',
+          z: 1,
         });
       }
     });
@@ -236,6 +252,7 @@ export class ConsultaGraficoComponent {
           type: 'line',
           backgroundColor: 'rgba(135, 206, 250)',
           yAxisID: 'right',
+          z: 1,
         });
       }
       if(key == 'VelocidadeVento'){
@@ -247,6 +264,7 @@ export class ConsultaGraficoComponent {
           type: 'line',
           backgroundColor: 'rgba(135, 206, 250)',
           yAxisID: 'left',
+          z: 1,
         });
       }
       if(key == 'VelocidadeVentoMax'){
@@ -258,6 +276,7 @@ export class ConsultaGraficoComponent {
           type: 'scatter',
           backgroundColor: 'rgba(135, 206, 250)',
           yAxisID: 'left',
+          z: 1,
         });
       }
     });
@@ -278,6 +297,7 @@ export class ConsultaGraficoComponent {
           type: 'line',
           backgroundColor: 'rgba(0, 0, 0, 0)',
           yAxisID: 'left',
+          z: 1,
         });
       }
     });
@@ -297,6 +317,7 @@ export class ConsultaGraficoComponent {
           type: 'line',
           backgroundColor: 'rgba(0, 0, 0, 0)',
           yAxisID: 'left',
+          z: 1,
         });
       }
     });
@@ -316,6 +337,7 @@ export class ConsultaGraficoComponent {
           type: 'line',
           backgroundColor: 'rgba(0, 0, 0, 0)',
           yAxisID: 'left',
+          z: 1,
         });
       }
     });
