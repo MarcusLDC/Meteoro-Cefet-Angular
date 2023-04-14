@@ -64,7 +64,7 @@ namespace MeteoroCefet.Application.Features
                 { "Radiacao" , model.Radiacao ? Math.Round(rangeData.Average(x => x.RadSolar), 2) : null},
                 { "Pressao ATM" , model.PressaoATM ? Math.Round(rangeData.Average(x => x.Pressao), 2) : null},
                 { "Indice Calor" , model.IndiceCalor ? Math.Round(rangeData.Average(x => x.IndiceCalor), 2) : null},
-                { "Umidade Relativa" , model.UmidadeRelativa ?  Math.Round(rangeData.Average(x => x.Extra2), 2) : null}
+                { "Umidade Relativa" , model.UmidadeRelativa ?  Math.Round(rangeData.Average(x => x.UmidadeRelativaAr), 2) : null}
             };
         }
 
@@ -81,7 +81,6 @@ namespace MeteoroCefet.Application.Features
                 _ => throw new ArgumentException("Intervalo inválido"),
             };
         }
-
     }
 
     public class ConsultaDTO

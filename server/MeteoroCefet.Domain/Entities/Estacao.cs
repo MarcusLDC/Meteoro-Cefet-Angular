@@ -4,7 +4,7 @@
     {
         public int Numero { get; set; }
         public DateTime DataInicio { get; set; }
-        public string Nome { get; set; }
+        public string Nome { get; set; } = "Estação_Nova";
         public decimal Latitude { get; set; } 
         public decimal Longitude { get; set; } 
         public decimal Altitude { get; set; }

@@ -16,24 +16,24 @@ namespace MeteoroCefet.Tests
 
             var dadosTempoExtraidos = JArray.Parse(File.ReadAllText("..\\..\\..\\tabela.json")).Select(item => new DadosTempo()
             {
-                DataHora = DateTime.ParseExact(item["DataHora"].ToString(), "dd/MM/yyyy HH:mm:ss", null).AddHours(3),
-                Estacao = item["Estacao"].Value<int>(),
-                TemperaturaAr = item["Tar"].Value<double>(),
-                UmidadeRelativaAr = item["URar"].Value<int>(),
-                Pressao = item["Pressao"].Value<double>(),
-                RadSolar = item["Rad"].Value<int>(),
-                Precipitacao = item["Prec"].Value<double>(),
-                DirecaoVento = item["Wd"].Value<int>(),
-                VelocidadeVento = item["Ws"].Value<int>(),
-                TempPontoOrvalho = item["TPO"].Value<double>(),
-                IndiceCalor = item["IC"].Value<double>(),
-                DeficitPressaoVapor = item["DPV"].Value<double>(),
-                Bateria = item["Bateria"].Value<double>(),
-                Extra1 = item["Extra1"].Value<double>(),
-                Extra2 = item["Extra2"].Value<double>(),
-                Extra3 = item["Extra3"].Value<double>(),
-                Extra4 = item["Extra4"].Value<double>(),
-                Status = item["Status"].ToString(),
+                DataHora = DateTime.ParseExact(item["DataHora"]!.ToString(), "dd/MM/yyyy HH:mm:ss", null).AddHours(3),
+                Estacao = item["Estacao"]!.Value<int>(),
+                TemperaturaAr = item["Tar"]!.Value<double>(),
+                UmidadeRelativaAr = item["URar"]!.Value<int>(),
+                Pressao = item["Pressao"]!.Value<double>(),
+                RadSolar = item["Rad"]!.Value<int>(),
+                Precipitacao = item["Prec"]!.Value<double>(),
+                DirecaoVento = item["Wd"]!.Value<int>(),
+                VelocidadeVento = item["Ws"]!.Value<int>(),
+                TempPontoOrvalho = item["TPO"]!.Value<double>(),
+                IndiceCalor = item["IC"]!.Value<double>(),
+                DeficitPressaoVapor = item["DPV"]!.Value<double>(),
+                Bateria = item["Bateria"]!.Value<double>(),
+                Extra1 = item["Extra1"]!.Value<double>(),
+                Extra2 = item["Extra2"]!.Value<double>(),
+                Extra3 = item["Extra3"]!.Value<double>(),
+                Extra4 = item["Extra4"]!.Value<double>(),
+                Status = item["Status"]!.ToString(),
             }).ToList();
 
             //await SalvarEstacoes(repositoryEstacao, dadosTempoExtraidos);
@@ -48,7 +48,7 @@ namespace MeteoroCefet.Tests
 
             foreach (var estacao in estacoes)
             {
-                await repositoryEstacao.Add(new Estacao() { Numero = estacao });
+                await repositoryEstacao.Add(new Estacao() { Numero = estacao});
             }
         }
     }

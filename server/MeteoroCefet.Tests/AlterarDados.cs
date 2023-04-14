@@ -13,7 +13,7 @@ namespace MeteoroCefet.Tests
         {
             var repository = new EstacaoRepository(Utils.MongoClient());
 
-            repository.Collection.UpdateMany(_ => true, Builders<Estacao>.Update.Set(x => x.Status, Status.Desligada));
+            await repository.Collection.UpdateManyAsync(_ => true, Builders<Estacao>.Update.Set(x => x.Status, Status.Desligada));
 
             Assert.Pass();
         }

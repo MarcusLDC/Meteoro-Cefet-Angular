@@ -5,14 +5,14 @@ namespace MeteoroCefet.Tests
     internal class TaskManagerTests
     {
         [Test]
-        public async Task GetAggregated()
+        public void GetAggregated()
         {
             var tm = new TaskManager();
 
             var now = DateTime.Now;
 
-            tm.Enqueue(new() { Activity = async (ct) => { }, ExecutionTime = now });
-            tm.Enqueue(new() { Activity = async (ct) => { }, ExecutionTime = now.AddDays(1) });
+            tm.Enqueue(new() { Activity = ct => Task.CompletedTask, ExecutionTime = now });
+            tm.Enqueue(new() { Activity = ct => Task.CompletedTask, ExecutionTime = now.AddDays(1) });
 
             var first = tm.Dequeue();
             Assert.IsTrue(first.ExecutionTime == now);
