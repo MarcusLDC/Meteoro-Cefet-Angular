@@ -12,13 +12,13 @@
 
         public double Pressao { get; set; }
 
-        public int RadSolar { get; set; }
+        public double RadSolar { get; set; }
 
         public double Precipitacao { get; set; }
 
-        public int DirecaoVento { get; set; }
+        public double DirecaoVento { get; set; }
 
-        public int VelocidadeVento { get; set; }
+        public double VelocidadeVento { get; set; }
 
         public double TempPontoOrvalho { get; set; }
 
