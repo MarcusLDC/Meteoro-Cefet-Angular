@@ -53,7 +53,7 @@ export class DadosComponent implements OnInit {
   numDados: number = 0;
 
   paginator: number = 1;
-  pages = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+  pages = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]; //refatorar
 
   cidade: string | undefined;
   estado: string | undefined;
