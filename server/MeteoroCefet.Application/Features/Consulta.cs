@@ -81,7 +81,6 @@ namespace MeteoroCefet.Application.Features
                 _ => throw new ArgumentException("Intervalo inválido"),
             };
         }
-
     }
 
     public class ConsultaDTO

@@ -4,7 +4,6 @@ import { ConsultaModel } from '../shared/models/consulta-model';
 import { ConsultaDTO, MeteoroServices } from '../shared/services/meteoro-services';
 import { Estacao } from '../shared/models/estacao-model';
 import { ThemePalette } from '@angular/material/core';
-import Chart from 'chart.js/auto';
 import { ActivatedRoute, Router } from '@angular/router';
 import { LocalStorageServices } from '../shared/services/local-storage-services';
 
@@ -15,9 +14,6 @@ import { LocalStorageServices } from '../shared/services/local-storage-services'
 })
 
 export class ConsultaComponent {
-
-  
-
   checkboxes = ['tempAr','tempMin','tempMax','tempOrv','chuva','direcaoVento','velocidadeVento','velocidadeVentoMax','bateria','radiacao','pressaoATM','indiceCalor','umidadeRelativa'];
   marcarTodas = true;
 

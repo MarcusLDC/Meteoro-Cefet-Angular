@@ -46,7 +46,7 @@ namespace MeteoroCefet.Tests
         }
 
         [Test]
-        public async Task TestAggregationLookup()
+        public void TestAggregationLookup()
         {
             var client = Utils.MongoClient();
             var repositoryDadosTempo = new DadosTempoRepository(client);

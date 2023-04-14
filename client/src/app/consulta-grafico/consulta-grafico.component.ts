@@ -1,9 +1,5 @@
 import { Component, ElementRef, Input, QueryList, ViewChild, ViewChildren } from '@angular/core';
-import { ChartData, ChartOptions} from 'chart.js';
 import Chart from 'chart.js/auto';
-import html2canvas from 'html2canvas';
-import { saveAs } from 'file-saver';
-import 'chartjs-plugin-annotation';
 import { Dados } from '../shared/services/meteoro-services';
 
 type DataSet = { label: string, data: number[], borderColor: string, fill: boolean, type: string, backgroundColor: string, yAxisID: string, z: number};

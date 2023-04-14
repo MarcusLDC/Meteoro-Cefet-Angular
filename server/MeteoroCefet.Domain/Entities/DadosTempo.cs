@@ -33,7 +33,7 @@
         public double Extra3 { get; set; }
         public double Extra4 { get; set; }
 
-        public string Status { get; set; }
+        public string? Status { get; set; }
     }
 }
 
