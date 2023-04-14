@@ -82,12 +82,12 @@ namespace MeteoroCefet.API
         {
             var jwtAppSettingOptions = configuration.GetSection(nameof(JwtOptions));
 
-            var securityKey = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(configuration.GetSection("JwtOptions:SecurityKey").Value));
+            var securityKey = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(configuration.GetSection("JwtOptions:SecurityKey").Value ?? throw new Exception("JwtOptions:SecurityKey not configured")));
 
             services.Configure<JwtOptions>(options =>
             {
-                options.Issuer = jwtAppSettingOptions[nameof(JwtOptions.Issuer)];
-                options.Audience = jwtAppSettingOptions[nameof(JwtOptions.Audience)];
+                options.Issuer = jwtAppSettingOptions[nameof(JwtOptions.Issuer)] ?? throw new Exception("JwtOptions:Issuer not configured");
+                options.Audience = jwtAppSettingOptions[nameof(JwtOptions.Audience)] ?? throw new Exception("JwtOptions:Audience not configured");
                 options.SigningCredentials = new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha512);
                 options.Expiration = int.Parse(jwtAppSettingOptions[nameof(JwtOptions.Expiration)] ?? "0");
             });
