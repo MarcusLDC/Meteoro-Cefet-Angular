@@ -26,12 +26,12 @@ namespace MeteoroCefet.API.Endpoints
                 DataHora = DateTime.Now,
                 Estacao = int.Parse(pedacinhos[1]),
                 TemperaturaAr = ConverteDouble(pedacinhos[2]),
-                UmidadeRelativaAr = ConverteInt(pedacinhos[3]),
+                UmidadeRelativaAr = ConverteDouble(pedacinhos[3]),
                 Pressao = ConverteDouble(pedacinhos[4]),
-                RadSolar = ConverteInt(pedacinhos[5]),
+                RadSolar = ConverteDouble(pedacinhos[5]),
                 Precipitacao = ConverteDouble(pedacinhos[6]),
-                DirecaoVento = ConverteInt(pedacinhos[7]),
-                VelocidadeVento = ConverteInt(pedacinhos[8]),
+                DirecaoVento = ConverteDouble(pedacinhos[7]),
+                VelocidadeVento = ConverteDouble(pedacinhos[8]),
                 TempPontoOrvalho = ConverteDouble(pedacinhos[9]),
                 IndiceCalor = ConverteDouble(pedacinhos[10]),
                 DeficitPressaoVapor = ConverteDouble(pedacinhos[11]),
@@ -74,11 +74,6 @@ namespace MeteoroCefet.API.Endpoints
         {
             _ = double.TryParse(text, out var result);
             return double.IsNaN(result) ? 0 : result;
-        }
-        private static int ConverteInt(string text)
-        {
-            _ = int.TryParse(text, out var result);
-            return result;
         }
     }
 }
