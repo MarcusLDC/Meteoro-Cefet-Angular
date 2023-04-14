@@ -43,6 +43,9 @@ namespace MeteoroCefet.API.Endpoints
                 Status = pedacinhos[17]
             };
 
+            log.LogInformation("Dado: {dado}", dado);
+            log.LogInformation("Umidade: {dado.UmidadeRelativaAr}", dado.UmidadeRelativaAr);
+
             await StationGuarantees(estacaoRepository, log, shutdownServices, dado); //tem que mover esses serviços para uma classe Service / Handler
 
             return await dadosTempoRepository.Add(dado);
