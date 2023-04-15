@@ -25,7 +25,7 @@ namespace MeteoroCefet.Application.Features
             var wthinPeriod = await _repository
                 .Collection
                 .Find(x => x.DataHora >= model.PeriodoInicio && x.DataHora <= model.PeriodoFim && model.Estacao.Contains(x.Estacao))
-                .SortBy(x => x.Estacao)
+                .SortBy(x => x.DataHora)
                 .ToListAsync(ct);
 
             var groupedByStation = wthinPeriod
