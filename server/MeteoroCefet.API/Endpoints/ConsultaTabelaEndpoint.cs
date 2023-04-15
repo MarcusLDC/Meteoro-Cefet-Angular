@@ -1,13 +1,9 @@
 ﻿using MeteoroCefet.Application.Models;
-using MeteoroCefet.Infra;
 using Microsoft.AspNetCore.Mvc;
-using MongoDB.Driver;
-using MongoDB.Driver.Linq;
 using System.Globalization;
 using CsvHelper;
 using MeteoroCefet.Application.Features;
 using MediatR;
-using Microsoft.EntityFrameworkCore.Metadata.Internal;
 
 namespace MeteoroCefet.API.Endpoints
 {
@@ -20,14 +16,14 @@ namespace MeteoroCefet.API.Endpoints
 
         private static async Task<File> Handler(IMediator mediator, [FromBody] ConsultaModel model)
         {
-            var stationsAverageData = await mediator.Send(new ConsultaRequest(model));
+            var data = await mediator.Send(new ConsultaRequest(model));
 
             var memoryStream = new MemoryStream();
             var writer = new StreamWriter(memoryStream);
             var csv = new CsvWriter(writer, CultureInfo.InvariantCulture);
 
-            WriteHeader(stationsAverageData, csv);
-            WriteRecords(stationsAverageData, csv);
+            WriteHeader(data, csv);
+            WriteRecords(data, csv);
             csv.Flush();
 
             var inicio = model.PeriodoInicio.AddHours(-3).ToString("d", new CultureInfo("pt-BR"));
@@ -38,32 +34,33 @@ namespace MeteoroCefet.API.Endpoints
             return new File(Convert.ToBase64String(memoryStream.ToArray()), "text/csv", fileName);
         }
         public record File(string Data, string Type, string Name);
-        private static void WriteRecords(Dictionary<int, List<ConsultaDTO>> stationsAverageData, CsvWriter csv)
+        private static void WriteRecords(ConsultaDTO consultaData, CsvWriter csv)
         {
-            foreach (var stationAverageData in stationsAverageData)
+            foreach (var stationData in consultaData.StationsData)
             {
-                foreach (var averageData in stationAverageData.Value)
+                foreach (var data in stationData.Statistics)
                 {
-                    csv.WriteField(averageData.DataHora);
-                    csv.WriteField(averageData.Estacao);
-                    foreach (var value in averageData.Campos.Values)
+                    csv.WriteField(data.Date);
+                    csv.WriteField(stationData.Station);
+
+                    foreach (var point in data.Points)
                     {
-                        csv.WriteField(value);
+                        csv.WriteField(point);
                     }
                     csv.NextRecord();
                 }
             }
         }
-        private static void WriteHeader(Dictionary<int, List<ConsultaDTO>> stationsAverageData, CsvWriter csv)
+        private static void WriteHeader(ConsultaDTO data, CsvWriter csv)
         {
-            var station = stationsAverageData.Values.First().First();
-
             csv.WriteField("Data Hora (UTC-3)");
             csv.WriteField("Estacao");
-            foreach (var key in station.Campos.Keys)
+
+            foreach (var key in data.SelectedFields)
             {
                 csv.WriteField(key);
             }
+
             csv.NextRecord();
         }
     }
