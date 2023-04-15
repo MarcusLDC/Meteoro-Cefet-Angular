@@ -117,7 +117,7 @@ export class HomeComponent {
       borderColor: 'blue',
       fill: true,
       type: 'bar',
-      backgroundColor: 'rgba(0, 0, 200, 0.20)',
+      backgroundColor: 'rgba(0, 0, 200, 0.15)',
       yAxisID: 'right',
       z: 100,
     })
