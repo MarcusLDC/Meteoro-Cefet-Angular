@@ -37,7 +37,7 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { ConsultaGraficoComponent } from './consulta-grafico/consulta-grafico.component';
 import { HomeComponent } from './home/home.component';
-
+import { DatePipe } from '@angular/common';
 
 @NgModule({
   declarations: [
@@ -88,6 +88,7 @@ import { HomeComponent } from './home/home.component';
     MatPaginatorModule,
   ],
   providers: [
+    DatePipe,
     MatDatepickerModule,
     MatNativeDateModule,
     CookieService,
