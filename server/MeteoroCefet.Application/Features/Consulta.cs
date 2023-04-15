@@ -3,12 +3,11 @@ using MeteoroCefet.Application.Models;
 using MeteoroCefet.Domain.Entities;
 using MeteoroCefet.Infra;
 using MongoDB.Driver;
-using System.Globalization;
 
 namespace MeteoroCefet.Application.Features
 {
-    public record ConsultaRequest(ConsultaModel Model) : IRequest<Dictionary<int, List<ConsultaDTO>>>;
-    public class ConsultaHandler : IRequestHandler<ConsultaRequest, Dictionary<int, List<ConsultaDTO>>>
+    public record ConsultaRequest(ConsultaModel Model) : IRequest<ConsultaDTO>;
+    public class ConsultaHandler : IRequestHandler<ConsultaRequest, ConsultaDTO>
     {
         private readonly DadosTempoRepository _repository;
 
@@ -17,7 +16,7 @@ namespace MeteoroCefet.Application.Features
             _repository = repository;
         }
 
-        public async Task<Dictionary<int, List<ConsultaDTO>>> Handle(ConsultaRequest request, CancellationToken ct)
+        public async Task<ConsultaDTO> Handle(ConsultaRequest request, CancellationToken ct)
         {
             var model = request.Model;
 
@@ -33,38 +32,51 @@ namespace MeteoroCefet.Application.Features
                 .GroupBy(x => x.Estacao)
                 .Select(x => new { Estacao = x.Key, GroupedByData = x.GroupBy(x => FlattenDataRange(x.DataHora.AddHours(-3), model.Intervalo)) });
 
-            var dataStatistics = groupedByStation.Select(x => x.GroupedByData.Select(g => new ConsultaDTO
-            {
-                Estacao = x.Estacao,
-                DataHora = g.Key.ToString("g", new CultureInfo("pt-BR")),
-                Campos = MeasureDataStatistics(g, model).Where(y => y.Value is not null).ToDictionary(x => x.Key, x => x.Value!)
-            }));
+            var mapping = GetMapping(model);
 
-            return dataStatistics
-                .SelectMany(x => x)
-                .GroupBy(x => x.Estacao)
-                .ToDictionary(x => x.Key, x => x.ToList());
+            var stationData = groupedByStation.Select(x => new StationData()
+            {
+                Station = x.Estacao,
+                Statistics = x.GroupedByData.Select(y => MeasureDataStatistics(y.ToList(), y.Key, mapping)).ToList()
+            });
+
+            return new ConsultaDTO
+            {
+                SelectedFields = mapping.Where(x => x.Value.Selected).Select(x => x.Key).ToList(),
+                StationsData = stationData.ToList()
+            };
         }
 
-        private static Dictionary<string, object?> MeasureDataStatistics(IGrouping<DateTime, DadosTempo> rangeData, ConsultaModel model)
+        private static Data MeasureDataStatistics(List<DadosTempo> dadosTempos, DateTime date, Dictionary<Campo, (bool Selected, Func<List<DadosTempo>, double> MeasureStatistics)> mapping)
         {
-            return new Dictionary<string, object?>
+            var getMeasures = mapping.Values.Select(x => x.MeasureStatistics).ToList();
+
+            return new Data
             {
-                { "Temp. Ar" , model.TempAr ? Math.Round(rangeData.Average(x => x.TemperaturaAr), 2) : null},
-                { "Temp. Min" , model.TempMin ? Math.Round(rangeData.Min(x => x.TemperaturaAr), 2) : null},
-                { "Temp. Max" , model.TempMax ? Math.Round(rangeData.Max(x => x.TemperaturaAr), 2) : null},
-                { "Temp. Orv" , model.TempOrv ? Math.Round(rangeData.Average(x => x.TempPontoOrvalho), 2) : null},
+                Points = getMeasures.Select(measure => measure(dadosTempos)).ToList(),
+                Date = date
+            };
+        }
 
-                { "Chuva" , model.Chuva ? Math.Round(rangeData.Average(x => x.Precipitacao), 2) : null},
-                { "Direcao Vento" , model.DirecaoVento ? Math.Round(rangeData.Average(x => x.DirecaoVento), 2) : null},
-                { "VelocidadeVento" , model.VelocidadeVento ? Math.Round(rangeData.Average(x => x.VelocidadeVento), 2) : null},
-                { "VelocidadeVentoMax" , model.VelocidadeVentoMax ? rangeData.Max(x => x.VelocidadeVento) : null},
+        private static Dictionary<Campo, (bool Selected, Func<List<DadosTempo>, double> MeasureStatistics)> GetMapping(ConsultaModel model)
+        {
+            return new Dictionary<Campo, (bool Selected, Func<List<DadosTempo>, double> MeasureStatistics)>()
+            {
+                { Campo.TempAr, (model.TempAr, Average(x => x.TemperaturaAr))},
+                { Campo.TempMin, (model.TempMin, Min(x => x.TemperaturaAr))},
+                { Campo.TempMax, (model.TempMax, Max(x => x.TemperaturaAr))},
+                { Campo.TempOrv, (model.TempOrv, Average(x => x.TempPontoOrvalho))},
 
-                { "Bateria" , model.Bateria ? Math.Round(rangeData.Average(x => x.Bateria), 2) : null},
-                { "Radiacao" , model.Radiacao ? Math.Round(rangeData.Average(x => x.RadSolar), 2) : null},
-                { "Pressao ATM" , model.PressaoATM ? Math.Round(rangeData.Average(x => x.Pressao), 2) : null},
-                { "Indice Calor" , model.IndiceCalor ? Math.Round(rangeData.Average(x => x.IndiceCalor), 2) : null},
-                { "Umidade Relativa" , model.UmidadeRelativa ?  Math.Round(rangeData.Average(x => x.UmidadeRelativaAr), 2) : null}
+                { Campo.Chuva, (model.Chuva, Average(x => x.Precipitacao))},
+                { Campo.DirecaoVento, (model.DirecaoVento, Average(x => x.DirecaoVento))},
+                { Campo.VelocidadeVento, (model.VelocidadeVento, Average(x => x.VelocidadeVento))},
+                { Campo.VelocidadeVentoMax, (model.VelocidadeVentoMax, Max(x => x.VelocidadeVento))},
+
+                { Campo.Bateria, (model.Bateria, Average(x => x.Bateria))},
+                { Campo.Radiacao, (model.Radiacao, Average(x => x.RadSolar))},
+                { Campo.PressaoATM, (model.PressaoATM, Average(x => x.Pressao))},
+                { Campo.IndiceCalor, (model.IndiceCalor, Average(x => x.IndiceCalor))},
+                { Campo.UmidadeRelativa, (model.UmidadeRelativa, Average(x => x.UmidadeRelativaAr))},
             };
         }
 
@@ -81,12 +93,36 @@ namespace MeteoroCefet.Application.Features
                 _ => throw new ArgumentException("Intervalo inválido"),
             };
         }
+
+        private static Func<List<DadosTempo>, double> Average(Func<DadosTempo, double> selector)
+        {
+            return data => Math.Round(data.Average(selector), 2);
+        }
+        private static Func<List<DadosTempo>, double> Min(Func<DadosTempo, double> selector)
+        {
+            return data => Math.Round(data.Min(selector), 2);
+        }
+        private static Func<List<DadosTempo>, double> Max(Func<DadosTempo, double> selector)
+        {
+            return data => Math.Round(data.Min(selector), 2);
+        }
     }
 
     public class ConsultaDTO
     {
-        public required int Estacao { get; set; }
-        public required string DataHora { get; set; }
-        public required Dictionary<string, object> Campos { get; set; }
+        public required List<Campo> SelectedFields { get; init; }
+        public required List<StationData> StationsData { get; set; }
+    }
+
+    public class StationData
+    {
+        public required List<Data> Statistics { get; init; }
+        public required int Station { get; init; }
+    }
+
+    public class Data
+    {
+        public required DateTime Date { get; init; }
+        public required List<double> Points { get; init; }
     }
 }
