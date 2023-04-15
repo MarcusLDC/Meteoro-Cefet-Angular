@@ -1,4 +1,10 @@
 import { Campo } from "src/app/shared/services/DTOs/consulta-DTO";
+import { GraphBateria } from "./models/graph-bateria-model";
+import { GraphChuva } from "./models/graph-chuva-model";
+import { GraphPressao } from "./models/graph-pressao-model";
+import { GraphRadiacao } from "./models/graph-radiacao-model";
+import { GraphTemperatura } from "./models/graph-temp-model";
+import { GraphVento } from "./models/graph-vento-model";
 
 export interface GraphData {
     type: GraphType,
@@ -33,3 +39,12 @@ export type GraphConfigs = {
     yAxisID: string,
     z: number
 }
+
+export const GRAPHS: GraphData[] = [
+    new GraphTemperatura,
+    new GraphBateria,
+    new GraphChuva,
+    new GraphPressao,
+    new GraphRadiacao,
+    new GraphVento
+  ];
