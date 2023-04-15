@@ -1,0 +1,57 @@
+canvas{
+    width: 500px;
+    height: 400px;
+}
+
+.body{
+    padding-top: 60px;
+    max-width: 90%;
+    margin: auto;
+    font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+
+.card{
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
+    margin: 10px;
+    padding: 1px;
+}
+
+.card30{
+    width: 30%;
+}
+
+.card70{
+    width: 70%;
+}
+
+.cardContent{
+    padding: 15px;
+    font-size: 16px;
+    display: block;
+}
+
+.botao{
+    margin-left: 15px;
+    margin-bottom: 15px;
+}
+
+.title{
+    padding-left: 15px;
+    padding-top: 15px;
+    font-size: 22px;
+    font-weight: 400;
+}
+
+.subtitle{
+    font-size: 12px;
+    padding-left: 15px;
+    font-weight: 400;
+}
+
+.padded{
+    padding-left: 15px;
+}
+
+input:-webkit-autofill {
+    -webkit-box-shadow: 0 0 0px 1000px white inset !important;
+}

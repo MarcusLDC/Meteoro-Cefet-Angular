@@ -36,6 +36,7 @@ import { InterceptorModule } from './shared/services/auth-interceptor';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { ConsultaGraficoComponent } from './consulta-grafico/consulta-grafico.component';
+import { HomeComponent } from './home/home.component';
 
 
 @NgModule({
@@ -50,6 +51,7 @@ import { ConsultaGraficoComponent } from './consulta-grafico/consulta-grafico.co
     AdminComponent,
     LoginModalComponent,
     ConsultaGraficoComponent,
+    HomeComponent,
   ],
   imports: [
     BrowserModule,
