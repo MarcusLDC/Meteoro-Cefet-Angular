@@ -1,6 +1,6 @@
-export interface GraphData{
+export interface GraphData {
     type: GraphType,
-    buildDataSet: (campos: string[]) => DataSet[]
+    buildDataSet: () => DataSet[]
 }
 
 export enum GraphType {
@@ -11,4 +11,13 @@ export enum GraphType {
     Radiacao,
     Bateria
 }
-export type DataSet = { label: string, data: number[], borderColor: string, fill: boolean, type: string, backgroundColor: string, yAxisID: string, z: number };
+export type DataSet = {
+    label: string,
+    data: number[],
+    borderColor: string,
+    fill: boolean,
+    type: string,
+    backgroundColor: string,
+    yAxisID: string,
+    z: number
+};
