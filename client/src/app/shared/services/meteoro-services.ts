@@ -9,10 +9,9 @@ import { AuthenticationDTO } from "./DTOs/authentication-DTO";
 import { NewUserDTO } from "./DTOs/new-user-DTO";
 import { RetornoDTO } from "./DTOs/retorno-DTO";
 import { FileModel } from "../models/file-model";
+import { ConsultaDTO } from "./DTOs/consulta-DTO";
 
 export type GeoData = { address: { city: string | null, town: string | null, state: string } };
-export type ConsultaDTO = {[key: number]: Dados[]}
-export type Dados = {estacao: number, dataHora: string, campos:{[key: string]: number}}
 
 @Injectable({ providedIn: "root" })
 export class MeteoroServices {
