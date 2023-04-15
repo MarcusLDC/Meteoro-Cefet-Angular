@@ -100,8 +100,14 @@ export class ConsultaGraficoComponent {
   }
 
   private createGraph(labelsDataHora: string[], datasetsByKeys: any, grafico: ElementRef){
-
     let titulo = "Estação " + this.dadosGrafico[0].estacao + " de " + this.dadosGrafico.pop()?.dataHora + " a " + this.dadosGrafico[0].dataHora;
+    let displayLeft = false;
+    let displayRight = false;
+
+    datasetsByKeys.forEach((x : any) => {
+      if(x.yAxisID == 'left') displayLeft = true;
+      if(x.yAxisID == 'right') displayRight = true;
+    });
 
     return new Chart(grafico.nativeElement, {
       data: {
@@ -121,9 +127,11 @@ export class ConsultaGraficoComponent {
         scales: {
           left: {
             position: 'left',
+            display: displayLeft
           },
           right:{
             position: 'right',
+            display: displayRight
           },
         }
       }

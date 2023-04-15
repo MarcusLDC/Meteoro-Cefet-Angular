@@ -7,7 +7,7 @@ namespace MeteoroCefet.Infra.BackgroundServices
 {
     public class ShutdownStationsBackgroundService : BackgroundService
     {
-        private static TimeSpan SHUTDOWN_TIMEOUT = TimeSpan.FromHours(12);
+        private static TimeSpan SHUTDOWN_TIMEOUT = TimeSpan.FromHours(2);
         private readonly ILogger<ShutdownStationsBackgroundService> _log;
         private readonly DadosTempoRepository _dadosRepository;
         private readonly EstacaoRepository _estacaoRepository;
