@@ -105,7 +105,7 @@
         <span class="warning consulta" *ngIf="spinnerValue != 100"> Preencha pelo menos uma opção em cada grupo </span> 
     </mat-card>
 
-    <mat-accordion class="card" *ngFor="let stationData of consultaData.stationsData">
+    <mat-accordion class="card" *ngFor="let stationData of consultaData?.stationsData">
         <mat-expansion-panel hideToggle>
             <mat-expansion-panel-header>
 
