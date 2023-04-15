@@ -1,8 +1,8 @@
 <div class="body">
-    <mat-card class="card" *ngFor="let i of num">
+    <mat-card class="card" *ngFor="let _ of this.graficosReais; let i = index">
         <mat-card-content>
             <ng-container>
-                <canvas #graph id="{{idGrafico}}{{i}}"></canvas>
+                <canvas #graph id="{{stationData.station}}-{{i}}"></canvas>
             </ng-container>
         </mat-card-content>
         <div class="justifyMiddle">
