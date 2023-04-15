@@ -97,14 +97,13 @@ export class ConsultaComponent {
       ) ? 20 : 0;
       this.spinnerValue = checkboxes + periodo + estacao + intervalo + opcao;
     });
-    this.form.patchValue(await this.localStorage.get<ConsultaModel>('graphParameters') ?? this.resetar());
+    this.form.patchValue(await this.localStorage.get<ConsultaModel>('consultaParameters') ?? this.resetar());
   }
 
   public async consultar() {
-
     let formData = this.form.value as ConsultaModel;
 
-    this.localStorage.set('graphParameters', formData);
+    this.localStorage.set('consultaParameters', formData);
 
     if(this.form.get('tabela')?.value){
       this.meteoroServices.consultarTabela(formData).subscribe(x => {
