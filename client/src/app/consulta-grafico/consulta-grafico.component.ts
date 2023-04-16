@@ -112,7 +112,7 @@ export class ConsultaGraficoComponent {
     return new Chart(grafico.nativeElement, {
       data: {
         labels: labelsDataHora.reverse(),
-        datasets: datasetsByKeys.reverse(),
+        datasets: datasetsByKeys,
       },
       options: {
         plugins: {
@@ -146,7 +146,7 @@ export class ConsultaGraficoComponent {
       if(key == 'Temp. Ar'){
         datasetsByKeys.push({
           label: 'Temp. Média(°C)',
-          data: Object.values(this.dadosGrafico).map(x => x.campos[key]),
+          data: Object.values(this.dadosGrafico).map(x => x.campos[key]).reverse(),
           borderColor: 'orange',
           fill: true,
           type: 'line',
@@ -158,7 +158,7 @@ export class ConsultaGraficoComponent {
       if(key == 'Temp. Min'){
         datasetsByKeys.push({
           label: 'Temp. Mínima(°C)',
-          data: Object.values(this.dadosGrafico).map(x => x.campos[key]),
+          data: Object.values(this.dadosGrafico).map(x => x.campos[key]).reverse(),
           borderColor: 'blue',
           fill: true,
           type: 'line',
@@ -170,7 +170,7 @@ export class ConsultaGraficoComponent {
       if(key == 'Temp. Max'){
         datasetsByKeys.push({
           label: 'Temp. Máxima(°C)',
-          data: Object.values(this.dadosGrafico).map(x => x.campos[key]),
+          data: Object.values(this.dadosGrafico).map(x => x.campos[key]).reverse(),
           borderColor: 'red',
           fill: true,
           type: 'line',
@@ -182,7 +182,7 @@ export class ConsultaGraficoComponent {
       if(key == 'Umidade Relativa'){
         datasetsByKeys.push({
           label: 'Umidade Relativa(%)',
-          data: Object.values(this.dadosGrafico).map(x => x.campos[key]),
+          data: Object.values(this.dadosGrafico).map(x => x.campos[key]).reverse(),
           borderColor: 'blue',
           fill: true,
           type: 'bar',
@@ -194,7 +194,7 @@ export class ConsultaGraficoComponent {
       if(key == 'Indice Calor'){
         datasetsByKeys.push({
           label: 'Índice Calor(°C)',
-          data: Object.values(this.dadosGrafico).map(x => x.campos[key]),
+          data: Object.values(this.dadosGrafico).map(x => x.campos[key]).reverse(),
           borderColor: 'purple',
           fill: true,
           type: 'line',
@@ -206,7 +206,7 @@ export class ConsultaGraficoComponent {
       if(key == 'Temp. Orv'){
         datasetsByKeys.push({
           label: 'Ponto de Orvalho(°C)',
-          data: Object.values(this.dadosGrafico).map(x => x.campos[key]),
+          data: Object.values(this.dadosGrafico).map(x => x.campos[key]).reverse(),
           borderColor: 'green',
           fill: true,
           type: 'line',
@@ -228,7 +228,7 @@ export class ConsultaGraficoComponent {
       if(key == 'Chuva'){
         datasetsByKeys.push({
           label: 'Chuva(mm)',
-          data: Object.values(this.dadosGrafico).map(x => x.campos[key]),
+          data: Object.values(this.dadosGrafico).map(x => x.campos[key]).reverse(),
           borderColor: 'blue',
           fill: true,
           type: 'bar',
@@ -250,7 +250,7 @@ export class ConsultaGraficoComponent {
       if(key == 'Direcao Vento'){
         datasetsByKeys.push({
           label: 'Direção Vento(°)',
-          data: Object.values(this.dadosGrafico).map(x => x.campos[key]),
+          data: Object.values(this.dadosGrafico).map(x => x.campos[key]).reverse(),
           borderColor: 'blue',
           fill: true,
           type: 'line',
@@ -262,7 +262,7 @@ export class ConsultaGraficoComponent {
       if(key == 'VelocidadeVento'){
         datasetsByKeys.push({
           label: 'Velocidade Vento(m/s)',
-          data: Object.values(this.dadosGrafico).map(x => x.campos[key]),
+          data: Object.values(this.dadosGrafico).map(x => x.campos[key]).reverse(),
           borderColor: 'blue',
           fill: true,
           type: 'line',
@@ -274,7 +274,7 @@ export class ConsultaGraficoComponent {
       if(key == 'VelocidadeVentoMax'){
         datasetsByKeys.push({
           label: 'Velocidade Vento Max(m/s)',
-          data: Object.values(this.dadosGrafico).map(x => x.campos[key]),
+          data: Object.values(this.dadosGrafico).map(x => x.campos[key]).reverse(),
           borderColor: 'blue',
           fill: true,
           type: 'scatter',
@@ -295,7 +295,7 @@ export class ConsultaGraficoComponent {
       if(key == 'Pressao ATM'){
         datasetsByKeys.push({
           label: 'Pressão Atmosférica(hPa)',
-          data: Object.values(this.dadosGrafico).map(x => x.campos[key]),
+          data: Object.values(this.dadosGrafico).map(x => x.campos[key]).reverse(),
           borderColor: 'orange',
           fill: true,
           type: 'line',
@@ -315,7 +315,7 @@ export class ConsultaGraficoComponent {
       if(key == 'Radiacao'){
         datasetsByKeys.push({
           label: 'Radiação Solar(W/m²)',
-          data: Object.values(this.dadosGrafico).map(x => x.campos[key]),
+          data: Object.values(this.dadosGrafico).map(x => x.campos[key]).reverse(),
           borderColor: 'orange',
           fill: true,
           type: 'line',
@@ -335,7 +335,7 @@ export class ConsultaGraficoComponent {
       if(key == 'Bateria'){
         datasetsByKeys.push({
           label: 'Bateria(V)',
-          data: Object.values(this.dadosGrafico).map(x => x.campos[key]),
+          data: Object.values(this.dadosGrafico).map(x => x.campos[key]).reverse(),
           borderColor: 'green',
           fill: true,
           type: 'line',
