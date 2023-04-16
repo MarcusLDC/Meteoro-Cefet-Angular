@@ -9,25 +9,25 @@
         <div class="half">
             <mat-card class="card card30" *ngIf="estacaoSelecionada">
                 <mat-card-header class="cardHeader borderBottom">
-                    <mat-card-title> <p class="cardHeaderContent title"> Estação de monitoramento ambiental</p> </mat-card-title>
+                    <mat-card-title> <p class="cardHeaderContent title"> Estação de monitoramento ambiental </p> </mat-card-title>
                     <mat-card-subtitle> <p class="cardHeaderContent subtitle"> 
-                        <strong>Local: </strong> {{cidade}}, {{estado}} <strong> ID: </strong>{{estacaoSelecionada.numero}} 
+                        <span class="subtitle"> Local: </span> {{cidade}}, {{estado}} <span class="subtitle"> </span> 
                     </p></mat-card-subtitle>
                 </mat-card-header>
                 <mat-card-content class="cardContent">
                     <div class="container">
                         <div>
-                            <p> <strong> Responsável: </strong> LAPA\CoMet/CEFET-RJ </p>
-                            <p> <strong> Nome: </strong> {{estacaoSelecionada.nome}} </p>
-                            <p> <strong> Desde: </strong> {{estacaoSelecionada.dataInicio | date : 'MM/yyyy'}}
-                            <p> <strong> Status: </strong> 
+                            <p> <span class="subtitle"> Responsável: </span> LAPA\CoMet/CEFET-RJ </p>
+                            <p> <span class="subtitle"> Nome: </span> {{estacaoSelecionada.nome}} - <span class="subtitle"> ID: </span> {{estacaoSelecionada.numero}}</p>
+                            <p> <span class="subtitle"> Desde: </span> {{estacaoSelecionada.dataInicio | date : 'MM/yyyy'}}
+                            <p> <span class="subtitle"> Status: </span> 
                                 <span [ngStyle]="{ 'color': status[estacaoSelecionada.status] == 'Desligada' ? 'red' : status[estacaoSelecionada.status] == 'Funcionando' ? 'green' : 'blue' }" *ngIf="status[estacaoSelecionada.status]"> {{status[estacaoSelecionada.status]}}</span> </p>
                             <p class="borderBottom"> </p>
-                            <p> <strong> Coordenadas: </strong> <span style="color:rgb(0, 110, 255)"> {{estacaoSelecionada.latitude | degrees}} </span> <strong>{{estacaoSelecionada.latitude < 0 ? 'S' : 'N'}}</strong> - 
+                            <p> <span class="subtitle"> Coordenadas: </span> <span style="color:rgb(0, 110, 255)"> {{estacaoSelecionada.latitude | degrees}} </span> <strong>{{estacaoSelecionada.latitude < 0 ? 'S' : 'N'}}</strong> - 
                                                                 <span style="color:rgb(0, 110, 255)"> {{estacaoSelecionada.longitude | degrees}} </span> <strong>{{estacaoSelecionada.longitude < 0 ? 'W' : 'E' }}</strong> </p>
-                            <p> <strong> Altitude: </strong> {{estacaoSelecionada.altitude}}m </p>
-                            <p> <strong> Altura: </strong> {{estacaoSelecionada.altura}}m </p>
-                            <strong> Ultima atualização: </strong>{{firstDataHora | date : 'dd/MM/yyyy HH:mm'}}h
+                            <p> <span class="subtitle"> Altitude: </span> {{estacaoSelecionada.altitude}}m </p>
+                            <p> <span class="subtitle"> Altura: </span> {{estacaoSelecionada.altura}}m </p>
+                                <span class="subtitle"> Ultima atualização: </span>{{firstDataHora | date : 'dd/MM/yyyy HH:mm'}}h
                             ({{firstDataHora | date : "HH:mm":"+0000"}}h - UTC)
                         </div>
                     </div>
@@ -37,21 +37,21 @@
                 <mat-card-header class="cardHeader borderBottom">
                     <mat-card-title> <p class="cardHeaderContent title"> Estações de monitoramento ambiental</p> </mat-card-title>
                     <mat-card-subtitle> <p class="cardHeaderContent subtitle"> 
-                        <strong>Locais: </strong> Rio de Janeiro e Espírito Santo
+                        O intervalo de chegada dos dados varia por estação
                     </p></mat-card-subtitle>
                 </mat-card-header>
                 <mat-card-content class="cardContent">
                     <div class="container">
                         <div>
-                            <p> <strong> Número de estações: </strong> {{numEstacoes}} </p> 
-                            <p> <strong> Número total de dados coletados: </strong> {{numDados}} </p>
-                            <p> <strong> Responsável: </strong> LAPA\CoMet/CEFET-RJ </p>
-                            <p> <strong> Desde: </strong> 02/23
+                            <p> <span class="subtitle"> Número de estações: </span> {{numEstacoes}} </p> 
+                            <p> <span class="subtitle"> Número total de dados coletados: </span> {{numDados}} </p>
+                            <p> <span class="subtitle"> Responsável: </span> LAPA\CoMet/CEFET-RJ </p>
+                            <p> <span class="subtitle"> Desde: </span> 02/23
                             <p class="borderBottom"> </p>
-                            <p> <strong> Estações  </strong> <span style="color:green"> Funcionando: {{funcionando}} </span> </p>
-                            <p> <strong> Estações  </strong> <span style="color:red"> Desligadas: {{desligadas}} </span> </p>
-                            <p> <strong> Estações  </strong> <span style="color:blue"> Em Manutenção: {{manutencao}} </span> </p>
-                            <strong> O intervalo de chegada dos dados varia por estação</strong>
+                            <p> <span class="subtitle"> Estações  </span> <span style="color:green"> Funcionando: {{funcionando}} </span> </p>
+                            <p> <span class="subtitle"> Estações  </span> <span style="color:red"> Desligadas: {{desligadas}} </span> </p>
+                            <p> <span class="subtitle"> Estações  </span> <span style="color:blue"> Em Manutenção: {{manutencao}} </span> </p>
+                            <span class="subtitle"> Algumas estações ainda não possuem localização no mapa </span>
                         </div>
                     </div>
                 </mat-card-content>

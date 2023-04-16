@@ -54,7 +54,7 @@ export class HomeComponent {
     return new Chart(this.graph.nativeElement, {
       data: {
         labels: label.reverse(),
-        datasets: dataset.reverse(),
+        datasets: dataset,
       },
       options: {
         plugins: {
@@ -73,6 +73,12 @@ export class HomeComponent {
           right:{
             position: 'right',
           },
+        },
+        elements: {
+          line: {
+            tension: 0.5,
+            borderWidth: 4
+          },
         }
       }
     });
@@ -83,7 +89,7 @@ export class HomeComponent {
 
     datasetsByKeys.push({
       label: 'Temperatura Média(°C)',
-      data: Object.values(this.dataSource).map(x => x.temperaturaAr),
+      data: Object.values(this.dataSource).map(x => x.temperaturaAr).reverse(),
       borderColor: 'orange',
       fill: true,
       type: 'line',
@@ -93,7 +99,7 @@ export class HomeComponent {
     })
     datasetsByKeys.push({
       label: 'Ponto de Orvalho(°C)',
-      data: Object.values(this.dataSource).map(x => x.tempPontoOrvalho),
+      data: Object.values(this.dataSource).map(x => x.tempPontoOrvalho).reverse(),
       borderColor: 'blue',
       fill: true,
       type: 'line',
@@ -103,7 +109,7 @@ export class HomeComponent {
     })
     datasetsByKeys.push({
       label: 'Índice de Calor(°C)',
-      data: Object.values(this.dataSource).map(x => x.indiceCalor),
+      data: Object.values(this.dataSource).map(x => x.indiceCalor).reverse(),
       borderColor: 'red',
       fill: true,
       type: 'line',
@@ -113,20 +119,16 @@ export class HomeComponent {
     })
     datasetsByKeys.push({
       label: 'Umidade Relativa(%)',
-      data: Object.values(this.dataSource).map(x => x.extra2),
-      borderColor: 'blue',
+      data: Object.values(this.dataSource).map(x => x.extra2).reverse(),
+      borderColor: 'purple',
       fill: true,
       type: 'bar',
-      backgroundColor: 'rgba(0, 0, 200, 0.20)',
+      backgroundColor: 'rgba(135, 150, 250, 0.2)',
       yAxisID: 'right',
       z: 100,
     })
 
     return datasetsByKeys;
-  }
-
-  private GetDataHoraLabels(){
-    return this.dataSource.map(x => x.dataHora.toString());
   }
 }
 
