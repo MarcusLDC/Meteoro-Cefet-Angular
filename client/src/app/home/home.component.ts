@@ -73,6 +73,12 @@ export class HomeComponent {
           right:{
             position: 'right',
           },
+        },
+        elements: {
+          line: {
+            tension: 0.5,
+            borderWidth: 4
+          },
         }
       }
     });
@@ -114,19 +120,15 @@ export class HomeComponent {
     datasetsByKeys.push({
       label: 'Umidade Relativa(%)',
       data: Object.values(this.dataSource).map(x => x.extra2),
-      borderColor: 'blue',
+      borderColor: 'purple',
       fill: true,
       type: 'bar',
-      backgroundColor: 'rgba(0, 0, 200, 0.15)',
+      backgroundColor: 'rgba(135, 150, 250, 0.2)',
       yAxisID: 'right',
-      z: 100,
+      z: 0,
     })
 
     return datasetsByKeys;
-  }
-
-  private GetDataHoraLabels(){
-    return this.dataSource.map(x => x.dataHora.toString());
   }
 }
 
