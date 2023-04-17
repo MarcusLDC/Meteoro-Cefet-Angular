@@ -7,13 +7,11 @@ import { EstacoesComponent } from './estacoes/estacoes.component';
 import { AdminComponent } from './admin/admin.component';
 import { AuthService } from './shared/services/auth-services';
 import { HomeComponent } from './home/home.component';
-import { GerarGraficoComponent } from './gerar-grafico/gerar-grafico.component';
 
 const routes: Routes = [
   {path: "", component: HomeComponent},
   {path: "dados", component: DadosComponent},
   {path: "consulta", component: ConsultaComponent},
-  {path: "consulta/grafico", component: GerarGraficoComponent},
   {path: "estacoes", component: EstacoesComponent},
   {path: "estacoes/editar/:id", component: EditarEstacaoComponent},
   {path: "admin", component: AdminComponent, canActivate: [AuthService]},

@@ -37,7 +37,6 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { ConsultaGraficoComponent } from './consulta-grafico/consulta-grafico.component';
 import { HomeComponent } from './home/home.component';
-import { GerarGraficoComponent } from './gerar-grafico/gerar-grafico.component';
 
 
 @NgModule({
@@ -53,7 +52,6 @@ import { GerarGraficoComponent } from './gerar-grafico/gerar-grafico.component';
     LoginModalComponent,
     ConsultaGraficoComponent,
     HomeComponent,
-    GerarGraficoComponent,
   ],
   imports: [
     BrowserModule,
