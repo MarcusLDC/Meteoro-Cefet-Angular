@@ -32,17 +32,17 @@ export class ConsultaGraficoComponent implements AfterViewInit, OnInit {
     for (const { canvas, data } of zip) {
       for (const [field, gc] of data.fields) {
         if (this.colunas.some(x => field == x)) {
-          const test = {
-            data: this.stationData.statistics
-            label: string,
-            borderColor: string,
-            fill: boolean,
-            type: string,
-            backgroundColor: string,
-            yAxisID: string,
-            z: number
-          }
-          this.charts.push(this.createGraph(test, canvas));
+          // const test = {
+          //   data: this.stationData.statistics
+          //   label: string,
+          //   borderColor: string,
+          //   fill: boolean,
+          //   type: string,
+          //   backgroundColor: string,
+          //   yAxisID: string,
+          //   z: number
+          // }
+          // this.charts.push(this.createGraph(test, canvas));
         }
       }
     }
