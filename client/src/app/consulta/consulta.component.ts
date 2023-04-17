@@ -122,7 +122,7 @@ export class ConsultaComponent {
     if(this.form.get('grafico')?.value){
       this.meteoroServices.consultarGrafico(formData).subscribe(x => {
         this.dadosGrafico = x;
-        this.dadosGraficoKeys = Object.keys(this.dadosGrafico).map(x => Number(x));
+        this.dadosGraficoKeys = this.dadosGraficoKeys.concat(Object.keys(this.dadosGrafico).map(x => Number(x)));
       });
     }
   }
