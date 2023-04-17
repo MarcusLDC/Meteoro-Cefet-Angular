@@ -11,9 +11,28 @@ namespace MeteoroCefet.API.Endpoints
         {
             app.MapPost("/consulta/grafico", Handler);
         }
-        private static async Task<ConsultaDTO> Handler(IMediator mediator , [FromBody] ConsultaModel model)
+        private static async Task<ConsultaGraficoDto> Handler(IMediator mediator, [FromBody] ConsultaModel model)
         {
-            return await mediator.Send(new ConsultaRequest(model));
+            var consulta = await mediator.Send(new ConsultaRequest(model));
+
+            var c = consulta.StationsData.Select(x => x.Statistics.Select(y => consulta.SelectedFields.Zip(y.Points.Select(x => x))));
+
+
+            return new ConsultaGraficoDto()
+            {
+                SelectedFields = consulta.SelectedFields,
+            };
+        }
+
+        public class ConsultaGraficoDto
+        {
+            public required List<Campo> SelectedFields { get; set; }
+            public required Dictionary<int, FlatData> FlatByStation { get; set; }
+        }
+
+        public class FlatData
+        {
+            public required List<double> DataPoints { get; set; }
         }
     }
 }
