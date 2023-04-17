@@ -1,11 +1,12 @@
 import { Component, ElementRef, ViewChild } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { ConsultaModel } from '../shared/models/consulta-model';
-import { ConsultaDTO, MeteoroServices } from '../shared/services/meteoro-services';
+import { MeteoroServices } from '../shared/services/meteoro-services';
 import { Estacao } from '../shared/models/estacao-model';
 import { ThemePalette } from '@angular/material/core';
 import { Router } from '@angular/router';
 import { LocalStorageServices } from '../shared/services/local-storage-services';
+import { ConsultaDTO } from '../shared/services/DTOs/consulta-DTO';
 
 @Component({
   selector: 'app-consulta',
@@ -26,9 +27,7 @@ export class ConsultaComponent {
   minDate = new Date;
   maxDate = new Date;
 
-  dadosGrafico!: ConsultaDTO;
-
-  dadosGraficoKeys: number[] = [];
+  consultaData!: ConsultaDTO;
 
   periodosGrafico = [
     { value: null, key: 0},
@@ -98,14 +97,13 @@ export class ConsultaComponent {
       ) ? 20 : 0;
       this.spinnerValue = checkboxes + periodo + estacao + intervalo + opcao;
     });
-    this.form.patchValue(await this.localStorage.get<ConsultaModel>('graphParameters') ?? this.resetar());
+    this.form.patchValue(await this.localStorage.get<ConsultaModel>('consultaParameters') ?? this.resetar());
   }
 
   public async consultar() {
-
     let formData = this.form.value as ConsultaModel;
 
-    this.localStorage.set('graphParameters', formData);
+    this.localStorage.set('consultaParameters', formData);
 
     if(this.form.get('tabela')?.value){
       this.meteoroServices.consultarTabela(formData).subscribe(x => {
@@ -121,8 +119,12 @@ export class ConsultaComponent {
 
     if(this.form.get('grafico')?.value){
       this.meteoroServices.consultarGrafico(formData).subscribe(x => {
-        this.dadosGrafico = x;
-        this.dadosGraficoKeys = this.dadosGraficoKeys.concat(Object.keys(this.dadosGrafico).map(x => Number(x)));
+        this.consultaData = x;
+        this.localStorage.set('dadosGrafico', this.dadosGrafico[66]);
+
+        window.open('consulta/grafico', '_blank');
+
+        this.dadosGraficoKeys = Object.keys(this.dadosGrafico).map(x => Number(x));
       });
     }
   }
