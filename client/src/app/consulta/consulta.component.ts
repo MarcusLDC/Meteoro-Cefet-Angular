@@ -4,7 +4,7 @@ import { ConsultaModel } from '../shared/models/consulta-model';
 import { ConsultaDTO, MeteoroServices } from '../shared/services/meteoro-services';
 import { Estacao } from '../shared/models/estacao-model';
 import { ThemePalette } from '@angular/material/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, Router, NavigationExtras } from '@angular/router';
 import { LocalStorageServices } from '../shared/services/local-storage-services';
 
 @Component({
@@ -40,7 +40,7 @@ export class ConsultaComponent {
     { value: "Mensal", key: 6 }
   ];
 
-  constructor(private builder: FormBuilder, private meteoroServices: MeteoroServices, private route: ActivatedRoute, private router: Router, private localStorage: LocalStorageServices) {
+  constructor(private builder: FormBuilder, private meteoroServices: MeteoroServices, private router: Router, private localStorage: LocalStorageServices) {
     
     this.minDate = new Date(2023, 1, 16);
     
@@ -122,6 +122,11 @@ export class ConsultaComponent {
     if(this.form.get('grafico')?.value){
       this.meteoroServices.consultarGrafico(formData).subscribe(x => {
         this.dadosGrafico = x;
+        
+        this.localStorage.set('dadosGrafico', this.dadosGrafico[66]);
+
+        window.open('consulta/grafico', '_blank');
+
         this.dadosGraficoKeys = Object.keys(this.dadosGrafico).map(x => Number(x));
       });
     }

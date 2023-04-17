@@ -1,6 +1,7 @@
 import { Component, ElementRef, Input, QueryList, ViewChild, ViewChildren } from '@angular/core';
 import Chart from 'chart.js/auto';
-import { Dados } from '../shared/services/meteoro-services';
+import { ConsultaDTO, Dados } from '../shared/services/meteoro-services';
+import { Router } from '@angular/router';
 
 type DataSet = { label: string, data: number[], borderColor: string, fill: boolean, type: string, backgroundColor: string, yAxisID: string, z: number};
 
@@ -32,7 +33,7 @@ export class ConsultaGraficoComponent {
   constructor() {}
 
   ngOnInit() {
-    
+
     this.datasetTemperatura = this.GetDatasetTemperatura(Object.keys(this.dadosGrafico[0].campos));
 
     this.datasetChuva = this.GetDatasetChuva(Object.keys(this.dadosGrafico[0].campos));
