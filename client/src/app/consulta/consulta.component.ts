@@ -120,11 +120,6 @@ export class ConsultaComponent {
     if(this.form.get('grafico')?.value){
       this.meteoroServices.consultarGrafico(formData).subscribe(x => {
         this.consultaData = x;
-        this.localStorage.set('dadosGrafico', this.dadosGrafico[66]);
-
-        window.open('consulta/grafico', '_blank');
-
-        this.dadosGraficoKeys = Object.keys(this.dadosGrafico).map(x => Number(x));
       });
     }
   }
@@ -141,8 +136,7 @@ export class ConsultaComponent {
     for (let i = 0; i < byteString.length; i++) {
       int8Array[i] = byteString.charCodeAt(i);
     }
-    const blob = new Blob([int8Array], { type: 'image/png' });
-    return blob;
+    return new Blob([int8Array], { type: 'image/png' });;
   }
 
   public markAll(){
