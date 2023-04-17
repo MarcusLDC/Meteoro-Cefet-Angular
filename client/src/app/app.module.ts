@@ -38,6 +38,8 @@ import { MatPaginatorModule } from '@angular/material/paginator';
 import { ConsultaGraficoComponent } from './consulta-grafico/consulta-grafico.component';
 import { HomeComponent } from './home/home.component';
 import { DatePipe } from '@angular/common';
+import { GerarGraficoComponent } from './gerar-grafico/gerar-grafico.component';
+
 
 @NgModule({
   declarations: [
@@ -52,6 +54,7 @@ import { DatePipe } from '@angular/common';
     LoginModalComponent,
     ConsultaGraficoComponent,
     HomeComponent,
+    GerarGraficoComponent,
   ],
   imports: [
     BrowserModule,

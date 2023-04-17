@@ -25,6 +25,6 @@ export class EstacoesComponent{
     setInterval(async () => {
       this.logado = await this.auth.isLogged();
       this.estacoes = this.meteoroServices.getEstacoes();
-    }, 30000);
+    }, 60000);
   }
 }
