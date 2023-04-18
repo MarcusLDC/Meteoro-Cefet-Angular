@@ -12,19 +12,17 @@ export class GraphTemperatura implements GraphData {
                 fill: true,
                 type: 'line',
                 backgroundColor: 'rgba(0, 0, 0, 0)',
-                yAxisID: 'left',
                 z: 100,
             },
         },
         {
             campo: Campo.TempMin,
             config: {
-                label: 'Temp. Média(°C)',
-                borderColor: 'orange',
+                label: 'Temp. Minima(°C)',
+                borderColor: 'blue',
                 fill: true,
                 type: 'line',
                 backgroundColor: 'rgba(0, 0, 0, 0)',
-                yAxisID: 'left',
                 z: 100,
             },
         },
@@ -36,7 +34,6 @@ export class GraphTemperatura implements GraphData {
                 fill: true,
                 type: 'line',
                 backgroundColor: 'rgba(0, 0, 0, 0)',
-                yAxisID: 'left',
                 z: 100,
             }
         },
@@ -48,7 +45,6 @@ export class GraphTemperatura implements GraphData {
                 fill: true,
                 type: 'line',
                 backgroundColor: 'rgba(0, 0, 0, 0)',
-                yAxisID: 'left',
                 z: 100,
             }
         },
@@ -60,7 +56,6 @@ export class GraphTemperatura implements GraphData {
                 fill: true,
                 type: 'line',
                 backgroundColor: 'rgba(0, 0, 0, 0)',
-                yAxisID: 'left',
                 z: 100,
             }
         },
@@ -72,7 +67,6 @@ export class GraphTemperatura implements GraphData {
                 fill: true,
                 type: 'bar',
                 backgroundColor: 'rgba(135, 206, 250, 0.5)',
-                yAxisID: 'right',
                 z: 1,
             }
         }

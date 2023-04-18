@@ -1,16 +1,16 @@
 export type ConsultaDTO = {
     dates: string[]
-    stationsData: StationData
+    stationData: StationData[]
 }
 
 export interface StationData {
     station: number
-    fields: Data[]
+    fields: FieldData[]
 }
 
-export interface Data {
-    name: string
-    points: number[]
+export interface FieldData {
+    field: Campo
+    values: number[]
 }
 
 export enum Campo {

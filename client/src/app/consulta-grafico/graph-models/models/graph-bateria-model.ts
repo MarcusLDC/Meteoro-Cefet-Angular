@@ -11,7 +11,6 @@ export class GraphBateria implements GraphData {
                 borderColor: 'green',
                 type: 'line',
                 backgroundColor: 'rgba(0, 0, 0, 0)',
-                yAxisID: 'left',
                 z: 1,
                 fill: false
             },

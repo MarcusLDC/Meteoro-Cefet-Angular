@@ -12,7 +12,6 @@ export class GraphPressao implements GraphData {
                 fill: true,
                 type: 'line',
                 backgroundColor: 'rgba(0, 0, 0, 0)',
-                yAxisID: 'left',
                 z: 1,
               },
         }

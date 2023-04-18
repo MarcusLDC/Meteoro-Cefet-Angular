@@ -12,7 +12,6 @@ export class GraphChuva implements GraphData {
                 fill: true,
                 type: 'bar',
                 backgroundColor: 'rgba(135, 206, 250)',
-                yAxisID: 'left',
                 z: 1,
             },
         }

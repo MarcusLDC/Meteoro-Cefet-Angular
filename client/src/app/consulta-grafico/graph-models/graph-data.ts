@@ -17,7 +17,7 @@ export function mapConfigs(graphConfigs: {campo: Campo, config: GraphConfigs}[])
     for (const gc of graphConfigs) {
         map.set(gc.campo, gc.config)
     }
-
+    
     return map
 }
 
@@ -36,7 +36,6 @@ export type GraphConfigs = {
     fill: boolean,
     type: string,
     backgroundColor: string,
-    yAxisID: string,
     z: number
 }
 

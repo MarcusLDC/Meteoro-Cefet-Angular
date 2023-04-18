@@ -12,7 +12,6 @@ export class GraphVento implements GraphData {
                 fill: true,
                 type: 'line',
                 backgroundColor: 'rgba(135, 206, 250)',
-                yAxisID: 'right',
                 z: 1,
             },
         },
@@ -24,7 +23,6 @@ export class GraphVento implements GraphData {
                 fill: true,
                 type: 'scatter',
                 backgroundColor: 'rgba(135, 206, 250)',
-                yAxisID: 'left',
                 z: 1,
               },
         },
@@ -36,7 +34,6 @@ export class GraphVento implements GraphData {
                 fill: true,
                 type: 'line',
                 backgroundColor: 'rgba(135, 206, 250)',
-                yAxisID: 'left',
                 z: 1,
               },
         }

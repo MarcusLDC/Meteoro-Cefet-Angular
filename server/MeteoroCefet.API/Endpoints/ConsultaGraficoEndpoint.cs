@@ -14,38 +14,35 @@ namespace MeteoroCefet.API.Endpoints
         }
         private static async Task<ConsultaGraficoDto> Handler(IMediator mediator, [FromBody] ConsultaModel model)
         {
-            var consulta = await mediator.Send(new ConsultaRequest(model));  
+            var consulta = await mediator.Send(new ConsultaRequest(model));
 
-            var filterByFields = consulta.StationsData.ToDictionary(
-                x => x.Station,
-                y => {
-                    var SelectedFields = new List<Dictionary<string, List<double>>>();
-
-                    foreach(var field in consulta.SelectedFields)
-                    {
-                        var dict = new Dictionary<string, List<double>>
-                        {
-                            { Enum.GetName(field), y.Statistics.Select(x => x.Points.ElementAtOrDefault((int)field)).ToList() }
-                        };
-
-                        SelectedFields.Add(dict);
-                    }
-
-                    return SelectedFields;
-                });           
+            var filterByFields = consulta.StationsData.Select(x => new StationData
+            {
+                Station = x.Station,
+                Fields = consulta.SelectedFields.Select(y => new FieldData { Field = y, Values = x.Statistics.Select(x => x.Points.ElementAtOrDefault((int)y)).ToList() }).ToList()
+            });
 
             return new ConsultaGraficoDto()
             {
-                Dates = consulta.StationsData.SelectMany(x => x.Statistics.Select(x => x.Date)).ToList(),
-                FlatByStation = filterByFields
+                Dates = consulta.StationsData.First().Statistics.Select(x => x.Date).ToList(),
+                StationData = filterByFields.ToList()
             };
         }
 
         public class ConsultaGraficoDto
         {
             public required List<string> Dates { get; set; }
-            public required Dictionary<int, List<Dictionary<string, List<double>>>> FlatByStation { get; set; }
+            public required List<StationData> StationData { get; set; }
         }
-
+        public class StationData 
+        { 
+            public required int Station { get; set; }
+            public required List<FieldData> Fields { get; set; }
+        }
+        public class FieldData 
+        { 
+            public required Campo Field { get; set;}
+            public required List<double> Values { get; set; }
+        }
     }
 }

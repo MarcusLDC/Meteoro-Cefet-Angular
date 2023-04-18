@@ -6,7 +6,8 @@ import { Estacao } from '../shared/models/estacao-model';
 import { ThemePalette } from '@angular/material/core';
 import { Router } from '@angular/router';
 import { LocalStorageServices } from '../shared/services/local-storage-services';
-import { ConsultaDTO } from '../shared/services/DTOs/consulta-DTO';
+import { ConsultaDTO, StationData } from '../shared/services/DTOs/consulta-DTO';
+import { GraphPreferences } from '../shared/models/graph-preferences-model';
 
 @Component({
   selector: 'app-consulta',
@@ -22,7 +23,10 @@ export class ConsultaComponent{
   spinnerValue = 0;
 
   form: FormGroup;
+  form2: FormGroup;
+
   estacoes: Estacao[] = [];
+  graficosGerados: StationData[] = [];
 
   consultaParams!: ConsultaIntervaloParams;
 
@@ -41,22 +45,17 @@ export class ConsultaComponent{
     { value: "Mensal", key: 6 }
   ];
 
-  constructor(private builder: FormBuilder, private meteoroServices: MeteoroServices, private router: Router, private localStorage: LocalStorageServices) {
+  constructor(private builder: FormBuilder, private meteoroServices: MeteoroServices, private localStorage: LocalStorageServices) {
     
     this.minDate = new Date(2023, 1, 16);
     
     this.form = this.builder.group({
-
       periodoInicio: [null, Validators.required], 
       periodoFim: [null, Validators.required], 
-
       estacao: [null, Validators.required], 
-
       intervalo: [null, Validators.required], 
-
       tabela: [false, Validators.required], // tabela      
       grafico: [false, Validators.required], // grafico    
-
       tempAr: [false, Validators.required],  // Checkboxes
       tempMin: [false, Validators.required],
       tempMax: [false, Validators.required],
@@ -71,6 +70,22 @@ export class ConsultaComponent{
       indiceCalor: [false, Validators.required],
       umidadeRelativa: [false, Validators.required],  // Fim-Checkboxes
     });
+
+    this.form2 = this.builder.group({
+      tempArSide: [Validators.required],
+      tempMinSide: [Validators.required],
+      tempMaxSide: [Validators.required],
+      tempOrvSide: [Validators.required],
+      chuvaSide: [Validators.required],
+      direcaoVentoSide: [Validators.required],
+      velocidadeVentoSide: [Validators.required],
+      velocidadeVentoMaxSide: [Validators.required],
+      bateriaSide: [Validators.required],
+      radiacaoSide: [Validators.required],
+      pressaoATMSide: [Validators.required],
+      indiceCalorSide: [Validators.required],
+      umidadeRelativaSide: [Validators.required],
+    })
 
     meteoroServices.getEstacoes().subscribe(x => this.estacoes = x);
     meteoroServices.getDados(1).subscribe(x => this.maxDate = x[0].dataHora)
@@ -139,8 +154,15 @@ export class ConsultaComponent{
 
       this.spinnerValue = checkboxes + periodo + estacao + intervalo + opcao;
     });
-    
-    this.form.patchValue(await this.localStorage.get<ConsultaIntervaloParams>('consultaParameters') ?? this.resetarForm());
+
+    this.form2.valueChanges.subscribe({
+
+    })
+
+    this.form.patchValue(await this.localStorage.get<ConsultaIntervaloParams>('consultaParameters') ?? this.resetarForm1());
+
+    this.form2.patchValue(await this.localStorage.get<GraphPreferences>('graphPreferences') ?? this.resetarForm2());
+
   }
 
   public async consultarTabela(){
@@ -158,19 +180,92 @@ export class ConsultaComponent{
     });
   }
 
-  public async consultarGrafico(){
+  public atualizarUnidadesSimilares(nomes: string[], valor: string){
+    for(let nome of nomes){
+      const control = this.form2.get(nome);
+      control?.patchValue(valor);
+    }
+  }
 
+  public async consultarGrafico(){
     let formData = this.setFormData();
+
+    let leftCountSum = 0; let tempsLeft = 0; let ventosLeft = 0;
+    let rightCountSum = 0; let tempsRight = 0; let ventosRight = 0;
+
+    this.checkboxes.forEach(checkbox => {
+      let temps = ['tempArSide', 'tempMinSide', 'tempMaxSide', 'tempOrvSide', 'indiceCalorSide']
+      let ventos = ['velocidadeVentoSide', 'velocidadeVentoMaxSide']
+
+      if(this.form.controls[checkbox].value){
+        const sideValue = this.form2.controls[`${checkbox}Side`].value;
+
+        if(temps.includes(`${checkbox}Side`)){
+          if (sideValue === "left") {
+            tempsLeft = 1;
+          }else if (sideValue === "right") {
+            tempsRight = 1;
+          }
+        }
+
+        if(ventos.includes(`${checkbox}Side`)){
+          if (sideValue === "left") {
+            ventosLeft = 1;
+          }else if (sideValue === "right") {
+            ventosRight = 1;
+          }
+        }
+
+        if(!temps.includes(`${checkbox}Side`) && !ventos.includes(`${checkbox}Side`)){
+          if (sideValue === "left") {
+            leftCountSum += 1;
+          }else if (sideValue === "right") {
+            rightCountSum += 1;
+          }
+        }
+      }
+    });
+
+    leftCountSum += tempsLeft + ventosLeft;
+    rightCountSum += tempsRight + ventosRight;
+
+    if(leftCountSum > 1 || rightCountSum > 1){
+      alert("Para evitar gráfico quebrados é necessário que exista apenas uma escala parecida na esquerda e outra na direita.")
+      return;
+    }
 
     this.meteoroServices.consultarGrafico(formData).subscribe(x => {
       this.consultaData = x;
+      this.graficosGerados = this.graficosGerados.concat(this.consultaData.stationData);
     });
   }
 
-
-  public resetarForm() {
+  public resetarForm1() {
     this.form.patchValue(new ConsultaModel)
     this.form.patchValue({periodoInicio: null, periodoFim: null, tabela: false, grafico: false});
+  }
+
+  public resetarForm2() {
+    this.form2.patchValue(new GraphPreferences)
+  }
+
+  public setValueRightTemp(): boolean {
+    let checkboxes = ['tempArSide', 'tempMinSide', 'tempMaxSide', 'tempOrvSide', 'indiceCalorSide']
+    return this.setSidesValues('right', checkboxes)
+  }
+
+  public setValueLeftTemp(): boolean {
+    let checkboxes = ['tempArSide', 'tempMinSide', 'tempMaxSide', 'tempOrvSide', 'indiceCalorSide']
+    return this.setSidesValues('left', checkboxes)
+  }
+
+  public setSidesValues(side: string, checkboxes: string[]): boolean {
+    for (const checkbox of checkboxes) {
+      if (this.form2.controls[checkbox].value === side) {
+        return true;
+      }
+    }
+    return false;
   }
 
   public markAll(){
@@ -195,6 +290,9 @@ export class ConsultaComponent{
     };
 
     this.localStorage.set('consultaParameters', this.consultaParams);
+
+    this.localStorage.set('graphPreferences', this.form2.value as GraphPreferences);
+
     return formData;
   }
 
