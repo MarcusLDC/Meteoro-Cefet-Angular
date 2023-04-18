@@ -20,4 +20,21 @@
         public bool IndiceCalor { get; set; } = false;
         public bool UmidadeRelativa { get; set; } = false; // Fim-Checkboxes
     }
+
+    public enum Campo
+    {
+        TempAr,
+        TempMin,
+        TempMax,
+        TempOrv,
+        Chuva,
+        DirecaoVento,
+        VelocidadeVento,
+        VelocidadeVentoMax,
+        Bateria,
+        Radiacao,
+        PressaoATM,
+        IndiceCalor,
+        UmidadeRelativa
+    }
 }

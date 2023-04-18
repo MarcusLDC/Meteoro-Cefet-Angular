@@ -37,7 +37,8 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { ConsultaGraficoComponent } from './consulta-grafico/consulta-grafico.component';
 import { HomeComponent } from './home/home.component';
-
+import { DatePipe } from '@angular/common';
+import { MatRadioModule } from '@angular/material/radio';
 
 @NgModule({
   declarations: [
@@ -86,8 +87,10 @@ import { HomeComponent } from './home/home.component';
     MatProgressSpinnerModule,
     InterceptorModule,
     MatPaginatorModule,
+    MatRadioModule,
   ],
   providers: [
+    DatePipe,
     MatDatepickerModule,
     MatNativeDateModule,
     CookieService,

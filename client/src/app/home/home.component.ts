@@ -88,9 +88,9 @@ export class HomeComponent {
     let datasetsByKeys: DataSet[] = [];
 
     datasetsByKeys.push({
-      label: 'Temperatura Média(°C)',
+      label: 'Temperatura do Ar(°C)',
       data: Object.values(this.dataSource).map(x => x.temperaturaAr).reverse(),
-      borderColor: 'orange',
+      borderColor: 'blue',
       fill: true,
       type: 'line',
       backgroundColor: 'rgba(0, 0, 0, 0)',
@@ -100,7 +100,7 @@ export class HomeComponent {
     datasetsByKeys.push({
       label: 'Ponto de Orvalho(°C)',
       data: Object.values(this.dataSource).map(x => x.tempPontoOrvalho).reverse(),
-      borderColor: 'blue',
+      borderColor: 'yellow',
       fill: true,
       type: 'line',
       backgroundColor: 'rgba(0, 0, 0, 0)',
