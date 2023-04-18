@@ -14,7 +14,7 @@ namespace MeteoroCefet.API.Endpoints
         }
         private static async Task<ConsultaGraficoDto> Handler(IMediator mediator, [FromBody] ConsultaModel model)
         {
-            var consulta = await mediator.Send(new ConsultaRequest(model)); // x.SelectMany(x => x)) y.Statistics.ToDictionary(x => consulta.SelectedFields.Select(), y => y.Points));  
+            var consulta = await mediator.Send(new ConsultaRequest(model));  
 
             var filterByFields = consulta.StationsData.ToDictionary(
                 x => x.Station,
@@ -34,7 +34,7 @@ namespace MeteoroCefet.API.Endpoints
                     return SelectedFields;
                 });           
 
-            return new ConsultaGraficoDto()  // y => y FlatData { DataPoints = y.Statistics.SelectMany(x => x.Points).ToList() }
+            return new ConsultaGraficoDto()
             {
                 Dates = consulta.StationsData.SelectMany(x => x.Statistics.Select(x => x.Date)).ToList(),
                 FlatByStation = filterByFields
