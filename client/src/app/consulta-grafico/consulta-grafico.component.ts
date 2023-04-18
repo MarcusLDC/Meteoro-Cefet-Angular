@@ -28,7 +28,6 @@ export class ConsultaGraficoComponent implements AfterViewInit, OnInit {
   ngAfterViewInit(): void {
     const zip = this.graphCanvases.map((g, i) => ({ canvas: g, data: this.graficosReais[i] }))
 
-    debugger;
     for (const { canvas, data } of zip) {
       for (const [field, gc] of data.fields) {
         if (this.colunas.some(x => field == x)) {

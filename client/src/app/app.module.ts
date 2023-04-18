@@ -39,7 +39,6 @@ import { ConsultaGraficoComponent } from './consulta-grafico/consulta-grafico.co
 import { HomeComponent } from './home/home.component';
 import { DatePipe } from '@angular/common';
 
-
 @NgModule({
   declarations: [
     AppComponent,

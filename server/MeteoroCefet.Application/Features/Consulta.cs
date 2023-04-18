@@ -3,6 +3,7 @@ using MeteoroCefet.Application.Models;
 using MeteoroCefet.Domain.Entities;
 using MeteoroCefet.Infra;
 using MongoDB.Driver;
+using System.Globalization;
 
 namespace MeteoroCefet.Application.Features
 {
@@ -54,7 +55,7 @@ namespace MeteoroCefet.Application.Features
             return new Data
             {
                 Points = getMeasures.Select(measure => measure(dadosTempos)).ToList(),
-                Date = date
+                Date = date.ToString("g", new CultureInfo("pt-BR"))
             };
         }
 
@@ -104,7 +105,7 @@ namespace MeteoroCefet.Application.Features
         }
         private static Func<List<DadosTempo>, double> Max(Func<DadosTempo, double> selector)
         {
-            return data => Math.Round(data.Min(selector), 2);
+            return data => Math.Round(data.Max(selector), 2);
         }
     }
 
@@ -122,7 +123,7 @@ namespace MeteoroCefet.Application.Features
 
     public class Data
     {
-        public required DateTime Date { get; init; }
+        public required string Date { get; init; }
         public required List<double> Points { get; init; }
     }
 }

@@ -1,6 +1,6 @@
-import { Component, ElementRef, ViewChild } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { ConsultaModel } from '../shared/models/consulta-model';
+import { ConsultaIntervaloParams, ConsultaModel } from '../shared/models/consulta-model';
 import { MeteoroServices } from '../shared/services/meteoro-services';
 import { Estacao } from '../shared/models/estacao-model';
 import { ThemePalette } from '@angular/material/core';
@@ -14,7 +14,7 @@ import { ConsultaDTO } from '../shared/services/DTOs/consulta-DTO';
   styleUrls: ['./consulta.component.scss']
 })
 
-export class ConsultaComponent {
+export class ConsultaComponent{
   checkboxes = ['tempAr','tempMin','tempMax','tempOrv','chuva','direcaoVento','velocidadeVento','velocidadeVentoMax','bateria','radiacao','pressaoATM','indiceCalor','umidadeRelativa'];
   marcarTodas = true;
 
@@ -23,6 +23,8 @@ export class ConsultaComponent {
 
   form: FormGroup;
   estacoes: Estacao[] = [];
+
+  consultaParams!: ConsultaIntervaloParams;
 
   minDate = new Date;
   maxDate = new Date;
@@ -75,11 +77,50 @@ export class ConsultaComponent {
   }
 
   async ngOnInit(){
+
+    this.checkboxes.forEach(checkbox => {
+      this.form.controls[checkbox].disable();
+    });
+
+    this.form.controls['tabela'].valueChanges.subscribe(value => {
+      if (value === true) {
+        this.form.controls['grafico'].patchValue(false, { emitEvent: false });
+        this.setCheckboxesValue(false);
+        this.marcarTodas = true;
+        this.checkboxes.forEach(checkbox => {
+          this.form.controls[checkbox].enable();
+        });
+      }
+      if(value === false && !this.form.get('grafico')?.value){
+        this.checkboxes.forEach(checkbox => {
+          this.form.controls[checkbox].disable();
+        });
+      }
+    });
+
+    this.form.controls['grafico'].valueChanges.subscribe(value => {
+      if (value === true) {
+        this.form.controls['tabela'].patchValue(false, { emitEvent: false });
+        this.setCheckboxesValue(false);
+        this.marcarTodas = true;
+        this.checkboxes.forEach(checkbox => {
+          this.form.controls[checkbox].enable();
+        });
+      }
+      if(value === false && !this.form.get('tabela')?.value){
+        this.checkboxes.forEach(checkbox => {
+          this.form.controls[checkbox].disable();
+        });
+      }
+    });
+
     this.form.valueChanges.subscribe(x => {
+
       let periodo = this.form.get('periodoInicio')?.value && this.form.get('periodoFim')?.value ? 20 : 0;
       let estacao = this.form.get('estacao')?.value && this.form.get('estacao')?.value.length > 0 ? 20 : 0;
       let intervalo = this.form.get('intervalo')?.value && this.form.get('intervalo')?.value != "null" ? 20 : 0;
       let opcao = this.form.get('tabela')?.value || this.form.get('grafico')?.value ? 20 : 0;
+
       let checkboxes = Boolean(
         this.form.get('tempAr')?.value ||
         this.form.get('tempMin')?.value ||
@@ -95,38 +136,66 @@ export class ConsultaComponent {
         this.form.get('indiceCalor')?.value ||
         this.form.get('umidadeRelativa')?.value
       ) ? 20 : 0;
+
       this.spinnerValue = checkboxes + periodo + estacao + intervalo + opcao;
     });
-    this.form.patchValue(await this.localStorage.get<ConsultaModel>('consultaParameters') ?? this.resetar());
+    
+    this.form.patchValue(await this.localStorage.get<ConsultaIntervaloParams>('consultaParameters') ?? this.resetarForm());
   }
 
-  public async consultar() {
-    let formData = this.form.value as ConsultaModel;
+  public async consultarTabela(){
 
-    this.localStorage.set('consultaParameters', formData);
+    let formData = this.setFormData();
 
-    if(this.form.get('tabela')?.value){
-      this.meteoroServices.consultarTabela(formData).subscribe(x => {
-        const imageBlob = this.dataURItoBlob(x.data);
-        const url = window.URL.createObjectURL(imageBlob);
-        const link = document.createElement('a');
-        link.href = url;
-        link.download = x.name;
-        link.click();
-        window.URL.revokeObjectURL(url);
-      });
-    }
-
-    if(this.form.get('grafico')?.value){
-      this.meteoroServices.consultarGrafico(formData).subscribe(x => {
-        this.consultaData = x;
-      });
-    }
+    this.meteoroServices.consultarTabela(formData).subscribe(x => {
+      const imageBlob = this.dataURItoBlob(x.data);
+      const url = window.URL.createObjectURL(imageBlob);
+      const link = document.createElement('a');
+      link.href = url;
+      link.download = x.name;
+      link.click();
+      window.URL.revokeObjectURL(url);
+    });
   }
 
-  public resetar() {
+  public async consultarGrafico(){
+
+    let formData = this.setFormData();
+
+    this.meteoroServices.consultarGrafico(formData).subscribe(x => {
+      this.consultaData = x;
+    });
+  }
+
+
+  public resetarForm() {
     this.form.patchValue(new ConsultaModel)
     this.form.patchValue({periodoInicio: null, periodoFim: null, tabela: false, grafico: false});
+  }
+
+  public markAll(){
+    this.setCheckboxesValue(this.marcarTodas);
+    this.marcarTodas = !this.marcarTodas;
+  }
+
+  private setCheckboxesValue(x: boolean) {
+    this.checkboxes.forEach(checkbox => {
+      this.form.controls[checkbox].patchValue(x);
+    });
+  }
+
+  private setFormData() {
+    let formData = this.form.value as ConsultaModel;
+
+    this.consultaParams = {
+      intervalo: this.form.get('intervalo')?.value,
+      periodoInicio: this.form.get('periodoInicio')?.value,
+      periodoFim: this.form.get('periodoInicio')?.value,
+      estacao: this.form.get('estacao')?.value,
+    };
+
+    this.localStorage.set('consultaParameters', this.consultaParams);
+    return formData;
   }
 
   dataURItoBlob(data: string) {
@@ -137,12 +206,5 @@ export class ConsultaComponent {
       int8Array[i] = byteString.charCodeAt(i);
     }
     return new Blob([int8Array], { type: 'image/png' });;
-  }
-
-  public markAll(){
-    this.checkboxes.forEach(checkbox => {
-      this.form.controls[checkbox].setValue(this.marcarTodas)
-    });
-    this.marcarTodas = !this.marcarTodas;
   }
 }

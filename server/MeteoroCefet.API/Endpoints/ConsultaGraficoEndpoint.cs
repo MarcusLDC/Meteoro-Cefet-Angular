@@ -1,4 +1,5 @@
-﻿using MediatR;
+﻿using Amazon.Runtime.Internal.Transform;
+using MediatR;
 using MeteoroCefet.Application.Features;
 using MeteoroCefet.Application.Models;
 using Microsoft.AspNetCore.Mvc;
@@ -13,26 +14,38 @@ namespace MeteoroCefet.API.Endpoints
         }
         private static async Task<ConsultaGraficoDto> Handler(IMediator mediator, [FromBody] ConsultaModel model)
         {
-            var consulta = await mediator.Send(new ConsultaRequest(model));
+            var consulta = await mediator.Send(new ConsultaRequest(model)); // x.SelectMany(x => x)) y.Statistics.ToDictionary(x => consulta.SelectedFields.Select(), y => y.Points));  
 
-            var c = consulta.StationsData.Select(x => x.Statistics.Select(y => consulta.SelectedFields.Zip(y.Points.Select(x => x))));
+            var filterByFields = consulta.StationsData.ToDictionary(
+                x => x.Station,
+                y => {
+                    var SelectedFields = new List<Dictionary<string, List<double>>>();
 
+                    foreach(var field in consulta.SelectedFields)
+                    {
+                        var dict = new Dictionary<string, List<double>>
+                        {
+                            { Enum.GetName(field), y.Statistics.Select(x => x.Points.ElementAtOrDefault((int)field)).ToList() }
+                        };
 
-            return new ConsultaGraficoDto()
+                        SelectedFields.Add(dict);
+                    }
+
+                    return SelectedFields;
+                });           
+
+            return new ConsultaGraficoDto()  // y => y FlatData { DataPoints = y.Statistics.SelectMany(x => x.Points).ToList() }
             {
-                SelectedFields = consulta.SelectedFields,
+                Dates = consulta.StationsData.SelectMany(x => x.Statistics.Select(x => x.Date)).ToList(),
+                FlatByStation = filterByFields
             };
         }
 
         public class ConsultaGraficoDto
         {
-            public required List<Campo> SelectedFields { get; set; }
-            public required Dictionary<int, FlatData> FlatByStation { get; set; }
+            public required List<string> Dates { get; set; }
+            public required Dictionary<int, List<Dictionary<string, List<double>>>> FlatByStation { get; set; }
         }
 
-        public class FlatData
-        {
-            public required List<double> DataPoints { get; set; }
-        }
     }
 }

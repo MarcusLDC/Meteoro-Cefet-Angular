@@ -23,8 +23,7 @@
             <div class='container' [formGroup]="form">
                 <label class="destaque"> Consultar via: </label>
                 <mat-checkbox color="warn" formControlName="tabela"> Tabela </mat-checkbox>
-                <mat-checkbox color="warn" formControlName="grafico"> Gráfico </mat-checkbox>
-                (será gerada uma lista de gráficos abaixo do formulário)
+                <mat-checkbox color="warn" formControlName="grafico"> Gráfico </mat-checkbox> 
             </div>
 
             <div class='container' [formGroup]="form">
@@ -33,85 +32,102 @@
                     <option *ngFor="let item of periodosGrafico" [value]="item.value"> {{item.value}} </option>
                 </select>
             </div>
+            
+            <ng-container>
 
-            <div class='container'>
-                <label class="destaque" color="warn"> Marcar todas: </label>
-                <mat-checkbox color="warn" (click)="markAll()"> </mat-checkbox>
-            </div>
-
-            <div>
-                <div class="container" [formGroup]="form">
-                    <div class="row">
-                        <div class="col-sm">
-                            <mat-checkbox formControlName="tempAr"> Temperatura do ar </mat-checkbox>
-                        </div>
-                        <div class="col-sm">
-                            <mat-checkbox formControlName="tempMin"> Temperatura mínima </mat-checkbox>
-                        </div>
-                        <div class="col-sm">
-                            <mat-checkbox formControlName="tempMax"> Temperatura máxima </mat-checkbox>
-                        </div>
-                        <div class="col-sm">
-                            <mat-checkbox formControlName="tempOrv"> Temperatura do ponto de orvalho </mat-checkbox>
-                        </div>
-                    </div>
-
-                    <div class="row">
-                        <div class="col-sm">
-                            <mat-checkbox formControlName="chuva"> Chuva </mat-checkbox>
-                        </div>
-                        <div class="col-sm">
-                            <mat-checkbox formControlName="direcaoVento"> Direção do vento </mat-checkbox>
-                        </div>
-                        <div class="col-sm">
-                            <mat-checkbox formControlName="velocidadeVento"> Velocidade do vento </mat-checkbox>
-                        </div>
-                        <div class="col-sm">
-                            <mat-checkbox formControlName="velocidadeVentoMax"> Velocidade do vento Máxima </mat-checkbox>
-                        </div>
-                    </div>
-
-                    <div class="row">
-                        <div class="col-sm">
-                            <mat-checkbox formControlName="bateria"> Bateria </mat-checkbox> <br>
-                        </div>
-                        <div class="col-sm">
-                            <mat-checkbox formControlName="radiacao"> Radiação solar global </mat-checkbox>
-                        </div>
-                        <div class="col-sm">
-                            <mat-checkbox formControlName="pressaoATM"> Pressão atmosférica </mat-checkbox>
-                        </div>
-                        <div class="col-sm">
-                            <mat-checkbox formControlName="indiceCalor"> Índice de calor </mat-checkbox>
-                        </div>
-                    </div>
-                    <mat-checkbox formControlName="umidadeRelativa"> Umidade relativa </mat-checkbox>
+                <div class='container' *ngIf="this.form.get('tabela')?.value">
+                    <label class="destaque" color="warn"> Marcar todas: </label>
+                    <mat-checkbox color="warn" (click)="markAll()" [checked]="false"> </mat-checkbox>
                 </div>
-            </div>
 
+                <div>
+                    <div class="container" [formGroup]="form">
+                        <div class="row">
+                            <div class="col-sm">
+                                <mat-checkbox formControlName="tempAr"> Temperatura do ar </mat-checkbox>
+                            </div>
+                            <div class="col-sm">
+                                <mat-checkbox formControlName="tempMin"> Temperatura mínima </mat-checkbox>
+                            </div>
+                            <div class="col-sm">
+                                <mat-checkbox formControlName="tempMax"> Temperatura máxima </mat-checkbox>
+                            </div>
+                            <div class="col-sm">
+                                <mat-checkbox formControlName="tempOrv"> Temperatura do ponto de orvalho </mat-checkbox>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-sm">
+                                <mat-checkbox formControlName="chuva"> Chuva </mat-checkbox>
+                            </div>
+                            <div class="col-sm">
+                                <mat-checkbox formControlName="direcaoVento"> Direção do vento </mat-checkbox>
+                            </div>
+                            <div class="col-sm">
+                                <mat-checkbox formControlName="velocidadeVento"> Velocidade do vento </mat-checkbox>
+                            </div>
+                            <div class="col-sm">
+                                <mat-checkbox formControlName="velocidadeVentoMax"> Velocidade do vento Máxima </mat-checkbox>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-sm">
+                                <mat-checkbox formControlName="bateria"> Bateria </mat-checkbox> <br>
+                            </div>
+                            <div class="col-sm">
+                                <mat-checkbox formControlName="radiacao"> Radiação solar global </mat-checkbox>
+                            </div>
+                            <div class="col-sm">
+                                <mat-checkbox formControlName="pressaoATM"> Pressão atmosférica </mat-checkbox>
+                            </div>
+                            <div class="col-sm">
+                                <mat-checkbox formControlName="indiceCalor"> Índice de calor </mat-checkbox>
+                            </div>
+                        </div>
+                        <mat-checkbox formControlName="umidadeRelativa"> Umidade relativa </mat-checkbox>
+                    </div>
+                </div>
+
+            </ng-container>
         </mat-card-content>
-        <mat-card-actions class="consulta">
-            <div style="float:left">
-                <button class="botao" mat-raised-button color="warn" (click)="consultar()" *ngIf="spinnerValue == 100"> Consultar </button>
-                <button class="botao" mat-raised-button color="warn" disabled *ngIf="spinnerValue != 100"> Consultar </button>
-                <button class="reset" mat-raised-button (click)="resetar()"> Resetar </button>
-            </div>
-            <mat-progress-spinner class="botao" *ngIf="spinnerValue != 100" (click)="resetar()"
-                class="spinner"
-                [diameter]="60"
-                [color]="spinnerColor"
-                [value]="spinnerValue">
-            </mat-progress-spinner>
-        </mat-card-actions>
-        <span class="warning consulta" *ngIf="spinnerValue != 100"> Preencha pelo menos uma opção em cada grupo </span> 
+
+        <ng-container *ngIf="this.form.get('tabela')?.value || this.form.get('grafico')?.value">
+            <mat-card-actions class="consulta">
+                <div style="float:left">
+
+                    <ng-container *ngIf="this.form.get('tabela')?.value">
+                        <button class="botao" mat-raised-button color="warn" (click)="consultarTabela()" *ngIf="spinnerValue == 100"> Gerar Tabela (.csv) </button>
+                        <button class="botao" mat-raised-button color="warn" disabled *ngIf="spinnerValue != 100"> Gerar Tabela (.csv)</button>
+                        <button class="reset" mat-raised-button (click)="resetarForm()"> Resetar </button>
+                    </ng-container>     
+
+                    <ng-container *ngIf="this.form.get('grafico')?.value">
+                        <button class="botao" mat-raised-button color="warn" (click)="consultarGrafico()" *ngIf="spinnerValue == 100"> Gerar Gráfico </button>
+                        <button class="botao" mat-raised-button color="warn" disabled *ngIf="spinnerValue != 100"> Gerar Gráfico </button>
+                        <button class="reset" mat-raised-button (click)="resetarForm()"> Resetar </button>
+                    </ng-container>    
+                        
+                </div>
+                <mat-progress-spinner class="botao" *ngIf="spinnerValue != 100"
+                    class="spinner"
+                    [diameter]="60"
+                    [color]="spinnerColor"
+                    [value]="spinnerValue">
+                </mat-progress-spinner>
+            </mat-card-actions>
+            <span class="warning consulta" *ngIf="spinnerValue != 100"> Preencha pelo menos uma opção em cada grupo </span> 
+        </ng-container>
+        <span class="warning consulta" *ngIf="!this.form.get('tabela')?.value && !this.form.get('grafico')?.value" > > Para aparecerem todas as opções escolha entre tabela ou gráfico < </span>
     </mat-card>
 
-    <mat-accordion class="card" *ngFor="let stationData of consultaData?.stationsData">
+    <mat-accordion class="card" >
         <mat-expansion-panel hideToggle>
             <mat-expansion-panel-header>
 
                 <mat-panel-title>
-                    ESTAÇÃO {{stationData.station}}
+                    ESTAÇÃO 
                 </mat-panel-title>
 
             <mat-panel-description>
@@ -122,7 +138,7 @@
 
             </mat-expansion-panel-header>
 
-            <app-consulta-grafico [stationData]="stationData" [colunas]="consultaData.selectedFields"></app-consulta-grafico>
+            <app-consulta-grafico  ></app-consulta-grafico>
 
         </mat-expansion-panel>
     </mat-accordion>

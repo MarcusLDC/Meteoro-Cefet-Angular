@@ -1,15 +1,15 @@
 export type ConsultaDTO = {
-    selectedFields: Campo[]
-    stationsData: StationData[]
+    dates: string[]
+    stationsData: StationData
 }
 
 export interface StationData {
-    statistics: Data[]
     station: number
+    fields: Data[]
 }
 
 export interface Data {
-    date: Date
+    name: string
     points: number[]
 }
 
