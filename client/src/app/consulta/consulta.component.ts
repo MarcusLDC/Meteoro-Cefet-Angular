@@ -1,10 +1,9 @@
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { Component, ViewChildren, QueryList } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { ConsultaIntervaloParams, ConsultaModel } from '../shared/models/consulta-model';
 import { MeteoroServices } from '../shared/services/meteoro-services';
 import { Estacao } from '../shared/models/estacao-model';
 import { ThemePalette } from '@angular/material/core';
-import { Router } from '@angular/router';
 import { LocalStorageServices } from '../shared/services/local-storage-services';
 import { ConsultaDTO, StationData } from '../shared/services/DTOs/consulta-DTO';
 import { GraphPreferences } from '../shared/models/graph-preferences-model';
@@ -26,6 +25,7 @@ export class ConsultaComponent{
   form2: FormGroup;
 
   estacoes: Estacao[] = [];
+  datasGrafico: string[] = [];
   graficosGerados: StationData[] = [];
 
   consultaParams!: ConsultaIntervaloParams;
@@ -46,7 +46,7 @@ export class ConsultaComponent{
   ];
 
   constructor(private builder: FormBuilder, private meteoroServices: MeteoroServices, private localStorage: LocalStorageServices) {
-    
+    document.title = "Consulta - CoMet - LAPA - Monitoramento Ambiental"
     this.minDate = new Date(2023, 1, 16);
     
     this.form = this.builder.group({
@@ -92,11 +92,9 @@ export class ConsultaComponent{
   }
 
   async ngOnInit(){
-
     this.checkboxes.forEach(checkbox => {
       this.form.controls[checkbox].disable();
     });
-
     this.form.controls['tabela'].valueChanges.subscribe(value => {
       if (value === true) {
         this.form.controls['grafico'].patchValue(false, { emitEvent: false });
@@ -112,7 +110,6 @@ export class ConsultaComponent{
         });
       }
     });
-
     this.form.controls['grafico'].valueChanges.subscribe(value => {
       if (value === true) {
         this.form.controls['tabela'].patchValue(false, { emitEvent: false });
@@ -128,7 +125,6 @@ export class ConsultaComponent{
         });
       }
     });
-
     this.form.valueChanges.subscribe(x => {
 
       let periodo = this.form.get('periodoInicio')?.value && this.form.get('periodoFim')?.value ? 20 : 0;
@@ -154,15 +150,8 @@ export class ConsultaComponent{
 
       this.spinnerValue = checkboxes + periodo + estacao + intervalo + opcao;
     });
-
-    this.form2.valueChanges.subscribe({
-
-    })
-
     this.form.patchValue(await this.localStorage.get<ConsultaIntervaloParams>('consultaParameters') ?? this.resetarForm1());
-
     this.form2.patchValue(await this.localStorage.get<GraphPreferences>('graphPreferences') ?? this.resetarForm2());
-
   }
 
   public async consultarTabela(){
@@ -185,10 +174,6 @@ export class ConsultaComponent{
       const control = this.form2.get(nome);
       control?.patchValue(valor);
     }
-  }
-
-  public remover(grafico: StationData){
-    this.graficosGerados = this.graficosGerados.filter(x => x != grafico)
   }
 
   public async consultarGrafico(){
@@ -234,7 +219,7 @@ export class ConsultaComponent{
     rightCountSum += tempsRight + ventosRight;
 
     if(leftCountSum > 1 || rightCountSum > 1){
-      alert("Para evitar gráfico quebrados é necessário que exista apenas uma escala parecida na esquerda e outra na direita.")
+      alert("Para evitar gráficos quebrados é necessário que exista apenas uma unidade de medida na esquerda e outra na direita.")
       return;
     }
 
@@ -251,25 +236,6 @@ export class ConsultaComponent{
 
   public resetarForm2() {
     this.form2.patchValue(new GraphPreferences)
-  }
-
-  public setValueRightTemp(): boolean {
-    let checkboxes = ['tempArSide', 'tempMinSide', 'tempMaxSide', 'tempOrvSide', 'indiceCalorSide']
-    return this.setSidesValues('right', checkboxes)
-  }
-
-  public setValueLeftTemp(): boolean {
-    let checkboxes = ['tempArSide', 'tempMinSide', 'tempMaxSide', 'tempOrvSide', 'indiceCalorSide']
-    return this.setSidesValues('left', checkboxes)
-  }
-
-  public setSidesValues(side: string, checkboxes: string[]): boolean {
-    for (const checkbox of checkboxes) {
-      if (this.form2.controls[checkbox].value === side) {
-        return true;
-      }
-    }
-    return false;
   }
 
   public markAll(){
@@ -308,5 +274,9 @@ export class ConsultaComponent{
       int8Array[i] = byteString.charCodeAt(i);
     }
     return new Blob([int8Array], { type: 'image/png' });;
+  }
+
+  public remover(grafico: StationData){
+    this.graficosGerados = this.graficosGerados.filter(x => x != grafico)
   }
 }

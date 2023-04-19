@@ -7,7 +7,7 @@ export class GraphVento implements GraphData {
         {
             campo: Campo.DirecaoVento,
             config: {
-                label: 'Direção Vento(°)',
+                label: 'Direção do Vento(°)',
                 borderColor: 'blue',
                 fill: true,
                 type: 'line',
@@ -18,7 +18,7 @@ export class GraphVento implements GraphData {
         {
             campo: Campo.VelocidadeVentoMax,
             config: {
-                label: 'Velocidade Vento Max(m/s)',
+                label: 'Velocidade do Vento Max(m/s)',
                 borderColor: 'purple',
                 fill: true,
                 type: 'scatter',
@@ -29,7 +29,7 @@ export class GraphVento implements GraphData {
         {
             campo: Campo.VelocidadeVento,
             config: {
-                label: 'Velocidade Vento(m/s)',
+                label: 'Velocidade do Vento(m/s)',
                 borderColor: 'orange',
                 fill: true,
                 type: 'line',

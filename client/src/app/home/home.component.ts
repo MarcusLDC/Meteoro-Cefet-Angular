@@ -26,7 +26,9 @@ export class HomeComponent {
 
   @ViewChild('graph1') graph!: ElementRef;
 
-  constructor(private meteoroServices: MeteoroServices){}
+  constructor(private meteoroServices: MeteoroServices){
+    document.title = "Home - CoMet - LAPA - Monitoramento Ambiental"
+  }
 
   ngOnInit(){
     
@@ -119,7 +121,7 @@ export class HomeComponent {
     })
     datasetsByKeys.push({
       label: 'Umidade Relativa(%)',
-      data: Object.values(this.dataSource).map(x => x.extra2).reverse(),
+      data: Object.values(this.dataSource).map(x => x.umidadeRelativaAr).reverse(),
       borderColor: 'purple',
       fill: true,
       type: 'bar',

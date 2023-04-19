@@ -27,7 +27,6 @@ export class ConsultaGraficoComponent implements AfterViewInit{
   async ngAfterViewInit(): Promise<void> {
 
     this.graphPreferences = await this.localStorage.get<GraphPreferences>('graphPreferences');
-    console.log(this.graphPreferences)
 
     const graficos = GRAPHS;
 
@@ -92,11 +91,11 @@ export class ConsultaGraficoComponent implements AfterViewInit{
         scales: {
           left: {
             position: 'left',
-            display: datasets.find((x: any) => x.yAxisID == 'left')
+            display: datasets.map(x => x.yAxisID == 'left').some(x => x)
           },
           right: {
             position: 'right',
-            display: datasets.find((x: any) => x.yAxisID == 'right')
+            display: datasets.map(x => x.yAxisID == 'right').some(x => x)
           },
         }
       }
@@ -104,6 +103,11 @@ export class ConsultaGraficoComponent implements AfterViewInit{
   }
 
   public baixarGrafico(){
-
+    const canvas = this.graphCanvas.nativeElement;
+    const imgData = canvas.toDataURL('image/png');
+    const link = document.createElement('a');
+    link.download = 'grafico.png';
+    link.href = imgData;
+    link.click();
   }
 }

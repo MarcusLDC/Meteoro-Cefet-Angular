@@ -7,7 +7,7 @@ export class GraphTemperatura implements GraphData {
         {
             campo: Campo.TempAr,
             config: {
-                label: 'Temp. Média(°C)',
+                label: 'Temperatura do Ar(°C)',
                 borderColor: 'orange',
                 fill: true,
                 type: 'line',
@@ -18,7 +18,7 @@ export class GraphTemperatura implements GraphData {
         {
             campo: Campo.TempMin,
             config: {
-                label: 'Temp. Minima(°C)',
+                label: 'Temperatura Minima(°C)',
                 borderColor: 'blue',
                 fill: true,
                 type: 'line',
@@ -29,7 +29,7 @@ export class GraphTemperatura implements GraphData {
         {
             campo: Campo.TempMax,
             config: {
-                label: 'Temp. Máxima(°C)',
+                label: 'Temperatura Máxima(°C)',
                 borderColor: 'red',
                 fill: true,
                 type: 'line',
@@ -51,7 +51,7 @@ export class GraphTemperatura implements GraphData {
         {
             campo: Campo.IndiceCalor,
             config: {
-                label: 'Índice Calor(°C)',
+                label: 'Índice de Calor(°C)',
                 borderColor: 'purple',
                 fill: true,
                 type: 'line',
