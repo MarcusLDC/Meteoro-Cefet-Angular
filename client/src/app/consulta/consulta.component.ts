@@ -1,10 +1,9 @@
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { Component, ViewChildren, QueryList } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { ConsultaIntervaloParams, ConsultaModel } from '../shared/models/consulta-model';
 import { MeteoroServices } from '../shared/services/meteoro-services';
 import { Estacao } from '../shared/models/estacao-model';
 import { ThemePalette } from '@angular/material/core';
-import { Router } from '@angular/router';
 import { LocalStorageServices } from '../shared/services/local-storage-services';
 import { ConsultaDTO, StationData } from '../shared/services/DTOs/consulta-DTO';
 import { GraphPreferences } from '../shared/models/graph-preferences-model';

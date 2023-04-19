@@ -121,7 +121,7 @@ export class HomeComponent {
     })
     datasetsByKeys.push({
       label: 'Umidade Relativa(%)',
-      data: Object.values(this.dataSource).map(x => x.extra2).reverse(),
+      data: Object.values(this.dataSource).map(x => x.umidadeRelativaAr).reverse(),
       borderColor: 'purple',
       fill: true,
       type: 'bar',
