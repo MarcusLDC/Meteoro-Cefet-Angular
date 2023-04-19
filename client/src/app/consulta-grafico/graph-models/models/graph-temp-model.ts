@@ -41,7 +41,7 @@ export class GraphTemperatura implements GraphData {
             campo: Campo.TempOrv,
             config: {
                 label: 'Ponto de Orvalho(°C)',
-                borderColor: 'green',
+                borderColor: 'rgba(204, 204, 0, 1)',
                 fill: true,
                 type: 'line',
                 backgroundColor: 'rgba(0, 0, 0, 0)',

@@ -19,7 +19,7 @@ export class GraphVento implements GraphData {
             campo: Campo.VelocidadeVentoMax,
             config: {
                 label: 'Velocidade Vento Max(m/s)',
-                borderColor: 'blue',
+                borderColor: 'purple',
                 fill: true,
                 type: 'scatter',
                 backgroundColor: 'rgba(135, 206, 250)',
@@ -30,7 +30,7 @@ export class GraphVento implements GraphData {
             campo: Campo.VelocidadeVento,
             config: {
                 label: 'Velocidade Vento(m/s)',
-                borderColor: 'blue',
+                borderColor: 'orange',
                 fill: true,
                 type: 'line',
                 backgroundColor: 'rgba(135, 206, 250)',
