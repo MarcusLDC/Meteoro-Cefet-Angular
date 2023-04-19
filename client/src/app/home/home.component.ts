@@ -102,7 +102,7 @@ export class HomeComponent {
     datasetsByKeys.push({
       label: 'Ponto de Orvalho(°C)',
       data: Object.values(this.dataSource).map(x => x.tempPontoOrvalho).reverse(),
-      borderColor: 'yellow',
+      borderColor: 'green',
       fill: true,
       type: 'line',
       backgroundColor: 'rgba(0, 0, 0, 0)',

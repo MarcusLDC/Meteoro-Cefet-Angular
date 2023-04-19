@@ -4,6 +4,8 @@ using System.Globalization;
 using CsvHelper;
 using MeteoroCefet.Application.Features;
 using MediatR;
+using static System.Runtime.InteropServices.JavaScript.JSType;
+using System.Linq;
 
 namespace MeteoroCefet.API.Endpoints
 {
@@ -43,7 +45,7 @@ namespace MeteoroCefet.API.Endpoints
                     csv.WriteField(data.Date);
                     csv.WriteField(stationData.Station);
 
-                    foreach (var point in data.Points)
+                    foreach (var point in data.Points.Where((x, y) => consultaData.SelectedFields.Contains((Campo)y)).ToList())
                     {
                         csv.WriteField(point);
                     }
