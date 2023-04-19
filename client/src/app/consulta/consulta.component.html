@@ -91,11 +91,11 @@
                     </div>
                 </div>
 
-                <ng-container *ngIf="this.form.get('grafico')?.value">
+                <ng-container *ngIf="this.form.get('grafico')?.value" [formGroup]="form2">
 
                     <div class='container preferencias' *ngIf="this.form.get('tempAr')?.value || this.form.get('tempMin')?.value || this.form.get('tempMax')?.value || this.form.get('tempOrv')?.value || this.form.get('indiceCalor')?.value">
                         <label class="destaque"> Preferência Temperaturas (°C) </label> <br>
-                        <mat-radio-group (change)="atualizarUnidadesSimilares(['tempArSide', 'tempMinSide', 'tempMaxSide', 'tempOrvSide', 'indiceCalorSide'], $event.value)">
+                        <mat-radio-group formControlName="tempArSide" (change)="atualizarUnidadesSimilares(['tempArSide', 'tempMinSide', 'tempMaxSide', 'tempOrvSide', 'indiceCalorSide'], $event.value)">
                             <mat-radio-button [checked]="setValueLeftTemp()" color="warn" value="left"> Esquerda </mat-radio-button>
                             <mat-radio-button [checked]="setValueRightTemp()" color="primary" value="right"> Direita </mat-radio-button>
                         </mat-radio-group>
@@ -103,7 +103,7 @@
 
                     <div class='container preferencias' *ngIf="this.form.get('umidadeRelativa')?.value">
                         <label class="destaque"> Preferência Umidade (%) </label> <br>
-                        <mat-radio-group (change)="atualizarUnidadesSimilares(['umidadeRelativaSide'], $event.value)">
+                        <mat-radio-group formControlName="umidadeRelativaSide">
                             <mat-radio-button color="warn" value="left"> Esquerda </mat-radio-button>
                             <mat-radio-button color="primary" value="right"> Direita </mat-radio-button>
                         </mat-radio-group>
@@ -111,7 +111,7 @@
 
                     <div class='container preferencias' *ngIf="this.form.get('chuva')?.value">
                         <label class="destaque"> Preferência Chuva (mm) </label> <br>
-                        <mat-radio-group (change)="atualizarUnidadesSimilares(['chuvaSide'], $event.value)">
+                        <mat-radio-group formControlName="chuvaSide">
                             <mat-radio-button color="warn" value="left"> Esquerda </mat-radio-button>
                             <mat-radio-button color="primary" value="right"> Direita </mat-radio-button>
                         </mat-radio-group>
@@ -119,7 +119,7 @@
 
                     <div class='container preferencias' *ngIf="this.form.get('pressaoATM')?.value">
                         <label class="destaque"> Preferência Pressão (hPa) </label> <br>
-                        <mat-radio-group (change)="atualizarUnidadesSimilares(['pressaoATMSide'], $event.value)">
+                        <mat-radio-group formControlName="pressaoATMSide">
                             <mat-radio-button color="warn" value="left"> Esquerda </mat-radio-button>
                             <mat-radio-button color="primary" value="right"> Direita </mat-radio-button>
                         </mat-radio-group>
@@ -127,7 +127,7 @@
 
                     <div class='container preferencias' *ngIf="this.form.get('direcaoVento')?.value">
                         <label class="destaque"> Preferência Direção do Vento (°) </label> <br>
-                        <mat-radio-group (change)="atualizarUnidadesSimilares(['direcaoVentoSide'], $event.value)">
+                        <mat-radio-group formControlName="direcaoVentoSide">
                             <mat-radio-button color="warn" value="left"> Esquerda </mat-radio-button>
                             <mat-radio-button color="primary" value="right"> Direita </mat-radio-button>
                         </mat-radio-group>
@@ -135,7 +135,7 @@
 
                     <div class='container preferencias' *ngIf="this.form.get('velocidadeVento')?.value || this.form.get('velocidadeVentoMax')?.value">
                         <label class="destaque"> Preferência Velocidade do Vento (m/s) </label> <br>
-                        <mat-radio-group (change)="atualizarUnidadesSimilares(['velocidadeVentoSide', 'velocidadeVentoMaxSide'], $event.value)">
+                        <mat-radio-group formControlName="velocidadeVentoSide" (change)="atualizarUnidadesSimilares(['velocidadeVentoSide', 'velocidadeVentoMaxSide'], $event.value)">
                             <mat-radio-button color="warn" value="left"> Esquerda </mat-radio-button>
                             <mat-radio-button color="primary" value="right"> Direita </mat-radio-button>
                         </mat-radio-group>
@@ -143,7 +143,7 @@
 
                     <div class='container preferencias' *ngIf="this.form.get('radiacao')?.value">
                         <label class="destaque"> Preferência Radiação Solar (W/m²) </label> <br>
-                        <mat-radio-group (change)="atualizarUnidadesSimilares(['radiacaoSide'], $event.value)">
+                        <mat-radio-group formControlName="radiacaoSide">
                             <mat-radio-button color="warn" value="left"> Esquerda </mat-radio-button>
                             <mat-radio-button color="primary" value="right"> Direita </mat-radio-button>
                         </mat-radio-group>
@@ -151,7 +151,7 @@
 
                     <div class='container preferencias' *ngIf="this.form.get('bateria')?.value">
                         <label class="destaque"> Preferência Bateria (v) </label> <br>
-                        <mat-radio-group (change)="atualizarUnidadesSimilares(['bateriaSide'], $event.value)">
+                        <mat-radio-group formControlName="bateriaSide">
                             <mat-radio-button color="warn" value="left"> Esquerda </mat-radio-button>
                             <mat-radio-button color="primary" value="right"> Direita </mat-radio-button>
                         </mat-radio-group>

@@ -27,7 +27,6 @@ export class ConsultaGraficoComponent implements AfterViewInit{
   async ngAfterViewInit(): Promise<void> {
 
     this.graphPreferences = await this.localStorage.get<GraphPreferences>('graphPreferences');
-    console.log(this.graphPreferences)
 
     const graficos = GRAPHS;
 
