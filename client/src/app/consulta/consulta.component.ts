@@ -187,6 +187,10 @@ export class ConsultaComponent{
     }
   }
 
+  public remover(grafico: StationData){
+    this.graficosGerados = this.graficosGerados.filter(x => x != grafico)
+  }
+
   public async consultarGrafico(){
     let formData = this.setFormData();
 

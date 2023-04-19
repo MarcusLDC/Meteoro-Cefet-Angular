@@ -24,7 +24,7 @@
                 <label class="destaque"> Consultar via: </label>
                 <mat-checkbox color="warn" formControlName="tabela"> Tabela </mat-checkbox>
                 <mat-checkbox color="warn" formControlName="grafico"> Gráfico </mat-checkbox>
-                <ng-container *ngIf="this.form.get('grafico')?.value"> <span style="color:blue;"> (Escolha uma ou duas unidades de medida por gráfico) (Esquerda/Direita)</span></ng-container> 
+                <ng-container *ngIf="this.form.get('grafico')?.value"> <span style="color:blue;"> (Escolha uma ou duas unidades de medida por gráfico) </span></ng-container> 
             </div>
 
             <div class='container' [formGroup]="form">
@@ -176,6 +176,7 @@
                         <button class="botao" mat-raised-button color="warn" (click)="consultarGrafico()" *ngIf="spinnerValue == 100"> Gerar Gráfico </button>
                         <button class="botao" mat-raised-button color="warn" disabled *ngIf="spinnerValue != 100"> Gerar Gráfico </button>
                         <button class="reset" mat-raised-button (click)="resetarForm1()"> Resetar Grupos </button>
+                        
                         <button class="reset" mat-raised-button (click)="resetarForm2()"> Resetar Preferencias </button>
                     </ng-container>    
                         
@@ -203,8 +204,12 @@
             <mat-panel-description>
                 GRÁFICO
             </mat-panel-description>
-
-            <mat-icon> bar_chart</mat-icon>
+            
+            <div>
+                <button mat-icon-button color="warn" (click)="remover(grafico)">
+                    <mat-icon>close</mat-icon>
+                </button>
+            </div>
 
             </mat-expansion-panel-header>
 
