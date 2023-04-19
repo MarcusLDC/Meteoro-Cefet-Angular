@@ -13,8 +13,6 @@ import { LocalStorageServices } from '../shared/services/local-storage-services'
 })
 export class ConsultaGraficoComponent implements AfterViewInit{
 
-  @Output() titulo = new EventEmitter<string>();
-
   @Input() stationData!: StationData;
   @Input() intervalo!: string;
   @Input() dates: string[] = [];
@@ -24,7 +22,7 @@ export class ConsultaGraficoComponent implements AfterViewInit{
 
   @ViewChild ('graph') graphCanvas!: ElementRef;
 
-  constructor(private datePipe: DatePipe, private localStorage: LocalStorageServices) { }
+  constructor(private localStorage: LocalStorageServices) { }
 
   async ngAfterViewInit(): Promise<void> {
 
@@ -76,7 +74,6 @@ export class ConsultaGraficoComponent implements AfterViewInit{
 
   private createGraph(datasets: any[]){
     const titulo = `Estação ${this.stationData.station} de ${this.dates[0]} à ${this.dates[this.dates.length-1]}, Intervalo: ${this.intervalo}`
-    this.titulo.emit(titulo);
     return new Chart(this.graphCanvas.nativeElement, {
       data: {
         labels: this.dates,

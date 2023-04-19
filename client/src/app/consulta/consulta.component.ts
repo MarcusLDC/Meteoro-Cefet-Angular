@@ -294,7 +294,7 @@ export class ConsultaComponent{
     this.graficos.forEach((grafico: ElementRef) => {
       const canvas = grafico.nativeElement.querySelector('canvas');
       const imgData = canvas.toDataURL('image/png');
-      zip.file(`titulo`, imgData.replace(/^data:image\/(png|jpg);base64,/, ""), {base64: true});
+      zip.file(`Grafico_${i++}.png`, imgData.replace(/^data:image\/(png|jpg);base64,/, ""), {base64: true});
     });
     zip.generateAsync({type:"blob"}).then(function(content) {
       saveAs(content, "graficos.zip");
