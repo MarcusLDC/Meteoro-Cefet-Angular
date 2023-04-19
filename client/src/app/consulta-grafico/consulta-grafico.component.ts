@@ -14,7 +14,7 @@ import { LocalStorageServices } from '../shared/services/local-storage-services'
 export class ConsultaGraficoComponent implements AfterViewInit{
 
   @Input() stationData!: StationData;
-  @Input() colunas: Campo[] = [];
+  @Input() intervalo!: string;
   @Input() dates: string[] = [];
 
   graphPreferences!: GraphPreferences
@@ -82,7 +82,7 @@ export class ConsultaGraficoComponent implements AfterViewInit{
         plugins: {
           title: {
             display: true,
-            text: `Estação: ${this.stationData.station} de ${this.dates[0]} à ${this.dates[this.dates.length-1]}`
+            text: `Estação ${this.stationData.station} de ${this.dates[0]} à ${this.dates[this.dates.length-1]}, Intervalo: ${this.intervalo}`
           }
         },
         responsive: true,
@@ -102,12 +102,15 @@ export class ConsultaGraficoComponent implements AfterViewInit{
     })
   }
 
-  public baixarGrafico(){
+  private graficoToPNG(){
     const canvas = this.graphCanvas.nativeElement;
-    const imgData = canvas.toDataURL('image/png');
+    return canvas.toDataURL('image/png');
+  }
+
+  public baixarGrafico(){
     const link = document.createElement('a');
-    link.download = 'grafico.png';
-    link.href = imgData;
+    link.download = `Estação_${this.stationData.station}-${this.dates[0]}_à_${this.dates[this.dates.length-1]}-${this.intervalo}`;
+    link.href = this.graficoToPNG();
     link.click();
   }
 }

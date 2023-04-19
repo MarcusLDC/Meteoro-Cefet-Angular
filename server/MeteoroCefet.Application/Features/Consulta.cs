@@ -68,7 +68,7 @@ namespace MeteoroCefet.Application.Features
                 { Campo.TempMax, (model.TempMax, Max(x => x.TemperaturaAr))},
                 { Campo.TempOrv, (model.TempOrv, Average(x => x.TempPontoOrvalho))},
 
-                { Campo.Chuva, (model.Chuva, Average(x => x.Precipitacao))},
+                { Campo.Chuva, (model.Chuva, Sum(x => x.Precipitacao))}, // Chuva Acumulada
                 { Campo.DirecaoVento, (model.DirecaoVento, Average(x => x.DirecaoVento))},
                 { Campo.VelocidadeVento, (model.VelocidadeVento, Average(x => x.VelocidadeVento))},
                 { Campo.VelocidadeVentoMax, (model.VelocidadeVentoMax, Max(x => x.VelocidadeVento))},
@@ -94,7 +94,10 @@ namespace MeteoroCefet.Application.Features
                 _ => throw new ArgumentException("Intervalo inválido"),
             };
         }
-
+        private static Func<List<DadosTempo>, double> Sum(Func<DadosTempo, double> selector)
+        {
+            return data => Math.Round(data.Sum(selector), 2);
+        }
         private static Func<List<DadosTempo>, double> Average(Func<DadosTempo, double> selector)
         {
             return data => Math.Round(data.Average(selector), 2);
