@@ -7,7 +7,7 @@ export class GraphChuva implements GraphData {
         {
             campo: Campo.Chuva,
             config: {
-                label: 'Chuva(mm)',
+                label: 'Chuva Acumulada(mm)',
                 borderColor: 'blue',
                 fill: true,
                 type: 'bar',

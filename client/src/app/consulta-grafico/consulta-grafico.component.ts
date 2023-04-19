@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, ElementRef, Input, OnInit, QueryList, ViewChild, ViewChildren } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, EventEmitter, Input, OnInit, Output, QueryList, ViewChild, ViewChildren } from '@angular/core';
 import Chart from 'chart.js/auto';
 import { Campo, FieldData, StationData } from '../shared/services/DTOs/consulta-DTO';
 import { DatePipe } from '@angular/common';
@@ -14,7 +14,7 @@ import { LocalStorageServices } from '../shared/services/local-storage-services'
 export class ConsultaGraficoComponent implements AfterViewInit{
 
   @Input() stationData!: StationData;
-  @Input() colunas: Campo[] = [];
+  @Input() intervalo!: string;
   @Input() dates: string[] = [];
 
   graphPreferences!: GraphPreferences
@@ -22,7 +22,7 @@ export class ConsultaGraficoComponent implements AfterViewInit{
 
   @ViewChild ('graph') graphCanvas!: ElementRef;
 
-  constructor(private datePipe: DatePipe, private localStorage: LocalStorageServices) { }
+  constructor(private localStorage: LocalStorageServices) { }
 
   async ngAfterViewInit(): Promise<void> {
 
@@ -73,6 +73,7 @@ export class ConsultaGraficoComponent implements AfterViewInit{
   }
 
   private createGraph(datasets: any[]){
+    const titulo = `Estação ${this.stationData.station} de ${this.dates[0]} à ${this.dates[this.dates.length-1]}, Intervalo: ${this.intervalo}`
     return new Chart(this.graphCanvas.nativeElement, {
       data: {
         labels: this.dates,
@@ -82,7 +83,7 @@ export class ConsultaGraficoComponent implements AfterViewInit{
         plugins: {
           title: {
             display: true,
-            text: `Estação: ${this.stationData.station} de ${this.dates[0]} à ${this.dates[this.dates.length-1]}`
+            text: titulo
           }
         },
         responsive: true,
@@ -102,12 +103,15 @@ export class ConsultaGraficoComponent implements AfterViewInit{
     })
   }
 
-  public baixarGrafico(){
+  private graficoToPNG(){
     const canvas = this.graphCanvas.nativeElement;
-    const imgData = canvas.toDataURL('image/png');
+    return canvas.toDataURL('image/png');
+  }
+
+  public baixarGrafico(){
     const link = document.createElement('a');
-    link.download = 'grafico.png';
-    link.href = imgData;
+    link.download = `Estação_${this.stationData.station}-${this.dates[0]}_à_${this.dates[this.dates.length-1]}-${this.intervalo}`;
+    link.href = this.graficoToPNG();
     link.click();
   }
 }

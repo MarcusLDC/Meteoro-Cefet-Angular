@@ -1,4 +1,4 @@
-import { Component, ViewChildren, QueryList } from '@angular/core';
+import { Component, ElementRef, QueryList, ViewChildren } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { ConsultaIntervaloParams, ConsultaModel } from '../shared/models/consulta-model';
 import { MeteoroServices } from '../shared/services/meteoro-services';
@@ -7,6 +7,8 @@ import { ThemePalette } from '@angular/material/core';
 import { LocalStorageServices } from '../shared/services/local-storage-services';
 import { ConsultaDTO, StationData } from '../shared/services/DTOs/consulta-DTO';
 import { GraphPreferences } from '../shared/models/graph-preferences-model';
+import * as JSZip from 'jszip';
+import * as saveAs from 'file-saver';
 
 @Component({
   selector: 'app-consulta',
@@ -15,6 +17,9 @@ import { GraphPreferences } from '../shared/models/graph-preferences-model';
 })
 
 export class ConsultaComponent{
+
+  @ViewChildren('consultagrafico', { read: ElementRef }) graficos!: QueryList<ElementRef>;
+  
   checkboxes = ['tempAr','tempMin','tempMax','tempOrv','chuva','direcaoVento','velocidadeVento','velocidadeVentoMax','bateria','radiacao','pressaoATM','indiceCalor','umidadeRelativa'];
   marcarTodas = true;
 
@@ -25,7 +30,10 @@ export class ConsultaComponent{
   form2: FormGroup;
 
   estacoes: Estacao[] = [];
-  datasGrafico: string[] = [];
+
+  periodosInicio: string[] = []
+  periodosFim: string[] = []
+
   graficosGerados: StationData[] = [];
 
   consultaParams!: ConsultaIntervaloParams;
@@ -225,7 +233,7 @@ export class ConsultaComponent{
 
     this.meteoroServices.consultarGrafico(formData).subscribe(x => {
       this.consultaData = x;
-      this.graficosGerados = this.graficosGerados.concat(this.consultaData.stationData);
+      this.graficosGerados = this.graficosGerados.concat(x.stationData);
     });
   }
 
@@ -266,7 +274,7 @@ export class ConsultaComponent{
     return formData;
   }
 
-  dataURItoBlob(data: string) {
+  private dataURItoBlob(data: string) {
     const byteString = window.atob(data);
     const arrayBuffer = new ArrayBuffer(byteString.length);
     const int8Array = new Uint8Array(arrayBuffer);
@@ -278,5 +286,18 @@ export class ConsultaComponent{
 
   public remover(grafico: StationData){
     this.graficosGerados = this.graficosGerados.filter(x => x != grafico)
+  }
+
+  public zipparGraficos() {
+    let i = 1;
+    const zip = new JSZip();
+    this.graficos.forEach((grafico: ElementRef) => {
+      const canvas = grafico.nativeElement.querySelector('canvas');
+      const imgData = canvas.toDataURL('image/png');
+      zip.file(`Grafico_${i++}.png`, imgData.replace(/^data:image\/(png|jpg);base64,/, ""), {base64: true});
+    });
+    zip.generateAsync({type:"blob"}).then(function(content) {
+      saveAs(content, "graficos.zip");
+    });
   }
 }
