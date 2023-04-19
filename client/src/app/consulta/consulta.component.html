@@ -96,8 +96,8 @@
                     <div class='container preferencias' *ngIf="this.form.get('tempAr')?.value || this.form.get('tempMin')?.value || this.form.get('tempMax')?.value || this.form.get('tempOrv')?.value || this.form.get('indiceCalor')?.value">
                         <label class="destaque"> Preferência Temperaturas (°C) </label> <br>
                         <mat-radio-group formControlName="tempArSide" (change)="atualizarUnidadesSimilares(['tempArSide', 'tempMinSide', 'tempMaxSide', 'tempOrvSide', 'indiceCalorSide'], $event.value)">
-                            <mat-radio-button [checked]="setValueLeftTemp()" color="warn" value="left"> Esquerda </mat-radio-button>
-                            <mat-radio-button [checked]="setValueRightTemp()" color="primary" value="right"> Direita </mat-radio-button>
+                            <mat-radio-button color="warn" value="left"> Esquerda </mat-radio-button>
+                            <mat-radio-button color="primary" value="right"> Direita </mat-radio-button>
                         </mat-radio-group>
                     </div>
 

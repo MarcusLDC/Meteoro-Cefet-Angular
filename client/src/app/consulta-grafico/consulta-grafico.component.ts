@@ -91,11 +91,11 @@ export class ConsultaGraficoComponent implements AfterViewInit{
         scales: {
           left: {
             position: 'left',
-            display: datasets.find((x: any) => x.yAxisID == 'left')
+            display: datasets.map(x => x.yAxisID == 'left').some(x => x)
           },
           right: {
             position: 'right',
-            display: datasets.find((x: any) => x.yAxisID == 'right')
+            display: datasets.map(x => x.yAxisID == 'right').some(x => x)
           },
         }
       }
