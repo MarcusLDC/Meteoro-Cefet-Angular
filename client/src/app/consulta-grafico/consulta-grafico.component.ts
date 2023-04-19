@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, ElementRef, Input, OnInit, QueryList, ViewChild, ViewChildren } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, EventEmitter, Input, OnInit, Output, QueryList, ViewChild, ViewChildren } from '@angular/core';
 import Chart from 'chart.js/auto';
 import { Campo, FieldData, StationData } from '../shared/services/DTOs/consulta-DTO';
 import { DatePipe } from '@angular/common';
@@ -12,6 +12,8 @@ import { LocalStorageServices } from '../shared/services/local-storage-services'
   styleUrls: ['./consulta-grafico.component.scss']
 })
 export class ConsultaGraficoComponent implements AfterViewInit{
+
+  @Output() titulo = new EventEmitter<string>();
 
   @Input() stationData!: StationData;
   @Input() intervalo!: string;
@@ -73,6 +75,8 @@ export class ConsultaGraficoComponent implements AfterViewInit{
   }
 
   private createGraph(datasets: any[]){
+    const titulo = `Estação ${this.stationData.station} de ${this.dates[0]} à ${this.dates[this.dates.length-1]}, Intervalo: ${this.intervalo}`
+    this.titulo.emit(titulo);
     return new Chart(this.graphCanvas.nativeElement, {
       data: {
         labels: this.dates,
@@ -82,7 +86,7 @@ export class ConsultaGraficoComponent implements AfterViewInit{
         plugins: {
           title: {
             display: true,
-            text: `Estação ${this.stationData.station} de ${this.dates[0]} à ${this.dates[this.dates.length-1]}, Intervalo: ${this.intervalo}`
+            text: titulo
           }
         },
         responsive: true,

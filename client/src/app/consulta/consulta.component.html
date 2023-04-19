@@ -178,8 +178,8 @@
                         <button class="reset" mat-raised-button (click)="resetarForm1()"> Resetar Grupos </button>
                         
                         <button class="reset" mat-raised-button (click)="resetarForm2()"> Resetar Preferencias </button>
-                    </ng-container>    
-                        
+                    </ng-container>
+                    <button *ngIf="graficosGerados.length > 0"mat-raised-button color="warn" (click)="zipparGraficos()" class="botao"> BAIXAR ZIP (PNG's)</button>
                 </div>
                 <mat-progress-spinner class="botao" *ngIf="spinnerValue != 100"
                     class="spinner"
@@ -192,10 +192,6 @@
         </ng-container>
         <span class="warning consulta" *ngIf="!this.form.get('tabela')?.value && !this.form.get('grafico')?.value" > > Para aparecerem todas as opções escolha entre tabela ou gráfico < </span>
     </mat-card>
-
-    <div class="justifyMiddle" *ngIf="graficosGerados.length > 0">
-        <button mat-raised-button color="warn" (click)="zipparGraficos()" class="botao"> BAIXAR ZIP (PNG's)</button>
-    </div>
 
     <mat-accordion class="card" *ngFor="let grafico of graficosGerados">
         <mat-expansion-panel hideToggle>
