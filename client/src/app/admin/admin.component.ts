@@ -17,6 +17,7 @@ export class AdminComponent {
   moderadores: Observable<string[]>;
 
   constructor(private user: UserService, private builder: FormBuilder, private meteoroServices: MeteoroServices) {
+    document.title = "Admin - CoMet - LAPA - Monitoramento Ambiental"
     this.form = builder.group({
       nome: [null],
       senha: [null],

@@ -26,7 +26,9 @@ export class HomeComponent {
 
   @ViewChild('graph1') graph!: ElementRef;
 
-  constructor(private meteoroServices: MeteoroServices){}
+  constructor(private meteoroServices: MeteoroServices){
+    document.title = "Home - CoMet - LAPA - Monitoramento Ambiental"
+  }
 
   ngOnInit(){
     

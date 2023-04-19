@@ -103,6 +103,11 @@ export class ConsultaGraficoComponent implements AfterViewInit{
   }
 
   public baixarGrafico(){
-
+    const canvas = this.graphCanvas.nativeElement;
+    const imgData = canvas.toDataURL('image/png');
+    const link = document.createElement('a');
+    link.download = 'grafico.png';
+    link.href = imgData;
+    link.click();
   }
 }

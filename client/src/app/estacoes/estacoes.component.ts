@@ -11,12 +11,12 @@ import { AuthService } from '../shared/services/auth-services';
 })
 
 export class EstacoesComponent{
-  
   status = Status;
   estacoes: Observable<Estacao[]>;
   logado: boolean = false;
 
   constructor(private meteoroServices: MeteoroServices,private auth: AuthService){
+    document.title = "Estações - CoMet - LAPA - Monitoramento Ambiental"
     this.estacoes = this.meteoroServices.getEstacoes();
   }
 

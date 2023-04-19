@@ -27,7 +27,7 @@ export class LoginModalComponent {
       usuario: [null, Validators.required],
       senha: [null, Validators.required],
     });
-    
+    document.title = "Login"
   }
 
   async ngOnInit(): Promise<void> {

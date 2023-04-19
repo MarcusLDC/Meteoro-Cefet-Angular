@@ -26,6 +26,7 @@ export class ConsultaComponent{
   form2: FormGroup;
 
   estacoes: Estacao[] = [];
+  datasGrafico: string[] = [];
   graficosGerados: StationData[] = [];
 
   consultaParams!: ConsultaIntervaloParams;
@@ -46,7 +47,7 @@ export class ConsultaComponent{
   ];
 
   constructor(private builder: FormBuilder, private meteoroServices: MeteoroServices, private localStorage: LocalStorageServices) {
-    
+    document.title = "Consulta - CoMet - LAPA - Monitoramento Ambiental"
     this.minDate = new Date(2023, 1, 16);
     
     this.form = this.builder.group({
@@ -219,7 +220,7 @@ export class ConsultaComponent{
     rightCountSum += tempsRight + ventosRight;
 
     if(leftCountSum > 1 || rightCountSum > 1){
-      alert("Para evitar gráfico quebrados é necessário que exista apenas uma escala parecida na esquerda e outra na direita.")
+      alert("Para evitar gráficos quebrados é necessário que exista apenas uma unidade de medida na esquerda e outra na direita.")
       return;
     }
 

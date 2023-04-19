@@ -27,6 +27,7 @@ export class EditarEstacaoComponent {
   status = Status;
 
   constructor(private route: ActivatedRoute, private builder: FormBuilder, private meteoroServices: MeteoroServices, private auth: AuthService, private router: Router) {
+    document.title = "Editar Estações - CoMet - LAPA - Monitoramento Ambiental"
     this.form = builder.group({
       nome: [null],
       status: [null],

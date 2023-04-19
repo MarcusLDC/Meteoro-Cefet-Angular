@@ -196,26 +196,19 @@
     <mat-accordion class="card" *ngFor="let grafico of graficosGerados">
         <mat-expansion-panel hideToggle>
             <mat-expansion-panel-header>
-
                 <mat-panel-title>
                     ESTAÇÃO {{grafico.station}}
                 </mat-panel-title>
-
             <mat-panel-description>
-                GRÁFICO
+                GRÁFICO GERADO
             </mat-panel-description>
-            
             <div>
                 <button mat-icon-button color="warn" (click)="remover(grafico)">
                     <mat-icon>close</mat-icon>
                 </button>
             </div>
-
             </mat-expansion-panel-header>
-
             <app-consulta-grafico [dates]="consultaData.dates" [stationData]="grafico"></app-consulta-grafico>
-
         </mat-expansion-panel>
     </mat-accordion>
-    
 </div>
