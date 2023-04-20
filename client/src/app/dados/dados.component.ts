@@ -128,6 +128,7 @@ export class DadosComponent implements OnInit {
 
   private setSelectedEstacao(num: string) {
     this.estacaoSelecionada = this.estacoes.find(x => x.numero === Number(num));
+    this.paginator = 1;
     this.GenerateMap();
   }
 

@@ -17,8 +17,13 @@ export class ConsultaGraficoComponent implements AfterViewInit{
   @Input() intervalo!: string;
   @Input() dates: string[] = [];
 
+  @Output() remover = new EventEmitter();
+
   graphPreferences!: GraphPreferences
   chart!: Chart;
+
+  titulo!: any;
+  estacao!: any;
 
   @ViewChild ('graph') graphCanvas!: ElementRef;
 
@@ -73,8 +78,7 @@ export class ConsultaGraficoComponent implements AfterViewInit{
   }
 
   private createGraph(datasets: any[]){
-    const titulo = `Estação ${this.stationData.station} de ${this.dates[0]} à ${this.dates[this.dates.length-1]}, Intervalo: ${this.intervalo}`
-    return new Chart(this.graphCanvas.nativeElement, {
+    this.chart = new Chart(this.graphCanvas.nativeElement, {
       data: {
         labels: this.dates,
         datasets: datasets 
@@ -83,7 +87,13 @@ export class ConsultaGraficoComponent implements AfterViewInit{
         plugins: {
           title: {
             display: true,
-            text: titulo
+            font: {
+              family: "Arial",
+              size: 14,
+              style: "normal",
+              weight: "bold"
+            },
+            text: `Estação ${this.stationData.station} de ${this.dates[0]} à ${this.dates[this.dates.length-1]}, Intervalo: ${this.intervalo}`
           }
         },
         responsive: true,
@@ -101,11 +111,23 @@ export class ConsultaGraficoComponent implements AfterViewInit{
         }
       }
     })
+
+    const title = this.chart.options.plugins?.title?.text!.toString()
+
+    this.estacao = title?.substring(0, title?.indexOf("de")).trim();
+ 
+    this.titulo = title?.substring(title!.indexOf("de") + 3).trim();
+
+    return this.chart;
   }
 
   private graficoToPNG(){
     const canvas = this.graphCanvas.nativeElement;
     return canvas.toDataURL('image/png');
+  }
+
+  public removerGrafico(){
+    this.remover.emit();
   }
 
   public baixarGrafico(){

@@ -193,20 +193,15 @@
         <span class="warning consulta" *ngIf="!this.form.get('tabela')?.value && !this.form.get('grafico')?.value" > > Para aparecerem todas as opções escolha entre tabela ou gráfico < </span>
     </mat-card>
 
-    <mat-accordion class="card" *ngFor="let grafico of graficosGerados">
-        <mat-expansion-panel hideToggle>
-            <mat-expansion-panel-header>
-                <mat-panel-title>
-                    ESTAÇÃO {{grafico.station}}
-                </mat-panel-title>
-            <mat-panel-description>
-                GRÁFICO GERADO
-            </mat-panel-description>
-            <button mat-icon-button color="warn" (click)="remover(grafico)">
-                <mat-icon>close</mat-icon>
-            </button>
-            </mat-expansion-panel-header>
-            <app-consulta-grafico #consultagrafico [intervalo]="this.form.get('intervalo')?.value" [dates]="consultaData.dates" [stationData]="grafico"></app-consulta-grafico>
-        </mat-expansion-panel>
-    </mat-accordion>
+    <ng-container *ngFor="let grafico of graficosGerados">
+        <div style="margin-bottom: 10px;">
+            <app-consulta-grafico #consultagrafico 
+            [intervalo]="this.form.get('intervalo')?.value" 
+            [dates]="consultaData.dates" 
+            [stationData]="grafico"
+            (remover)="remover(grafico)">
+            </app-consulta-grafico>
+        </div>
+    </ng-container>
+
 </div>
