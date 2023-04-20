@@ -113,9 +113,7 @@ export class ConsultaGraficoComponent implements AfterViewInit{
     })
 
     const title = this.chart.options.plugins?.title?.text!.toString()
-
     this.estacao = title?.substring(0, title?.indexOf("de")).trim();
- 
     this.titulo = title?.substring(title!.indexOf("de") + 3).trim();
 
     return this.chart;

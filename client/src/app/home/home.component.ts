@@ -31,7 +31,6 @@ export class HomeComponent {
   }
 
   ngOnInit(){
-    
     this.atualizarDados();
     setInterval(() => {
       this.atualizarDados();
@@ -39,7 +38,7 @@ export class HomeComponent {
   }
 
   private atualizarDados(){
-    this.meteoroServices.getDadosEstacao(66, 1).subscribe(x => {this.dataSource = x
+    this.meteoroServices.getDadosEstacao(11, 1).subscribe(x => {this.dataSource = x
       if(this.chart){
         this.chart.destroy();
       }
@@ -52,15 +51,15 @@ export class HomeComponent {
   }
 
   private createGraph(label: string[], dataset: any){
-    let titulo = "Estação 66 (22° 54' 44" + " S" + " - 43° 13' 28" + " W" + ") em tempo real, atualizações do gráfico a cada 5 minutos, intervalo de chegada de dados pode variar"
+    let titulo = "Estação 11 (22° 54' 44" + " S" + " - 43° 13' 28" + " W" + ") em tempo real, atualizações do gráfico a cada 5 minutos, intervalo de chegada de dados pode variar"
     return new Chart(this.graph.nativeElement, {
       data: {
         labels: label.reverse(),
         datasets: dataset,
       },
-      options: {
-        plugins: {
-          title: {
+      options:{
+        plugins:{
+          title:{
             display: true,
             text: titulo
           }
@@ -68,18 +67,18 @@ export class HomeComponent {
         responsive: true,
         maintainAspectRatio: true,
         backgroundColor: 'white',
-        scales: {
-          left: {
+        scales:{
+          left:{
             position: 'left',
           },
           right:{
             position: 'right',
           },
         },
-        elements: {
-          line: {
+        elements:{
+          line:{
             tension: 0.5,
-            borderWidth: 4
+            borderWidth: 2
           },
         }
       }
@@ -125,7 +124,7 @@ export class HomeComponent {
       borderColor: 'purple',
       fill: true,
       type: 'bar',
-      backgroundColor: 'rgba(135, 150, 250, 0.2)',
+      backgroundColor: 'rgba(75, 0, 130, 0.2)',
       yAxisID: 'right',
       z: 100,
     })
