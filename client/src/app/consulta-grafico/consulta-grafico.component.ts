@@ -1,8 +1,7 @@
 import { AfterViewInit, Component, ElementRef, EventEmitter, Input, OnInit, Output, QueryList, ViewChild, ViewChildren } from '@angular/core';
 import Chart from 'chart.js/auto';
-import { Campo, FieldData, StationData } from '../shared/services/DTOs/consulta-DTO';
-import { DatePipe } from '@angular/common';
-import { GRAPHS, GraphData } from './graph-models/graph-data';
+import { Campo, StationData } from '../shared/services/DTOs/consulta-DTO';
+import { GRAPHS } from './graph-models/graph-data';
 import { GraphPreferences } from '../shared/models/graph-preferences-model';
 import { LocalStorageServices } from '../shared/services/local-storage-services';
 

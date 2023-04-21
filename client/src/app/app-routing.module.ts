@@ -7,11 +7,13 @@ import { EstacoesComponent } from './estacoes/estacoes.component';
 import { AdminComponent } from './admin/admin.component';
 import { AuthService } from './shared/services/auth-services';
 import { HomeComponent } from './home/home.component';
+import { ConsultaGraficoPopupComponent } from './consulta-grafico-popup/consulta-grafico-popup.component';
 
 const routes: Routes = [
   {path: "", component: HomeComponent},
   {path: "dados", component: DadosComponent},
   {path: "consulta", component: ConsultaComponent},
+  {path: "consulta/grafico", component: ConsultaGraficoPopupComponent },
   {path: "estacoes", component: EstacoesComponent},
   {path: "estacoes/editar/:id", component: EditarEstacaoComponent},
   {path: "admin", component: AdminComponent, canActivate: [AuthService]},

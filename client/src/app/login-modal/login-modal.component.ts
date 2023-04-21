@@ -21,8 +21,7 @@ export class LoginModalComponent {
   admin: boolean = false;
   hide = true;
 
-  constructor(private builder: FormBuilder, private meteoroServices: MeteoroServices, private userService: UserService,
-    private auth: AuthService, private router: Router,  public dialogRef: MatDialogRef<LoginModalComponent>,  @Inject(MAT_DIALOG_DATA) public data: any) {
+  constructor(private builder: FormBuilder, private userService: UserService, private auth: AuthService,  public dialogRef: MatDialogRef<LoginModalComponent>,  @Inject(MAT_DIALOG_DATA) public data: any) {
     this.form = builder.group({
       usuario: [null, Validators.required],
       senha: [null, Validators.required],

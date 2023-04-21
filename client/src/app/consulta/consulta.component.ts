@@ -9,6 +9,7 @@ import { ConsultaDTO, StationData } from '../shared/services/DTOs/consulta-DTO';
 import { GraphPreferences } from '../shared/models/graph-preferences-model';
 import * as JSZip from 'jszip';
 import * as saveAs from 'file-saver';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-consulta',
@@ -233,7 +234,11 @@ export class ConsultaComponent{
 
     this.meteoroServices.consultarGrafico(formData).subscribe(x => {
       this.consultaData = x;
-      this.graficosGerados = this.graficosGerados.concat(x.stationData);
+      this.graficosGerados = this.graficosGerados.concat(x.stationData)
+      this.localStorage.set('formData', formData)
+
+      window.open('/consulta/grafico', 'popup', `width=${screen.width / 2},height=${screen.height}`);
+
     });
   }
 
@@ -289,15 +294,12 @@ export class ConsultaComponent{
   }
 
   public zipparGraficos() {
-    let i = 1;
     const zip = new JSZip();
     this.graficos.forEach((grafico: ElementRef) => {
       const canvas = grafico.nativeElement.querySelector('canvas');
-
       const titulo = grafico.nativeElement.querySelector('mat-panel-title').textContent + "_" + grafico.nativeElement.querySelector('mat-panel-description').textContent;
       const tituloSemEspacos = titulo.replace(/\s+/g, '');
       const tituloFormatado = tituloSemEspacos.replace(/\//g, '_');
-
       const imgData = canvas.toDataURL('image/png');
       zip.file(`${tituloFormatado}.png`, imgData.replace(/^data:image\/(png|jpg);base64,/, ""), {base64: true});
     });

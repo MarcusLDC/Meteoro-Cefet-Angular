@@ -39,6 +39,7 @@ import { ConsultaGraficoComponent } from './consulta-grafico/consulta-grafico.co
 import { HomeComponent } from './home/home.component';
 import { DatePipe } from '@angular/common';
 import { MatRadioModule } from '@angular/material/radio';
+import { ConsultaGraficoPopupComponent } from './consulta-grafico-popup/consulta-grafico-popup.component';
 
 @NgModule({
   declarations: [
@@ -53,6 +54,7 @@ import { MatRadioModule } from '@angular/material/radio';
     LoginModalComponent,
     ConsultaGraficoComponent,
     HomeComponent,
+    ConsultaGraficoPopupComponent,
   ],
   imports: [
     BrowserModule,
