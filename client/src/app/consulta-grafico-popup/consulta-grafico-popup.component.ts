@@ -18,6 +18,7 @@ export class ConsultaGraficoPopupComponent {
   constructor(private localStorage: LocalStorageServices, private meteoroServices: MeteoroServices){}
 
   async ngOnInit(){
+    document.title = "Gráfico gerado - CoMet - LAPA - Monitoramento Ambiental"
     this.formData = await this.localStorage.get<ConsultaModel>('formData')
     this.intervalo = this.formData.intervalo
     this.meteoroServices.consultarGrafico(this.formData).subscribe(x => {

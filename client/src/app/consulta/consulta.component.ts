@@ -226,8 +226,10 @@ export class ConsultaComponent{
     }
 
     this.localStorage.set('formData', formData)
-    window.open('/consulta/grafico', `popup${this.i}`, `width=${screen.width * 0.5},height=${screen.height * 0.9}`); this.i++;
+    
+    const height = formData.estacao.length == 1 ? screen.height * 0.494 : screen.height * 0.9;
 
+    window.open('/consulta/grafico', `popup${this.i}`, `width=${screen.width * 0.5},height=${height}`); this.i++;
   }
 
   public resetarForm1() {
