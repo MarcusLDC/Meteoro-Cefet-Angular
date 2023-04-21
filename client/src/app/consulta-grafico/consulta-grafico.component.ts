@@ -16,8 +16,6 @@ export class ConsultaGraficoComponent implements AfterViewInit{
   @Input() intervalo!: string;
   @Input() dates: string[] = [];
 
-  @Output() remover = new EventEmitter();
-
   graphPreferences!: GraphPreferences
   chart!: Chart;
 
@@ -107,6 +105,12 @@ export class ConsultaGraficoComponent implements AfterViewInit{
             position: 'right',
             display: datasets.map(x => x.yAxisID == 'right').some(x => x)
           },
+        },
+        elements:{
+          line:{
+            tension: 0.5,
+            borderWidth: 2
+          },
         }
       }
     })
@@ -121,10 +125,6 @@ export class ConsultaGraficoComponent implements AfterViewInit{
   private graficoToPNG(){
     const canvas = this.graphCanvas.nativeElement;
     return canvas.toDataURL('image/png');
-  }
-
-  public removerGrafico(){
-    this.remover.emit();
   }
 
   public baixarGrafico(){
