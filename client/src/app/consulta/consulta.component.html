@@ -48,46 +48,46 @@
                                 <mat-checkbox formControlName="tempAr"> Temperatura do ar <span *ngIf="this.form.get('grafico')?.value">(°C)</span> </mat-checkbox>
                             </div>
                             <div class="col-sm">
-                                <mat-checkbox formControlName="tempMin"> Temperatura mínima <span *ngIf="this.form.get('grafico')?.value">(°C)</span> </mat-checkbox>
-                            </div>
-                            <div class="col-sm">
-                                <mat-checkbox formControlName="tempMax"> Temperatura máxima <span *ngIf="this.form.get('grafico')?.value">(°C)</span> </mat-checkbox>
-                            </div>
-                            <div class="col-sm">
-                                <mat-checkbox formControlName="tempOrv"> Ponto de orvalho <span *ngIf="this.form.get('grafico')?.value">(°C)</span> </mat-checkbox>
-                            </div>
-                        </div>
-
-                        <div class="row">
-                            <div class="col-sm">
-                                <mat-checkbox formControlName="chuva"> Chuva <span *ngIf="this.form.get('grafico')?.value">(mm)</span></mat-checkbox>
-                            </div>
-                            <div class="col-sm">
-                                <mat-checkbox formControlName="direcaoVento"> Direção do vento <span *ngIf="this.form.get('grafico')?.value">(°)</span></mat-checkbox>
-                            </div>
-                            <div class="col-sm">
-                                <mat-checkbox formControlName="velocidadeVento"> Velocidade do vento <span *ngIf="this.form.get('grafico')?.value">(m/s)</span></mat-checkbox>
-                            </div>
-                            <div class="col-sm">
-                                <mat-checkbox formControlName="velocidadeVentoMax"> Velocidade do vento Máxima <span *ngIf="this.form.get('grafico')?.value">(m/s)</span></mat-checkbox>
-                            </div>
-                        </div>
-
-                        <div class="row">
-                            <div class="col-sm">
-                                <mat-checkbox formControlName="bateria"> Bateria <span *ngIf="this.form.get('grafico')?.value">(v)</span> </mat-checkbox> <br>
-                            </div>
-                            <div class="col-sm">
-                                <mat-checkbox formControlName="radiacao"> Radiação solar global <span *ngIf="this.form.get('grafico')?.value">(W/m²)</span></mat-checkbox>
+                                <mat-checkbox formControlName="indiceCalor"> Índice de calor <span *ngIf="this.form.get('grafico')?.value">(°C)</span> </mat-checkbox>
                             </div>
                             <div class="col-sm">
                                 <mat-checkbox formControlName="pressaoATM"> Pressão atmosférica <span *ngIf="this.form.get('grafico')?.value">(hPa)</span></mat-checkbox>
                             </div>
                             <div class="col-sm">
-                                <mat-checkbox formControlName="indiceCalor"> Índice de calor <span *ngIf="this.form.get('grafico')?.value">(°C)</span> </mat-checkbox>
+                                <mat-checkbox formControlName="direcaoVento"> Direção do vento <span *ngIf="this.form.get('grafico')?.value">(°)</span></mat-checkbox>
                             </div>
                         </div>
-                        <mat-checkbox formControlName="umidadeRelativa"> Umidade relativa <span *ngIf="this.form.get('grafico')?.value">(%)</span></mat-checkbox>
+
+                        <div class="row">
+                            <div class="col-sm">
+                                <mat-checkbox formControlName="tempMin"> Temperatura mínima <span *ngIf="this.form.get('grafico')?.value">(°C)</span> </mat-checkbox>
+                            </div>
+                            <div class="col-sm">
+                                <mat-checkbox formControlName="umidadeRelativa"> Umidade relativa <span *ngIf="this.form.get('grafico')?.value">(%)</span></mat-checkbox>
+                            </div>
+                            <div class="col-sm">
+                                <mat-checkbox formControlName="velocidadeVento"> Velocidade do vento <span *ngIf="this.form.get('grafico')?.value">(m/s)</span></mat-checkbox>
+                            </div>
+                            <div class="col-sm">
+                                <mat-checkbox formControlName="radiacao"> Radiação solar global <span *ngIf="this.form.get('grafico')?.value">(W/m²)</span></mat-checkbox>                     
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-sm">
+                                <mat-checkbox formControlName="tempMax"> Temperatura máxima <span *ngIf="this.form.get('grafico')?.value">(°C)</span> </mat-checkbox>
+                            </div>
+                            <div class="col-sm">
+                                <mat-checkbox formControlName="chuva"> Chuva Acumulada <span *ngIf="this.form.get('grafico')?.value">(mm)</span></mat-checkbox>
+                            </div>
+                            <div class="col-sm">
+                                <mat-checkbox formControlName="velocidadeVentoMax"> Velocidade do vento Máxima <span *ngIf="this.form.get('grafico')?.value">(m/s)</span></mat-checkbox>
+                            </div>
+                            <div class="col-sm">
+                                <mat-checkbox formControlName="bateria"> Bateria <span *ngIf="this.form.get('grafico')?.value">(v)</span> </mat-checkbox> <br>
+                            </div>
+                        </div>
+                        <mat-checkbox formControlName="tempOrv"> T° Ponto de orvalho <span *ngIf="this.form.get('grafico')?.value">(°C)</span> </mat-checkbox>
                     </div>
                 </div>
 

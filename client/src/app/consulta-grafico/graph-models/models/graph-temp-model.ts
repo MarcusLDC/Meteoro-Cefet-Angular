@@ -8,7 +8,7 @@ export class GraphTemperatura implements GraphData {
             campo: Campo.TempAr,
             config: {
                 label: 'Temperatura do Ar(°C)',
-                borderColor: 'orange',
+                borderColor: 'blue',
                 fill: true,
                 type: 'line',
                 backgroundColor: 'rgba(0, 0, 0, 0)',
@@ -19,7 +19,7 @@ export class GraphTemperatura implements GraphData {
             campo: Campo.TempMin,
             config: {
                 label: 'Temperatura Minima(°C)',
-                borderColor: 'blue',
+                borderColor: 'lightblue',
                 fill: true,
                 type: 'line',
                 backgroundColor: 'rgba(0, 0, 0, 0)',
@@ -30,7 +30,7 @@ export class GraphTemperatura implements GraphData {
             campo: Campo.TempMax,
             config: {
                 label: 'Temperatura Máxima(°C)',
-                borderColor: 'red',
+                borderColor: 'orange',
                 fill: true,
                 type: 'line',
                 backgroundColor: 'rgba(0, 0, 0, 0)',
@@ -40,8 +40,8 @@ export class GraphTemperatura implements GraphData {
         {
             campo: Campo.TempOrv,
             config: {
-                label: 'Ponto de Orvalho(°C)',
-                borderColor: 'rgba(204, 204, 0, 1)',
+                label: 'T° Ponto de Orvalho(°C)',
+                borderColor: 'green',
                 fill: true,
                 type: 'line',
                 backgroundColor: 'rgba(0, 0, 0, 0)',
@@ -52,7 +52,7 @@ export class GraphTemperatura implements GraphData {
             campo: Campo.IndiceCalor,
             config: {
                 label: 'Índice de Calor(°C)',
-                borderColor: 'purple',
+                borderColor: 'red',
                 fill: true,
                 type: 'line',
                 backgroundColor: 'rgba(0, 0, 0, 0)',
@@ -63,10 +63,10 @@ export class GraphTemperatura implements GraphData {
             campo: Campo.UmidadeRelativa,
             config: {
                 label: 'Umidade Relativa(%)',
-                borderColor: 'blue',
+                borderColor: 'purple',
                 fill: true,
                 type: 'bar',
-                backgroundColor: 'rgba(135, 206, 250, 0.5)',
+                backgroundColor: 'rgba(75, 0, 130, 0.2)',
                 z: 1,
             }
         }

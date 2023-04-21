@@ -3,6 +3,8 @@ import { DadosTempo } from '../shared/models/dados-tempo-model';
 import { MeteoroServices } from '../shared/services/meteoro-services';
 import { Chart } from 'chart.js';
 import { DatePipe } from '@angular/common';
+import { Estacao } from '../shared/models/estacao-model';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 
 type DataSet = { label: string, data: number[], borderColor: string, fill: boolean, type: string, backgroundColor: string, yAxisID: string, z: number};
@@ -19,18 +21,34 @@ export class HomeComponent {
   formato = 'dd/MM/yyyy HH:mm';
   datePipe = new DatePipe('en-Us')
 
+  form: FormGroup;
   chart!: Chart;
   dataset: DataSet[] = [];
   dataSource: DadosTempo[] = [];
   data: string[] = [];
 
+  estacoes: Estacao[] = []
+  estacaoSelecionada!: number;
+
   @ViewChild('graph1') graph!: ElementRef;
 
-  constructor(private meteoroServices: MeteoroServices){
+  constructor(private meteoroServices: MeteoroServices, private builder: FormBuilder){
     document.title = "Home - CoMet - LAPA - Monitoramento Ambiental"
+
+    this.form = builder.group({
+      estacao: [null, Validators.required]
+    });
+
   }
 
   ngOnInit(){
+    this.estacaoSelecionada = 11;
+    this.form.patchValue({estacao: this.estacaoSelecionada})
+
+    this.meteoroServices.getEstacoes().subscribe(x => {
+      this.estacoes = x;
+    });
+
     this.atualizarDados();
     setInterval(() => {
       this.atualizarDados();
@@ -38,7 +56,8 @@ export class HomeComponent {
   }
 
   private atualizarDados(){
-    this.meteoroServices.getDadosEstacao(11, 1).subscribe(x => {this.dataSource = x
+
+    this.meteoroServices.getDadosEstacao(this.estacaoSelecionada, 1).subscribe(x => {this.dataSource = x
       if(this.chart){
         this.chart.destroy();
       }
@@ -50,8 +69,13 @@ export class HomeComponent {
     });
   }
 
-  private createGraph(label: string[], dataset: any){
-    let titulo = "Estação 11 (22° 54' 44" + " S" + " - 43° 13' 28" + " W" + ") em tempo real, atualizações do gráfico a cada 5 minutos, intervalo de chegada de dados pode variar"
+  public selectEstacoesHandler(){
+    this.estacaoSelecionada = this.form.get('estacao')?.value
+    this.atualizarDados();
+  }
+
+  public createGraph(label: string[], dataset: any){
+    let titulo = "últimos 100 dados em tempo real, atualizações do gráfico a cada 5 minutos, intervalo de chegada de dados pode variar"
     return new Chart(this.graph.nativeElement, {
       data: {
         labels: label.reverse(),

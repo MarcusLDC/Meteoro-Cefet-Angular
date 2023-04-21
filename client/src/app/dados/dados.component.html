@@ -75,7 +75,7 @@
                         <th mat-header-cell *matHeaderCellDef> Data e Hora (BRT)</th>
                         <td mat-cell *matCellDef="let element"> {{element.dataHora | date : 'dd/MM/yyyy HH:mm'}}h </td>
                     </ng-container>
-                    <form [formGroup] = "form">
+                    <form [formGroup]="form">
                         <ng-container matColumnDef="Estação">
                             <th mat-header-cell *matHeaderCellDef> Estação(ID)
                                 <select #estacao formControlName="estacao" name="estacoes" id="estacoes" (change)="selectEstacoesHandler()">

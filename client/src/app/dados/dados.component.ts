@@ -69,6 +69,7 @@ export class DadosComponent implements OnInit {
 
   async ngOnInit(): Promise<void> {
     document.title = "Dados - CoMet - LAPA - Monitoramento Ambiental"
+    
     this.meteoroServices.getEstacoes().subscribe(x => {
       this.estacoes = x;
       this.setSelectedEstacao((this.form.get('estacao')?.value));
