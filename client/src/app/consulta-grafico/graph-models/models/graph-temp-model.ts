@@ -19,7 +19,7 @@ export class GraphTemperatura implements GraphData {
             campo: Campo.TempMin,
             config: {
                 label: 'Temperatura Minima(°C)',
-                borderColor: 'lightblue',
+                borderColor: 'rgba(102, 153, 255, 1)',
                 fill: true,
                 type: 'line',
                 backgroundColor: 'rgba(0, 0, 0, 0)',

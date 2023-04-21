@@ -37,5 +37,14 @@ namespace MeteoroCefet.Infra
 
             return last.DataHora;
         }
+        public async Task<List<DadosTempo>> GetLastDayByEstacao(int numPagina, int numEstacao) // falta fazer direitinho ainda
+        {
+            var query = await Collection
+                .Find(x => x.DataHora >= DateTime.UtcNow.AddDays(-numPagina) && x.Estacao == numEstacao)
+                .SortByDescending(x => x.DataHora)
+                .ToListAsync();
+
+            return query;
+        }
     }
 }

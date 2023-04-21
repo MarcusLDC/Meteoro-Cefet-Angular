@@ -9,6 +9,7 @@ import { ConsultaDTO, StationData } from '../shared/services/DTOs/consulta-DTO';
 import { GraphPreferences } from '../shared/models/graph-preferences-model';
 import * as JSZip from 'jszip';
 import * as saveAs from 'file-saver';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-consulta',
@@ -18,30 +19,23 @@ import * as saveAs from 'file-saver';
 
 export class ConsultaComponent{
 
-  @ViewChildren('consultagrafico', { read: ElementRef }) graficos!: QueryList<ElementRef>;
-  
+  janelasPopups!: any;
+
   checkboxes = ['tempAr','tempMin','tempMax','tempOrv','chuva','direcaoVento','velocidadeVento','velocidadeVentoMax','bateria','radiacao','pressaoATM','indiceCalor','umidadeRelativa'];
   marcarTodas = true;
 
   spinnerColor: ThemePalette = 'warn';
   spinnerValue = 0;
+  i = 0;
 
   form: FormGroup;
   form2: FormGroup;
 
   estacoes: Estacao[] = [];
-
-  periodosInicio: string[] = []
-  periodosFim: string[] = []
-
-  graficosGerados: StationData[] = [];
-
   consultaParams!: ConsultaIntervaloParams;
 
   minDate = new Date;
   maxDate = new Date;
-
-  consultaData!: ConsultaDTO;
 
   periodosGrafico = [
     { value: null, key: 0},
@@ -231,10 +225,9 @@ export class ConsultaComponent{
       return;
     }
 
-    this.meteoroServices.consultarGrafico(formData).subscribe(x => {
-      this.consultaData = x;
-      this.graficosGerados = this.graficosGerados.concat(x.stationData);
-    });
+    this.localStorage.set('formData', formData)
+    window.open('/consulta/grafico', `popup${this.i}`, `width=${screen.width * 0.5},height=${screen.height * 0.9}`); this.i++;
+
   }
 
   public resetarForm1() {
@@ -282,27 +275,5 @@ export class ConsultaComponent{
       int8Array[i] = byteString.charCodeAt(i);
     }
     return new Blob([int8Array], { type: 'image/png' });;
-  }
-
-  public remover(grafico: StationData){
-    this.graficosGerados = this.graficosGerados.filter(x => x != grafico)
-  }
-
-  public zipparGraficos() {
-    let i = 1;
-    const zip = new JSZip();
-    this.graficos.forEach((grafico: ElementRef) => {
-      const canvas = grafico.nativeElement.querySelector('canvas');
-
-      const titulo = grafico.nativeElement.querySelector('mat-panel-title').textContent + "_" + grafico.nativeElement.querySelector('mat-panel-description').textContent;
-      const tituloSemEspacos = titulo.replace(/\s+/g, '');
-      const tituloFormatado = tituloSemEspacos.replace(/\//g, '_');
-
-      const imgData = canvas.toDataURL('image/png');
-      zip.file(`${tituloFormatado}.png`, imgData.replace(/^data:image\/(png|jpg);base64,/, ""), {base64: true});
-    });
-    zip.generateAsync({type:"blob"}).then(function(content) {
-      saveAs(content, "graficos.zip");
-    });
   }
 }
