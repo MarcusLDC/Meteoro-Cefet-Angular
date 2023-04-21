@@ -43,7 +43,7 @@ export class ConsultaGraficoComponent implements AfterViewInit{
 
       const dataset = {
         data: x.values,
-        label: Campo[x.field],
+        label: config?.label,
         borderColor: config?.borderColor,
         fill: config?.fill,
         type: config?.type,

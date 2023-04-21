@@ -2,12 +2,23 @@
     <div class="body">
         <div class="half">
             <mat-card class="card card30">
-                <mat-card-header class="title">
+                <mat-card-header class="title white">
                     Ainda em desenvolvimento, vá para <span routerLink="dados" style="color: blue"> dados </span> para ver dados meteorológicos mais completos
                 </mat-card-header>
+                <mat-card-content class="white">
+                    
+                </mat-card-content>
             </mat-card>
-            <mat-card class="card card70">
-                <canvas #graph1 id="1"></canvas>
+            <mat-card class="card card70 border">
+                <mat-card-header class="header justifyMiddle white" [formGroup]="form">
+                    Acompanhando Estação 
+                    <select class="select" formControlName="estacao" (change)="selectEstacoesHandler()">
+                        <option *ngFor="let element of estacoes" [value]="element.numero"> {{element.numero}} </option>
+                    </select>
+                </mat-card-header>
+                <mat-card-content class="white padded">
+                    <canvas #graph1 id="1"></canvas>
+                </mat-card-content>
             </mat-card>
         </div>
     </div>
