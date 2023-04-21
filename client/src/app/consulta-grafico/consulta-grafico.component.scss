@@ -1,24 +1,23 @@
 .card{
     padding: 10px;
-    margin: 10px;
-    background-color: rgb(185, 185, 185);
-    padding: 1px;
+    margin-left: 10px;
+    margin-right: 10px;
 }
 
-.content{
-    background-color: white;
+.canvas{
+    z-index: 9999;
+}
+
+.padded{
+    padding: 5px;
 }
 
 .botao{
    margin-top: 10px;
+   margin-bottom: 10px;
 }
 
 .justifyMiddle{
     display: flex;
     justify-content: center;
-}
-
-.grafico{
-    display: flex;
-    min-width: 1690px;
 }

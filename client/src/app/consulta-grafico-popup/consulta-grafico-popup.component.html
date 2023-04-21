@@ -1,9 +1,10 @@
-<div class="body">
-    <ng-container *ngFor="let grafico of graficosGerados">
+<div class="grafico">
+    <ng-container *ngFor="let grafico of consultaData.stationData">
         <div style="margin-bottom: 10px;">
-            <app-consulta-grafico #consultagrafico 
-            [dates]="consultaData.dates" 
-            [stationData]="grafico">
+            <app-consulta-grafico #consultagrafico
+                [dates]="consultaData.dates" 
+                [stationData]="grafico"
+                [intervalo]="intervalo">
             </app-consulta-grafico>
         </div>
     </ng-container>
