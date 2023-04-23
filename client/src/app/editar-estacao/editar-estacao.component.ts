@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Estacao, Status } from '../shared/models/estacao-model';
@@ -76,12 +76,11 @@ export class EditarEstacaoComponent {
         altitude: this.form.value.altitude,
         altura: this.form.value.altura
       }
-      
-      this.meteoroServices.editarEstacao(this.estacaoEditada).subscribe();
-    }
-    if(window.confirm('Deseja confirmar essa ação?')) {
-      alert('Estação editada com sucesso!');
-      this.router.navigate(['/estacoes']);
+      if(window.confirm('Deseja confirmar essa ação?')) {
+        this.meteoroServices.editarEstacao(this.estacaoEditada).subscribe();
+        alert('Estação editada com sucesso!');
+        this.router.navigate(['/estacoes']);
+      }
     }
   }
 }
