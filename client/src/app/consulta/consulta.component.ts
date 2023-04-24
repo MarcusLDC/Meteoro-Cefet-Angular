@@ -1,15 +1,12 @@
-import { Component, ElementRef, QueryList, ViewChildren } from '@angular/core';
+import { Component } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { ConsultaIntervaloParams, ConsultaModel } from '../shared/models/consulta-model';
 import { MeteoroServices } from '../shared/services/meteoro-services';
 import { Estacao } from '../shared/models/estacao-model';
 import { ThemePalette } from '@angular/material/core';
 import { LocalStorageServices } from '../shared/services/local-storage-services';
-import { ConsultaDTO, StationData } from '../shared/services/DTOs/consulta-DTO';
 import { GraphPreferences } from '../shared/models/graph-preferences-model';
-import * as JSZip from 'jszip';
-import * as saveAs from 'file-saver';
-import { Router } from '@angular/router';
+import { GraphTypePreferences } from '../shared/models/graph-types-model';
 
 @Component({
   selector: 'app-consulta',
@@ -30,6 +27,7 @@ export class ConsultaComponent{
 
   form: FormGroup;
   form2: FormGroup;
+  form3: FormGroup;
 
   estacoes: Estacao[] = [];
   consultaParams!: ConsultaIntervaloParams;
@@ -45,6 +43,12 @@ export class ConsultaComponent{
     { value: "1 hora", key: 4 },
     { value: "24 horas", key: 5 },
     { value: "Mensal", key: 6 }
+  ];
+
+  tiposDoGrafico = [
+    { value: 'line', key: 'Linha'},
+    { value: 'bar', key: 'Barra'},
+    { value: 'scatter', key: 'Ponto'},
   ];
 
   constructor(private builder: FormBuilder, private meteoroServices: MeteoroServices, private localStorage: LocalStorageServices) {
@@ -87,6 +91,22 @@ export class ConsultaComponent{
       pressaoATMSide: [Validators.required],
       indiceCalorSide: [Validators.required],
       umidadeRelativaSide: [Validators.required],
+    })
+
+    this.form3 = this.builder.group({
+      tempArType: [Validators.required],
+      tempMinType: [Validators.required],
+      tempMaxType: [Validators.required],
+      tempOrvType: [Validators.required],
+      chuvaType: [Validators.required],
+      direcaoVentoType: [Validators.required],
+      velocidadeVentoType: [Validators.required],
+      velocidadeVentoMaxType: [Validators.required],
+      bateriaType: [Validators.required],
+      radiacaoType: [Validators.required],
+      pressaoATMType: [Validators.required],
+      indiceCalorType: [Validators.required],
+      umidadeRelativaType: [Validators.required],
     })
 
     meteoroServices.getEstacoes().subscribe(x => this.estacoes = x);
@@ -154,6 +174,7 @@ export class ConsultaComponent{
     });
     this.form.patchValue(await this.localStorage.get<ConsultaIntervaloParams>('consultaParameters') ?? this.resetarForm1());
     this.form2.patchValue(await this.localStorage.get<GraphPreferences>('graphPreferences') ?? this.resetarForm2());
+    this.form3.patchValue(await this.localStorage.get<GraphTypePreferences>('graphTypePreferences') ?? this.resetarForm3())
   }
 
   public async consultarTabela(){
@@ -241,6 +262,10 @@ export class ConsultaComponent{
     this.form2.patchValue(new GraphPreferences)
   }
 
+  public resetarForm3(){
+    this.form3.patchValue(new GraphTypePreferences)
+  }
+
   public markAll(){
     this.setCheckboxesValue(this.marcarTodas);
     this.marcarTodas = !this.marcarTodas;
@@ -265,6 +290,8 @@ export class ConsultaComponent{
     this.localStorage.set('consultaParameters', this.consultaParams);
 
     this.localStorage.set('graphPreferences', this.form2.value as GraphPreferences);
+
+    this.localStorage.set('graphTypePreferences', this.form3.value as GraphTypePreferences);
 
     return formData;
   }

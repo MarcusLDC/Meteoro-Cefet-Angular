@@ -1,0 +1,15 @@
+export class GraphTypePreferences{
+    tempArType: string = 'line'
+    tempMinType: string = 'line'
+    tempMaxType: string = 'line'
+    tempOrvType: string = 'line'
+    chuvaType: string = 'bar'
+    direcaoVentoType: string = 'line'
+    velocidadeVentoType: string = 'line'
+    velocidadeVentoMaxType: string = 'scatter'
+    bateriaType: string = 'line'
+    radiacaoType: string = 'line'
+    pressaoATMType: string = 'line'
+    indiceCalorType: string = 'line'
+    umidadeRelativaType: string = 'bar'
+}
