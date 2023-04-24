@@ -6,7 +6,7 @@ export class GraphTypePreferences{
     chuvaType: string = 'bar'
     direcaoVentoType: string = 'line'
     velocidadeVentoType: string = 'line'
-    velocidadeVentoMaxType: string = 'scatter'
+    velocidadeVentoMaxType: string = 'line'
     bateriaType: string = 'line'
     radiacaoType: string = 'line'
     pressaoATMType: string = 'line'

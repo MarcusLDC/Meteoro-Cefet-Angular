@@ -6,8 +6,8 @@
                     <mat-label class="destaque">Insira o intervalo de datas</mat-label>
                         <mat-date-range-input [min]="minDate" [max]="maxDate" [rangePicker]="picker">
                             <input matInput>
-                            <input formControlName="periodoInicio" matStartDate placeholder="Data Inicial">
-                            <input formControlName="periodoFim" matEndDate placeholder="Data Final">
+                            <input formControlName="periodoInicio" matStartDate placeholder="Data Inicial" readonly>
+                            <input formControlName="periodoFim" matEndDate placeholder="Data Final" readonly>
                         </mat-date-range-input>
                     <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
                     <mat-date-range-picker #picker></mat-date-range-picker>
@@ -369,17 +369,17 @@
                 <div style="float:left">
 
                     <ng-container *ngIf="this.form.get('tabela')?.value">
-                        <button class="botao" mat-raised-button color="warn" (click)="consultarTabela()" *ngIf="spinnerValue == 100"> Gerar Tabela (.csv) </button>
+                        <button class="botao" mat-raised-button [ngStyle]="{ 'background-color': 'RGB(85, 139, 47)'}" (click)="consultarTabela()" *ngIf="spinnerValue == 100"> Gerar Tabela (.csv) </button>
                         <button class="botao" mat-raised-button color="warn" disabled *ngIf="spinnerValue != 100"> Gerar Tabela (.csv)</button>
-                        <button class="reset" mat-raised-button (click)="resetarForm1()"> Resetar Escolhas </button>
+                        <button class="reset" mat-raised-button [ngStyle]="{ 'background-color': 'RGB(255, 44, 44)'}" (click)="resetarForm1()"> Resetar Escolhas </button>
                     </ng-container>     
 
                     <ng-container *ngIf="this.form.get('grafico')?.value">
-                        <button class="botao" mat-raised-button color="warn" (click)="consultarGrafico()" *ngIf="spinnerValue == 100"> Gerar Gráfico </button>
-                        <button class="botao" mat-raised-button color="warn" disabled *ngIf="spinnerValue != 100"> Gerar Gráfico </button>
-                        <button class="reset" mat-raised-button (click)="resetarForm1()"> Resetar Escolhas </button>
-                        
-                        <button class="reset" mat-raised-button color="warn" (click)="openDialog()"> <span class="preferences"> Restaurar Preferencias <mat-icon class="preferencesIcon">settings</mat-icon> </span> </button>
+                        <button class="botao" mat-raised-button [ngStyle]="{ 'background-color': 'RGB(85, 139, 47)'}" (click)="consultarGrafico()" *ngIf="spinnerValue == 100"> Gerar Gráfico (Nova Janela) </button>
+                        <button class="botao" mat-raised-button color="warn" disabled *ngIf="spinnerValue != 100"> Gerar Gráfico (Nova Janela) </button>
+                        <button class="reset" mat-raised-button [ngStyle]="{ 'background-color': 'RGB(255, 44, 44)'}" (click)="resetarForm1()"> Resetar Escolhas </button>
+
+                        <button class="reset" mat-raised-button [ngStyle]="{ 'background-color': 'RGB(21, 101, 192)'}" (click)="openDialog()"> <span> Preferências <mat-icon class="preferencesIcon">settings</mat-icon> </span> </button>
                     </ng-container>
                 </div>
                 <mat-progress-spinner class="botao" *ngIf="spinnerValue != 100"
@@ -389,6 +389,7 @@
                     [value]="spinnerValue">
                 </mat-progress-spinner>
             </mat-card-actions>
+            
             <span class="warning consulta" *ngIf="spinnerValue != 100"> Preencha pelo menos uma opção em cada grupo </span> 
         </ng-container>
         <span class="warning consulta" *ngIf="!this.form.get('tabela')?.value && !this.form.get('grafico')?.value" > > Para aparecerem todas as opções escolha entre tabela ou gráfico < </span>

@@ -52,7 +52,6 @@ export class ConsultaComponent{
   tiposDoGrafico = [
     { value: 'line', key: 'Linha'},
     { value: 'bar', key: 'Barra'},
-    { value: 'scatter', key: 'Ponto'},
   ];
 
   constructor(public dialog: MatDialog, private builder: FormBuilder, private meteoroServices: MeteoroServices, private localStorage: LocalStorageServices) {
@@ -327,7 +326,7 @@ export class ConsultaComponent{
   
     dialogRef.afterClosed().subscribe(() => {
       this.modalAberto = false;
-      if (Object.values(dialogRef.componentInstance.isButtonClicked).some(value => value)) {
+      if (Object.values(dialogRef.componentInstance.isButtonClicked).some(x => x)) {
         location.reload();
       }
     });
