@@ -8,6 +8,8 @@ import { LocalStorageServices } from '../shared/services/local-storage-services'
 import { GraphPreferences } from '../shared/models/graph-preferences/graph-preferences-model';
 import { GraphTypePreferences } from '../shared/models/graph-preferences/graph-types-model';
 import { GraphColorPreferences } from '../shared/models/graph-preferences/graph-colors-model';
+import { MatDialog } from '@angular/material/dialog';
+import { ConsultaSettingsModalComponent } from './consulta-settings-modal/consulta-settings-modal.component';
 
 @Component({
   selector: 'app-consulta',
@@ -17,7 +19,7 @@ import { GraphColorPreferences } from '../shared/models/graph-preferences/graph-
 
 export class ConsultaComponent{
 
-  janelasPopups!: any;
+  modalAberto = false;
 
   checkboxes = ['tempAr','tempMin','tempMax','tempOrv','chuva','direcaoVento','velocidadeVento','velocidadeVentoMax','bateria','radiacao','pressaoATM','indiceCalor','umidadeRelativa'];
   marcarTodas = true;
@@ -53,7 +55,7 @@ export class ConsultaComponent{
     { value: 'scatter', key: 'Ponto'},
   ];
 
-  constructor(private builder: FormBuilder, private meteoroServices: MeteoroServices, private localStorage: LocalStorageServices) {
+  constructor(public dialog: MatDialog, private builder: FormBuilder, private meteoroServices: MeteoroServices, private localStorage: LocalStorageServices) {
     document.title = "Consulta - CoMet - LAPA - Monitoramento Ambiental"
     this.minDate = new Date(2023, 1, 16);
     
@@ -190,10 +192,12 @@ export class ConsultaComponent{
 
       this.spinnerValue = checkboxes + periodo + estacao + intervalo + opcao;
     });
+
     this.form.patchValue(await this.localStorage.get<ConsultaIntervaloParams>('consultaParameters') ?? this.resetarForm1());
-    this.form2.patchValue(await this.localStorage.get<GraphPreferences>('graphPreferences') ?? this.resetarForm2());
-    this.form3.patchValue(await this.localStorage.get<GraphTypePreferences>('graphTypePreferences') ?? this.resetarForm3())
-    this.form4.patchValue(await this.localStorage.get<GraphColorPreferences>('graphColorPreferences') ?? this.resetarForm4())
+    this.form2.patchValue(await this.localStorage.get<GraphPreferences>('graphPreferences') ?? new GraphPreferences);
+    this.form3.patchValue(await this.localStorage.get<GraphTypePreferences>('graphTypePreferences') ?? new GraphTypePreferences)
+    this.form4.patchValue(await this.localStorage.get<GraphColorPreferences>('graphColorPreferences') ?? new GraphColorPreferences)
+
   }
 
   public async consultarTabela(){
@@ -277,18 +281,6 @@ export class ConsultaComponent{
     this.form.patchValue({periodoInicio: null, periodoFim: null, tabela: false, grafico: false});
   }
 
-  public resetarForm2() {
-    this.form2.patchValue(new GraphPreferences)
-  }
-
-  public resetarForm3(){
-    this.form3.patchValue(new GraphTypePreferences)
-  }
-
-  public resetarForm4(){
-    this.form4.patchValue(new GraphColorPreferences)
-  }
-
   public markAll(){
     this.setCheckboxesValue(this.marcarTodas);
     this.marcarTodas = !this.marcarTodas;
@@ -311,14 +303,34 @@ export class ConsultaComponent{
     };
 
     this.localStorage.set('consultaParameters', this.consultaParams);
+    this.setPreferences();
+    return formData;
+  }
 
+  private setPreferences() {
     this.localStorage.set('graphPreferences', this.form2.value as GraphPreferences);
 
     this.localStorage.set('graphTypePreferences', this.form3.value as GraphTypePreferences);
 
     this.localStorage.set('graphColorPreferences', this.form4.value as GraphColorPreferences);
+  }
 
-    return formData;
+  public openDialog(){
+    if(this.modalAberto)
+      return;
+  
+    var dialogRef = this.dialog.open(ConsultaSettingsModalComponent, {
+      width: '300px',
+    });
+  
+    this.modalAberto = true;
+  
+    dialogRef.afterClosed().subscribe(() => {
+      this.modalAberto = false;
+      if (Object.values(dialogRef.componentInstance.isButtonClicked).some(value => value)) {
+        location.reload();
+      }
+    });
   }
 
   private dataURItoBlob(data: string) {
