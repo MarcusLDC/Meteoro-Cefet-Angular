@@ -41,6 +41,7 @@ import { DatePipe } from '@angular/common';
 import { MatRadioModule } from '@angular/material/radio';
 import { ConsultaGraficoPopupComponent } from './consulta-grafico-popup/consulta-grafico-popup.component';
 import { NgxColorsModule } from 'ngx-colors';
+import { ConsultaSettingsModalComponent } from './consulta/consulta-settings-modal/consulta-settings-modal.component';
 
 @NgModule({
   declarations: [
@@ -56,6 +57,7 @@ import { NgxColorsModule } from 'ngx-colors';
     ConsultaGraficoComponent,
     HomeComponent,
     ConsultaGraficoPopupComponent,
+    ConsultaSettingsModalComponent,
   ],
   imports: [
     BrowserModule,

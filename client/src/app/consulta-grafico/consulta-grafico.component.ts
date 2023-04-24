@@ -1,9 +1,10 @@
-import { AfterViewInit, Component, ElementRef, EventEmitter, Input, OnInit, Output, QueryList, ViewChild, ViewChildren } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, Input,ViewChild } from '@angular/core';
 import Chart from 'chart.js/auto';
-import { Campo, StationData } from '../shared/services/DTOs/consulta-DTO';
-import { GRAPHS } from './graph-models/graph-data';
+import { CampoCor, CampoLado, CampoNome, CampoTipo, StationData } from '../shared/services/DTOs/consulta-DTO';
 import { GraphPreferences } from '../shared/models/graph-preferences/graph-preferences-model';
 import { LocalStorageServices } from '../shared/services/local-storage-services';
+import { GraphColorPreferences } from '../shared/models/graph-preferences/graph-colors-model';
+import { GraphTypePreferences } from '../shared/models/graph-preferences/graph-types-model';
 
 @Component({
   selector: 'app-consulta-grafico',
@@ -16,62 +17,40 @@ export class ConsultaGraficoComponent implements AfterViewInit{
   @Input() intervalo!: string;
   @Input() dates: string[] = [];
 
-  graphPreferences!: GraphPreferences
+  graphPreferences!: GraphPreferences;
+  colorPreferences!: GraphColorPreferences;
+  typePreferences!: GraphTypePreferences;
+
   chart!: Chart;
 
   titulo!: any;
   estacao!: any;
 
   @ViewChild ('graph') graphCanvas!: ElementRef;
-
+  
   constructor(private localStorage: LocalStorageServices) { }
 
   async ngAfterViewInit(): Promise<void> {
 
     this.graphPreferences = await this.localStorage.get<GraphPreferences>('graphPreferences');
-
-    const graficos = GRAPHS;
+    this.colorPreferences = await this.localStorage.get<GraphColorPreferences>('graphColorPreferences')
+    this.typePreferences = await this.localStorage.get<GraphTypePreferences>('graphTypePreferences')
 
     const datasets = this.stationData.fields.map(x => {
 
-      const graph = graficos.filter(y => y.fields.has(x.field))[0]
-
-      let config = graph.fields.get(x.field)
-
       const dataset = {
         data: x.values,
-        label: config?.label,
-        borderColor: config?.borderColor,
-        fill: config?.fill,
-        type: config?.type,
-        backgroundColor: config?.backgroundColor,
-        yAxisID: this.mapPreferences(x.field),
-        z: config?.z
+        label: CampoNome[x.field],
+        borderColor: this.colorPreferences[CampoCor[x.field] as keyof GraphColorPreferences],
+        type: this.typePreferences[CampoTipo[x.field] as keyof GraphTypePreferences],
+        backgroundColor: this.colorPreferences[CampoCor[x.field] as keyof GraphColorPreferences],
+        yAxisID: this.graphPreferences[CampoLado[x.field] as keyof GraphPreferences],
       }
       return dataset;
+
     })
 
     this.createGraph(datasets);
-  }
-
-  private mapPreferences(campo: Campo){
-    
-    switch(campo){
-      case Campo.Bateria : return this.graphPreferences.bateriaSide
-      case Campo.Chuva : return this.graphPreferences.chuvaSide
-      case Campo.DirecaoVento : return this.graphPreferences.direcaoVentoSide
-      case Campo.IndiceCalor : return this.graphPreferences.indiceCalorSide
-      case Campo.PressaoATM : return this.graphPreferences.pressaoATMSide
-      case Campo.Radiacao : return this.graphPreferences.radiacaoSide
-      case Campo.TempAr : return this.graphPreferences.tempArSide
-      case Campo.TempMin : return this.graphPreferences.tempMinSide
-      case Campo.TempMax : return this.graphPreferences.tempMaxSide
-      case Campo.TempOrv : return this.graphPreferences.tempOrvSide
-      case Campo.UmidadeRelativa : return this.graphPreferences.umidadeRelativaSide
-      case Campo.VelocidadeVento : return this.graphPreferences.velocidadeVentoSide
-      case Campo.VelocidadeVentoMax : return this.graphPreferences.velocidadeVentoMaxSide
-      default: return'left'
-    }
   }
 
   private createGraph(datasets: any[]){

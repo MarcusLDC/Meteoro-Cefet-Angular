@@ -318,8 +318,6 @@ export class ConsultaComponent{
 
     this.localStorage.set('graphColorPreferences', this.form4.value as GraphColorPreferences);
 
-    console.log(this.form4.get('tempArColor')?.value)
-
     return formData;
   }
 
