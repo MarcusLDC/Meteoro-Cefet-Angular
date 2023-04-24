@@ -7,6 +7,7 @@ import { ThemePalette } from '@angular/material/core';
 import { LocalStorageServices } from '../shared/services/local-storage-services';
 import { GraphPreferences } from '../shared/models/graph-preferences/graph-preferences-model';
 import { GraphTypePreferences } from '../shared/models/graph-preferences/graph-types-model';
+import { GraphColorPreferences } from '../shared/models/graph-preferences/graph-colors-model';
 
 @Component({
   selector: 'app-consulta',
@@ -28,6 +29,7 @@ export class ConsultaComponent{
   form: FormGroup;
   form2: FormGroup;
   form3: FormGroup;
+  form4: FormGroup;
 
   estacoes: Estacao[] = [];
   consultaParams!: ConsultaIntervaloParams;
@@ -109,6 +111,22 @@ export class ConsultaComponent{
       umidadeRelativaType: [Validators.required],
     })
 
+    this.form4 = this.builder.group({
+      tempArColor: [Validators.required],
+      tempMinColor: [Validators.required],
+      tempMaxColor: [Validators.required],
+      tempOrvColor: [Validators.required],
+      chuvaColor: [Validators.required],
+      direcaoVentoColor: [Validators.required],
+      velocidadeVentoColor: [Validators.required],
+      velocidadeVentoMaxColor: [Validators.required],
+      bateriaColor: [Validators.required],
+      radiacaoColor: [Validators.required],
+      pressaoATMColor: [Validators.required],
+      indiceCalorColor: [Validators.required],
+      umidadeRelativaColor: [Validators.required],
+    })
+
     meteoroServices.getEstacoes().subscribe(x => this.estacoes = x);
     meteoroServices.getDados(1).subscribe(x => this.maxDate = x[0].dataHora)
   }
@@ -175,6 +193,7 @@ export class ConsultaComponent{
     this.form.patchValue(await this.localStorage.get<ConsultaIntervaloParams>('consultaParameters') ?? this.resetarForm1());
     this.form2.patchValue(await this.localStorage.get<GraphPreferences>('graphPreferences') ?? this.resetarForm2());
     this.form3.patchValue(await this.localStorage.get<GraphTypePreferences>('graphTypePreferences') ?? this.resetarForm3())
+    this.form4.patchValue(await this.localStorage.get<GraphColorPreferences>('graphColorPreferences') ?? this.resetarForm4())
   }
 
   public async consultarTabela(){
@@ -266,6 +285,10 @@ export class ConsultaComponent{
     this.form3.patchValue(new GraphTypePreferences)
   }
 
+  public resetarForm4(){
+    this.form4.patchValue(new GraphColorPreferences)
+  }
+
   public markAll(){
     this.setCheckboxesValue(this.marcarTodas);
     this.marcarTodas = !this.marcarTodas;
@@ -292,6 +315,10 @@ export class ConsultaComponent{
     this.localStorage.set('graphPreferences', this.form2.value as GraphPreferences);
 
     this.localStorage.set('graphTypePreferences', this.form3.value as GraphTypePreferences);
+
+    this.localStorage.set('graphColorPreferences', this.form4.value as GraphColorPreferences);
+
+    console.log(this.form4.get('tempArColor')?.value)
 
     return formData;
   }

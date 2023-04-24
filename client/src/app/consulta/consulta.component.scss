@@ -5,7 +5,8 @@
 }
 
 .preferencias{
-    width: 300px; 
+    width: 300px;
+    margin-top: 30px !important;
     margin-left: 5px;
     margin-bottom: 15px;
     margin-right: 35px !important;
@@ -15,9 +16,14 @@
     padding-left: 10px;
 }
 
+.col-sm{
+    padding-bottom: 30px;
+}
 
 .colorPicker{
-    padding-left: 10px;
+    padding-left: 20px;
+    display: flex;
+    align-items: center;
 }
 
 p, h1{
