@@ -8,10 +8,10 @@ export class GraphChuva implements GraphData {
             campo: Campo.Chuva,
             config: {
                 label: 'Chuva Acumulada(mm)',
-                borderColor: 'blue',
-                fill: true,
+                borderColor: 'RGB(129, 212, 250)',
+                fill: false,
                 type: 'bar',
-                backgroundColor: 'rgba(135, 206, 250)',
+                backgroundColor: 'RGB(129, 212, 250)',
                 z: 1,
             },
         }

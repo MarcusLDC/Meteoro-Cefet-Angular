@@ -8,10 +8,10 @@ export class GraphPressao implements GraphData {
             campo: Campo.PressaoATM,
             config: {
                 label: 'Pressão Atmosférica(hPa)',
-                borderColor: 'rgba(18, 29, 100, 1)',
-                fill: true,
+                borderColor: 'RGB(23, 37, 126)',
+                fill: false,
                 type: 'line',
-                backgroundColor: 'rgba(0, 0, 0, 0)',
+                backgroundColor: 'RGB(23, 37, 126)',
                 z: 1,
               },
         }

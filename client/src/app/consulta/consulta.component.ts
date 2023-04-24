@@ -5,8 +5,8 @@ import { MeteoroServices } from '../shared/services/meteoro-services';
 import { Estacao } from '../shared/models/estacao-model';
 import { ThemePalette } from '@angular/material/core';
 import { LocalStorageServices } from '../shared/services/local-storage-services';
-import { GraphPreferences } from '../shared/models/graph-preferences-model';
-import { GraphTypePreferences } from '../shared/models/graph-types-model';
+import { GraphPreferences } from '../shared/models/graph-preferences/graph-preferences-model';
+import { GraphTypePreferences } from '../shared/models/graph-preferences/graph-types-model';
 
 @Component({
   selector: 'app-consulta',

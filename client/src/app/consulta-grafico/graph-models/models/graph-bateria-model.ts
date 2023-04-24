@@ -8,11 +8,11 @@ export class GraphBateria implements GraphData {
             campo: Campo.Bateria,
             config: {
                 label: 'Bateria(V)',
-                borderColor: 'green',
+                borderColor: 'RGB(56, 142, 60)',
+                fill: false,
+                backgroundColor: 'RGB(56, 142, 60)',
                 type: 'line',
-                backgroundColor: 'rgba(0, 0, 0, 0)',
                 z: 1,
-                fill: false
             },
         }
     ])

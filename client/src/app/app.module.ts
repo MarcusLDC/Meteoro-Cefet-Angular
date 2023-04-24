@@ -40,6 +40,7 @@ import { HomeComponent } from './home/home.component';
 import { DatePipe } from '@angular/common';
 import { MatRadioModule } from '@angular/material/radio';
 import { ConsultaGraficoPopupComponent } from './consulta-grafico-popup/consulta-grafico-popup.component';
+import { NgxColorsModule } from 'ngx-colors';
 
 @NgModule({
   declarations: [
@@ -90,6 +91,7 @@ import { ConsultaGraficoPopupComponent } from './consulta-grafico-popup/consulta
     InterceptorModule,
     MatPaginatorModule,
     MatRadioModule,
+    NgxColorsModule,
   ],
   providers: [
     DatePipe,

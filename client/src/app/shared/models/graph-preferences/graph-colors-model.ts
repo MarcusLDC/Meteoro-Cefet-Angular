@@ -1,0 +1,15 @@
+export class GraphColorPreferences{
+    tempArColor: string = 'left'
+    tempMinColor: string = 'left'
+    tempMaxColor: string = 'left'
+    tempOrvColor: string = 'left'
+    chuvaColor: string = 'left'
+    direcaoVentoColor: string = 'left'
+    velocidadeVentoColor: string = 'left'
+    velocidadeVentoMaxColor: string = 'left'
+    bateriaColor: string = 'left'
+    radiacaoColor: string = 'left'
+    pressaoATMColor: string = 'left'
+    indiceCalorColor: string = 'left'
+    umidadeRelativaColor: string = 'left'
+}

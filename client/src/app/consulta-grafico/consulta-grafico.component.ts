@@ -2,7 +2,7 @@ import { AfterViewInit, Component, ElementRef, EventEmitter, Input, OnInit, Outp
 import Chart from 'chart.js/auto';
 import { Campo, StationData } from '../shared/services/DTOs/consulta-DTO';
 import { GRAPHS } from './graph-models/graph-data';
-import { GraphPreferences } from '../shared/models/graph-preferences-model';
+import { GraphPreferences } from '../shared/models/graph-preferences/graph-preferences-model';
 import { LocalStorageServices } from '../shared/services/local-storage-services';
 
 @Component({

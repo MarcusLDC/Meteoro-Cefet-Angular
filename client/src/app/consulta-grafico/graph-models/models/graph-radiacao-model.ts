@@ -8,10 +8,10 @@ export class GraphRadiacao implements GraphData {
             campo: Campo.Radiacao,
             config: {
                 label: 'Radiação Solar(W/m²)',
-                borderColor: 'yellow',
-                fill: true,
+                borderColor: 'RGB(255, 235, 59)',
+                fill: false,
                 type: 'line',
-                backgroundColor: 'rgba(0, 0, 0, 0)',
+                backgroundColor: 'RGB(255, 235, 59)',
                 z: 1,
             },
         }

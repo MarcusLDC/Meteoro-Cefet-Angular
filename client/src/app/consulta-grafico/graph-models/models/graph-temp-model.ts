@@ -8,10 +8,10 @@ export class GraphTemperatura implements GraphData {
             campo: Campo.TempAr,
             config: {
                 label: 'Temperatura do Ar(°C)',
-                borderColor: 'blue',
-                fill: true,
+                borderColor: 'RGB(21, 101, 192)',
+                fill: false,
                 type: 'line',
-                backgroundColor: 'rgba(0, 0, 0, 0)',
+                backgroundColor: 'RGB(21, 101, 192)',
                 z: 100,
             },
         },
@@ -19,10 +19,10 @@ export class GraphTemperatura implements GraphData {
             campo: Campo.TempMin,
             config: {
                 label: 'Temperatura Minima(°C)',
-                borderColor: 'rgba(102, 153, 255, 1)',
-                fill: true,
+                borderColor: 'RGB(79, 195, 247)',
+                fill: false,
                 type: 'line',
-                backgroundColor: 'rgba(0, 0, 0, 0)',
+                backgroundColor: 'RGB(79, 195, 247)',
                 z: 100,
             },
         },
@@ -30,10 +30,10 @@ export class GraphTemperatura implements GraphData {
             campo: Campo.TempMax,
             config: {
                 label: 'Temperatura Máxima(°C)',
-                borderColor: 'orange',
-                fill: true,
+                borderColor: 'RGB(239, 108, 0)',
+                fill: false,
                 type: 'line',
-                backgroundColor: 'rgba(0, 0, 0, 0)',
+                backgroundColor: 'RGB(239, 108, 0)',
                 z: 100,
             }
         },
@@ -41,10 +41,10 @@ export class GraphTemperatura implements GraphData {
             campo: Campo.TempOrv,
             config: {
                 label: 'T° Ponto de Orvalho(°C)',
-                borderColor: 'green',
-                fill: true,
+                borderColor: 'RGB(67, 160, 71)',
+                fill: false,
                 type: 'line',
-                backgroundColor: 'rgba(0, 0, 0, 0)',
+                backgroundColor: 'RGB(67, 160, 71)',
                 z: 100,
             }
         },
@@ -52,10 +52,10 @@ export class GraphTemperatura implements GraphData {
             campo: Campo.IndiceCalor,
             config: {
                 label: 'Índice de Calor(°C)',
-                borderColor: 'red',
-                fill: true,
+                borderColor: 'RGB(255, 25, 25)',
+                fill: false,
                 type: 'line',
-                backgroundColor: 'rgba(0, 0, 0, 0)',
+                backgroundColor: 'RGB(255, 25, 25)',
                 z: 100,
             }
         },
@@ -63,10 +63,10 @@ export class GraphTemperatura implements GraphData {
             campo: Campo.UmidadeRelativa,
             config: {
                 label: 'Umidade Relativa(%)',
-                borderColor: 'purple',
-                fill: true,
+                borderColor: 'RGB(149, 117, 205, 0.3)',
+                fill: false,
                 type: 'bar',
-                backgroundColor: 'rgba(75, 0, 130, 0.2)',
+                backgroundColor: 'RGB(149, 117, 205, 0.3)',
                 z: 1,
             }
         }
