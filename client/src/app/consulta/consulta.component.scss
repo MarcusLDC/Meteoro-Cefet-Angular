@@ -5,10 +5,29 @@
 }
 
 .preferencias{
-    width: 300px; 
+    width: 300px;
+    margin-top: 30px !important;
     margin-left: 5px;
     margin-bottom: 15px;
     margin-right: 35px !important;
+}
+
+.formato{
+    padding-left: 10px;
+}
+
+.col-sm{
+    padding-bottom: 20px;
+}
+
+.colorPicker{
+    padding-left: 20px;
+    display: flex;
+    align-items: center;
+}
+
+.preferencesIcon{
+    vertical-align: middle;
 }
 
 p, h1{
@@ -46,6 +65,7 @@ label { margin-left: 5px; margin-right: 5px;}
     margin-bottom: 15px;
     margin-right: 15px;
     float: left;
+    color:white
 }
 
 .reset{
@@ -53,7 +73,15 @@ label { margin-left: 5px; margin-right: 5px;}
     margin-bottom: 15px;
     margin-right: 15px;
     float: left;
-    color: black;
+    color:white
+}
+
+.preferencesButton{
+    display: flex;
+    float: left;
+    margin-left: 28px;
+    margin-bottom: 10px;
+    color: white;
 }
 
 .colu{

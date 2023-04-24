@@ -1,15 +1,15 @@
-import { Component, ElementRef, QueryList, ViewChildren } from '@angular/core';
+import { Component } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { ConsultaIntervaloParams, ConsultaModel } from '../shared/models/consulta-model';
 import { MeteoroServices } from '../shared/services/meteoro-services';
 import { Estacao } from '../shared/models/estacao-model';
 import { ThemePalette } from '@angular/material/core';
 import { LocalStorageServices } from '../shared/services/local-storage-services';
-import { ConsultaDTO, StationData } from '../shared/services/DTOs/consulta-DTO';
-import { GraphPreferences } from '../shared/models/graph-preferences-model';
-import * as JSZip from 'jszip';
-import * as saveAs from 'file-saver';
-import { Router } from '@angular/router';
+import { GraphPreferences } from '../shared/models/graph-preferences/graph-preferences-model';
+import { GraphTypePreferences } from '../shared/models/graph-preferences/graph-types-model';
+import { GraphColorPreferences } from '../shared/models/graph-preferences/graph-colors-model';
+import { MatDialog } from '@angular/material/dialog';
+import { ConsultaSettingsModalComponent } from './consulta-settings-modal/consulta-settings-modal.component';
 
 @Component({
   selector: 'app-consulta',
@@ -19,7 +19,7 @@ import { Router } from '@angular/router';
 
 export class ConsultaComponent{
 
-  janelasPopups!: any;
+  modalAberto = false;
 
   checkboxes = ['tempAr','tempMin','tempMax','tempOrv','chuva','direcaoVento','velocidadeVento','velocidadeVentoMax','bateria','radiacao','pressaoATM','indiceCalor','umidadeRelativa'];
   marcarTodas = true;
@@ -30,6 +30,8 @@ export class ConsultaComponent{
 
   form: FormGroup;
   form2: FormGroup;
+  form3: FormGroup;
+  form4: FormGroup;
 
   estacoes: Estacao[] = [];
   consultaParams!: ConsultaIntervaloParams;
@@ -47,7 +49,12 @@ export class ConsultaComponent{
     { value: "Mensal", key: 6 }
   ];
 
-  constructor(private builder: FormBuilder, private meteoroServices: MeteoroServices, private localStorage: LocalStorageServices) {
+  tiposDoGrafico = [
+    { value: 'line', key: 'Linha'},
+    { value: 'bar', key: 'Barra'},
+  ];
+
+  constructor(public dialog: MatDialog, private builder: FormBuilder, private meteoroServices: MeteoroServices, private localStorage: LocalStorageServices) {
     document.title = "Consulta - CoMet - LAPA - Monitoramento Ambiental"
     this.minDate = new Date(2023, 1, 16);
     
@@ -87,6 +94,38 @@ export class ConsultaComponent{
       pressaoATMSide: [Validators.required],
       indiceCalorSide: [Validators.required],
       umidadeRelativaSide: [Validators.required],
+    })
+
+    this.form3 = this.builder.group({
+      tempArType: [Validators.required],
+      tempMinType: [Validators.required],
+      tempMaxType: [Validators.required],
+      tempOrvType: [Validators.required],
+      chuvaType: [Validators.required],
+      direcaoVentoType: [Validators.required],
+      velocidadeVentoType: [Validators.required],
+      velocidadeVentoMaxType: [Validators.required],
+      bateriaType: [Validators.required],
+      radiacaoType: [Validators.required],
+      pressaoATMType: [Validators.required],
+      indiceCalorType: [Validators.required],
+      umidadeRelativaType: [Validators.required],
+    })
+
+    this.form4 = this.builder.group({
+      tempArColor: [Validators.required],
+      tempMinColor: [Validators.required],
+      tempMaxColor: [Validators.required],
+      tempOrvColor: [Validators.required],
+      chuvaColor: [Validators.required],
+      direcaoVentoColor: [Validators.required],
+      velocidadeVentoColor: [Validators.required],
+      velocidadeVentoMaxColor: [Validators.required],
+      bateriaColor: [Validators.required],
+      radiacaoColor: [Validators.required],
+      pressaoATMColor: [Validators.required],
+      indiceCalorColor: [Validators.required],
+      umidadeRelativaColor: [Validators.required],
     })
 
     meteoroServices.getEstacoes().subscribe(x => this.estacoes = x);
@@ -152,8 +191,12 @@ export class ConsultaComponent{
 
       this.spinnerValue = checkboxes + periodo + estacao + intervalo + opcao;
     });
+
     this.form.patchValue(await this.localStorage.get<ConsultaIntervaloParams>('consultaParameters') ?? this.resetarForm1());
-    this.form2.patchValue(await this.localStorage.get<GraphPreferences>('graphPreferences') ?? this.resetarForm2());
+    this.form2.patchValue(await this.localStorage.get<GraphPreferences>('graphPreferences') ?? new GraphPreferences);
+    this.form3.patchValue(await this.localStorage.get<GraphTypePreferences>('graphTypePreferences') ?? new GraphTypePreferences)
+    this.form4.patchValue(await this.localStorage.get<GraphColorPreferences>('graphColorPreferences') ?? new GraphColorPreferences)
+
   }
 
   public async consultarTabela(){
@@ -237,10 +280,6 @@ export class ConsultaComponent{
     this.form.patchValue({periodoInicio: null, periodoFim: null, tabela: false, grafico: false});
   }
 
-  public resetarForm2() {
-    this.form2.patchValue(new GraphPreferences)
-  }
-
   public markAll(){
     this.setCheckboxesValue(this.marcarTodas);
     this.marcarTodas = !this.marcarTodas;
@@ -263,10 +302,34 @@ export class ConsultaComponent{
     };
 
     this.localStorage.set('consultaParameters', this.consultaParams);
+    this.setPreferences();
+    return formData;
+  }
 
+  private setPreferences() {
     this.localStorage.set('graphPreferences', this.form2.value as GraphPreferences);
 
-    return formData;
+    this.localStorage.set('graphTypePreferences', this.form3.value as GraphTypePreferences);
+
+    this.localStorage.set('graphColorPreferences', this.form4.value as GraphColorPreferences);
+  }
+
+  public openDialog(){
+    if(this.modalAberto)
+      return;
+  
+    var dialogRef = this.dialog.open(ConsultaSettingsModalComponent, {
+      width: '300px',
+    });
+  
+    this.modalAberto = true;
+  
+    dialogRef.afterClosed().subscribe(() => {
+      this.modalAberto = false;
+      if (Object.values(dialogRef.componentInstance.isButtonClicked).some(x => x)) {
+        location.reload();
+      }
+    });
   }
 
   private dataURItoBlob(data: string) {

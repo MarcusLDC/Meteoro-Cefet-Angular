@@ -1,0 +1,11 @@
+<mat-card class="card">
+    <mat-card-header class="title">
+        Restaurar padrão
+    </mat-card-header>
+    <mat-card-content>
+        <button class="botao" mat-raised-button color="warn" [disabled]="isButtonClicked.escalas" (click)="resetarEscalas()"> Restaurar ESCALAS </button>
+        <button class="botao" mat-raised-button color="warn" [disabled]="isButtonClicked.cores" (click)="resetarCores()"> Restaurar CORES </button>
+        <button class="botao" mat-raised-button color="warn" [disabled]="isButtonClicked.formatos" (click)="resetarFormatos()"> Restaurar FORMATOS </button>
+    </mat-card-content>
+    <span class="subtitle"> caso algum padrão seja restaurado, a página será recarregada </span>
+</mat-card>
