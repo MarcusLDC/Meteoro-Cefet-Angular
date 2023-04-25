@@ -7,7 +7,8 @@ import { Estacao } from '../shared/models/estacao-model';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import ChartDataLabels from 'chartjs-plugin-datalabels';
 
-type DataSet = { label: string, data: number[], borderColor: string, fill: boolean, type: string, backgroundColor: string, yAxisID: string, z: number, align: string, suffix: string};
+type DataSet = { label: string, data: number[], borderColor: string, fill: boolean, type: string, 
+  backgroundColor: string, yAxisID: string, z: number, align: string, suffix: string, pointRadius: number};
 
 @Component({
   selector: 'app-home',
@@ -93,11 +94,21 @@ export class HomeComponent {
             },
             clamp: true,
             anchor: 'center',
+            font: {
+              size: 9,
+              weight: 700,
+              family: 'Arial',
+            },
+            textStrokeColor: 'white',
+            textStrokeWidth: 7,
             align: function(context){
               return dataset[context.datasetIndex].align;
             },
             display: 'auto',
             formatter: function(value, context) {
+              if(dataset[context.datasetIndex].suffix == '%'){
+                return value.toFixed(0) + dataset[context.datasetIndex].suffix
+              }
               return value + dataset[context.datasetIndex].suffix;
             },
           },
@@ -117,7 +128,7 @@ export class HomeComponent {
         elements:{
           line:{
             tension: 0.5,
-            borderWidth: 2
+            borderWidth: 1
           },
         }
       }
@@ -138,6 +149,7 @@ export class HomeComponent {
       z: 100,
       align: 'bottom',
       suffix: '°C',
+      pointRadius: 1
     })
     datasetsByKeys.push({
       label: 'Ponto de Orvalho(°C)',
@@ -150,6 +162,7 @@ export class HomeComponent {
       z: 100,
       align: 'bottom',
       suffix: '°C',
+      pointRadius: 1
     })
     datasetsByKeys.push({
       label: 'Índice de Calor(°C)',
@@ -162,6 +175,7 @@ export class HomeComponent {
       z: 100,
       align: 'top',
       suffix: '°C',
+      pointRadius: 1
     })
     datasetsByKeys.push({
       label: 'Umidade Relativa(%)',
@@ -174,6 +188,7 @@ export class HomeComponent {
       z: 100,
       align: 'top',
       suffix: '%',
+      pointRadius: 1
     })
 
     return datasetsByKeys;
