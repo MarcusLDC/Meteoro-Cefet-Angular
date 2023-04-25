@@ -45,6 +45,7 @@ export class ConsultaGraficoComponent implements AfterViewInit{
         type: this.typePreferences[CampoTipo[x.field] as keyof GraphTypePreferences],
         backgroundColor: this.colorPreferences[CampoCor[x.field] as keyof GraphColorPreferences],
         yAxisID: this.graphPreferences[CampoLado[x.field] as keyof GraphPreferences],
+        pointLabels: x.values.toString()
       }
       return dataset;
 

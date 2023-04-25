@@ -6,7 +6,6 @@ import { DatePipe } from '@angular/common';
 import { Estacao } from '../shared/models/estacao-model';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
-
 type DataSet = { label: string, data: number[], borderColor: string, fill: boolean, type: string, backgroundColor: string, yAxisID: string, z: number};
 
 @Component({
@@ -20,7 +19,7 @@ export class HomeComponent {
 
   formato = 'dd/MM/yyyy HH:mm';
   datePipe = new DatePipe('en-Us')
-
+  
   form: FormGroup;
   chart!: Chart;
   dataset: DataSet[] = [];
@@ -42,7 +41,7 @@ export class HomeComponent {
   }
 
   ngOnInit(){
-    this.estacaoSelecionada = 11;
+    this.estacaoSelecionada = 66;
     this.form.patchValue({estacao: this.estacaoSelecionada})
 
     this.meteoroServices.getEstacoes().subscribe(x => {
@@ -86,8 +85,9 @@ export class HomeComponent {
           title:{
             display: true,
             text: titulo
-          }
+          },
         },
+        
         responsive: true,
         maintainAspectRatio: true,
         backgroundColor: 'white',
@@ -121,6 +121,7 @@ export class HomeComponent {
       backgroundColor: 'RGB(21, 101, 192)',
       yAxisID: 'left',
       z: 100,
+      
     })
     datasetsByKeys.push({
       label: 'Ponto de Orvalho(°C)',
@@ -131,6 +132,7 @@ export class HomeComponent {
       backgroundColor: 'RGB(67, 160, 71)',
       yAxisID: 'left',
       z: 100,
+      
     })
     datasetsByKeys.push({
       label: 'Índice de Calor(°C)',
@@ -141,20 +143,20 @@ export class HomeComponent {
       backgroundColor: 'RGB(255, 25, 25)',
       yAxisID: 'left',
       z: 100,
+      
     })
     datasetsByKeys.push({
       label: 'Umidade Relativa(%)',
       data: Object.values(this.dataSource).map(x => x.umidadeRelativaAr).reverse(),
-      borderColor: 'RGB(149, 117, 205, 0.3)',
+      borderColor: 'RGB(149, 117, 205)',
       fill: false,
-      type: 'bar',
-      backgroundColor: 'RGB(149, 117, 205, 0.3)',
+      type: 'line',
+      backgroundColor: 'RGB(149, 117, 205)',
       yAxisID: 'right',
       z: 100,
+      
     })
 
     return datasetsByKeys;
   }
 }
-
-

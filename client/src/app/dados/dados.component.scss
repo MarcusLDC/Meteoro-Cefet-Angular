@@ -26,6 +26,16 @@ th.mat-sort-header-sorted {
     z-index: 999; 
 }
 
+.body{
+    font-family: Roboto, "Helvetica Neue", sans-serif;
+    color: rgb(66, 66, 66);
+    padding-top: 60px;
+    max-width: 90%;
+    margin: auto;
+    display: flex;
+    flex-direction: column;
+}
+
 .container {
     display: block;
     background-color: transparent;

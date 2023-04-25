@@ -192,11 +192,10 @@ export class ConsultaComponent{
       this.spinnerValue = checkboxes + periodo + estacao + intervalo + opcao;
     });
 
-    this.form.patchValue(await this.localStorage.get<ConsultaIntervaloParams>('consultaParameters') ?? this.resetarForm1());
     this.form2.patchValue(await this.localStorage.get<GraphPreferences>('graphPreferences') ?? new GraphPreferences);
     this.form3.patchValue(await this.localStorage.get<GraphTypePreferences>('graphTypePreferences') ?? new GraphTypePreferences)
     this.form4.patchValue(await this.localStorage.get<GraphColorPreferences>('graphColorPreferences') ?? new GraphColorPreferences)
-
+    
   }
 
   public async consultarTabela(){
@@ -293,15 +292,8 @@ export class ConsultaComponent{
 
   private setFormData() {
     let formData = this.form.value as ConsultaModel;
-
-    this.consultaParams = {
-      intervalo: this.form.get('intervalo')?.value,
-      periodoInicio: this.form.get('periodoInicio')?.value,
-      periodoFim: this.form.get('periodoInicio')?.value,
-      estacao: this.form.get('estacao')?.value,
-    };
-
-    this.localStorage.set('consultaParameters', this.consultaParams);
+    
+    this.localStorage.remove('consultaParameters');
     this.setPreferences();
     return formData;
   }
