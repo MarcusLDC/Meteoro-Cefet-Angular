@@ -1,25 +1,11 @@
 .card{
     padding: 10px;
     margin: 10px;
-    box-shadow: 0px 0px 10px rgba(107, 107, 107, 0.3);
 }
 
 .border{
     background-color: rgb(185, 185, 185);
     padding: 1px;
-}
-
-.card30{
-    width: 30%;
-}
-
-.card70{
-    width: 70%;
-}
-
-.half{
-    display: flex;
-    min-width: 1543px;
 }
 
 .white{
@@ -37,6 +23,15 @@
     margin-bottom: 15px;
 }
 
+.header{
+    font-weight: 500;
+    padding-top: 10px;
+}
+
+.cabecalho{
+    font-weight: 500;
+}
+
 .title{
     padding-left: 15px;
     padding-top: 15px;
@@ -49,25 +44,6 @@
     justify-content: center;
 }
 
-.header{
-    padding-top: 10px;
-    font-weight: 500;
-}
-
-.select{
-    margin-left: 5px;
-}
-
-.subtitle{
-    font-size: 12px;
-    padding-left: 15px;
-    font-weight: 400;
-}
-
 .padded{
     padding: 10px;
-}
-
-input:-webkit-autofill {
-    -webkit-box-shadow: 0 0 0px 1000px white inset !important;
 }

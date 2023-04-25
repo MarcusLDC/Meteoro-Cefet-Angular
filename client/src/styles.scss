@@ -12,6 +12,13 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
     margin: auto;
 }
 
+select{
+    margin-left: 5px;
+    border-radius: 5px; 
+    border-width: 2px; 
+    border-style: solid; 
+}
+
 mat-icon {
     vertical-align: middle;
 }
