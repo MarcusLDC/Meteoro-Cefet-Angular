@@ -26,16 +26,6 @@ th.mat-sort-header-sorted {
     z-index: 999; 
 }
 
-.body{
-    font-family: Roboto, "Helvetica Neue", sans-serif;
-    color: rgb(66, 66, 66);
-    padding-top: 60px;
-    max-width: 90%;
-    margin: auto;
-    display: flex;
-    flex-direction: column;
-}
-
 .container {
     display: block;
     background-color: transparent;
@@ -143,4 +133,11 @@ button.active {
 
 p{
     margin-bottom: 15px;
+}
+
+.custom-tooltip {
+    background-color: #69b3e2;
+    color: #fff;
+    border-radius: 3px;
+    padding: 5px;
 }

@@ -147,7 +147,7 @@ export class DadosComponent implements OnInit {
       this.geocode(this.estacaoSelecionada!);
     } else {
       this.criado = true;
-      this.map = L.map('map', { scrollWheelZoom: false, }).setView([this.getMiddleLatitude(), this.getMiddleLongitude()], 7);
+      this.map = L.map('map', { scrollWheelZoom: false, }).setView([this.getMiddleLatitude(), this.getMiddleLongitude()], 8);
       this.tileLayer();
       this.markAll();
     }
@@ -178,18 +178,24 @@ export class DadosComponent implements OnInit {
 
   private markAll() {
     this.estacoes.forEach(estacao => {
+      this.meteoroServices.getDadosEstacao(estacao.numero, 1).subscribe(x => {
 
-      this.funcionando = this.estacoes.filter(x => x.status == 0).length;
-      this.desligadas = this.estacoes.filter(x => x.status == 1).length;
-      this.manutencao = this.estacoes.filter(x => x.status == 2).length;
+        this.funcionando = this.estacoes.filter(x => x.status == 0).length;
+        this.desligadas = this.estacoes.filter(x => x.status == 1).length;
+        this.manutencao = this.estacoes.filter(x => x.status == 2).length;
+  
+        var icone = estacao.status == 0 ? this.createIcon('assets/markerVerde.png') : estacao.status == 1 ? this.createIcon('assets/markerVermelho.png') : this.createIcon('assets/markerAzul.png')
+        let tooltipContent = estacao.status == 0 ? x[0].temperaturaAr.toString() + '°C' : 'OFF'
 
-      var icone = estacao.status == 0 ? this.createIcon('assets/markerVerde.png') : estacao.status == 1 ? this.createIcon('assets/markerVermelho.png') : this.createIcon('assets/markerAzul.png')
+        L.marker([estacao.latitude, estacao.longitude], { icon: icone })
+        .bindTooltip(tooltipContent, {direction: 'bottom', permanent: estacao.status == 0, offset: [-7, 0]})
+        .addTo(this.map).on('click', () => {
+          this.setSelectedEstacao(String(estacao.numero));
+          this.form.setValue({ estacao: String(estacao.numero) });
+          this.localStorage.set('estacao', String(estacao.numero));
+          this.atualizarDados();
+        });
 
-      L.marker([estacao.latitude, estacao.longitude], { icon: icone }).addTo(this.map).on('click', () => {
-        this.setSelectedEstacao(String(estacao.numero));
-        this.form.setValue({ estacao: String(estacao.numero) });
-        this.localStorage.set('estacao', String(estacao.numero));
-        this.atualizarDados();
       });
     });
   }
