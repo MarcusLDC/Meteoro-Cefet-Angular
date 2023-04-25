@@ -5,3 +5,13 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 
 /* Importing Bootstrap SCSS file. */
 @import 'bootstrap/scss/bootstrap';
+
+.body{
+    padding-top: 60px;
+    max-width: 90%;
+    margin: auto;
+}
+
+mat-icon {
+    vertical-align: middle;
+}

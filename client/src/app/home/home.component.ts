@@ -5,9 +5,9 @@ import { Chart } from 'chart.js';
 import { DatePipe } from '@angular/common';
 import { Estacao } from '../shared/models/estacao-model';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import ChartDataLabels from 'chartjs-plugin-datalabels';
 
-
-type DataSet = { label: string, data: number[], borderColor: string, fill: boolean, type: string, backgroundColor: string, yAxisID: string, z: number};
+type DataSet = { label: string, data: number[], borderColor: string, fill: boolean, type: string, backgroundColor: string, yAxisID: string, z: number, align: string, suffix: string};
 
 @Component({
   selector: 'app-home',
@@ -20,7 +20,7 @@ export class HomeComponent {
 
   formato = 'dd/MM/yyyy HH:mm';
   datePipe = new DatePipe('en-Us')
-
+  
   form: FormGroup;
   chart!: Chart;
   dataset: DataSet[] = [];
@@ -38,11 +38,11 @@ export class HomeComponent {
     this.form = builder.group({
       estacao: [null, Validators.required]
     });
-
+    Chart.register(ChartDataLabels);
   }
 
   ngOnInit(){
-    this.estacaoSelecionada = 11;
+    this.estacaoSelecionada = 66;
     this.form.patchValue({estacao: this.estacaoSelecionada})
 
     this.meteoroServices.getEstacoes().subscribe(x => {
@@ -86,8 +86,23 @@ export class HomeComponent {
           title:{
             display: true,
             text: titulo
-          }
+          },
+          datalabels: {
+            color: function(context) {
+              return dataset[context.datasetIndex].backgroundColor;
+            },
+            clamp: true,
+            anchor: 'center',
+            align: function(context){
+              return dataset[context.datasetIndex].align;
+            },
+            display: 'auto',
+            formatter: function(value, context) {
+              return value + dataset[context.datasetIndex].suffix;
+            },
+          },
         },
+
         responsive: true,
         maintainAspectRatio: true,
         backgroundColor: 'white',
@@ -121,6 +136,8 @@ export class HomeComponent {
       backgroundColor: 'RGB(21, 101, 192)',
       yAxisID: 'left',
       z: 100,
+      align: 'bottom',
+      suffix: '°C',
     })
     datasetsByKeys.push({
       label: 'Ponto de Orvalho(°C)',
@@ -131,6 +148,8 @@ export class HomeComponent {
       backgroundColor: 'RGB(67, 160, 71)',
       yAxisID: 'left',
       z: 100,
+      align: 'bottom',
+      suffix: '°C',
     })
     datasetsByKeys.push({
       label: 'Índice de Calor(°C)',
@@ -141,20 +160,22 @@ export class HomeComponent {
       backgroundColor: 'RGB(255, 25, 25)',
       yAxisID: 'left',
       z: 100,
+      align: 'top',
+      suffix: '°C',
     })
     datasetsByKeys.push({
       label: 'Umidade Relativa(%)',
       data: Object.values(this.dataSource).map(x => x.umidadeRelativaAr).reverse(),
-      borderColor: 'RGB(149, 117, 205, 0.3)',
+      borderColor: 'RGB(149, 117, 205)',
       fill: false,
-      type: 'bar',
-      backgroundColor: 'RGB(149, 117, 205, 0.3)',
+      type: 'line',
+      backgroundColor: 'RGB(149, 117, 205)',
       yAxisID: 'right',
       z: 100,
+      align: 'top',
+      suffix: '%',
     })
 
     return datasetsByKeys;
   }
 }
-
-
