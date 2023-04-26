@@ -41,13 +41,20 @@ export class MeteoroServices {
         const endpoint = `${environment.apiUrl}/dados`
         return this.httpClient.post<DadosTempo[]>(endpoint, numPagina)
     }
+
     public getEstacoes() {
         const endpoint = `${environment.apiUrl}/estacoes`
         return this.httpClient.get<Estacao[]>(endpoint)
     }
+
     public getDadosEstacao(numeroEstacao: number, numPagina: number) {
         const endpoint = `${environment.apiUrl}/dadosEstacao`
         return this.httpClient.post<DadosTempo[]>(endpoint, { numeroEstacao, numPagina })
+    }
+
+    public getDadosEstacaoDiario(numPagina: number, numEstacao: number){
+        const endpoint = `${environment.apiUrl}/dados/diario`
+        return this.httpClient.post<DadosTempo[]>(endpoint, { numPagina, numEstacao })
     }
 
     // authentication required
