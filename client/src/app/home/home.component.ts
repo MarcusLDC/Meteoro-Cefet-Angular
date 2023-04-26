@@ -61,6 +61,16 @@ export class HomeComponent {
     }, 300000);
   }
 
+  public nextPage(){
+    this.paginator > 1 ? this.paginator -= 1 : this.paginator;
+    this.atualizarDados();
+  }
+
+  public previousPage(){
+    this.paginator < 7 ? this.paginator += 1 : this.paginator;
+    this.atualizarDados();
+  }
+
   private atualizarDados(){
     this.meteoroServices.getDadosEstacaoDiario(this.paginator, this.estacaoSelecionada).subscribe(x => {this.dataSource = x
       if(this.chart1){
@@ -83,7 +93,7 @@ export class HomeComponent {
   }
 
   public createGraph(label: string[], dataset: any, graph: ElementRef){
-    let titulo = "em tempo real, atualizações do gráfico a cada 30 minutos"
+    let titulo = "Período de 24 horas, em tempo real. Atualizações do gráfico a cada 30 minutos"
     return new Chart(graph.nativeElement, {
       data: {
         labels: label.reverse(),
@@ -195,7 +205,7 @@ export class HomeComponent {
       z: 100,
       align: 'top',
       suffix: '%',
-      pointRadius: 1
+      pointRadius: 1,
     })
 
     return datasetsByKeys;
