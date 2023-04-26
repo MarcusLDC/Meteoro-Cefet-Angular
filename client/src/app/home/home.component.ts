@@ -103,7 +103,7 @@ export class HomeComponent {
         plugins:{
           title:{
             display: true,
-            text: titulo
+            text: label[0].split(' ')[0] + " - " + titulo
           },
           datalabels: {
             color: function(context) {
