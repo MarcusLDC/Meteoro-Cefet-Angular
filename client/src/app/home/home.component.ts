@@ -67,7 +67,7 @@ export class HomeComponent {
   }
 
   public previousPage(){
-    this.paginator < 7 ? this.paginator += 1 : this.paginator;
+    this.paginator < 30 ? this.paginator += 1 : this.paginator;
     this.atualizarDados();
   }
 
