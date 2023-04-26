@@ -1,6 +1,7 @@
 <div class="body">
     <mat-card class="card">
         <mat-card-content class="consulta">
+            
             <div class="container"> 
                 <mat-form-field class="padded" appearance="outline" [formGroup]="form">
                     <mat-label class="destaque">Insira o intervalo de datas</mat-label>
@@ -29,7 +30,7 @@
 
             <div class='container' [formGroup]="form">
                 <label for="intervalo" class="destaque"> Intervalo entre os dados:</label>
-                <select formControlName="intervalo" name="intervalo" id="intervalo">
+                <select formControlName="intervalo" name="intervalo" id="intervalo" [ngClass]="{ 'red-border': this.form.get('intervalo')?.value == null, 'green-border': this.form.get('intervalo')?.value != null}">
                     <option *ngFor="let item of periodosGrafico" [value]="item.value"> {{item.value}} </option>
                 </select>
             </div>

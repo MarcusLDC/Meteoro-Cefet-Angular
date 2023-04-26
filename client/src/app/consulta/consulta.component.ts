@@ -128,6 +128,8 @@ export class ConsultaComponent{
       umidadeRelativaColor: [Validators.required],
     })
 
+    this.form
+
     meteoroServices.getEstacoes().subscribe(x => this.estacoes = x);
     meteoroServices.getDados(1).subscribe(x => this.maxDate = x[0].dataHora)
   }
@@ -195,7 +197,7 @@ export class ConsultaComponent{
     this.form2.patchValue(await this.localStorage.get<GraphPreferences>('graphPreferences') ?? new GraphPreferences);
     this.form3.patchValue(await this.localStorage.get<GraphTypePreferences>('graphTypePreferences') ?? new GraphTypePreferences)
     this.form4.patchValue(await this.localStorage.get<GraphColorPreferences>('graphColorPreferences') ?? new GraphColorPreferences)
-    
+
   }
 
   public async consultarTabela(){

@@ -18,11 +18,6 @@
     display: block;
 }
 
-.botao{
-    margin-left: 15px;
-    margin-bottom: 15px;
-}
-
 .header{
     font-weight: 500;
     padding-top: 10px;
@@ -37,6 +32,17 @@
     padding-top: 15px;
     font-size: 22px;
     font-weight: 400;
+}
+
+span {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+.button{
+    color:white;
+    margin: 0px 30px;
 }
 
 .justifyMiddle{

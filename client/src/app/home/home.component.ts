@@ -23,13 +23,18 @@ export class HomeComponent {
   datePipe = new DatePipe('en-Us')
   
   form: FormGroup;
-  chart!: Chart;
+
+  chart1!: Chart;
+
   dataset: DataSet[] = [];
   dataSource: DadosTempo[] = [];
+
   data: string[] = [];
 
   estacoes: Estacao[] = []
   estacaoSelecionada!: number;
+  
+  paginator = 1;
 
   @ViewChild('graph1') graph!: ElementRef;
 
@@ -56,18 +61,30 @@ export class HomeComponent {
     }, 300000);
   }
 
-  private atualizarDados(){
+  public nextPage(){
+    this.paginator > 1 ? this.paginator -= 1 : this.paginator;
+    this.atualizarDados();
+  }
 
-    this.meteoroServices.getDadosEstacao(this.estacaoSelecionada, 1).subscribe(x => {this.dataSource = x
-      if(this.chart){
-        this.chart.destroy();
+  public previousPage(){
+    this.paginator < 7 ? this.paginator += 1 : this.paginator;
+    this.atualizarDados();
+  }
+
+  private atualizarDados(){
+    this.meteoroServices.getDadosEstacaoDiario(this.paginator, this.estacaoSelecionada).subscribe(x => {this.dataSource = x
+      if(this.chart1){
+        this.chart1.destroy();
       }
+
       let data = x.map(x => {
         return this.datePipe.transform(x.dataHora.toString(), this.formato)
       })
-      this.dataset = this.getDataset();
-      this.chart = this.createGraph(data as string[], this.dataset);
-    });
+
+      this.dataset = this.getDataset(this.dataSource);
+      this.chart1 = this.createGraph(data as string[], this.dataset, this.graph);
+
+    })
   }
 
   public selectEstacoesHandler(){
@@ -75,9 +92,9 @@ export class HomeComponent {
     this.atualizarDados();
   }
 
-  public createGraph(label: string[], dataset: any){
-    let titulo = "últimos 100 dados em tempo real, atualizações do gráfico a cada 5 minutos, intervalo de chegada de dados pode variar"
-    return new Chart(this.graph.nativeElement, {
+  public createGraph(label: string[], dataset: any, graph: ElementRef){
+    let titulo = "Período de 24 horas, em tempo real. Atualizações do gráfico a cada 30 minutos"
+    return new Chart(graph.nativeElement, {
       data: {
         labels: label.reverse(),
         datasets: dataset,
@@ -135,12 +152,12 @@ export class HomeComponent {
     });
   }
 
-  private getDataset(){
+  private getDataset(dataSource: DadosTempo[]){
     let datasetsByKeys: DataSet[] = [];
 
     datasetsByKeys.push({
       label: 'Temperatura do Ar(°C)',
-      data: Object.values(this.dataSource).map(x => x.temperaturaAr).reverse(),
+      data: Object.values(dataSource).map(x => x.temperaturaAr).reverse(),
       borderColor: 'RGB(21, 101, 192)',
       fill: false,
       type: 'line',
@@ -153,7 +170,7 @@ export class HomeComponent {
     })
     datasetsByKeys.push({
       label: 'Ponto de Orvalho(°C)',
-      data: Object.values(this.dataSource).map(x => x.tempPontoOrvalho).reverse(),
+      data: Object.values(dataSource).map(x => x.tempPontoOrvalho).reverse(),
       borderColor: 'RGB(67, 160, 71)',
       fill: false,
       type: 'line',
@@ -166,7 +183,7 @@ export class HomeComponent {
     })
     datasetsByKeys.push({
       label: 'Índice de Calor(°C)',
-      data: Object.values(this.dataSource).map(x => x.indiceCalor).reverse(),
+      data: Object.values(dataSource).map(x => x.indiceCalor).reverse(),
       borderColor: 'RGB(255, 25, 25)',
       fill: false,
       type: 'line',
@@ -179,7 +196,7 @@ export class HomeComponent {
     })
     datasetsByKeys.push({
       label: 'Umidade Relativa(%)',
-      data: Object.values(this.dataSource).map(x => x.umidadeRelativaAr).reverse(),
+      data: Object.values(dataSource).map(x => x.umidadeRelativaAr).reverse(),
       borderColor: 'RGB(149, 117, 205)',
       fill: false,
       type: 'line',
@@ -188,7 +205,7 @@ export class HomeComponent {
       z: 100,
       align: 'top',
       suffix: '%',
-      pointRadius: 1
+      pointRadius: 1,
     })
 
     return datasetsByKeys;
