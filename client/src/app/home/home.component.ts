@@ -25,21 +25,18 @@ export class HomeComponent {
   form: FormGroup;
 
   chart1!: Chart;
-  chart2!: Chart;
 
   dataset: DataSet[] = [];
-  dataset2: DataSet[] = [];
-
   dataSource: DadosTempo[] = [];
-  dataSource2: DadosTempo[] = [];
 
   data: string[] = [];
 
   estacoes: Estacao[] = []
   estacaoSelecionada!: number;
+  
+  paginator = 1;
 
   @ViewChild('graph1') graph!: ElementRef;
-  @ViewChild('graph2') graph2!: ElementRef;
 
   constructor(private meteoroServices: MeteoroServices, private builder: FormBuilder){
     document.title = "Home - CoMet - LAPA - Monitoramento Ambiental"
@@ -65,11 +62,9 @@ export class HomeComponent {
   }
 
   private atualizarDados(){
-
-    this.meteoroServices.getDadosEstacao(this.estacaoSelecionada, 1).subscribe(x => {this.dataSource = x
+    this.meteoroServices.getDadosEstacaoDiario(this.paginator, this.estacaoSelecionada).subscribe(x => {this.dataSource = x
       if(this.chart1){
         this.chart1.destroy();
-        this.chart2.destroy();
       }
 
       let data = x.map(x => {
@@ -78,23 +73,8 @@ export class HomeComponent {
 
       this.dataset = this.getDataset(this.dataSource);
       this.chart1 = this.createGraph(data as string[], this.dataset, this.graph);
-      
-    });
-
-    this.meteoroServices.getDadosEstacaoDiario(1, this.estacaoSelecionada).subscribe(x => {this.dataSource2 = x
-      if(this.chart2){
-        this.chart2.destroy();
-      }
-
-      let data = x.map(x => {
-        return this.datePipe.transform(x.dataHora.toString(), this.formato)
-      })
-
-      this.dataset2 = this.getDataset(this.dataSource2);
-      this.chart2 = this.createGraph(data as string[], this.dataset2, this.graph2);
 
     })
-
   }
 
   public selectEstacoesHandler(){
@@ -103,7 +83,7 @@ export class HomeComponent {
   }
 
   public createGraph(label: string[], dataset: any, graph: ElementRef){
-    let titulo = "últimos 100 dados em tempo real, atualizações do gráfico a cada 5 minutos, intervalo de chegada de dados pode variar"
+    let titulo = "em tempo real, atualizações do gráfico a cada 30 minutos"
     return new Chart(graph.nativeElement, {
       data: {
         labels: label.reverse(),
