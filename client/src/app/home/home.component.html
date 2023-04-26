@@ -10,8 +10,8 @@
 
                 <mat-card-header class="header justifyMiddle white" [formGroup]="form">
                     
-                    <button mat-raised-button class="button" *ngIf="paginator != 7" [ngStyle]="{ 'background-color': 'RGB(85, 139, 47)'}" (click)="previousPage()"> < Dia anterior </button>
-                    <button mat-raised-button disabled class="button" *ngIf="paginator == 7"> < Dia anterior </button>
+                    <button mat-raised-button class="button" *ngIf="paginator != 30" [ngStyle]="{ 'background-color': 'RGB(85, 139, 47)'}" (click)="previousPage()"> < Dia anterior </button>
+                    <button mat-raised-button disabled class="button" *ngIf="paginator == 30"> < Dia anterior </button>
 
                     <span> Acompanhando Estação </span>
                     <select style="border-color: green;" formControlName="estacao" (change)="selectEstacoesHandler()">

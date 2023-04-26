@@ -16,7 +16,7 @@
                 <mat-form-field appearance="outline" [formGroup]="form">
                     <mat-label>Insira as estações</mat-label>
                     <mat-select formControlName="estacao" multiple>
-                    <mat-option *ngFor="let item of estacoes" [value]="item.numero">{{item.numero}}</mat-option>
+                        <mat-option *ngFor="let item of estacoes" [value]="item.numero">{{item.numero}}</mat-option>
                     </mat-select>
                 </mat-form-field>
             </div>  
@@ -373,7 +373,7 @@
                         <button class="botao" mat-raised-button [ngStyle]="{ 'background-color': 'RGB(85, 139, 47)'}" (click)="consultarTabela()" *ngIf="spinnerValue == 100"> Gerar Tabela (.csv) </button>
                         <button class="botao" mat-raised-button color="warn" disabled *ngIf="spinnerValue != 100"> Gerar Tabela (.csv)</button>
                         <button class="reset" mat-raised-button [ngStyle]="{ 'background-color': 'RGB(255, 44, 44)'}" (click)="resetarForm1()"> Resetar Escolhas </button>
-                    </ng-container>     
+                    </ng-container>
 
                     <ng-container *ngIf="this.form.get('grafico')?.value">
                         <button class="botao" mat-raised-button [ngStyle]="{ 'background-color': 'RGB(85, 139, 47)'}" (click)="consultarGrafico()" *ngIf="spinnerValue == 100"> Gerar Gráfico (Nova Janela) </button>

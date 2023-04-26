@@ -128,8 +128,6 @@ export class ConsultaComponent{
       umidadeRelativaColor: [Validators.required],
     })
 
-    this.form
-
     meteoroServices.getEstacoes().subscribe(x => this.estacoes = x);
     meteoroServices.getDados(1).subscribe(x => this.maxDate = x[0].dataHora)
   }
