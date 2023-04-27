@@ -6,6 +6,8 @@ import { DatePipe } from '@angular/common';
 import { Estacao } from '../shared/models/estacao-model';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import ChartDataLabels from 'chartjs-plugin-datalabels';
+import { FieldData, StationData } from '../shared/services/DTOs/consulta-DTO';
+import { ConsultaModel } from '../shared/models/consulta-model';
 
 type DataSet = { label: string, data: number[], borderColor: string, fill: boolean, type: string, 
   backgroundColor: string, yAxisID: string, z: number, align: string, suffix: string, pointRadius: number};
@@ -24,19 +26,17 @@ export class HomeComponent {
   
   form: FormGroup;
 
-  chart1!: Chart;
-
-  dataset: DataSet[] = [];
-  dataSource: DadosTempo[] = [];
-
   data: string[] = [];
+
+  model = new ConsultaModel;
+  consultaData!: StationData;
+
+  graficos!: FieldData[];
 
   estacoes: Estacao[] = []
   estacaoSelecionada!: number;
   
   paginator = 1;
-
-  @ViewChild('graph1') graph!: ElementRef;
 
   constructor(private meteoroServices: MeteoroServices, private builder: FormBuilder){
     document.title = "Home - CoMet - LAPA - Monitoramento Ambiental"
@@ -44,6 +44,7 @@ export class HomeComponent {
     this.form = builder.group({
       estacao: [null, Validators.required]
     });
+
     Chart.register(ChartDataLabels);
   }
 
@@ -62,28 +63,43 @@ export class HomeComponent {
   }
 
   public nextPage(){
-    this.paginator > 1 ? this.paginator -= 1 : this.paginator;
+    this.paginator < 1 ? this.paginator += 1 : this.paginator;
     this.atualizarDados();
   }
 
   public previousPage(){
-    this.paginator < 30 ? this.paginator += 1 : this.paginator;
+    this.paginator > 3 ? this.paginator -= 1: this.paginator;
     this.atualizarDados();
   }
 
   private atualizarDados(){
-    this.meteoroServices.getDadosEstacaoDiario(this.paginator, this.estacaoSelecionada).subscribe(x => {this.dataSource = x
-      if(this.chart1){
-        this.chart1.destroy();
-      }
 
-      let data = x.map(x => {
-        return this.datePipe.transform(x.dataHora.toString(), this.formato)
-      })
+    const agora = new Date()
+    const umDia = 24 * 60 * 60 * 1000;
 
-      this.dataset = this.getDataset(this.dataSource);
-      this.chart1 = this.createGraph(data as string[], this.dataset, this.graph);
-
+    this.model = {
+      periodoInicio : new Date(agora.getTime() - umDia * this.paginator),
+      periodoFim : new Date(agora.getTime() - umDia * this.paginator),
+      estacao : [this.estacaoSelecionada.toString()],
+      intervalo : '30 minutos',
+      tempAr : true,
+      tempMin : true,
+      tempMax : true,
+      tempOrv : true,
+      chuva : true,
+      direcaoVento : true,
+      velocidadeVento : true,
+      velocidadeVentoMax: true,
+      bateria: true,
+      radiacao: true,
+      pressaoATM: true,
+      indiceCalor : true,
+      umidadeRelativa : true
+    }
+    
+    this.meteoroServices.consultarGrafico(this.model).subscribe(x => {
+      this.consultaData = x.stationData[0]
+      console.log(this.consultaData)
     })
   }
 
@@ -103,7 +119,7 @@ export class HomeComponent {
         plugins:{
           title:{
             display: true,
-            text: label[0].split(' ')[0] + " - " + titulo
+            text: titulo
           },
           datalabels: {
             color: function(context) {

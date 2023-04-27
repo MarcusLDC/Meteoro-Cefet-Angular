@@ -5,6 +5,7 @@ import { GraphPreferences } from '../shared/models/graph-preferences/graph-prefe
 import { LocalStorageServices } from '../shared/services/local-storage-services';
 import { GraphColorPreferences } from '../shared/models/graph-preferences/graph-colors-model';
 import { GraphTypePreferences } from '../shared/models/graph-preferences/graph-types-model';
+import ChartDataLabels from 'chartjs-plugin-datalabels';
 
 @Component({
   selector: 'app-consulta-grafico',
@@ -28,7 +29,7 @@ export class ConsultaGraficoComponent implements AfterViewInit{
 
   @ViewChild ('graph') graphCanvas!: ElementRef;
   
-  constructor(private localStorage: LocalStorageServices) { }
+  constructor(private localStorage: LocalStorageServices) { Chart.register(ChartDataLabels); }
 
   async ngAfterViewInit(): Promise<void> {
 
@@ -45,7 +46,6 @@ export class ConsultaGraficoComponent implements AfterViewInit{
         type: this.typePreferences[CampoTipo[x.field] as keyof GraphTypePreferences],
         backgroundColor: this.colorPreferences[CampoCor[x.field] as keyof GraphColorPreferences],
         yAxisID: this.graphPreferences[CampoLado[x.field] as keyof GraphPreferences],
-        pointLabels: x.values.toString()
       }
       return dataset;
 
@@ -71,7 +71,26 @@ export class ConsultaGraficoComponent implements AfterViewInit{
               weight: "bold"
             },
             text: `Estação ${this.stationData.station} de ${this.dates[0]} à ${this.dates[this.dates.length-1]}, Intervalo: ${this.intervalo}`
-          }
+          },
+          datalabels: {
+            color: function(context) {
+              return datasets[context.datasetIndex].backgroundColor;
+            },
+            clamp: true,
+            anchor: 'center',
+            font: {
+              size: 9,
+              weight: 700,
+              family: 'Arial',
+            },
+            textStrokeColor: 'white',
+            textStrokeWidth: 7,
+            align: 'top',
+            display: 'auto',
+            formatter: function(value, context) {
+              return value;
+            },
+          },
         },
         responsive: true,
         maintainAspectRatio: true,

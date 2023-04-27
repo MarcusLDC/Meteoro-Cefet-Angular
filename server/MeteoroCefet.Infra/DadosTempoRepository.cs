@@ -60,7 +60,7 @@ namespace MeteoroCefet.Infra
                       UmidadeRelativaAr = Round(x.Average(x => x.UmidadeRelativaAr)),
                       Pressao = Round(x.Average(x => x.Pressao)),
                       RadSolar  = Round(x.Average(x => x.RadSolar)),
-                      Precipitacao = Round(x.Average(x => x.Precipitacao)),
+                      Precipitacao = Round(x.Sum(x => x.Precipitacao)),
                       DirecaoVento = Round(x.Average(x => x.DirecaoVento)),
                       VelocidadeVento = Round(x.Average(x => x.VelocidadeVento)),
                       TempPontoOrvalho = Round(x.Average(x => x.TempPontoOrvalho)),

@@ -52,11 +52,6 @@ export class MeteoroServices {
         return this.httpClient.post<DadosTempo[]>(endpoint, { numeroEstacao, numPagina })
     }
 
-    public getDadosEstacaoDiario(numPagina: number, numEstacao: number){
-        const endpoint = `${environment.apiUrl}/dados/diario`
-        return this.httpClient.post<DadosTempo[]>(endpoint, { numPagina, numEstacao })
-    }
-
     // authentication required
 
     public getModeradores() {
