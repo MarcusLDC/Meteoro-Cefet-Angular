@@ -147,7 +147,7 @@ export class DadosComponent implements OnInit {
       this.geocode(this.estacaoSelecionada!);
     } else {
       this.criado = true;
-      this.map = L.map('map', { scrollWheelZoom: false, }).setView([this.getMiddleLatitude(), this.getMiddleLongitude()], 8);
+      this.map = L.map('map', { scrollWheelZoom: false, }).setView([this.getMiddleLatitude(), this.getMiddleLongitude()], 7);
       this.tileLayer();
       this.markAll();
     }

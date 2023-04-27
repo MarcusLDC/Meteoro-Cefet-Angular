@@ -17,6 +17,7 @@ export class ConsultaGraficoComponent implements AfterViewInit{
   @Input() stationData!: StationData;
   @Input() intervalo!: string;
   @Input() dates: string[] = [];
+  @Input() preferences!: boolean
 
   graphPreferences!: GraphPreferences;
   colorPreferences!: GraphColorPreferences;
@@ -37,15 +38,20 @@ export class ConsultaGraficoComponent implements AfterViewInit{
     this.colorPreferences = await this.localStorage.get<GraphColorPreferences>('graphColorPreferences')
     this.typePreferences = await this.localStorage.get<GraphTypePreferences>('graphTypePreferences')
 
+    const graphDefault = new GraphPreferences;
+    const colorDefault = new GraphColorPreferences;
+    const typeDefault = new GraphTypePreferences;
+
     const datasets = this.stationData.fields.map(x => {
 
       const dataset = {
         data: x.values,
         label: CampoNome[x.field],
-        borderColor: this.colorPreferences[CampoCor[x.field] as keyof GraphColorPreferences],
-        type: this.typePreferences[CampoTipo[x.field] as keyof GraphTypePreferences],
-        backgroundColor: this.colorPreferences[CampoCor[x.field] as keyof GraphColorPreferences],
-        yAxisID: this.graphPreferences[CampoLado[x.field] as keyof GraphPreferences],
+        borderColor: this.preferences ? this.colorPreferences[CampoCor[x.field] as keyof GraphColorPreferences] : colorDefault[CampoCor[x.field] as keyof GraphColorPreferences],
+        type: this.preferences ? this.typePreferences[CampoTipo[x.field] as keyof GraphTypePreferences] : typeDefault[CampoTipo[x.field] as keyof GraphTypePreferences],
+        backgroundColor: this.preferences ? this.colorPreferences[CampoCor[x.field] as keyof GraphColorPreferences] : colorDefault[CampoCor[x.field] as keyof GraphColorPreferences],
+        yAxisID: this.preferences ? this.graphPreferences[CampoLado[x.field] as keyof GraphPreferences] : graphDefault[CampoLado[x.field] as keyof GraphPreferences],
+        pointRadius: 2,
       }
       return dataset;
 
@@ -74,7 +80,9 @@ export class ConsultaGraficoComponent implements AfterViewInit{
           },
           datalabels: {
             color: function(context) {
-              return datasets[context.datasetIndex].backgroundColor;
+              const color = datasets[context.datasetIndex].backgroundColor;
+              const newColor = color.replace(/[^,]+(?=\))/, '1');
+              return newColor;
             },
             clamp: true,
             anchor: 'center',

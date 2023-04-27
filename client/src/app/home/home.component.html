@@ -5,31 +5,63 @@
                 Ainda em desenvolvimento, vá para a aba <span routerLink="dados" style="color: blue; margin: 0px 5px;"> dados </span> para ver dados meteorológicos mais completos
             </mat-card-header>
         </mat-card>
-        <div>
-            <mat-card class="card border">
+    </div>
+    <div class="divided" style="display: flex">
+        <div style="width: 30%;">
 
-                <mat-card-header class="header justifyMiddle white" [formGroup]="form">
-                    
-                    <button mat-raised-button class="button" *ngIf="paginator != 3" [ngStyle]="{ 'background-color': 'RGB(85, 139, 47)'}" (click)="previousPage()"> < Dia anterior </button>
-                    <button mat-raised-button disabled class="button" *ngIf="paginator == 3"> < Dia anterior </button>
+        </div>
+        <div style="width: 70%;">
+            <div>
+                <mat-card class="card border">
 
-                    <span> Acompanhando Estação </span>
-                    <select style="border-color: green;" formControlName="estacao" (change)="selectEstacoesHandler()">
-                        <option *ngFor="let element of estacoes" [value]="element.numero"> {{element.numero}} </option>
-                    </select>
+                    <mat-card-header class="header justifyMiddle white" [formGroup]="form">
+                        
+                        <button mat-raised-button class="button" *ngIf="paginator != 2" [ngStyle]="{ 'background-color': 'RGB(85, 139, 47)'}" (click)="previousPage()"> 
+                            
+                            <span *ngIf="paginator == 0"> < Últimas 48 horas </span>
+                            <span *ngIf="paginator == 1"> < Últimas 72 horas </span>
+                        
+                        </button>
 
-                    <button mat-raised-button class="button" *ngIf="paginator != 1" [ngStyle]="{ 'background-color': 'RGB(85, 139, 47)'}" (click)="nextPage()"> Próximo dia > </button>
-                    <button mat-raised-button disabled class="button" *ngIf="paginator == 1" style="color: black;"> Próximo dia > </button>
+                        <button mat-raised-button disabled class="button" *ngIf="paginator == 2"> 
 
-                </mat-card-header>
-                <!-- <ng-container *ngFor="let grafico of graficos"> -->
-                    <app-consulta-grafico #consultagrafico *ngIf="consultaData"
-                        [dates]="dates" 
-                        [stationData]="consultaData"
-                        [intervalo]="intervalo">
-                    </app-consulta-grafico>
-                <!-- </ng-container> -->
-            </mat-card>
+                            <span> Últimas 72 horas </span>
+
+                        </button>
+
+                        <span> Acompanhando Estação </span>
+                        <select style="border-color: green;" formControlName="estacao" (change)="selectEstacoesHandler()">
+                            <option *ngFor="let element of estacoes" [value]="element.numero"> {{element.numero}} </option>
+                        </select>
+
+                        <button mat-raised-button class="button" *ngIf="paginator != 0" [ngStyle]="{ 'background-color': 'RGB(85, 139, 47)'}" (click)="nextPage()"> 
+                            
+                            <span *ngIf="paginator == 1"> Últimas 24 horas > </span>
+                            <span *ngIf="paginator == 2"> Últimas 48 horas > </span>
+                        
+                        </button>
+
+                        <button mat-raised-button disabled class="button" *ngIf="paginator == 0" style="color: black;"> 
+
+                            <span> Últimas 24 horas </span>
+
+                        </button>
+
+                    </mat-card-header>
+
+                    <ng-container *ngFor="let consultaData of consultaDataArray">
+                        <div class="graphs">
+                            <app-consulta-grafico #consultagrafico *ngIf="consultaData"
+                                [dates]="dates" 
+                                [stationData]="consultaData"
+                                [intervalo]="intervalo"
+                                [preferences]="false">
+                            </app-consulta-grafico>
+                        </div>
+                    </ng-container>   
+
+                </mat-card>
+            </div>
         </div>
     </div>
 </body>

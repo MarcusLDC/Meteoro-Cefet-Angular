@@ -21,6 +21,7 @@
 .header{
     font-weight: 500;
     padding-top: 10px;
+    padding-bottom: 10px;
 }
 
 .cabecalho{
@@ -32,6 +33,15 @@
     padding-top: 15px;
     font-size: 22px;
     font-weight: 400;
+}
+
+.divided{
+    max-width: 90%;
+    margin: auto;
+}
+
+.graphs{
+    z-index: 1;
 }
 
 span {
