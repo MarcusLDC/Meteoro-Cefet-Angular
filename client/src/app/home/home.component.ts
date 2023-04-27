@@ -8,6 +8,8 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import ChartDataLabels from 'chartjs-plugin-datalabels';
 import { Campo, FieldData, StationData } from '../shared/services/DTOs/consulta-DTO';
 import { ConsultaModel } from '../shared/models/consulta-model';
+import { HttpErrorResponse } from '@angular/common/http';
+import { catchError, throwError } from 'rxjs';
 
 type DataSet = { label: string, data: number[], borderColor: string, fill: boolean, type: string, 
   backgroundColor: string, yAxisID: string, z: number, align: string, suffix: string, pointRadius: number};
@@ -103,7 +105,14 @@ export class HomeComponent {
       umidadeRelativa : true
     }
 
-    this.meteoroServices.consultarGrafico(this.model).subscribe(x => {       // suffix e pointRadius não esquecer!
+    this.meteoroServices.consultarGrafico(this.model)
+    .pipe(
+      catchError((error: HttpErrorResponse) => {
+        alert('Esta consulta não retornou resultado');
+        return throwError(error);
+      })
+    )
+    .subscribe(x => {
 
       const graph1 = [0,1,2,3,11]
       const graph2 = [4,12]
