@@ -6,6 +6,10 @@ import { DatePipe } from '@angular/common';
 import { Estacao } from '../shared/models/estacao-model';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import ChartDataLabels from 'chartjs-plugin-datalabels';
+import { Campo, FieldData, StationData } from '../shared/services/DTOs/consulta-DTO';
+import { ConsultaModel } from '../shared/models/consulta-model';
+import { HttpErrorResponse } from '@angular/common/http';
+import { catchError, throwError } from 'rxjs';
 
 type DataSet = { label: string, data: number[], borderColor: string, fill: boolean, type: string, 
   backgroundColor: string, yAxisID: string, z: number, align: string, suffix: string, pointRadius: number};
@@ -24,19 +28,19 @@ export class HomeComponent {
   
   form: FormGroup;
 
-  chart1!: Chart;
+  dates: string[] = [];
+  intervalo: string = '30 minutos';
 
-  dataset: DataSet[] = [];
-  dataSource: DadosTempo[] = [];
+  model = new ConsultaModel;
 
-  data: string[] = [];
+  consultaDataArray: StationData[] = [];
+
+  graph1!: StationData;
 
   estacoes: Estacao[] = []
   estacaoSelecionada!: number;
   
-  paginator = 1;
-
-  @ViewChild('graph1') graph!: ElementRef;
+  paginator = 0;
 
   constructor(private meteoroServices: MeteoroServices, private builder: FormBuilder){
     document.title = "Home - CoMet - LAPA - Monitoramento Ambiental"
@@ -44,6 +48,7 @@ export class HomeComponent {
     this.form = builder.group({
       estacao: [null, Validators.required]
     });
+
     Chart.register(ChartDataLabels);
   }
 
@@ -62,28 +67,66 @@ export class HomeComponent {
   }
 
   public nextPage(){
-    this.paginator > 1 ? this.paginator -= 1 : this.paginator;
+    if(this.paginator != 0){
+      this.paginator -= 1;
+    }
     this.atualizarDados();
   }
 
   public previousPage(){
-    this.paginator < 30 ? this.paginator += 1 : this.paginator;
+    if(this.paginator < 2){
+      this.paginator += 1;
+    }
     this.atualizarDados();
   }
 
   private atualizarDados(){
-    this.meteoroServices.getDadosEstacaoDiario(this.paginator, this.estacaoSelecionada).subscribe(x => {this.dataSource = x
-      if(this.chart1){
-        this.chart1.destroy();
-      }
 
-      let data = x.map(x => {
-        return this.datePipe.transform(x.dataHora.toString(), this.formato)
+    const agora = new Date() ; agora.setHours(0,0,0,0);
+    const umDia = 24 * 60 * 60 * 1000;
+
+    this.model = {
+      periodoInicio : new Date(agora.getTime() - (this.paginator * umDia)),
+      periodoFim : new Date(agora.getTime()),
+      estacao : [this.estacaoSelecionada.toString()],
+      intervalo : '30 minutos',
+      tempAr : true,
+      tempMin : true,
+      tempMax : true,
+      tempOrv : true,
+      chuva : true,
+      direcaoVento : true,
+      velocidadeVento : true,
+      velocidadeVentoMax: true,
+      bateria: true,
+      radiacao: true,
+      pressaoATM: true,
+      indiceCalor : true,
+      umidadeRelativa : true
+    }
+
+    this.meteoroServices.consultarGrafico(this.model)
+    .pipe(
+      catchError((error: HttpErrorResponse) => {
+        alert('Esta consulta não retornou resultado');
+        return throwError(error);
       })
+    )
+    .subscribe(x => {
 
-      this.dataset = this.getDataset(this.dataSource);
-      this.chart1 = this.createGraph(data as string[], this.dataset, this.graph);
+      const graph1 = [0,1,2,3,11]
+      const graph2 = [4,12]
+      const graph3 = [10]
+      const graph4 = [5,6,7]
 
+      this.consultaDataArray = []
+
+      this.consultaDataArray.push({station: x.stationData[0].station, fields: x.stationData[0].fields.filter(field => graph1.includes(field.field))})
+      this.consultaDataArray.push({station: x.stationData[0].station, fields: x.stationData[0].fields.filter(field => graph2.includes(field.field))})
+      this.consultaDataArray.push({station: x.stationData[0].station, fields: x.stationData[0].fields.filter(field => graph3.includes(field.field))})
+      this.consultaDataArray.push({station: x.stationData[0].station, fields: x.stationData[0].fields.filter(field => graph4.includes(field.field))})
+
+      this.dates = x.dates;
     })
   }
 
@@ -92,122 +135,4 @@ export class HomeComponent {
     this.atualizarDados();
   }
 
-  public createGraph(label: string[], dataset: any, graph: ElementRef){
-    let titulo = "Período de 24 horas, em tempo real. Atualizações do gráfico a cada 30 minutos"
-    return new Chart(graph.nativeElement, {
-      data: {
-        labels: label.reverse(),
-        datasets: dataset,
-      },
-      options:{
-        plugins:{
-          title:{
-            display: true,
-            text: titulo
-          },
-          datalabels: {
-            color: function(context) {
-              return dataset[context.datasetIndex].backgroundColor;
-            },
-            clamp: true,
-            anchor: 'center',
-            font: {
-              size: 9,
-              weight: 700,
-              family: 'Arial',
-            },
-            textStrokeColor: 'white',
-            textStrokeWidth: 7,
-            align: function(context){
-              return dataset[context.datasetIndex].align;
-            },
-            display: 'auto',
-            formatter: function(value, context) {
-              if(dataset[context.datasetIndex].suffix == '%'){
-                return value.toFixed(0) + dataset[context.datasetIndex].suffix
-              }
-              return value + dataset[context.datasetIndex].suffix;
-            },
-          },
-        },
-
-        responsive: true,
-        maintainAspectRatio: true,
-        backgroundColor: 'white',
-        scales:{
-          left:{
-            position: 'left',
-          },
-          right:{
-            position: 'right',
-          },
-        },
-        elements:{
-          line:{
-            tension: 0.5,
-            borderWidth: 1
-          },
-        }
-      }
-    });
-  }
-
-  private getDataset(dataSource: DadosTempo[]){
-    let datasetsByKeys: DataSet[] = [];
-
-    datasetsByKeys.push({
-      label: 'Temperatura do Ar(°C)',
-      data: Object.values(dataSource).map(x => x.temperaturaAr).reverse(),
-      borderColor: 'RGB(21, 101, 192)',
-      fill: false,
-      type: 'line',
-      backgroundColor: 'RGB(21, 101, 192)',
-      yAxisID: 'left',
-      z: 100,
-      align: 'bottom',
-      suffix: '°C',
-      pointRadius: 1
-    })
-    datasetsByKeys.push({
-      label: 'Ponto de Orvalho(°C)',
-      data: Object.values(dataSource).map(x => x.tempPontoOrvalho).reverse(),
-      borderColor: 'RGB(67, 160, 71)',
-      fill: false,
-      type: 'line',
-      backgroundColor: 'RGB(67, 160, 71)',
-      yAxisID: 'left',
-      z: 100,
-      align: 'bottom',
-      suffix: '°C',
-      pointRadius: 1
-    })
-    datasetsByKeys.push({
-      label: 'Índice de Calor(°C)',
-      data: Object.values(dataSource).map(x => x.indiceCalor).reverse(),
-      borderColor: 'RGB(255, 25, 25)',
-      fill: false,
-      type: 'line',
-      backgroundColor: 'RGB(255, 25, 25)',
-      yAxisID: 'left',
-      z: 100,
-      align: 'top',
-      suffix: '°C',
-      pointRadius: 1
-    })
-    datasetsByKeys.push({
-      label: 'Umidade Relativa(%)',
-      data: Object.values(dataSource).map(x => x.umidadeRelativaAr).reverse(),
-      borderColor: 'RGB(149, 117, 205)',
-      fill: false,
-      type: 'line',
-      backgroundColor: 'RGB(149, 117, 205)',
-      yAxisID: 'right',
-      z: 100,
-      align: 'top',
-      suffix: '%',
-      pointRadius: 1,
-    })
-
-    return datasetsByKeys;
-  }
 }

@@ -11,5 +11,5 @@ export class GraphTypePreferences{
     radiacaoType: string = 'line'
     pressaoATMType: string = 'line'
     indiceCalorType: string = 'line'
-    umidadeRelativaType: string = 'bar'
+    umidadeRelativaType: string = 'line'
 }

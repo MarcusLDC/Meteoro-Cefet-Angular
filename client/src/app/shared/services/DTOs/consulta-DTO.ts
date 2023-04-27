@@ -45,6 +45,23 @@ export enum CampoNome{
     'Umidade relativa (%)'
 }
 
+// export enum CampoSufixo{
+//     '(°C)',
+//     '(°C)',
+//     '(°C)',
+//     '(°C)',
+//     '(°C)',
+//     '(mm)',
+//     '(°)',
+//     '(m/s)',
+//     '(m/s)',
+//     '(v)',
+//     '(W/m²)',
+//     '(hPa)',
+//     '(°C)',
+//     '(%)'
+// }
+
 export enum CampoLado {
     tempArSide,
     tempMinSide,

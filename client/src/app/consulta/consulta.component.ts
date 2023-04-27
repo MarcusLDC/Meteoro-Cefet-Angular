@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { ConsultaIntervaloParams, ConsultaModel } from '../shared/models/consulta-model';
+import { ConsultaModel } from '../shared/models/consulta-model';
 import { MeteoroServices } from '../shared/services/meteoro-services';
 import { Estacao } from '../shared/models/estacao-model';
 import { ThemePalette } from '@angular/material/core';
@@ -34,7 +34,6 @@ export class ConsultaComponent{
   form4: FormGroup;
 
   estacoes: Estacao[] = [];
-  consultaParams!: ConsultaIntervaloParams;
 
   minDate = new Date;
   maxDate = new Date;
