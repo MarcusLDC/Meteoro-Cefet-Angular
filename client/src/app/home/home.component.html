@@ -22,13 +22,13 @@
                     <button mat-raised-button disabled class="button" *ngIf="paginator == 1" style="color: black;"> Próximo dia > </button>
 
                 </mat-card-header>
-                <!-- <ng-container *ngFor="let grafico of graficos">
-                    <app-consulta-grafico #consultagrafico
-                        [dates]="consultaData.dates" 
-                        [stationData]="grafico"
-                        [intervalo]="model.intervalo">
+                <!-- <ng-container *ngFor="let grafico of graficos"> -->
+                    <app-consulta-grafico #consultagrafico *ngIf="consultaData"
+                        [dates]="dates" 
+                        [stationData]="consultaData"
+                        [intervalo]="intervalo">
                     </app-consulta-grafico>
-                </ng-container> -->
+                <!-- </ng-container> -->
             </mat-card>
         </div>
     </div>

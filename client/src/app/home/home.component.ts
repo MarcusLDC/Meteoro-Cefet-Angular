@@ -6,7 +6,7 @@ import { DatePipe } from '@angular/common';
 import { Estacao } from '../shared/models/estacao-model';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import ChartDataLabels from 'chartjs-plugin-datalabels';
-import { FieldData, StationData } from '../shared/services/DTOs/consulta-DTO';
+import { Campo, FieldData, StationData } from '../shared/services/DTOs/consulta-DTO';
 import { ConsultaModel } from '../shared/models/consulta-model';
 
 type DataSet = { label: string, data: number[], borderColor: string, fill: boolean, type: string, 
@@ -26,7 +26,8 @@ export class HomeComponent {
   
   form: FormGroup;
 
-  data: string[] = [];
+  dates: string[] = [];
+  intervalo: string = '30 minutos';
 
   model = new ConsultaModel;
   consultaData!: StationData;
@@ -96,10 +97,10 @@ export class HomeComponent {
       indiceCalor : true,
       umidadeRelativa : true
     }
-    
+
     this.meteoroServices.consultarGrafico(this.model).subscribe(x => {
-      this.consultaData = x.stationData[0]
-      console.log(this.consultaData)
+      this.consultaData = x.stationData[0];
+      this.dates = x.dates;
     })
   }
 
