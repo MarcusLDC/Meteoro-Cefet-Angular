@@ -7,16 +7,10 @@
     background-color: white;
 }
 
-.cardContent{
-    padding: 15px;
-    font-size: 16px;
-    display: block;
-}
-
 .header{
     font-weight: 500;
     padding: 10px;
-    min-height: 30px;
+    min-height: 60px;
     text-align: center;
 }
 
@@ -38,11 +32,27 @@
 }
 
 .div30{
-    width: 30%;
+    position: fixed;
+    width: 29%;
+    min-width: 560px;
+    top: 61px;
 }
 
 .div70{
-    width: 70%;
+    width: 65%;
+    float: right;
+    position:relative;
+    left: 560px;
+    top: 70px;
+}
+
+.fixed{
+    position: fixed;
+    width: 54.7%;
+    float: right;
+    min-width: 560px;
+    top: 61px;
+    z-index: 999;
 }
 
 .title{
@@ -77,11 +87,12 @@ span {
     margin: 0px 30px;
 }
 
+.border{
+    padding: 1px;
+    background-color: #ccc;
+}
+
 .justifyMiddle{
     display: flex;
     justify-content: center;
-}
-
-.padded{
-    padding: 10px;
 }

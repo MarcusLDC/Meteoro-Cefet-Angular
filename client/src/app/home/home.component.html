@@ -19,8 +19,7 @@
         </div>
         <div class="div70">
             <div>
-                <mat-card class="card">
-
+                <mat-card class="card border fixed">
                     <mat-card-header class="header justifyMiddle white" [formGroup]="form">
                         
                         <button mat-raised-button class="button" *ngIf="paginator != 2" [ngStyle]="{ 'background-color': 'RGB(85, 139, 47)'}" (click)="previousPage()"> 
@@ -47,6 +46,9 @@
                         </button>
 
                     </mat-card-header>
+                </mat-card>
+                
+                <mat-card class="card">
 
                     <ng-container *ngFor="let consultaData of consultaDataArray">
                         <div class="graphs">
