@@ -2,32 +2,15 @@
     <div class="body divided" style="display: flex">
         <div style="width: 30%;">
             <mat-card class="card">
-                <mat-card-header class="cabecalho white">
+                <mat-card-header class="header justifyMiddle white">
                     Relatório - Estação de Monitoramento ID: {{estacaoSelecionada?.numero}} - {{estacaoSelecionada?.nome}} 
                 </mat-card-header>
                 <mat-card-content class="relatorio">
                 
-                    <ng-container *ngFor="let relatorio of relatorios">
-                        <mat-grid-list cols="2" style="display: flex;" rowHeight="50px">
-
+                    <ng-container *ngFor="let relatorio of relatorios; let i=index" >
+                        <mat-grid-list cols="2" style="display: flex;" rowHeight="50px" [ngClass]="{ 'gray-background': i % 2 !== 0 }">
                             <mat-grid-tile class="left-tile"> {{relatorio.nome}} </mat-grid-tile>
                             <mat-grid-tile class="right-tile"> {{relatorio.valor}}{{relatorio.sufixo}} </mat-grid-tile>
-                            <!--      
-                            <mat-grid-tile class="left-tile"> Chuva Ac. nos últimos 30 minutos: </mat-grid-tile>
-                            <mat-grid-tile class="right-tile"> x </mat-grid-tile>
-    
-                            <mat-grid-tile class="left-tile"> <span> Chuva Ac. nos últimos 60 minutos: </span> </mat-grid-tile>
-                            <mat-grid-tile class="right-tile"> x </mat-grid-tile>
-    
-                            <mat-grid-tile class="left-tile"> Chuva Ac. nas últimas 6 horas: </mat-grid-tile>
-                            <mat-grid-tile class="right-tile"> x </mat-grid-tile>
-    
-                            <mat-grid-tile class="left-tile"> Chuva Ac. nas últimas 12 horas:  </mat-grid-tile>
-                            <mat-grid-tile class="right-tile"> x </mat-grid-tile>
-    
-                            <mat-grid-tile class="left-tile"> <span> Chuva Ac. nas últimas 24 horas:  </span> </mat-grid-tile>
-                            <mat-grid-tile class="right-tile"> x </mat-grid-tile> -->
-    
                         </mat-grid-list>
                     </ng-container>
                     
@@ -36,21 +19,17 @@
         </div>
         <div style="width: 70%;">
             <div>
-                <mat-card class="card border">
+                <mat-card class="card">
 
                     <mat-card-header class="header justifyMiddle white" [formGroup]="form">
                         
                         <button mat-raised-button class="button" *ngIf="paginator != 2" [ngStyle]="{ 'background-color': 'RGB(85, 139, 47)'}" (click)="previousPage()"> 
-                            
                             <span *ngIf="paginator == 0"> < Últimas 48 horas </span>
                             <span *ngIf="paginator == 1"> < Últimas 72 horas </span>
-                        
                         </button>
 
                         <button mat-raised-button disabled class="button" *ngIf="paginator == 2"> 
-
                             <span> Últimas 72 horas </span>
-
                         </button>
 
                         <span> Acompanhando Estação </span>
@@ -59,16 +38,12 @@
                         </select>
 
                         <button mat-raised-button class="button" *ngIf="paginator != 0" [ngStyle]="{ 'background-color': 'RGB(85, 139, 47)'}" (click)="nextPage()"> 
-                            
                             <span *ngIf="paginator == 1"> Últimas 24 horas > </span>
                             <span *ngIf="paginator == 2"> Últimas 48 horas > </span>
-                        
                         </button>
 
                         <button mat-raised-button disabled class="button" *ngIf="paginator == 0" style="color: black;"> 
-
                             <span> Últimas 24 horas </span>
-
                         </button>
 
                     </mat-card-header>

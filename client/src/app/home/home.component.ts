@@ -38,17 +38,15 @@ export class HomeComponent {
 
   constructor(private meteoroServices: MeteoroServices, private builder: FormBuilder){
     document.title = "Home - CoMet - LAPA - Monitoramento Ambiental"
-
     this.form = builder.group({
       estacao: [null, Validators.required]
     });
-
-    this.form.patchValue({estacao: 66})
-
-    Chart.register(ChartDataLabels);
   }
 
   async ngOnInit() : Promise<void>{
+
+    this.form.patchValue({estacao: 66})
+
     this.atualizarDados();
     setInterval(() => {
       this.atualizarDados();
@@ -117,7 +115,6 @@ export class HomeComponent {
         const chuva = x.stationData[0].fields.filter(x => x.field == 4)
 
         this.relatorios = [];
-
         this.relatorios.push({nome: "Temperatura do Ar", valor: tempAr[0].values.slice(-1)[0], sufixo: "°C"})
         this.relatorios.push({nome: "Temperatura Mínima", valor: Math.min(...tempAr[0].values), sufixo: "°C"})
         this.relatorios.push({nome: "Temperatura Máxima", valor: Math.max(...tempAr[0].values), sufixo: "°C"})
@@ -125,11 +122,13 @@ export class HomeComponent {
         this.relatorios.push({nome: "Umidade Relativa do Ar", valor: umidadeRelativa[0].values.slice(-1)[0], sufixo: "%"})
 
         this.relatorios.push({nome: "Chuva Acumulada 30min", valor: chuva[0].values.slice(-1)[0], sufixo: "mm"})
-        this.relatorios.push({nome: "Chuva Acumulada 1h", valor: chuva[0].values.slice(-1)[0], sufixo: "mm"})
-        this.relatorios.push({nome: "Chuva Acumulada 3h", valor: chuva[0].values.slice(-1)[0], sufixo: "mm"})
-        this.relatorios.push({nome: "Chuva Acumulada 6h", valor: chuva[0].values.slice(-1)[0], sufixo: "mm"})
-        this.relatorios.push({nome: "Chuva Acumulada 12h", valor: chuva[0].values.slice(-1)[0], sufixo: "mm"})
-        this.relatorios.push({nome: "Chuva Acumulada 24h", valor: chuva[0].values.slice(-1)[0], sufixo: "mm"})
+        this.relatorios.push({nome: "Chuva Acumulada 1h", valor: this.calcularChuvaAcumulada(chuva[0].values, 1), sufixo: "mm"})
+        this.relatorios.push({nome: "Chuva Acumulada 3h", valor: this.calcularChuvaAcumulada(chuva[0].values, 3), sufixo: "mm"})
+        this.relatorios.push({nome: "Chuva Acumulada 6h", valor: this.calcularChuvaAcumulada(chuva[0].values, 6), sufixo: "mm"})
+        this.relatorios.push({nome: "Chuva Acumulada 12h", valor: this.calcularChuvaAcumulada(chuva[0].values, 12), sufixo: "mm"})
+        this.relatorios.push({nome: "Chuva Acumulada 24h", valor: this.calcularChuvaAcumulada(chuva[0].values, 24), sufixo: "mm"})
+        if(this.paginator >= 1) this.relatorios.push({nome: "Chuva Acumulada 48h", valor: this.calcularChuvaAcumulada(chuva[0].values, 48), sufixo: "mm"})
+        if(this.paginator == 2) this.relatorios.push({nome: "Chuva Acumulada 72h", valor: this.calcularChuvaAcumulada(chuva[0].values, 72), sufixo: "mm"})
 
         this.dates = x.dates;
       })
@@ -140,6 +139,16 @@ export class HomeComponent {
     this.atualizarDados();
   }
 
+  private calcularChuvaAcumulada(chuva: number[], horas: number) {
+    const periodos = horas * 2;
+    const chuvaAcumulada = chuva.reduce((acc, curr, i, arr) => {
+      if (i >= arr.length - periodos) {
+        return acc + curr;
+      }
+      return acc;
+    }, 0);
+    return +chuvaAcumulada.toFixed(2)
+  }
 }
 
 interface Relatorio {
