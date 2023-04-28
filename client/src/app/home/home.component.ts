@@ -112,7 +112,7 @@ export class HomeComponent {
 
         const graph1 = [0,1,2,3,11]; 
         const graph2 = [4,12];
-        const graph3 = [10];
+        const graph3 = [9, 10];
         const graph4 = [5,6,7];
 
         this.consultaDataArray = [];
@@ -128,12 +128,12 @@ export class HomeComponent {
         const chuva = x.stationData[0].fields.filter(x => x.field == 4)
 
         this.relatorios = [];
-        this.relatorios.push({nome: "Temperatura do Ar", valor: tempAr[0].values.slice(-1)[0], sufixo: "°C"})
-        this.relatorios.push({nome: "Temperatura Mínima", valor: Math.min(...tempAr[0].values), sufixo: "°C"})
-        this.relatorios.push({nome: "Temperatura Máxima", valor: Math.max(...tempAr[0].values), sufixo: "°C"})
-        this.relatorios.push({nome: "T° Ponto de Orvalho", valor: tempOrv[0].values.slice(-1)[0], sufixo: "°C"})
-        this.relatorios.push({nome: "Umidade Relativa do Ar", valor: umidadeRelativa[0].values.slice(-1)[0], sufixo: "%"})
-        this.relatorios.push({nome: "Chuva Acumulada 30min", valor: chuva[0].values.slice(-1)[0], sufixo: "mm"})
+        this.relatorios.push({nome: "Temperatura do Ar", valor: +tempAr[0].values.slice(-1)[0].toFixed(1), sufixo: "°C"})
+        this.relatorios.push({nome: "Temperatura Mínima", valor: +Math.min(...tempAr[0].values).toFixed(1), sufixo: "°C"})
+        this.relatorios.push({nome: "Temperatura Máxima", valor: +Math.max(...tempAr[0].values).toFixed(1), sufixo: "°C"})
+        this.relatorios.push({nome: "T° Ponto de Orvalho", valor: +tempOrv[0].values.slice(-1)[0].toFixed(1), sufixo: "°C"})
+        this.relatorios.push({nome: "Umidade Relativa do Ar", valor: +umidadeRelativa[0].values.slice(-1)[0].toFixed(0), sufixo: "%"})
+        this.relatorios.push({nome: "Chuva Acumulada 30min", valor: +chuva[0].values.slice(-1)[0].toFixed(1), sufixo: "mm"})
         this.relatorios.push({nome: "Chuva Acumulada 1h", valor: this.calcularChuvaAcumulada(chuva[0].values, 1), sufixo: "mm"})
         this.relatorios.push({nome: "Chuva Acumulada 3h", valor: this.calcularChuvaAcumulada(chuva[0].values, 3), sufixo: "mm"})
         this.relatorios.push({nome: "Chuva Acumulada 6h", valor: this.calcularChuvaAcumulada(chuva[0].values, 6), sufixo: "mm"})
@@ -160,7 +160,7 @@ export class HomeComponent {
       }
       return acc;
     }, 0);
-    return +chuvaAcumulada.toFixed(2)
+    return +chuvaAcumulada.toFixed(1)
   }
 }
 

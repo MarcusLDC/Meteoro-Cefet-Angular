@@ -43,7 +43,6 @@ export class ConsultaGraficoComponent implements AfterViewInit{
     const typeDefault = new GraphTypePreferences;
 
     const datasets = this.stationData.fields.map(x => {
-
       const dataset = {
         data: x.values,
         label: CampoNome[x.field],
@@ -55,7 +54,6 @@ export class ConsultaGraficoComponent implements AfterViewInit{
         suffix: CampoSufixo[x.field],
       }
       return dataset;
-
     })
 
     this.createGraph(datasets);
