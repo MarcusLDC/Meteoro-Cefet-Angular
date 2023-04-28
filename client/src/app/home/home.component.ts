@@ -7,6 +7,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { FieldData, StationData } from '../shared/services/DTOs/consulta-DTO';
 import { ConsultaModel } from '../shared/models/consulta-model';
 import ChartDataLabels from 'chartjs-plugin-datalabels';
+import { catchError, throwError } from 'rxjs';
 
 type DataSet = { label: string, data: number[], borderColor: string, fill: boolean, type: string, 
   backgroundColor: string, yAxisID: string, z: number, align: string, suffix: string, pointRadius: number};
@@ -41,6 +42,9 @@ export class HomeComponent {
     this.form = builder.group({
       estacao: [null, Validators.required]
     });
+    this.meteoroServices.getEstacoes().subscribe(x => {
+      this.estacoes = x
+    });
   }
 
   async ngOnInit() : Promise<void>{
@@ -68,9 +72,9 @@ export class HomeComponent {
   }
 
   private async atualizarDados(){
-
     this.meteoroServices.getEstacoes().subscribe(x => {
-      this.estacoes = x;
+
+      let estacaoAnterior = this.estacaoSelecionada
       this.estacaoSelecionada = this.estacoes.find(x => x.numero == this.form.get('estacao')?.value)
 
       const agora = new Date() ; agora.setHours(0,0,0,0);
@@ -96,7 +100,16 @@ export class HomeComponent {
         umidadeRelativa : true
       }
 
-      this.meteoroServices.consultarGrafico(this.model).subscribe(x => {
+      this.meteoroServices.consultarGrafico(this.model)
+      .pipe(
+        catchError(error => {
+          this.estacaoSelecionada = estacaoAnterior
+          this.form.patchValue({estacao: estacaoAnterior?.numero})
+          alert('Nenhum dado encontrado');
+          return throwError(error);
+      }))
+      .subscribe(x => {
+
         const graph1 = [0,1,2,3,11]; 
         const graph2 = [4,12];
         const graph3 = [10];
@@ -120,13 +133,13 @@ export class HomeComponent {
         this.relatorios.push({nome: "Temperatura Máxima", valor: Math.max(...tempAr[0].values), sufixo: "°C"})
         this.relatorios.push({nome: "T° Ponto de Orvalho", valor: tempOrv[0].values.slice(-1)[0], sufixo: "°C"})
         this.relatorios.push({nome: "Umidade Relativa do Ar", valor: umidadeRelativa[0].values.slice(-1)[0], sufixo: "%"})
-
         this.relatorios.push({nome: "Chuva Acumulada 30min", valor: chuva[0].values.slice(-1)[0], sufixo: "mm"})
         this.relatorios.push({nome: "Chuva Acumulada 1h", valor: this.calcularChuvaAcumulada(chuva[0].values, 1), sufixo: "mm"})
         this.relatorios.push({nome: "Chuva Acumulada 3h", valor: this.calcularChuvaAcumulada(chuva[0].values, 3), sufixo: "mm"})
         this.relatorios.push({nome: "Chuva Acumulada 6h", valor: this.calcularChuvaAcumulada(chuva[0].values, 6), sufixo: "mm"})
         this.relatorios.push({nome: "Chuva Acumulada 12h", valor: this.calcularChuvaAcumulada(chuva[0].values, 12), sufixo: "mm"})
         this.relatorios.push({nome: "Chuva Acumulada 24h", valor: this.calcularChuvaAcumulada(chuva[0].values, 24), sufixo: "mm"})
+
         if(this.paginator >= 1) this.relatorios.push({nome: "Chuva Acumulada 48h", valor: this.calcularChuvaAcumulada(chuva[0].values, 48), sufixo: "mm"})
         if(this.paginator == 2) this.relatorios.push({nome: "Chuva Acumulada 72h", valor: this.calcularChuvaAcumulada(chuva[0].values, 72), sufixo: "mm"})
 
