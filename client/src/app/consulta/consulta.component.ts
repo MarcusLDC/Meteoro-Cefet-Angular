@@ -79,6 +79,8 @@ export class ConsultaComponent{
       umidadeRelativa: [false, Validators.required],  // Fim-Checkboxes
     });
 
+    this.form.get('estacao')?.setErrors({required: true})
+
     this.form2 = this.builder.group({
       tempArSide: [Validators.required],
       tempMinSide: [Validators.required],

@@ -3,8 +3,43 @@
         <div style="width: 30%;">
             <mat-card class="card">
                 <mat-card-header class="cabecalho white">
-                    Ainda em desenvolvimento, vá para a aba <span routerLink="dados" style="color: blue; display:inline"> dados </span> para ver dados meteorológicos mais completos
+                    Relatório da Estação de Monitoramento ID: {{estacaoSelecionada?.numero}} - {{estacaoSelecionada?.nome}} 
                 </mat-card-header>
+                <mat-card-content class="relatorio">
+                    <mat-divider></mat-divider>
+                    <span> Temperatura do Ar:  </span>
+                    <mat-divider></mat-divider>
+                    <span> Temperatura Mínima: às </span>
+                    <mat-divider></mat-divider>
+                    <span> Temperatura Máxima: às </span>
+                    <mat-divider></mat-divider>
+                    <span> Temperatura Do Ponto de Orvalho: </span>
+                    <mat-divider></mat-divider>
+                    <span> Umidade Relativa do Ar:  </span>
+                    <mat-divider></mat-divider>
+                    <span> Chuva acumulada nos últimos 30 minutos: </span>
+                    <mat-divider></mat-divider>
+                    <span> Chuva acumulada nos últimos 60 minutos: </span>
+                    <mat-divider></mat-divider>
+                    <span> Chuva acumulada nas últimas 6 horas: </span>
+                    <mat-divider></mat-divider>
+                    <span> Chuva acumulada nas últimas 12 horas: </span>
+                    <mat-divider></mat-divider>
+                    <span> Chuva acumulada nas últimas 24 horas: </span>
+
+                    <mat-grid-list cols="2" style="display: flex;" rowHeight="30px">
+
+                        <mat-grid-tile class="left-tile"> Temperatura do Ar </mat-grid-tile>
+                        <mat-grid-tile class="right-tile"> 26 </mat-grid-tile>
+
+                        <mat-grid-tile class="left-tile"> <span> Temperatura Mínima </span> </mat-grid-tile>
+                        <mat-grid-tile class="right-tile"> 30 </mat-grid-tile>
+
+                        <mat-grid-tile class="left-tile"> Temperatura Mínima </mat-grid-tile>
+                        <mat-grid-tile class="right-tile"> 30 </mat-grid-tile>
+
+                    </mat-grid-list>
+                </mat-card-content>
             </mat-card>
         </div>
         <div style="width: 70%;">

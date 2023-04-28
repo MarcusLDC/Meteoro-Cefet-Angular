@@ -1,6 +1,6 @@
 import { AfterViewInit, Component, ElementRef, Input,ViewChild } from '@angular/core';
 import Chart from 'chart.js/auto';
-import { CampoCor, CampoLado, CampoNome, CampoTipo, StationData } from '../shared/services/DTOs/consulta-DTO';
+import { CampoCor, CampoLado, CampoNome, CampoSufixo, CampoTipo, StationData } from '../shared/services/DTOs/consulta-DTO';
 import { GraphPreferences } from '../shared/models/graph-preferences/graph-preferences-model';
 import { LocalStorageServices } from '../shared/services/local-storage-services';
 import { GraphColorPreferences } from '../shared/models/graph-preferences/graph-colors-model';
@@ -52,6 +52,7 @@ export class ConsultaGraficoComponent implements AfterViewInit{
         backgroundColor: this.preferences ? this.colorPreferences[CampoCor[x.field] as keyof GraphColorPreferences] : colorDefault[CampoCor[x.field] as keyof GraphColorPreferences],
         yAxisID: this.preferences ? this.graphPreferences[CampoLado[x.field] as keyof GraphPreferences] : graphDefault[CampoLado[x.field] as keyof GraphPreferences],
         pointRadius: 2,
+        suffix: CampoSufixo[x.field],
       }
       return dataset;
 
@@ -96,7 +97,7 @@ export class ConsultaGraficoComponent implements AfterViewInit{
             align: 'top',
             display: 'auto',
             formatter: function(value, context) {
-              return value;
+              return value + datasets[context.datasetIndex].suffix;
             },
           },
         },
