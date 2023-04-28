@@ -1,11 +1,6 @@
 .card{
-    padding: 10px;
-    margin: 10px;
-}
-
-.border{
-    background-color: rgb(185, 185, 185);
-    padding: 1px;
+    margin: 5px;
+    background-color: rgb(255, 255, 255);
 }
 
 .white{
@@ -20,12 +15,26 @@
 
 .header{
     font-weight: 500;
-    padding-top: 10px;
-    padding-bottom: 10px;
+    padding: 10px;
+    min-height: 56px;
+    text-align: center;
 }
 
-.cabecalho{
-    font-weight: 500;
+.left-tile {
+    text-align: right;
+    border: 1px solid #ccc;
+    padding-right: 16px;
+}
+  
+.right-tile {
+    text-align: left;
+    border: 1px solid #ccc;
+    border-left: 0px;
+    padding-left: 16px;
+}
+
+.gray-background{
+    background-color: rgb(240, 240, 240);
 }
 
 .title{
@@ -35,9 +44,15 @@
     font-weight: 400;
 }
 
+.relatorio{
+    font-weight: 500;
+    font-size: 14px;
+}
+
 .divided{
     max-width: 90%;
     margin: auto;
+    min-width: 1280px;
 }
 
 .graphs{

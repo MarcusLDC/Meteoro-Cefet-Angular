@@ -13,6 +13,7 @@
                     <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
                     <mat-date-range-picker #picker></mat-date-range-picker>
                 </mat-form-field>
+
                 <mat-form-field appearance="outline" [formGroup]="form">
                     <mat-label>Insira as estações</mat-label>
                     <mat-select formControlName="estacao" multiple>
@@ -47,7 +48,6 @@
                         <div class="row">
                             <div class="col-sm">
                                 <mat-checkbox formControlName="tempAr"> Temperatura do ar <span *ngIf="this.form.get('grafico')?.value">(°C)</span> </mat-checkbox>
-
                                 <div class="colorPicker" *ngIf="this.form.get('grafico')?.value">
                                     <ng-container *ngIf="this.form.get('tempAr')?.value">
                                         <ng-container [formGroup]="form4"> 
