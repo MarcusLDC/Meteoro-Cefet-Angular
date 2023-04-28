@@ -4,7 +4,7 @@ import { Chart } from 'chart.js';
 import { DatePipe } from '@angular/common';
 import { Estacao } from '../shared/models/estacao-model';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { StationData } from '../shared/services/DTOs/consulta-DTO';
+import { FieldData, StationData } from '../shared/services/DTOs/consulta-DTO';
 import { ConsultaModel } from '../shared/models/consulta-model';
 import ChartDataLabels from 'chartjs-plugin-datalabels';
 
@@ -30,6 +30,7 @@ export class HomeComponent {
 
   model = new ConsultaModel;
   consultaDataArray: StationData[] = [];
+  relatorios: Relatorio[] = []
 
   estacoes: Estacao[] = []
   estacaoSelecionada: Estacao | undefined;
@@ -72,7 +73,7 @@ export class HomeComponent {
 
     this.meteoroServices.getEstacoes().subscribe(x => {
       this.estacoes = x;
-      this.estacaoSelecionada = this.estacoes.find(x => x.numero == 66)
+      this.estacaoSelecionada = this.estacoes.find(x => x.numero == this.form.get('estacao')?.value)
 
       const agora = new Date() ; agora.setHours(0,0,0,0);
       const umDia = 24 * 60 * 60 * 1000;
@@ -98,23 +99,51 @@ export class HomeComponent {
       }
 
       this.meteoroServices.consultarGrafico(this.model).subscribe(x => {
-        const graph1 = [0,1,2,3,11]
-        const graph2 = [4,12]
-        const graph3 = [10]
-        const graph4 = [5,6,7]
-        this.consultaDataArray = []
+        const graph1 = [0,1,2,3,11]; 
+        const graph2 = [4,12];
+        const graph3 = [10];
+        const graph4 = [5,6,7];
+
+        this.consultaDataArray = [];
+
         this.consultaDataArray.push({station: x.stationData[0].station, fields: x.stationData[0].fields.filter(field => graph1.includes(field.field))})
         this.consultaDataArray.push({station: x.stationData[0].station, fields: x.stationData[0].fields.filter(field => graph2.includes(field.field))})
         this.consultaDataArray.push({station: x.stationData[0].station, fields: x.stationData[0].fields.filter(field => graph3.includes(field.field))})
         this.consultaDataArray.push({station: x.stationData[0].station, fields: x.stationData[0].fields.filter(field => graph4.includes(field.field))})
+
+        const tempAr = x.stationData[0].fields.filter(x => x.field == 0);
+        const tempOrv =  x.stationData[0].fields.filter(x => x.field == 3);
+        const umidadeRelativa =  x.stationData[0].fields.filter(x => x.field == 12);
+        const chuva = x.stationData[0].fields.filter(x => x.field == 4)
+
+        this.relatorios = [];
+
+        this.relatorios.push({nome: "Temperatura do Ar", valor: tempAr[0].values.slice(-1)[0], sufixo: "°C"})
+        this.relatorios.push({nome: "Temperatura Mínima", valor: Math.min(...tempAr[0].values), sufixo: "°C"})
+        this.relatorios.push({nome: "Temperatura Máxima", valor: Math.max(...tempAr[0].values), sufixo: "°C"})
+        this.relatorios.push({nome: "T° Ponto de Orvalho", valor: tempOrv[0].values.slice(-1)[0], sufixo: "°C"})
+        this.relatorios.push({nome: "Umidade Relativa do Ar", valor: umidadeRelativa[0].values.slice(-1)[0], sufixo: "%"})
+
+        this.relatorios.push({nome: "Chuva Acumulada 30min", valor: chuva[0].values.slice(-1)[0], sufixo: "mm"})
+        this.relatorios.push({nome: "Chuva Acumulada 1h", valor: chuva[0].values.slice(-1)[0], sufixo: "mm"})
+        this.relatorios.push({nome: "Chuva Acumulada 3h", valor: chuva[0].values.slice(-1)[0], sufixo: "mm"})
+        this.relatorios.push({nome: "Chuva Acumulada 6h", valor: chuva[0].values.slice(-1)[0], sufixo: "mm"})
+        this.relatorios.push({nome: "Chuva Acumulada 12h", valor: chuva[0].values.slice(-1)[0], sufixo: "mm"})
+        this.relatorios.push({nome: "Chuva Acumulada 24h", valor: chuva[0].values.slice(-1)[0], sufixo: "mm"})
+
         this.dates = x.dates;
       })
     });
   }
 
   public selectEstacoesHandler(){
-    this.estacaoSelecionada = this.estacoes.find(x => x.numero == this.form.get('estacao')?.value)
     this.atualizarDados();
   }
 
+}
+
+interface Relatorio {
+  nome: string;
+  valor: number;
+  sufixo: string;
 }
