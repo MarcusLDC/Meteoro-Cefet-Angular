@@ -16,7 +16,7 @@
 .header{
     font-weight: 500;
     padding: 10px;
-    min-height: 56px;
+    min-height: 30px;
     text-align: center;
 }
 
@@ -37,6 +37,14 @@
     background-color: rgb(240, 240, 240);
 }
 
+.div30{
+    width: 30%;
+}
+
+.div70{
+    width: 70%;
+}
+
 .title{
     padding-left: 15px;
     padding-top: 15px;
@@ -50,7 +58,6 @@
 }
 
 .divided{
-    max-width: 90%;
     margin: auto;
     min-width: 1280px;
 }

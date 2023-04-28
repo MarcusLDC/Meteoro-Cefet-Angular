@@ -8,7 +8,7 @@ export class GraphColorPreferences{
     velocidadeVentoColor: string = 'RGB(207, 216, 220, 1)'
     velocidadeVentoMaxColor: string = 'RGB(84, 110, 122, 1)' 
     bateriaColor: string = 'RGB(56, 142, 60, 1)' // light green
-    radiacaoColor: string = 'RGB(253, 216, 53, 1)' // yellow
+    radiacaoColor: string = 'RGB(255, 193, 7, 1)' // yellow
     pressaoATMColor: string = 'RGB(23, 37, 126, 1)' // dark blue
     indiceCalorColor: string = 'RGB(255, 25, 25, 1)' // red
     umidadeRelativaColor: string = 'RGB(149, 117, 205, 0.3)' // purple
