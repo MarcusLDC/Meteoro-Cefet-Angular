@@ -26,6 +26,13 @@ th.mat-sort-header-sorted {
     z-index: 999; 
 }
 
+.fixed3 {
+    position: sticky;
+    bottom: 0;
+    width: 100%;
+    z-index: 999; 
+}
+
 .body{
     font-family: Roboto, "Helvetica Neue", sans-serif;
     color: rgb(66, 66, 66);
@@ -120,7 +127,7 @@ th.mat-sort-header-sorted {
 
 .paginator{
     margin-bottom: 20px;
-    background-color: rgb(148, 148, 148);
+    background-color: rgb(99, 99, 99);
     padding: 2px;
 }
 

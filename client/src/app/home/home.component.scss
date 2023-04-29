@@ -39,18 +39,14 @@
 
 .div70{
     width: 65%;
-    float: right;
-    position:relative;
     top: 70px;
 }
 
 .fixed{
-    position: fixed;
-    width: 54.7%;
-    float: right;
-    min-width: 560px;
-    top: 61px;
-    z-index: 999;
+    position: sticky;
+    top: 49px;
+    width: 99%;
+    z-index: 999; 
 }
 
 .title{
