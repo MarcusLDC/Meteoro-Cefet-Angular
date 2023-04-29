@@ -27,21 +27,4 @@ export class ConsultaGraficoPopupComponent {
     });
   }
 
-  public zipparGraficos() {
-    // const zip = new JSZip();
-    // this.graficos.forEach((grafico: ElementRef) => {
-    //   const canvas = grafico.nativeElement.querySelector('canvas');
-
-    //   const titulo = grafico.nativeElement.querySelector('mat-panel-title').textContent + "_" + grafico.nativeElement.querySelector('mat-panel-description').textContent;
-    //   const tituloSemEspacos = titulo.replace(/\s+/g, '');
-    //   const tituloFormatado = tituloSemEspacos.replace(/\//g, '_');
-
-    //   const imgData = canvas.toDataURL('image/png');
-    //   zip.file(`${tituloFormatado}.png`, imgData.replace(/^data:image\/(png|jpg);base64,/, ""), {base64: true});
-    // });
-    // zip.generateAsync({type:"blob"}).then(function(content) {
-    //   saveAs(content, "graficos.zip");
-    // });
-  }
-
 }

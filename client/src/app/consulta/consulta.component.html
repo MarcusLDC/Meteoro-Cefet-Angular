@@ -48,6 +48,7 @@
                         <div class="row">
                             <div class="col-sm">
                                 <mat-checkbox formControlName="tempAr"> Temperatura do ar <span *ngIf="this.form.get('grafico')?.value">(°C)</span> </mat-checkbox>
+                                
                                 <div class="colorPicker" *ngIf="this.form.get('grafico')?.value">
                                     <ng-container *ngIf="this.form.get('tempAr')?.value">
                                         <ng-container [formGroup]="form4"> 

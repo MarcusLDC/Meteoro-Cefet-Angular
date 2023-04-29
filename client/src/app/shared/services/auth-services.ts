@@ -11,37 +11,37 @@ import { ApplicationUser } from '../models/application-user-model';
 export class AuthService {
 
   user: UserModel | undefined;
-  applicationUsers: ApplicationUser[] = [];
+  applicationUsers: string[] = [];
   
-  constructor(private cookieService: CookieService, private jwtHelper: JwtHelperService, private router: Router) {}
+  constructor(private cookieService: CookieService, private jwtHelper: JwtHelperService, private router: Router, private meteoroServices: MeteoroServices) {}
 
   public async isLogged(): Promise<boolean> {
     var token = await this.getToken();
     return !this.jwtHelper.isTokenExpired(token);
   }
 
- /* public async userExists(): Promise<void>{
-    var token = await this.getToken();
-    var isAdmin = await this.isAdmin(); 
-    if(token && !isAdmin){
-      var exists : boolean = false;
-      this.meteoroServices.getModeradores().subscribe(async x => {
-        this.applicationUsers = x;
-        var decodedToken: any = this.jwtHelper.decodeToken(token);
-        this.applicationUsers.forEach(element => {
-          if(element.username == decodedToken.username){
-            exists = true; 
-          }
-        });
-        if(!exists){
-          this.logout();
-          alert("Acesso revogado, deslogando");
-        }
-      });
-    };
-    return;
-  }
-*/
+  // public async userExists(): Promise<void>{
+  //   var token = await this.getToken();
+  //   var isAdmin = await this.isAdmin(); 
+  //   if(token && !isAdmin){
+  //     var exists : boolean = false;
+  //     this.meteoroServices.getModeradores().subscribe(async x => {
+  //       this.applicationUsers = x;
+  //       var decodedToken: any = this.jwtHelper.decodeToken(token);
+  //       this.applicationUsers.forEach(element => {
+  //         if(element == decodedToken.username){
+  //           exists = true; 
+  //         }
+  //       });
+  //       if(!exists){
+  //         this.logout();
+  //         alert("Acesso revogado, deslogando");
+  //       }
+  //     });
+  //   };
+  //   return;
+  // }
+
 
   public async isAdmin(): Promise<boolean>{
     var token = await this.getToken();
