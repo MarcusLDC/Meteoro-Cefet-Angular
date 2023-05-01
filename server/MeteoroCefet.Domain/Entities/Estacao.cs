@@ -3,6 +3,7 @@
     public class Estacao : Entity
     {
         public int Numero { get; set; }
+        public string Senha { get; set; }
         public DateTime DataInicio { get; set; }
         public string Nome { get; set; } = "Estação_Nova";
         public decimal Latitude { get; set; } 
@@ -18,5 +19,4 @@
         Desligada, 
         Manutencao
     }
-
 }

@@ -42,6 +42,7 @@ import { MatRadioModule } from '@angular/material/radio';
 import { ConsultaGraficoPopupComponent } from './consulta-grafico-popup/consulta-grafico-popup.component';
 import { NgxColorsModule } from 'ngx-colors';
 import { ConsultaSettingsModalComponent } from './consulta/consulta-settings-modal/consulta-settings-modal.component';
+import { FlexLayoutModule } from '@angular/flex-layout';
 
 @NgModule({
   declarations: [
@@ -94,6 +95,7 @@ import { ConsultaSettingsModalComponent } from './consulta/consulta-settings-mod
     MatPaginatorModule,
     MatRadioModule,
     NgxColorsModule,
+    FlexLayoutModule,
   ],
   providers: [
     DatePipe,

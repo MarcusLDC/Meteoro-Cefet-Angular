@@ -1,5 +1,6 @@
 export interface Estacao{
     id: string;
+    senha: string;
     numero: number;
     dataInicio: Date;
     nome: string;

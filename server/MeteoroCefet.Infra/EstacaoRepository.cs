@@ -19,5 +19,10 @@ namespace MeteoroCefet.Infra
         {
             await Collection.ReplaceOneAsync(x => x.Numero == numeroEstacao, estacao);
         }
+        public async Task ReplaceSenha(int numero, string senha)
+        {
+            var update = Builders<Estacao>.Update.Set(x => x.Senha, senha);
+            await Collection.UpdateOneAsync(y => y.Numero == numero, update);
+        }
     }
 }

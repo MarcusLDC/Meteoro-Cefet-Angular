@@ -2,6 +2,7 @@
 using MeteoroCefet.Infra.BackgroundServices;
 using MeteoroCefet.Infra;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
 
 namespace MeteoroCefet.API.Endpoints
 {
@@ -12,14 +13,19 @@ namespace MeteoroCefet.API.Endpoints
             app.MapPost("dados/novo", Handler);
         }
 
-        private static Guid Handler([FromServices] DadosTempoRepository dadosTempoRepository, [FromServices] EstacaoRepository estacaoRepository, [FromServices] ILogger<NovoDadoTempoEndpoint> log, HttpRequest req)
+        private static Guid Handler([FromServices] DadosTempoRepository dadosTempoRepository, [FromServices] EstacaoRepository estacaoRepository, [FromServices] ILogger<string> log, List<KeyAndMessagePairs> pares)
         {
-            var msg = req.Form["msg"];
-            var key = req.Form["key"];
-
-            log.LogInformation("Recebi: {msg} {key}", msg, key);
+            foreach(var par in pares)
+            {
+                log.LogInformation("Recebi: {par.Key}:{par.Message}", par.Key, par.Message);
+            }
 
             return new Guid();
+        }
+        public class KeyAndMessagePairs
+        {
+            public string Key { get; set; }
+            public string Message { get; set; }
         }
     }
 }
