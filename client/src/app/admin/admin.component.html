@@ -1,28 +1,58 @@
 <body>
-    <div class="body">
-        <mat-card class="card">
-            <mat-card-header>
-                <p class="title"> Criando novo usuário moderador: </p>
-            </mat-card-header>
-            <mat-card-content [formGroup]="form">
-                <mat-form-field appearance="outline" class="padded">
-                    <mat-label>Nome:</mat-label>
-                    <input formControlName="nome" matInput>
-                </mat-form-field>
-                <mat-form-field  appearance="outline" class="padded">
-                    <mat-label>Senha:</mat-label>
-                    <input formControlName="senha" matInput [type]="hide ? 'password' : 'text'">
-                    <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
-                        <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
-                    </button>
-                </mat-form-field>
-                <br>
-            </mat-card-content>
-            <mat-card-actions>
-                <button mat-raised-button color="warn" class="botao" (click)="novoUsuario()"> Confirmar </button>
-                <button mat-raised-button class="botao" routerLink="/dados"> Cancelar </button>
-            </mat-card-actions>
-        </mat-card>
+    <div class="body" style="min-width: 600px;">
+
+        <div fxLayout="row">
+
+            <mat-card class="card" fnFlex="50">
+                <mat-card-header>
+                    <p class="title"> Criando novo usuário moderador: </p>
+                </mat-card-header>
+                <mat-card-content [formGroup]="form">
+                    <mat-form-field appearance="outline" class="padded">
+                        <mat-label>Nome:</mat-label>
+                        <input formControlName="nome" matInput>
+                    </mat-form-field>
+                    <mat-form-field  appearance="outline" class="padded">
+                        <mat-label>Senha:</mat-label>
+                        <input formControlName="senha" matInput [type]="hide ? 'password' : 'text'">
+                        <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+                            <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+                        </button>
+                    </mat-form-field>
+                    <br>
+                </mat-card-content>
+                <mat-card-actions>
+                    <button mat-raised-button color="warn" class="botao" (click)="novoUsuario()"> Confirmar </button>
+                    <button mat-raised-button class="botao" routerLink="/dados"> Cancelar </button>
+                </mat-card-actions>
+            </mat-card>
+    
+            <mat-card class="card" fnFlex="50">
+                <mat-card-header>
+                    <p class="title"> Cadastrando nova estação: </p>
+                </mat-card-header>
+                <mat-card-content [formGroup]="form">
+                    <mat-form-field appearance="outline" class="padded">
+                        <mat-label>Id:</mat-label>
+                        <input formControlName="nome" matInput>
+                    </mat-form-field>
+                    <mat-form-field  appearance="outline" class="padded">
+                        <mat-label>Senha:</mat-label>
+                        <input formControlName="senha" matInput [type]="hide ? 'password' : 'text'">
+                        <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+                            <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+                        </button>
+                    </mat-form-field>
+                    <br>
+                </mat-card-content>
+                <mat-card-actions>
+                    <button mat-raised-button color="warn" class="botao"> Confirmar </button>
+                    <button mat-raised-button class="botao" routerLink="/dados"> Cancelar </button>
+                </mat-card-actions>
+            </mat-card>
+
+        </div>
+
         <mat-accordion class="card" *ngFor="let item of moderadores | async">
             <mat-expansion-panel hideToggle>
               <mat-expansion-panel-header>
@@ -37,5 +67,6 @@
               <button mat-raised-button color="warn" (click)="excluirUsuario(item)"> Excluir moderador </button>
             </mat-expansion-panel>
         </mat-accordion>
+
     </div>
 </body>
