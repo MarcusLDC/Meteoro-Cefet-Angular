@@ -39,7 +39,7 @@ export class ConsultaComponent{
   maxDate = new Date;
 
   periodosGrafico = [
-    { value: null, key: 0},
+    { value: "", key: 0},
     { value: "1 minuto", key: 1 },
     { value: "10 minutos", key: 2 },
     { value: "30 minutos", key: 3 },
@@ -78,8 +78,6 @@ export class ConsultaComponent{
       indiceCalor: [false, Validators.required],
       umidadeRelativa: [false, Validators.required],  // Fim-Checkboxes
     });
-
-    this.form.get('estacao')?.setErrors({required: true})
 
     this.form2 = this.builder.group({
       tempArSide: [Validators.required],
@@ -134,6 +132,7 @@ export class ConsultaComponent{
   }
 
   async ngOnInit(){
+    
     this.checkboxes.forEach(checkbox => {
       this.form.controls[checkbox].disable();
     });
@@ -152,6 +151,7 @@ export class ConsultaComponent{
         });
       }
     });
+
     this.form.controls['grafico'].valueChanges.subscribe(value => {
       if (value === true) {
         this.form.controls['tabela'].patchValue(false, { emitEvent: false });
@@ -167,6 +167,7 @@ export class ConsultaComponent{
         });
       }
     });
+
     this.form.valueChanges.subscribe(x => {
 
       let periodo = this.form.get('periodoInicio')?.value && this.form.get('periodoFim')?.value ? 20 : 0;

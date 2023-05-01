@@ -98,6 +98,13 @@ export class ConsultaGraficoComponent implements AfterViewInit{
               return value + datasets[context.datasetIndex].suffix;
             },
           },
+          legend: {
+            labels: {
+              font: {
+                size: 10
+              }
+            }
+          },
         },
         responsive: true,
         maintainAspectRatio: true,

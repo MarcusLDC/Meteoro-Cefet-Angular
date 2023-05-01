@@ -110,7 +110,7 @@ export class HomeComponent {
       }))
       .subscribe(x => {
 
-        const graph1 = [0,1,2,3,11]; 
+        const graph1 = [0,3,11]; 
         const graph2 = [4,12];
         const graph3 = [9, 10];
         const graph4 = [5,6,7];
