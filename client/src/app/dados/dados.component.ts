@@ -188,7 +188,12 @@ export class DadosComponent implements OnInit {
         let tooltipContent = estacao.status == 0 ? x[0].temperaturaAr.toString() + '°C' : 'OFF'
 
         L.marker([estacao.latitude, estacao.longitude], { icon: icone })
-        .bindTooltip(tooltipContent, {direction: 'bottom', permanent: estacao.status == 0, offset: [-7, 0]})
+        .bindTooltip(tooltipContent, 
+          {direction: 'bottom',
+            permanent: estacao.status == 0,
+            offset: [-7, 0],
+            opacity: 0.9
+          })
         .addTo(this.map).on('click', () => {
           this.setSelectedEstacao(String(estacao.numero));
           this.form.setValue({ estacao: String(estacao.numero) });

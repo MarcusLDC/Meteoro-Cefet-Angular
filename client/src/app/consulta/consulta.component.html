@@ -3,6 +3,7 @@
         <mat-card-content class="consulta">
             
             <div class="container"> 
+
                 <mat-form-field class="padded" appearance="outline" [formGroup]="form">
                     <mat-label class="destaque">Insira o intervalo de datas</mat-label>
                         <mat-date-range-input [min]="minDate" [max]="maxDate" [rangePicker]="picker">
@@ -20,6 +21,7 @@
                         <mat-option *ngFor="let item of estacoes" [value]="item.numero">{{item.numero}}</mat-option>
                     </mat-select>
                 </mat-form-field>
+
             </div>  
 
             <div class='container' [formGroup]="form">
