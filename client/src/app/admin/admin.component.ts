@@ -4,6 +4,7 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 import { MeteoroServices } from '../shared/services/meteoro-services';
 import { Observable } from 'rxjs';
 import { UserService } from '../shared/services/user-services';
+import { Estacao } from '../shared/models/estacao-model';
 
 @Component({
   selector: 'app-admin',
@@ -16,6 +17,8 @@ export class AdminComponent {
   form: FormGroup;
   moderadores: Observable<string[]>;
 
+  estacoes: Observable<Estacao[]>;
+
   constructor(private user: UserService, private builder: FormBuilder, private meteoroServices: MeteoroServices) {
     document.title = "Admin - CoMet - LAPA - Monitoramento Ambiental"
     this.form = builder.group({
@@ -23,6 +26,7 @@ export class AdminComponent {
       senha: [null],
     });
     this.moderadores = this.meteoroServices.getModeradores();
+    this.estacoes = this.meteoroServices.getEstacoes();
   }
 
   public async novoUsuario(){

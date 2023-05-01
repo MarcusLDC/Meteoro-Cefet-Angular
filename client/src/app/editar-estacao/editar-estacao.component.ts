@@ -65,6 +65,7 @@ export class EditarEstacaoComponent {
       this.estacaoEditada = {
 
         id: this.estacaoSelecionada.id, // dados imutáveis
+        senha: this.estacaoSelecionada.senha,
         numero: this.estacaoSelecionada.numero,
         dataInicio: this.estacaoSelecionada.dataInicio, 
         ultimaModificacao: new Date(), // fim-dados imutáveis

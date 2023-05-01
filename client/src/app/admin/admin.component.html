@@ -53,6 +53,30 @@
 
         </div>
 
+        <mat-accordion class="card" style="padding-right: 0px;">
+            <mat-expansion-panel hideToggle>
+                <mat-expansion-panel-header>
+                    Estações
+                </mat-expansion-panel-header>
+                <mat-accordion class="card" *ngFor="let item of estacoes | async">
+                    <mat-expansion-panel hideToggle>
+                      <mat-expansion-panel-header>
+                        <mat-panel-title>
+                            <strong> Estacão_Id: {{item.numero}}</strong>
+                        </mat-panel-title>
+                        <mat-panel-description>
+                            Senha: {{item.senha}}
+                        </mat-panel-description>
+                        <mat-icon>supervised_user_circle</mat-icon>
+                      </mat-expansion-panel-header>
+                      <button mat-raised-button color="warn"> Editar senha </button>
+                    </mat-expansion-panel>
+                </mat-accordion>
+            </mat-expansion-panel>
+        </mat-accordion>
+
+        
+
         <mat-accordion class="card" *ngFor="let item of moderadores | async">
             <mat-expansion-panel hideToggle>
               <mat-expansion-panel-header>
