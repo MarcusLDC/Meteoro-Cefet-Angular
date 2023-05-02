@@ -37,6 +37,11 @@ export class MeteoroServices {
         return this.httpClient.post<ConsultaDTO>(endpoint, model)
     }
 
+    public alterarSenhaEstacao(numEstacao: number, senha: string){
+        const endpoint = `${environment.apiUrl}/estacoes/alterarSenha`
+        return this.httpClient.post<string>(endpoint, {numEstacao, senha})
+    }
+
     public getDados(numPagina: number) {
         const endpoint = `${environment.apiUrl}/dados`
         return this.httpClient.post<DadosTempo[]>(endpoint, numPagina)

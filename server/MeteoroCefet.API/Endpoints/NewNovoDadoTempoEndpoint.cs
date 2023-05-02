@@ -3,6 +3,7 @@ using MeteoroCefet.Infra.BackgroundServices;
 using MeteoroCefet.Infra;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
+using MongoDB.Driver;
 
 namespace MeteoroCefet.API.Endpoints
 {
@@ -13,14 +14,27 @@ namespace MeteoroCefet.API.Endpoints
             app.MapPost("dados/novo", Handler);
         }
 
-        private static Guid Handler([FromServices] DadosTempoRepository dadosTempoRepository, [FromServices] EstacaoRepository estacaoRepository, [FromServices] ILogger<string> log, List<KeyAndMessagePairs> pares)
+        private static void Handler([FromServices] DadosTempoRepository dadosTempoRepository, [FromServices] EstacaoRepository estacaoRepository, [FromServices] ILogger<string> log, List<KeyAndMessagePairs> pares)
         {
-            foreach(var par in pares)
+
+            var authorized = false;
+
+            if(pares[0].Key == "Estacao")
             {
-                log.LogInformation("Recebi: {par.Key}:{par.Message}", par.Key, par.Message);
+                var estacao = estacaoRepository.Collection.Find(x => x.Numero == int.Parse(pares[0].Message)).FirstOrDefault();
+
+                if (estacao.Senha == pares[1].Message)
+                {
+                    authorized = true;
+                }
             }
 
-            return new Guid();
+            if(authorized)
+            {
+                log.LogInformation("autorizado");
+            }
+
+            return;
         }
         public class KeyAndMessagePairs
         {

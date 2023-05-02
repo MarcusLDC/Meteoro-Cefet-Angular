@@ -23,8 +23,17 @@ export class AuthService {
   // public async userExists(): Promise<void>{
   //   var token = await this.getToken();
   //   var isAdmin = await this.isAdmin(); 
+
+
+  //   var decodedToken: any = this.jwtHelper.decodeToken(token);
+
+  //   console.log(decodedToken)
+
   //   if(token && !isAdmin){
   //     var exists : boolean = false;
+
+  //     console.log(exists)
+
   //     this.meteoroServices.getModeradores().subscribe(async x => {
   //       this.applicationUsers = x;
   //       var decodedToken: any = this.jwtHelper.decodeToken(token);
@@ -33,10 +42,10 @@ export class AuthService {
   //           exists = true; 
   //         }
   //       });
-  //       if(!exists){
-  //         this.logout();
-  //         alert("Acesso revogado, deslogando");
-  //       }
+  //       // if(!exists){
+  //       //   this.logout();
+  //       //   alert("Acesso revogado, deslogando");
+  //       // }
   //     });
   //   };
   //   return;
