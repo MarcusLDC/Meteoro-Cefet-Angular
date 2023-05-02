@@ -43,6 +43,7 @@ import { ConsultaGraficoPopupComponent } from './consulta-grafico-popup/consulta
 import { NgxColorsModule } from 'ngx-colors';
 import { ConsultaSettingsModalComponent } from './consulta/consulta-settings-modal/consulta-settings-modal.component';
 import { FlexLayoutModule } from '@angular/flex-layout';
+import { EstacaoSenhaModalComponent } from './admin/estacao-senha-modal/estacao-senha-modal.component';
 
 @NgModule({
   declarations: [
@@ -59,6 +60,7 @@ import { FlexLayoutModule } from '@angular/flex-layout';
     HomeComponent,
     ConsultaGraficoPopupComponent,
     ConsultaSettingsModalComponent,
+    EstacaoSenhaModalComponent,
   ],
   imports: [
     BrowserModule,

@@ -29,7 +29,7 @@
     
             <mat-card class="card" fnFlex="50">
                 <mat-card-header>
-                    <p class="title"> Cadastrando nova estação: </p>
+                    <p class="title"> Cadastrando nova estação: (não funcional)</p> 
                 </mat-card-header>
                 <mat-card-content [formGroup]="form">
                     <mat-form-field appearance="outline" class="padded">
@@ -62,33 +62,38 @@
                     <mat-expansion-panel hideToggle>
                       <mat-expansion-panel-header>
                         <mat-panel-title>
-                            <strong> Estacão_Id: {{item.numero}}</strong>
+                            <strong> Id: {{item.numero}}</strong>
                         </mat-panel-title>
                         <mat-panel-description>
                             Senha: {{item.senha}}
                         </mat-panel-description>
                         <mat-icon>supervised_user_circle</mat-icon>
                       </mat-expansion-panel-header>
-                      <button mat-raised-button color="warn"> Editar senha </button>
+                      <button mat-raised-button color="warn" (click)="openDialog(item.numero)"> Alterar Senha </button>
                     </mat-expansion-panel>
                 </mat-accordion>
             </mat-expansion-panel>
         </mat-accordion>
 
-        
-
-        <mat-accordion class="card" *ngFor="let item of moderadores | async">
+        <mat-accordion class="card" style="padding-right: 0px;">
             <mat-expansion-panel hideToggle>
-              <mat-expansion-panel-header>
-                <mat-panel-title>
-                    <strong> Usuario: {{item}}</strong>
-                </mat-panel-title>
-                <mat-panel-description>
-                    Cargo: Moderador
-                </mat-panel-description>
-                <mat-icon>supervised_user_circle</mat-icon>
-              </mat-expansion-panel-header>
-              <button mat-raised-button color="warn" (click)="excluirUsuario(item)"> Excluir moderador </button>
+                <mat-expansion-panel-header>
+                    Moderadores
+                </mat-expansion-panel-header>
+                <mat-accordion class="card" *ngFor="let item of moderadores | async">
+                    <mat-expansion-panel hideToggle>
+                      <mat-expansion-panel-header>
+                        <mat-panel-title>
+                            <strong> Usuario: {{item}}</strong>
+                        </mat-panel-title>
+                        <mat-panel-description>
+                            Cargo: Moderador
+                        </mat-panel-description>
+                        <mat-icon>supervised_user_circle</mat-icon>
+                      </mat-expansion-panel-header>
+                      <button mat-raised-button color="warn" (click)="excluirUsuario(item)"> Excluir moderador </button>
+                    </mat-expansion-panel>
+                </mat-accordion>
             </mat-expansion-panel>
         </mat-accordion>
 

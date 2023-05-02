@@ -1,0 +1,31 @@
+.card{
+    margin: 4px;
+    font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+
+.example-container mat-form-field + mat-form-field {
+    margin-left: 8px;
+}
+
+.padded{
+    padding-top: 15px;
+    padding-left: 15px;
+}
+
+.botao{
+    margin-left: 16px;
+    margin-bottom: 15px;
+    width: 86%;
+    text-align: center;
+}
+
+.title{
+    padding: 25px;
+    font-size: 22px;
+    font-weight: 400;
+    text-align: center;
+}
+
+input:-webkit-autofill {
+    -webkit-box-shadow: 0 0 0px 1000px white inset !important;
+}
