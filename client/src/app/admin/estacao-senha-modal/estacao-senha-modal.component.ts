@@ -15,21 +15,15 @@ export class EstacaoSenhaModalComponent {
   constructor(private builder: FormBuilder, private meteoroServices: MeteoroServices,  public dialogRef: MatDialogRef<EstacaoSenhaModalComponent>,  @Inject(MAT_DIALOG_DATA) public data: { numeroEstacao: number }) {
 
     this.form = builder.group({
-      numero: [null, Validators.required],
       senha: [null, Validators.required],
     });
-
-    this.form.patchValue({numero: this.data.numeroEstacao})
 
     document.title = "Alterando Senha"
   }
 
   public async confirmar(){
-
-    let numEstacao = this.form.get('numero')?.value;
-    let senha = this.form.get('senha')?.value
-
-    this.meteoroServices.alterarSenhaEstacao(numEstacao as number, senha as string).subscribe(x => x)
+    let senha = await this.form.get('senha')?.value;
+    this.meteoroServices.alterarSenhaEstacao(this.data.numeroEstacao, senha).subscribe(x => x)
     location.reload()
   }
 
