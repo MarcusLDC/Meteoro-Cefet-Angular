@@ -39,7 +39,7 @@ export class MeteoroServices {
 
     public alterarSenhaEstacao(numEstacao: number, senha: string){
         const endpoint = `${environment.apiUrl}/estacoes/alterarSenha`
-        return this.httpClient.post<string>(endpoint, {numEstacao, senha})
+        return this.httpClient.post<any>(endpoint, { numEstacao, senha })
     }
 
     public getDados(numPagina: number) {

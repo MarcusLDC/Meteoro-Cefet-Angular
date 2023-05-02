@@ -1,0 +1,15 @@
+<mat-card class="card">
+    <mat-card-header class="title">
+        Alterando senha da Estação {{this.form.get('numero')?.value}}
+    </mat-card-header>
+    <mat-card-content [formGroup]="form">
+        <mat-form-field appearance="outline" class="padded">
+            <mat-label> Nova Senha: </mat-label>
+            <input matInput formControlName="senha">
+        </mat-form-field>
+    </mat-card-content>
+    <mat-card-actions>
+        <button mat-raised-button color="warn" class="botao" (click)="confirmar()"> Confirmar </button>
+        <button mat-raised-button class="botao" (click)="closeDialog()"> Cancelar </button>
+    </mat-card-actions>
+</mat-card>
