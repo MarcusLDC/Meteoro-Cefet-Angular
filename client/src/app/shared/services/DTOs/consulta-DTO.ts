@@ -33,7 +33,7 @@ export enum CampoNome{
     'Temperatura do ar (°C)',
     'Temperatura mínima (°C)',
     'Temperatura máxima (°C)',
-    'T° Ponto de orvalho (°C)',
+    'Ponto de orvalho (°C)',
     'Chuva Acumulada (mm)',
     'Direção do vento (°)',
     'Velocidade do vento (m/s)',

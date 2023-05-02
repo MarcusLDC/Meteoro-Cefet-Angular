@@ -75,7 +75,7 @@ export class ConsultaGraficoComponent implements AfterViewInit{
               style: "normal",
               weight: "bold"
             },
-            text: `Estação ${this.stationData.station} de ${this.dates[0]} à ${this.dates[this.dates.length-1]}, Intervalo: ${this.intervalo}`
+            text: `ID: ${this.stationData.station} - ${this.dates[0]}h à ${this.dates[this.dates.length-1]}h - Intervalo: ${this.intervalo}`
           },
           datalabels: {
             color: function(context) {
