@@ -95,7 +95,7 @@ export class ConsultaGraficoComponent implements AfterViewInit{
             align: 'top',
             display: 'auto',
             formatter: function(value, context) {
-              return value + datasets[context.datasetIndex].suffix;
+              return value.toFixed(0);
             },
           },
           legend: {
@@ -138,12 +138,5 @@ export class ConsultaGraficoComponent implements AfterViewInit{
   private graficoToPNG(){
     const canvas = this.graphCanvas.nativeElement;
     return canvas.toDataURL('image/png');
-  }
-
-  public baixarGrafico(){
-    const link = document.createElement('a');
-    link.download = `Estação_${this.stationData.station}-${this.dates[0]}_à_${this.dates[this.dates.length-1]}-${this.intervalo}`;
-    link.href = this.graficoToPNG();
-    link.click();
   }
 }
