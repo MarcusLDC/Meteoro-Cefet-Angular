@@ -50,8 +50,7 @@
 
                     </mat-card-header>
                 </mat-card>
-                
-                <mat-card class="card">
+                <div class="card">
                     <ng-container *ngFor="let consultaData of consultaDataArray">
                         <div class="graphs">
                             <app-consulta-grafico #consultaGrafico id="consultaGrafico" *ngIf="consultaData"
@@ -62,8 +61,7 @@
                             </app-consulta-grafico>
                         </div>
                     </ng-container>   
-                </mat-card>
-
+                </div>
             </div>
         </div>
     </div>

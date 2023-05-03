@@ -71,7 +71,7 @@ export class ConsultaGraficoComponent implements AfterViewInit{
             display: true,
             font: {
               family: "Arial",
-              size: 14,
+              size: 12,
               style: "normal",
               weight: "bold"
             },
@@ -92,7 +92,7 @@ export class ConsultaGraficoComponent implements AfterViewInit{
             },
             textStrokeColor: 'white',
             textStrokeWidth: 7,
-            align: 'top',
+            align: 'bottom',
             display: 'auto',
             formatter: function(value, context) {
               return value.toFixed(0);
