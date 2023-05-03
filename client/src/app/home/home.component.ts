@@ -1,16 +1,12 @@
-import { Component } from '@angular/core';
+import { Component, ElementRef, QueryList, ViewChildren } from '@angular/core';
 import { MeteoroServices } from '../shared/services/meteoro-services';
-import { Chart } from 'chart.js';
-import { DatePipe } from '@angular/common';
 import { Estacao } from '../shared/models/estacao-model';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { FieldData, StationData } from '../shared/services/DTOs/consulta-DTO';
+import { StationData } from '../shared/services/DTOs/consulta-DTO';
 import { ConsultaModel } from '../shared/models/consulta-model';
-import ChartDataLabels from 'chartjs-plugin-datalabels';
 import { catchError, throwError } from 'rxjs';
-
-type DataSet = { label: string, data: number[], borderColor: string, fill: boolean, type: string, 
-  backgroundColor: string, yAxisID: string, z: number, align: string, suffix: string, pointRadius: number};
+import * as html2canvas from 'html2canvas';
+import * as JSZip from 'jszip';
 
 @Component({
   selector: 'app-home',
@@ -20,9 +16,6 @@ type DataSet = { label: string, data: number[], borderColor: string, fill: boole
 
 
 export class HomeComponent {
-
-  formato = 'dd/MM/yyyy HH:mm';
-  datePipe = new DatePipe('en-Us')
 
   form: FormGroup;
 
@@ -36,6 +29,8 @@ export class HomeComponent {
   estacoes: Estacao[] = []
   estacaoSelecionada: Estacao | undefined;
   paginator = 0;
+
+  consultaGraficoElements!: QueryList<ElementRef>
 
   constructor(private meteoroServices: MeteoroServices, private builder: FormBuilder){
     document.title = "Home - CoMet - LAPA - Monitoramento Ambiental"
@@ -161,6 +156,10 @@ export class HomeComponent {
       return acc;
     }, 0);
     return +chuvaAcumulada.toFixed(1)
+  }
+
+  public async baixarZip() {
+
   }
 }
 

@@ -101,8 +101,9 @@ export class ConsultaGraficoComponent implements AfterViewInit{
           legend: {
             labels: {
               font: {
-                size: 10
-              }
+                size: 10,
+                weight: 'bold',
+              },
             }
           },
         },
