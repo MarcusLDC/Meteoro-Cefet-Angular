@@ -30,7 +30,7 @@ export class HomeComponent {
   estacaoSelecionada: Estacao | undefined;
   paginator = 0;
 
-  consultaGraficoElements!: QueryList<ElementRef>
+  @ViewChildren('consultaGrafico') consultaGraficoElements!: QueryList<ElementRef>;
 
   constructor(private meteoroServices: MeteoroServices, private builder: FormBuilder){
     document.title = "Home - CoMet - LAPA - Monitoramento Ambiental"
@@ -160,6 +160,33 @@ export class HomeComponent {
 
   public async baixarZip() {
 
+    // const canvases: any[] = []
+
+    // this.consultaGraficoElements.forEach(element => {
+    //   canvases.push(element.nativeElement.querySelector('intervalo'))
+    // })
+
+    // console.log(canvases)
+    
+    // for (let i = 0; i < elements.length; i++) {
+    //   const element = elements[i] as HTMLElement;
+    //   const canvas = await html2canvas(element);
+    //   canvases.push(canvas);
+    // }
+    
+    // const zip = new JSZip();
+    // for (let i = 0; i < canvases.length; i++) {
+    //   const canvas = canvases[i];
+    //   const imageData = canvas.toDataURL('image/png');
+    //   zip.file(`imagem_${i}.png`, imageData.substr(imageData.indexOf(',') + 1), {base64: true});
+    // }
+    
+    // const zipBlob = await zip.generateAsync({type:"blob"});
+    // const zipUrl = URL.createObjectURL(zipBlob);
+    // const a = document.createElement('a');
+    // a.href = zipUrl;
+    // a.download = 'graficos.zip';
+    // a.click();
   }
 }
 
