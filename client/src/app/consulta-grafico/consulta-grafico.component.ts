@@ -75,7 +75,7 @@ export class ConsultaGraficoComponent implements AfterViewInit{
               style: "normal",
               weight: "bold"
             },
-            text: `Estação ${this.stationData.station} de ${this.dates[0]} à ${this.dates[this.dates.length-1]}, Intervalo: ${this.intervalo}`
+            text: `ID: ${this.stationData.station} - ${this.dates[0]}h à ${this.dates[this.dates.length-1]}h - Intervalo: ${this.intervalo}`
           },
           datalabels: {
             color: function(context) {
@@ -95,14 +95,15 @@ export class ConsultaGraficoComponent implements AfterViewInit{
             align: 'top',
             display: 'auto',
             formatter: function(value, context) {
-              return value + datasets[context.datasetIndex].suffix;
+              return value.toFixed(0);
             },
           },
           legend: {
             labels: {
               font: {
-                size: 10
-              }
+                size: 10,
+                weight: 'bold',
+              },
             }
           },
         },
@@ -138,12 +139,5 @@ export class ConsultaGraficoComponent implements AfterViewInit{
   private graficoToPNG(){
     const canvas = this.graphCanvas.nativeElement;
     return canvas.toDataURL('image/png');
-  }
-
-  public baixarGrafico(){
-    const link = document.createElement('a');
-    link.download = `Estação_${this.stationData.station}-${this.dates[0]}_à_${this.dates[this.dates.length-1]}-${this.intervalo}`;
-    link.href = this.graficoToPNG();
-    link.click();
   }
 }

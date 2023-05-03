@@ -1,14 +1,14 @@
 <body>
     <div class="body divided" style="display: flex">
-        <div class="div30">
+        <div class="div20">
             <mat-card class="card">
                 <mat-card-header class="header justifyMiddle white">
-                    Relatório - Estação de Monitoramento ID: {{estacaoSelecionada?.numero}} - {{estacaoSelecionada?.nome}} <br> {{dates.slice(-1)[0]}}
+                    ID: {{estacaoSelecionada?.numero}} - Estação de Monitoramento  - {{estacaoSelecionada?.nome}} <br> {{dates.slice(-1)[0]}} horas
                 </mat-card-header>
                 <mat-card-content class="relatorio">
                 
                     <ng-container *ngFor="let relatorio of relatorios; let i=index" >
-                        <mat-grid-list cols="2" style="display: flex;" rowHeight="50px" [ngClass]="{ 'gray-background': i % 2 !== 0 }">
+                        <mat-grid-list cols="2" style="display: flex;" rowHeight="40px" [ngClass]="{ 'gray-background': i % 2 !== 0 }">
                             <mat-grid-tile class="left-tile"> {{relatorio.nome}} </mat-grid-tile>
                             <mat-grid-tile class="right-tile"> {{relatorio.valor}}{{relatorio.sufixo}} </mat-grid-tile>
                         </mat-grid-list>
@@ -16,8 +16,11 @@
                     
                 </mat-card-content>
             </mat-card>
+
+            <button (click)="baixarZip()"> baixar </button>
+
         </div>
-        <div class="div70">
+        <div class="div80">
             <div>
                 <mat-card class="card border fixed">
                     <mat-card-header class="header justifyMiddle white" [formGroup]="form">
@@ -31,7 +34,7 @@
                             <span> Últimas 72 horas </span>
                         </button>
 
-                        <span> Acompanhando Estação </span>
+                        <span> Estação </span>
                         <select style="border-color: green;" formControlName="estacao" (change)="selectEstacoesHandler()">
                             <option *ngFor="let element of estacoes" [value]="element.numero"> {{element.numero}} </option>
                         </select>
@@ -49,10 +52,9 @@
                 </mat-card>
                 
                 <mat-card class="card">
-
                     <ng-container *ngFor="let consultaData of consultaDataArray">
                         <div class="graphs">
-                            <app-consulta-grafico #consultagrafico *ngIf="consultaData"
+                            <app-consulta-grafico #consultaGrafico *ngIf="consultaData"
                                 [dates]="dates" 
                                 [stationData]="consultaData"
                                 [intervalo]="intervalo"
@@ -60,8 +62,8 @@
                             </app-consulta-grafico>
                         </div>
                     </ng-container>   
-
                 </mat-card>
+
             </div>
         </div>
     </div>
