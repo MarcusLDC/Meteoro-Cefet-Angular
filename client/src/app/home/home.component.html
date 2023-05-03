@@ -16,9 +16,9 @@
                     
                 </mat-card-content>
             </mat-card>
-
-            <button (click)="baixarZip()"> baixar </button>
-
+            <mat-card class="card"> 
+                <button mat-raised-button color="warn" (click)="baixarZip()"> Baixar Gráficos (ZIP) </button>
+            </mat-card>
         </div>
         <div class="div80">
             <div>
@@ -54,7 +54,7 @@
                 <mat-card class="card">
                     <ng-container *ngFor="let consultaData of consultaDataArray">
                         <div class="graphs">
-                            <app-consulta-grafico #consultaGrafico *ngIf="consultaData"
+                            <app-consulta-grafico #consultaGrafico id="consultaGrafico" *ngIf="consultaData"
                                 [dates]="dates" 
                                 [stationData]="consultaData"
                                 [intervalo]="intervalo"
