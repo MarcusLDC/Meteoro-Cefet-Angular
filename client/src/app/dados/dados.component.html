@@ -64,10 +64,10 @@
         </div>
         <mat-card class="card">
             <mat-card-header class="fixed center" *ngIf="estacaoSelecionada">
-                Estação de monitoramento ambiental <strong> {{estacaoSelecionada.nome}} </strong> - ID: {{estacaoSelecionada.numero}}
+                ID: {{estacaoSelecionada.numero}} - Estação de monitoramento ambiental <strong> {{estacaoSelecionada.nome}} </strong>
             </mat-card-header>
             <mat-card-header class="fixed center" *ngIf="!estacaoSelecionada">
-                Todas as estações de monitoramento ambiental - LAPA
+                Lapa - Estações de monitoramento ambiental
             </mat-card-header>
             <mat-card-content>
                 <table *ngIf="dataSource!.length > 0"  mat-table [dataSource]="dataSource" class="mat-elevation-z8">

@@ -8,8 +8,8 @@ export class GraphPreferences{
     velocidadeVentoSide: string = 'right'
     velocidadeVentoMaxSide: string = 'right'
     bateriaSide: string = 'left'
-    radiacaoSide: string = 'right'
-    pressaoATMSide: string = 'left'
+    radiacaoSide: string = 'left'
+    pressaoATMSide: string = 'right'
     indiceCalorSide: string = 'left'
     umidadeRelativaSide: string = 'left'
 }

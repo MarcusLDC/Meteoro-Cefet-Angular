@@ -49,7 +49,7 @@ export class HomeComponent {
     this.atualizarDados();
     setInterval(() => {
       this.atualizarDados();
-    }, 300000);
+    }, 120000);
   }
 
   public nextPage(){
@@ -160,11 +160,11 @@ export class HomeComponent {
 
   public async baixarZip() {
 
-    // const canvases: any[] = []
-
     // this.consultaGraficoElements.forEach(element => {
-    //   canvases.push(element.nativeElement.querySelector('intervalo'))
+    //   canvases.push(element.nativeElement.querySelector('.graphCanvas'))
     // })
+
+    // console.log(canvases)
 
     // console.log(canvases)
     

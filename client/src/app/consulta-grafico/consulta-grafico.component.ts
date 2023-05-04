@@ -92,7 +92,11 @@ export class ConsultaGraficoComponent implements AfterViewInit{
             },
             textStrokeColor: 'white',
             textStrokeWidth: 7,
-            align: 'bottom',
+            align: function(context){
+              if(datasets[context.datasetIndex].type == 'bar')
+                return 'top'
+              return (context.datasetIndex % 2 === 0) ? 'top' : 'bottom';
+            },
             display: 'auto',
             formatter: function(value, context) {
               return value.toFixed(0);

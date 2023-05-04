@@ -185,10 +185,10 @@ export class DadosComponent implements OnInit {
         this.manutencao = this.estacoes.filter(x => x.status == 2).length;
   
         var icone = estacao.status == 0 ? this.createIcon('assets/markerVerde.png') : estacao.status == 1 ? this.createIcon('assets/markerVermelho.png') : this.createIcon('assets/markerAzul.png')
-        let tooltipContent = estacao.status == 0 ? x[0].temperaturaAr.toString() + '°C' : 'OFF'
+        let tooltipContent1 = estacao.status == 0 ? x[0].temperaturaAr.toString() + '°C': 'OFF'
 
         L.marker([estacao.latitude, estacao.longitude], { icon: icone })
-        .bindTooltip(tooltipContent, 
+        .bindTooltip(tooltipContent1, 
           {direction: 'bottom',
             permanent: estacao.status == 0,
             offset: [-7, 0],
