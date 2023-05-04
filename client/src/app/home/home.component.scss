@@ -1,13 +1,19 @@
 .card{
-    margin: 5px;
+    margin: 0px;
     background-color: rgb(255, 255, 255);
 }
 
 .white{
-    background-color: white;
+    background-color: rgb(255, 255, 255);
+}
+
+.lightblue{
+    background-color: rgb(0, 162, 255);
+    color: white;
 }
 
 .header{
+    font-size: 15px;
     font-weight: 500;
     padding: 10px;
     min-height: 60px;
