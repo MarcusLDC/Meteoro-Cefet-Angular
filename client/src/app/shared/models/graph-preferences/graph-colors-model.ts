@@ -11,5 +11,5 @@ export class GraphColorPreferences{
     radiacaoColor: string = 'RGB(255, 193, 7, 1)' // yellow
     pressaoATMColor: string = 'RGB(23, 37, 126, 1)' // dark blue
     indiceCalorColor: string = 'RGB(255, 25, 25, 1)' // red
-    umidadeRelativaColor: string = 'RGB(149, 117, 205, 0.3)' // purple
+    umidadeRelativaColor: string = 'RGB(149, 117, 205, 1)' // purple
 }
