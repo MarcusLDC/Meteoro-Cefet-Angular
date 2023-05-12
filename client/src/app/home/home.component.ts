@@ -126,7 +126,7 @@ export class HomeComponent {
         this.relatorios.push({nome: "Temperatura do Ar", valor: +tempAr[0].values.slice(-1)[0].toFixed(1), sufixo: "°C"})
         this.relatorios.push({nome: "Temperatura Mínima", valor: +Math.min(...tempAr[0].values).toFixed(1), sufixo: "°C"})
         this.relatorios.push({nome: "Temperatura Máxima", valor: +Math.max(...tempAr[0].values).toFixed(1), sufixo: "°C"})
-        this.relatorios.push({nome: "T° Ponto de Orvalho", valor: +tempOrv[0].values.slice(-1)[0].toFixed(1), sufixo: "°C"})
+        this.relatorios.push({nome: "Ponto de Orvalho", valor: +tempOrv[0].values.slice(-1)[0].toFixed(1), sufixo: "°C"})
         this.relatorios.push({nome: "Umidade Relativa do Ar", valor: +umidadeRelativa[0].values.slice(-1)[0].toFixed(0), sufixo: "%"})
         this.relatorios.push({nome: "Chuva Acumulada 30min", valor: +chuva[0].values.slice(-1)[0].toFixed(1), sufixo: "mm"})
         this.relatorios.push({nome: "Chuva Acumulada 1h", valor: this.calcularChuvaAcumulada(chuva[0].values, 1), sufixo: "mm"})
