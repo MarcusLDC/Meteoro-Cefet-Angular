@@ -15,7 +15,7 @@ th.mat-sort-header-sorted {
     position: sticky;
     width: 100%;
     top: 49px;
-    z-index: 999; 
+    z-index: 999;
 }
 
 .fixed2 {
@@ -64,8 +64,13 @@ th.mat-sort-header-sorted {
     padding: 1px;
 }
 
+.blue{
+    background-color: rgb(0, 132, 255) !important;
+}
+
 .card30{
     width: 30%;
+    margin-right: 5px;
 }
 
 .card70{
@@ -80,9 +85,9 @@ th.mat-sort-header-sorted {
     font-size: 16px;
     text-align: center;
     font-weight: 500;
-    background-color: #9aec92;
     min-width: 1543px;
-    color: black;
+    background-color: rgb(0, 132, 255);
+    color: rgb(255, 255, 255);
 }
 
 .cardHeaderContent{
@@ -127,10 +132,10 @@ th.mat-sort-header-sorted {
 }
 
 .paginator{
-    margin-bottom: 20px;
-    background-color: rgb(99, 99, 99);
+    background-color: #121d2e;
     padding: 2px;
     min-width: 1543px;
+    max-height: 40px;
 }
 
 .paginatorContent{
@@ -142,7 +147,8 @@ th.mat-sort-header-sorted {
 }
 
 button.active {
-    background-color: #88ff8e;
+    background-color: rgb(0, 132, 255);
+    color: white;
 }
 
 .customButton{

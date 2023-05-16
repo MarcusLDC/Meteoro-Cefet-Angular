@@ -62,7 +62,7 @@
                 </mat-card-content>
             </mat-card>
         </div>
-        <mat-card class="card">
+        <mat-card class="card blue">
             <mat-card-header class="fixed center" *ngIf="estacaoSelecionada">
                 ID: {{estacaoSelecionada.numero}} - Estação de monitoramento ambiental <strong> {{estacaoSelecionada.nome}} </strong>
             </mat-card-header>
@@ -78,7 +78,7 @@
                     <form [formGroup]="form">
                         <ng-container matColumnDef="Estação">
                             <th mat-header-cell *matHeaderCellDef> Estação(ID)
-                                <select #estacao formControlName="estacao" name="estacoes" id="estacoes" (change)="selectEstacoesHandler()">
+                                <select style="border-color: green;" #estacao formControlName="estacao" name="estacoes" id="estacoes" (change)="selectEstacoesHandler()">
                                     <option> Tudo </option>
                                     <option *ngFor="let element of estacoes" [value]="element.numero"> {{element.numero}} </option>
                                 </select>
