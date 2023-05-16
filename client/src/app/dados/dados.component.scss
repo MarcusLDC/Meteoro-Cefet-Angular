@@ -1,6 +1,7 @@
 .map {
     width: 100%;
     height: 100%;
+    border-radius: 5px;
 }
 
 table {
@@ -71,14 +72,26 @@ th.mat-sort-header-sorted {
 .card30{
     width: 30%;
     margin-right: 5px;
+    padding: 1.5px !important;
 }
 
 .card70{
     width: 70%;
+    padding: 2px !important;
 }
 
 .cardHeader{
     background-color: rgb(255, 255, 255);
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+}
+
+.cardContent{
+    padding: 13px;
+    font-size: 14px;
+    background-color: white;
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px;
 }
 
 .center{
@@ -114,12 +127,6 @@ th.mat-sort-header-sorted {
     font-size: 14px;
     font-weight: 500;
     color: black;
-}
-
-.cardContent{
-    padding: 13px;
-    font-size: 14px;
-    background-color: white;
 }
 
 .borderBottom{
