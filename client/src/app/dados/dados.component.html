@@ -7,7 +7,7 @@
 <body src="https://api.windy.com/assets/map-forecast/libBoot.js">
     <div class="body">
         <div class="half">
-            <mat-card class="card card30" *ngIf="estacaoSelecionada">
+            <mat-card class="card blue card30" *ngIf="estacaoSelecionada">
                 <mat-card-header class="cardHeader borderBottom">
                     <mat-card-title> <p class="cardHeaderContent title"> Estação de monitoramento ambiental </p> </mat-card-title>
                     <mat-card-subtitle> <p class="cardHeaderContent subtitle"> 
@@ -18,7 +18,7 @@
                     <div class="container">
                         <div>
                             <p> <span class="subtitle"> Responsável: </span> LAPA\CoMet/CEFET-RJ </p>
-                            <p> <span class="subtitle"> Nome: </span> {{estacaoSelecionada.nome}} - <span class="subtitle"> ID: </span> {{estacaoSelecionada.numero}}</p>
+                            <p> <span class="subtitle"> Nome: </span> <span style="color:rgb(0, 110, 255)"> {{estacaoSelecionada.nome}} </span> - <span class="subtitle"> ID: </span> <span style="color:rgb(0, 110, 255)">{{estacaoSelecionada.numero}}</span></p>
                             <p> <span class="subtitle"> Desde: </span> {{estacaoSelecionada.dataInicio | date : 'MM/yyyy'}}
                             <p> <span class="subtitle"> Status: </span> 
                                 <span [ngStyle]="{ 'color': status[estacaoSelecionada.status] == 'Desligada' ? 'red' : status[estacaoSelecionada.status] == 'Funcionando' ? 'green' : 'blue' }" *ngIf="status[estacaoSelecionada.status]"> {{status[estacaoSelecionada.status]}}</span> </p>
@@ -33,7 +33,7 @@
                     </div>
                 </mat-card-content>
             </mat-card>
-            <mat-card class="card card30" *ngIf="!estacaoSelecionada">
+            <mat-card class="card blue card30" *ngIf="!estacaoSelecionada">
                 <mat-card-header class="cardHeader borderBottom">
                     <mat-card-title> <p class="cardHeaderContent title"> Estações de monitoramento ambiental</p> </mat-card-title>
                     <mat-card-subtitle> <p class="cardHeaderContent subtitle"> 
@@ -56,15 +56,15 @@
                     </div>
                 </mat-card-content>
             </mat-card>
-            <mat-card class="card card70" >
+            <mat-card class="card blue card70" >
                 <mat-card-content class="cardContent map" id="map">
                     <app-map></app-map>
                 </mat-card-content>
             </mat-card>
         </div>
-        <mat-card class="card">
+        <mat-card class="card blue">
             <mat-card-header class="fixed center" *ngIf="estacaoSelecionada">
-                ID: {{estacaoSelecionada.numero}} - Estação de monitoramento ambiental <strong> {{estacaoSelecionada.nome}} </strong>
+                ID: {{estacaoSelecionada.numero}} - Estação de monitoramento ambiental {{estacaoSelecionada.nome}} 
             </mat-card-header>
             <mat-card-header class="fixed center" *ngIf="!estacaoSelecionada">
                 Lapa - Estações de monitoramento ambiental
@@ -78,7 +78,7 @@
                     <form [formGroup]="form">
                         <ng-container matColumnDef="Estação">
                             <th mat-header-cell *matHeaderCellDef> Estação(ID)
-                                <select #estacao formControlName="estacao" name="estacoes" id="estacoes" (change)="selectEstacoesHandler()">
+                                <select style="border-color: green;" #estacao formControlName="estacao" name="estacoes" id="estacoes" (change)="selectEstacoesHandler()">
                                     <option> Tudo </option>
                                     <option *ngFor="let element of estacoes" [value]="element.numero"> {{element.numero}} </option>
                                 </select>

@@ -95,7 +95,7 @@ export class ConsultaGraficoComponent implements AfterViewInit{
             align: function(context){
               if(datasets[context.datasetIndex].type == 'bar')
                 return 'top'
-              return (context.datasetIndex % 2 === 0) ? 'top' : 'bottom';
+              return (context.datasetIndex % 2 === 0) ? 'bottom' : 'top';
             },
             display: 'auto',
             formatter: function(value, context) {

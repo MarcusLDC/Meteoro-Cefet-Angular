@@ -9,6 +9,7 @@ builder
     .AddIdentity<ApplicationUser, ApplicationRole>()
     .AddMongoDbStores<ApplicationUser, ApplicationRole, Guid>(builder.Configuration.GetMongoConnectionString(), "Identity")
     .AddDefaultTokenProviders();
+
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddCors();
