@@ -14,10 +14,13 @@ export class EstacoesComponent{
   status = Status;
   estacoes: Observable<Estacao[]>;
   logado: boolean = false;
+  agora: Date;
 
   constructor(private meteoroServices: MeteoroServices, private auth: AuthService){
     document.title = "Estações - CoMet - LAPA - Monitoramento Ambiental"
     this.estacoes = this.meteoroServices.getEstacoes();
+    this.agora = new Date();
+    console.log(this.agora)
   }
 
   async ngOnInit(): Promise<void> {
