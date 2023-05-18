@@ -17,6 +17,7 @@
                     </mat-panel-title>
                     <mat-panel-description>
                       {{ item.nome }}
+                      <span class="modified" *ngIf="verificarAlteracao(item.ultimaModificacao)"> Modificada Recentemente! </span>
                     </mat-panel-description>
                     <mat-icon style="color:green">settings_input_antenna</mat-icon>
                   </mat-expansion-panel-header>
@@ -76,6 +77,7 @@
                     </mat-panel-title>
                     <mat-panel-description>
                       {{ item.nome }}
+                      <span class="modified" *ngIf="verificarAlteracao(item.ultimaModificacao)"> Modificada Recentemente! </span>
                     </mat-panel-description>
                     <mat-icon style="color:blue">settings_input_antenna</mat-icon>
                   </mat-expansion-panel-header>
@@ -134,7 +136,8 @@
                       <strong> Estação ID: ({{ item.numero }}) </strong>
                     </mat-panel-title>
                     <mat-panel-description>
-                      {{ item.nome }}
+                        {{ item.nome }}
+                        <span class="modified" *ngIf="verificarAlteracao(item.ultimaModificacao)"> Modificada Recentemente! </span>
                     </mat-panel-description>
                     <mat-icon style="color:red">settings_input_antenna</mat-icon>
                   </mat-expansion-panel-header>

@@ -14,13 +14,10 @@ export class EstacoesComponent{
   status = Status;
   estacoes: Observable<Estacao[]>;
   logado: boolean = false;
-  agora: Date;
 
   constructor(private meteoroServices: MeteoroServices, private auth: AuthService){
     document.title = "Estações - CoMet - LAPA - Monitoramento Ambiental"
-    this.estacoes = this.meteoroServices.getEstacoes();
-    this.agora = new Date();
-    console.log(this.agora)
+    this.estacoes = this.meteoroServices.getEstacoes()
   }
 
   async ngOnInit(): Promise<void> {
@@ -29,5 +26,14 @@ export class EstacoesComponent{
       this.logado = await this.auth.isLogged();
       this.estacoes = this.meteoroServices.getEstacoes();
     }, 60000);
+  }
+
+  verificarAlteracao(alteracao: Date){
+    const agora = new Date();
+    const dataFormatada = new Date(alteracao)
+    if(agora.getTime() - dataFormatada.getTime() < (24 * 60 * 60 * 1000)){
+      return true
+    }
+    return false
   }
 }
