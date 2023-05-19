@@ -44,6 +44,7 @@ import { NgxColorsModule } from 'ngx-colors';
 import { ConsultaSettingsModalComponent } from './consulta/consulta-settings-modal/consulta-settings-modal.component';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { EstacaoSenhaModalComponent } from './admin/estacao-senha-modal/estacao-senha-modal.component';
+import { DadosChuvaComponent } from './dados-chuva/dados-chuva.component';
 
 @NgModule({
   declarations: [
@@ -61,6 +62,7 @@ import { EstacaoSenhaModalComponent } from './admin/estacao-senha-modal/estacao-
     ConsultaGraficoPopupComponent,
     ConsultaSettingsModalComponent,
     EstacaoSenhaModalComponent,
+    DadosChuvaComponent,
   ],
   imports: [
     BrowserModule,

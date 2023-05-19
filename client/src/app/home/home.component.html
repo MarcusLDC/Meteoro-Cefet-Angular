@@ -3,7 +3,7 @@
         <div class="div20">
             <mat-card class="card">
                 <mat-card-header class="header justifyMiddle lightblue">
-                    ID: {{estacaoSelecionada?.numero}} - Estação de Monitoramento  - {{estacaoSelecionada?.nome}} <br> {{dates.slice(-1)[0]}} horas
+                    ID: {{estacaoSelecionada?.numero}} - Estação de Monitoramento  - {{estacaoSelecionada?.nome}} <br> {{this.dadosRelatorio[0].dataHora | date : 'dd/MM/yyyy HH:mm'}} horas
                 </mat-card-header>
                 <mat-card-content class="relatorio">
                 
