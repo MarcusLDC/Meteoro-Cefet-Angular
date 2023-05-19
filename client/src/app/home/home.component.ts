@@ -7,6 +7,7 @@ import { ConsultaModel } from '../shared/models/consulta-model';
 import { catchError, throwError } from 'rxjs';
 import * as html2canvas from 'html2canvas';
 import * as JSZip from 'jszip';
+import { DadosTempo } from '../shared/models/dados-tempo-model';
 
 @Component({
   selector: 'app-home',
@@ -24,6 +25,7 @@ export class HomeComponent {
 
   model = new ConsultaModel;
   consultaDataArray: StationData[] = [];
+  dadosRelatorio: DadosTempo[] = [];
   relatorios: Relatorio[] = []
 
   estacoes: Estacao[] = []
@@ -107,7 +109,7 @@ export class HomeComponent {
 
         const graph1 = [0,3,11]; 
         const graph2 = [4,12];
-        const graph3 = [9, 10];
+        const graph3 = [9,10];
         const graph4 = [5,6,7];
 
         this.consultaDataArray = [];
@@ -117,45 +119,25 @@ export class HomeComponent {
         this.consultaDataArray.push({station: x.stationData[0].station, fields: x.stationData[0].fields.filter(field => graph3.includes(field.field))})
         this.consultaDataArray.push({station: x.stationData[0].station, fields: x.stationData[0].fields.filter(field => graph4.includes(field.field))})
 
-        const tempAr = x.stationData[0].fields.filter(x => x.field == 0);
-        const tempOrv =  x.stationData[0].fields.filter(x => x.field == 3);
-        const umidadeRelativa =  x.stationData[0].fields.filter(x => x.field == 12);
-        const chuva = x.stationData[0].fields.filter(x => x.field == 4)
-
-        this.relatorios = [];
-        this.relatorios.push({nome: "Temperatura do Ar", valor: +tempAr[0].values.slice(-1)[0].toFixed(1), sufixo: "°C"})
-        this.relatorios.push({nome: "Temperatura Mínima", valor: +Math.min(...tempAr[0].values).toFixed(1), sufixo: "°C"})
-        this.relatorios.push({nome: "Temperatura Máxima", valor: +Math.max(...tempAr[0].values).toFixed(1), sufixo: "°C"})
-        this.relatorios.push({nome: "Ponto de Orvalho", valor: +tempOrv[0].values.slice(-1)[0].toFixed(1), sufixo: "°C"})
-        this.relatorios.push({nome: "Umidade Relativa do Ar", valor: +umidadeRelativa[0].values.slice(-1)[0].toFixed(0), sufixo: "%"})
-        this.relatorios.push({nome: "Chuva Acumulada 30min", valor: +chuva[0].values.slice(-1)[0].toFixed(1), sufixo: "mm"})
-        this.relatorios.push({nome: "Chuva Acumulada 1h", valor: this.calcularChuvaAcumulada(chuva[0].values, 1), sufixo: "mm"})
-        this.relatorios.push({nome: "Chuva Acumulada 3h", valor: this.calcularChuvaAcumulada(chuva[0].values, 3), sufixo: "mm"})
-        this.relatorios.push({nome: "Chuva Acumulada 6h", valor: this.calcularChuvaAcumulada(chuva[0].values, 6), sufixo: "mm"})
-        this.relatorios.push({nome: "Chuva Acumulada 12h", valor: this.calcularChuvaAcumulada(chuva[0].values, 12), sufixo: "mm"})
-        this.relatorios.push({nome: "Chuva Acumulada 24h", valor: this.calcularChuvaAcumulada(chuva[0].values, 24), sufixo: "mm"})
-
-        if(this.paginator >= 1) this.relatorios.push({nome: "Chuva Acumulada 48h", valor: this.calcularChuvaAcumulada(chuva[0].values, 48), sufixo: "mm"})
-        if(this.paginator == 2) this.relatorios.push({nome: "Chuva Acumulada 72h", valor: this.calcularChuvaAcumulada(chuva[0].values, 72), sufixo: "mm"})
-
         this.dates = x.dates;
+
+        this.meteoroServices.getDadosEstacao(this.estacaoSelecionada!.numero, 1).subscribe(x =>{
+          this.dadosRelatorio = x;
+
+          this.relatorios = [];
+          this.relatorios.push({nome: "Temperatura do Ar", valor: +this.dadosRelatorio[0].temperaturaAr.toFixed(1), sufixo: "°C"})
+          this.relatorios.push({nome: "Temperatura Mínima", valor: +Math.min(...this.dadosRelatorio.map(x => x.temperaturaAr)).toFixed(1), sufixo: "°C"})
+          this.relatorios.push({nome: "Temperatura Máxima", valor: +Math.max(...this.dadosRelatorio.map(x => x.temperaturaAr)).toFixed(1), sufixo: "°C"})
+          this.relatorios.push({nome: "Ponto de Orvalho", valor: +this.dadosRelatorio[0].tempPontoOrvalho.toFixed(1), sufixo: "°C"})
+          this.relatorios.push({nome: "Umidade Relativa do Ar", valor: +this.dadosRelatorio[0].umidadeRelativaAr.toFixed(0), sufixo: "%"})
+        })
+
       })
     });
   }
 
   public selectEstacoesHandler(){
     this.atualizarDados();
-  }
-
-  private calcularChuvaAcumulada(chuva: number[], horas: number) {
-    const periodos = horas * 2;
-    const chuvaAcumulada = chuva.reduce((acc, curr, i, arr) => {
-      if (i >= arr.length - periodos) {
-        return acc + curr;
-      }
-      return acc;
-    }, 0);
-    return +chuvaAcumulada.toFixed(1)
   }
 
   public async baixarZip() {
