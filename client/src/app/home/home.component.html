@@ -1,9 +1,10 @@
 <body>
     <div class="body divided" style="display: flex">
-        <div class="div20">
+        <div class="fixed2 div20">
             <mat-card class="card">
                 <mat-card-header class="header justifyMiddle lightblue">
-                    ID: {{estacaoSelecionada?.numero}} - Estação de Monitoramento  - {{estacaoSelecionada?.nome}} <br> {{this.dadosRelatorio[0].dataHora | date : 'dd/MM/yyyy HH:mm'}} horas
+                    ID: {{estacaoSelecionada?.numero}} - Estação de Monitoramento  - {{estacaoSelecionada?.nome}} 
+                    <br> Ultimo dado: {{this.dadosRelatorio[0].dataHora | date : 'dd/MM/yyyy HH:mm'}} horas
                 </mat-card-header>
                 <mat-card-content class="relatorio">
                 

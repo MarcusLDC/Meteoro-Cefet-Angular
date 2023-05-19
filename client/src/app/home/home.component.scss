@@ -44,13 +44,20 @@
 }
 
 .div80{
-    width: 80%;
+    width: 100%;
     top: 70px;
+    padding-left: 480px;
 }
 
 .fixed{
     position: sticky;
     top: 49px;
+    z-index: 999; 
+}
+
+.fixed2{
+    position: fixed;
+    top: 71px;
     z-index: 999; 
 }
 

@@ -121,13 +121,25 @@ export class HomeComponent {
 
         this.dates = x.dates;
 
+        const tempAr = x.stationData[0].fields.filter(x => x.field == 0);
+
         this.meteoroServices.getDadosEstacao(this.estacaoSelecionada!.numero, 1).subscribe(x =>{
           this.dadosRelatorio = x;
 
           this.relatorios = [];
           this.relatorios.push({nome: "Temperatura do Ar", valor: +this.dadosRelatorio[0].temperaturaAr.toFixed(1), sufixo: "°C"})
-          this.relatorios.push({nome: "Temperatura Mínima", valor: +Math.min(...this.dadosRelatorio.map(x => x.temperaturaAr)).toFixed(1), sufixo: "°C"})
-          this.relatorios.push({nome: "Temperatura Máxima", valor: +Math.max(...this.dadosRelatorio.map(x => x.temperaturaAr)).toFixed(1), sufixo: "°C"})
+          if(this.paginator == 0){
+            this.relatorios.push({nome: "Temperatura Mínima/dia", valor: +Math.min(...tempAr[0].values).toFixed(1), sufixo: "°C"})
+            this.relatorios.push({nome: "Temperatura Máxima/dia", valor: +Math.max(...tempAr[0].values).toFixed(1), sufixo: "°C"})
+          }
+          if(this.paginator == 1){
+            this.relatorios.push({nome: "Temperatura Mínima/48h", valor: +Math.min(...tempAr[0].values).toFixed(1), sufixo: "°C"})
+            this.relatorios.push({nome: "Temperatura Máxima/48h", valor: +Math.max(...tempAr[0].values).toFixed(1), sufixo: "°C"})
+          }
+          if(this.paginator == 2){
+            this.relatorios.push({nome: "Temperatura Mínima/72h", valor: +Math.min(...tempAr[0].values).toFixed(1), sufixo: "°C"})
+            this.relatorios.push({nome: "Temperatura Máxima/72h", valor: +Math.max(...tempAr[0].values).toFixed(1), sufixo: "°C"})
+          }
           this.relatorios.push({nome: "Ponto de Orvalho", valor: +this.dadosRelatorio[0].tempPontoOrvalho.toFixed(1), sufixo: "°C"})
           this.relatorios.push({nome: "Umidade Relativa do Ar", valor: +this.dadosRelatorio[0].umidadeRelativaAr.toFixed(0), sufixo: "%"})
         })
