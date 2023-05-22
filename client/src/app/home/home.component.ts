@@ -36,9 +36,11 @@ export class HomeComponent {
 
   constructor(private meteoroServices: MeteoroServices, private builder: FormBuilder){
     document.title = "Home - CoMet - LAPA - Monitoramento Ambiental"
+    
     this.form = builder.group({
       estacao: [null, Validators.required]
     });
+
     this.meteoroServices.getEstacoes().subscribe(x => {
       this.estacoes = x
     });

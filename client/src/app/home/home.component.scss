@@ -61,6 +61,17 @@
     z-index: 999; 
 }
 
+.flex-container {
+    font-size: 14px;
+    display: flex;
+    justify-content: space-between;
+}
+  
+.item {
+    flex: 1;
+    margin: 0 16px;
+}
+
 .title{
     padding-left: 15px;
     padding-top: 15px;
