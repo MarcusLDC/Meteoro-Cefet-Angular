@@ -3,8 +3,8 @@
         <div class="fixed2 div20">
             <mat-card class="card">
                 <mat-card-header class="header justifyMiddle lightblue">
-                    ID: {{estacaoSelecionada?.numero}} - Estação de Monitoramento  - {{estacaoSelecionada?.nome}} 
-                    <br> Ultimo dado: {{this.dadosRelatorio[0].dataHora | date : 'dd/MM/yyyy HH:mm'}} horas
+                    ID: {{estacaoSelecionada?.numero}} - Estação de Monitoramento  - {{estacaoSelecionada?.nome}}<br> 
+                    <ng-container *ngIf="dadosRelatorio[0].dataHora">Ultimo dado: {{this.dadosRelatorio[0].dataHora | date : 'dd/MM/yyyy HH:mm'}} horas</ng-container>
                 </mat-card-header>
                 <mat-card-content class="relatorio">
                 
@@ -17,6 +17,40 @@
                     
                 </mat-card-content>
             </mat-card>
+
+            <mat-card class="card">
+                
+                <mat-card-header class="header justifyMiddle">
+                    Variáveis dos Gráficos
+                </mat-card-header>
+
+                <mat-card-content [formGroup]="form2">
+                    <div class="flex-container">
+                        <div class="item"><mat-checkbox color="primary" formControlName="tempAr"></mat-checkbox>Temperatura do Ar </div>
+                        <div class="item"><mat-checkbox color="primary" formControlName="indiceCalor"></mat-checkbox>Índice de Calor</div>
+                    </div>
+                    <div class="flex-container">
+                        <div class="item"><mat-checkbox color="primary" formControlName="tempOrv"></mat-checkbox>Ponto de Orvalho</div>
+                        <div class="item"><mat-checkbox color="primary" formControlName="pressaoATM"></mat-checkbox>Pressão Atmosférica</div>
+                    </div>
+                    <div class="flex-container">
+                        <div class="item"><mat-checkbox color="primary" formControlName="umidadeRelativa"></mat-checkbox>Umidade Relativa</div>
+                        <div class="item"><mat-checkbox color="primary" formControlName="chuva"></mat-checkbox>Chuva Acumulada</div>
+                    </div>
+                    <div class="flex-container">
+                        <div class="item"><mat-checkbox color="primary" formControlName="velocidadeVento"></mat-checkbox>Velocidade do Vento</div>
+                        <div class="item"><mat-checkbox color="primary" formControlName="velocidadeVentoMax"></mat-checkbox>Vel. do Vento Máx.</div>
+                    </div>
+                    <div class="flex-container">
+                        <div class="item"><mat-checkbox color="primary" formControlName="direcaoVento"></mat-checkbox>Direção do Vento</div>
+                        <div class="item"><mat-checkbox color="primary" formControlName="radiacao"></mat-checkbox>Radiação Solar Global</div>
+                    </div>
+                    <div class="flex-container">
+                        <div class="item"><mat-checkbox color="primary" formControlName="bateria"></mat-checkbox>Bateria</div>
+                    </div>
+                </mat-card-content>
+            </mat-card>
+
             <mat-card class="card"> 
                 <button mat-raised-button color="warn" (click)="baixarZip()"> Baixar Gráficos (ZIP) </button>
             </mat-card>

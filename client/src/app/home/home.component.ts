@@ -19,6 +19,7 @@ import { DadosTempo } from '../shared/models/dados-tempo-model';
 export class HomeComponent {
 
   form: FormGroup;
+  form2: FormGroup;
 
   dates: string[] = [];
   intervalo: string = '30 minutos';
@@ -36,12 +37,29 @@ export class HomeComponent {
 
   constructor(private meteoroServices: MeteoroServices, private builder: FormBuilder){
     document.title = "Home - CoMet - LAPA - Monitoramento Ambiental"
+
     this.form = builder.group({
       estacao: [null, Validators.required]
     });
+
+    this.form2 = builder.group({
+      tempAr: [true, Validators.required],
+      tempOrv: [true, Validators.required],
+      chuva: [true, Validators.required],
+      direcaoVento: [true, Validators.required],
+      velocidadeVento: [true, Validators.required],
+      velocidadeVentoMax: [true, Validators.required],
+      bateria: [true, Validators.required],
+      radiacao: [true, Validators.required],
+      pressaoATM: [true, Validators.required],
+      indiceCalor: [true, Validators.required],
+      umidadeRelativa: [true, Validators.required],  // Fim-Checkboxes
+    })
+
     this.meteoroServices.getEstacoes().subscribe(x => {
       this.estacoes = x
     });
+
   }
 
   async ngOnInit() : Promise<void>{
@@ -52,6 +70,10 @@ export class HomeComponent {
     setInterval(() => {
       this.atualizarDados();
     }, 120000);
+
+    this.form2.valueChanges.subscribe(() => {
+      this.atualizarDados();
+    });
   }
 
   public nextPage(){
@@ -82,19 +104,19 @@ export class HomeComponent {
         periodoFim : new Date(agora.getTime()),
         estacao : [this.estacaoSelecionada!.numero.toString()],
         intervalo : '30 minutos',
-        tempAr : true,
-        tempMin : true,
-        tempMax : true,
-        tempOrv : true,
-        chuva : true,
-        direcaoVento : true,
-        velocidadeVento : true,
-        velocidadeVentoMax: true,
-        bateria: true,
-        radiacao: true,
-        pressaoATM: true,
-        indiceCalor : true,
-        umidadeRelativa : true
+        tempAr : this.form2.get('tempAr')?.value,
+        tempMin : this.form2.get('tempMin')?.value,
+        tempMax : this.form2.get('tempMax')?.value,
+        tempOrv : this.form2.get('tempOrv')?.value,
+        chuva : this.form2.get('chuva')?.value,
+        direcaoVento : this.form2.get('direcaoVento')?.value,
+        velocidadeVento : this.form2.get('velocidadeVento')?.value,
+        velocidadeVentoMax: this.form2.get('velocidadeVentoMax')?.value,
+        bateria: this.form2.get('bateria')?.value,
+        radiacao: this.form2.get('radiacao')?.value,
+        pressaoATM: this.form2.get('pressaoATM')?.value,
+        indiceCalor : this.form2.get('indiceCalor')?.value,
+        umidadeRelativa : this.form2.get('umidadeRelativa')?.value
       }
 
       this.meteoroServices.consultarGrafico(this.model)
@@ -111,6 +133,7 @@ export class HomeComponent {
         const graph2 = [4,12];
         const graph3 = [9,10];
         const graph4 = [5,6,7];
+        const graph5 = [8];
 
         this.consultaDataArray = [];
 
@@ -118,6 +141,7 @@ export class HomeComponent {
         this.consultaDataArray.push({station: x.stationData[0].station, fields: x.stationData[0].fields.filter(field => graph2.includes(field.field))})
         this.consultaDataArray.push({station: x.stationData[0].station, fields: x.stationData[0].fields.filter(field => graph3.includes(field.field))})
         this.consultaDataArray.push({station: x.stationData[0].station, fields: x.stationData[0].fields.filter(field => graph4.includes(field.field))})
+        this.consultaDataArray.push({station: x.stationData[0].station, fields: x.stationData[0].fields.filter(field => graph5.includes(field.field))})
 
         this.dates = x.dates;
 
@@ -128,15 +152,15 @@ export class HomeComponent {
 
           this.relatorios = [];
           this.relatorios.push({nome: "Temperatura do Ar", valor: +this.dadosRelatorio[0].temperaturaAr.toFixed(1), sufixo: "°C"})
-          if(this.paginator == 0){
+          if(this.paginator == 0 && tempAr){
             this.relatorios.push({nome: "Temperatura Mínima/dia", valor: +Math.min(...tempAr[0].values).toFixed(1), sufixo: "°C"})
             this.relatorios.push({nome: "Temperatura Máxima/dia", valor: +Math.max(...tempAr[0].values).toFixed(1), sufixo: "°C"})
           }
-          if(this.paginator == 1){
+          if(this.paginator == 1 && tempAr){
             this.relatorios.push({nome: "Temperatura Mínima/48h", valor: +Math.min(...tempAr[0].values).toFixed(1), sufixo: "°C"})
             this.relatorios.push({nome: "Temperatura Máxima/48h", valor: +Math.max(...tempAr[0].values).toFixed(1), sufixo: "°C"})
           }
-          if(this.paginator == 2){
+          if(this.paginator == 2 && tempAr){
             this.relatorios.push({nome: "Temperatura Mínima/72h", valor: +Math.min(...tempAr[0].values).toFixed(1), sufixo: "°C"})
             this.relatorios.push({nome: "Temperatura Máxima/72h", valor: +Math.max(...tempAr[0].values).toFixed(1), sufixo: "°C"})
           }
