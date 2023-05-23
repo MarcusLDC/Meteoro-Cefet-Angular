@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { ConsultaModel } from '../shared/models/consulta-model';
 import { LocalStorageServices } from '../shared/services/local-storage-services';
 import { MeteoroServices } from '../shared/services/meteoro-services';
-import { ConsultaDTO, StationData } from '../shared/services/DTOs/consulta-DTO';
+import { ConsultaDTO} from '../shared/services/DTOs/consulta-DTO';
 
 @Component({
   selector: 'app-consulta-grafico-popup',
