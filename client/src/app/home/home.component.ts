@@ -45,20 +45,24 @@ export class HomeComponent {
     this.form2 = builder.group({
       tempAr: [true, Validators.required],
       tempOrv: [true, Validators.required],
-      chuva: [true, Validators.required],
-      direcaoVento: [true, Validators.required],
-      velocidadeVento: [true, Validators.required],
-      velocidadeVentoMax: [true, Validators.required],
-      bateria: [true, Validators.required],
-      radiacao: [true, Validators.required],
-      pressaoATM: [true, Validators.required],
+      chuva: [false, Validators.required],
+      direcaoVento: [false, Validators.required],
+      velocidadeVento: [false, Validators.required],
+      velocidadeVentoMax: [false, Validators.required],
+      bateria: [false, Validators.required],
+      radiacao: [false, Validators.required],
+      pressaoATM: [false, Validators.required],
       indiceCalor: [true, Validators.required],
-      umidadeRelativa: [true, Validators.required],  // Fim-Checkboxes
+      umidadeRelativa: [false, Validators.required],  // Fim-Checkboxes
     })
 
     this.meteoroServices.getEstacoes().subscribe(x => {
       this.estacoes = x
     });
+
+    this.form2.controls['tempAr'].disable();
+    this.form2.controls['indiceCalor'].disable();
+    this.form2.controls['tempOrv'].disable();
 
   }
 
@@ -105,8 +109,8 @@ export class HomeComponent {
         estacao : [this.estacaoSelecionada!.numero.toString()],
         intervalo : '30 minutos',
         tempAr : this.form2.get('tempAr')?.value,
-        tempMin : this.form2.get('tempMin')?.value,
-        tempMax : this.form2.get('tempMax')?.value,
+        tempMin : false,
+        tempMax : false,
         tempOrv : this.form2.get('tempOrv')?.value,
         chuva : this.form2.get('chuva')?.value,
         direcaoVento : this.form2.get('direcaoVento')?.value,
@@ -138,10 +142,15 @@ export class HomeComponent {
         this.consultaDataArray = [];
 
         this.consultaDataArray.push({station: x.stationData[0].station, fields: x.stationData[0].fields.filter(field => graph1.includes(field.field))})
-        this.consultaDataArray.push({station: x.stationData[0].station, fields: x.stationData[0].fields.filter(field => graph2.includes(field.field))})
-        this.consultaDataArray.push({station: x.stationData[0].station, fields: x.stationData[0].fields.filter(field => graph3.includes(field.field))})
-        this.consultaDataArray.push({station: x.stationData[0].station, fields: x.stationData[0].fields.filter(field => graph4.includes(field.field))})
-        this.consultaDataArray.push({station: x.stationData[0].station, fields: x.stationData[0].fields.filter(field => graph5.includes(field.field))})
+
+        if(this.form2.get('umidadeRelativa')?.value || this.form2.get('chuva')?.value)
+          this.consultaDataArray.push({station: x.stationData[0].station, fields: x.stationData[0].fields.filter(field => graph2.includes(field.field))})
+        if(this.form2.get('radiacao')?.value || this.form2.get('pressaoATM')?.value)
+          this.consultaDataArray.push({station: x.stationData[0].station, fields: x.stationData[0].fields.filter(field => graph3.includes(field.field))})
+        if(this.form2.get('direcaoVento')?.value || this.form2.get('velocidadeVento')?.value || this.form2.get('velocidadeVentoMax')?.value)
+          this.consultaDataArray.push({station: x.stationData[0].station, fields: x.stationData[0].fields.filter(field => graph4.includes(field.field))})
+        if(this.form2.get('bateria')?.value)
+          this.consultaDataArray.push({station: x.stationData[0].station, fields: x.stationData[0].fields.filter(field => graph5.includes(field.field))})
 
         this.dates = x.dates;
 
@@ -181,11 +190,7 @@ export class HomeComponent {
     // this.consultaGraficoElements.forEach(element => {
     //   canvases.push(element.nativeElement.querySelector('.graphCanvas'))
     // })
-
-    // console.log(canvases)
-
-    // console.log(canvases)
-    
+ 
     // for (let i = 0; i < elements.length; i++) {
     //   const element = elements[i] as HTMLElement;
     //   const canvas = await html2canvas(element);
