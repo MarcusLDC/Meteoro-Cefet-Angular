@@ -271,7 +271,7 @@ export class ConsultaComponent{
 
     this.localStorage.set('formData', formData)
     
-    const height = formData.estacao.length == 1 ? screen.height * 0.494 : screen.height * 0.9;
+    const height = formData.estacao.length == 1 ? screen.height * 0.55 : screen.height;
 
     window.open('/consulta/grafico', `popup${this.i}`, `width=${screen.width * 0.5},height=${height}`); this.i++;
   }
