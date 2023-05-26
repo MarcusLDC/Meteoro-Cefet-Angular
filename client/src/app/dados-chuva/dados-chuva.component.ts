@@ -1,4 +1,8 @@
 import { Component } from '@angular/core';
+import { FormBuilder, FormGroup } from '@angular/forms';
+import { Estacao } from '../shared/models/estacao-model';
+import { MeteoroServices } from '../shared/services/meteoro-services';
+import { DadosTempo } from '../shared/models/dados-tempo-model';
 
 @Component({
   selector: 'app-dados-chuva',
@@ -7,25 +11,43 @@ import { Component } from '@angular/core';
 })
 export class DadosChuvaComponent {
 
-  
+  displayedColumns: string[] = [ //ordem das colunas
+    'ID',
+    'Estação',
+    'Hora_Leitura',
+    '5 min',
+    '10 min',
+    '30 min',
+    '1h',
+    '3h',
+    '6h',
+    '12h',
+    '24h',
+    '36h',
+    'No mês',
+  ];
 
-  private calcularChuvaAcumulada(chuva: number[], horas: number) {
-    const periodos = horas * 2;
-    const chuvaAcumulada = chuva.reduce((acc, curr, i, arr) => {
-      if (i >= arr.length - periodos) {
-        return acc + curr;
-      }
-      return acc;
-    }, 0);
-    return +chuvaAcumulada.toFixed(1)
+  estacoes: Estacao[] = [];
+  dataSource: DadosTempo[] = [];
+
+  constructor(private meteoroServices: MeteoroServices, private builder: FormBuilder) {
+    
+  }
+
+  async ngOnInit(): Promise<void> {
+    document.title = "Chuva - Monitoramento - LAPA - Monitoramento Ambiental - CoMet"
+    
+    this.meteoroServices.getEstacoes().subscribe(x => {
+      this.estacoes = x;
+    });
+
+    this.atualizarDados();
+    setInterval(() => {
+      this.atualizarDados();
+    }, 60000);
+  }
+
+  private atualizarDados() {
+    
   }
 }
-
-
-
-// this.relatorios.push({nome: "Chuva Acumulada 30min", valor: +chuva[0].values.slice(-1)[0].toFixed(1), sufixo: "mm"})
-// this.relatorios.push({nome: "Chuva Acumulada 1h", valor: this.calcularChuvaAcumulada(chuva[0].values, 1), sufixo: "mm"})
-// this.relatorios.push({nome: "Chuva Acumulada 3h", valor: this.calcularChuvaAcumulada(chuva[0].values, 3), sufixo: "mm"})
-// this.relatorios.push({nome: "Chuva Acumulada 6h", valor: this.calcularChuvaAcumulada(chuva[0].values, 6), sufixo: "mm"})
-// this.relatorios.push({nome: "Chuva Acumulada 12h", valor: this.calcularChuvaAcumulada(chuva[0].values, 12), sufixo: "mm"})
-// this.relatorios.push({nome: "Chuva Acumulada 24h", valor: this.calcularChuvaAcumulada(chuva[0].values, 24), sufixo: "mm"})

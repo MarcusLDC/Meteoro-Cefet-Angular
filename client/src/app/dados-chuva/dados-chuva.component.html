@@ -1,1 +1,80 @@
-<p>dados-chuva works!</p>
+<div class="body">
+    <mat-card class="card blue">
+        <mat-card-header class="fixed center">
+            Lapa - Estações de monitoramento ambiental - Chuva Acumulada (mm)
+        </mat-card-header>
+        <mat-card-content>
+            <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+
+                <ng-container matColumnDef="ID">
+                    <th mat-header-cell *matHeaderCellDef> ID da Estação </th>
+                    <td mat-cell *matCellDef="let element"> {{element.dataHora | date : 'dd/MM/yyyy HH:mm'}}h </td>
+                </ng-container>
+
+                <ng-container matColumnDef="Estação">
+                    <th mat-header-cell *matHeaderCellDef> Nome da Estação </th>
+                    <td mat-cell *matCellDef="let element"> {{element.estacao}} </td>
+                </ng-container>
+                
+                <ng-container matColumnDef="Hora_Leitura">
+                    <th mat-header-cell *matHeaderCellDef> Hora da Última Leitura </th>w
+                    <td mat-cell *matCellDef="let element"> {{element.temperaturaAr}} </td>
+                </ng-container>
+
+                <ng-container matColumnDef="5 min">
+                    <th mat-header-cell *matHeaderCellDef> 5 min </th>w
+                    <td mat-cell *matCellDef="let element"> {{element.tempPontoOrvalho}} </td>
+                </ng-container>
+
+                <ng-container matColumnDef="10 min">
+                    <th mat-header-cell *matHeaderCellDef> 10 min </th>w
+                    <td mat-cell *matCellDef="let element"> {{element.indiceCalor | transform}} </td>
+                </ng-container>
+
+                <ng-container matColumnDef="30 min">
+                    <th mat-header-cell *matHeaderCellDef> 30 min </th>
+                    <td mat-cell *matCellDef="let element"> {{element.umidadeRelativaAr}} </td> <!-- Obs: está trocado a URar pelo Extra2-->
+                </ng-container>
+
+                <ng-container matColumnDef="1h">
+                    <th mat-header-cell *matHeaderCellDef> 1h </th>w
+                    <td mat-cell *matCellDef="let element"> {{element.pressao}} </td>
+                </ng-container>
+
+                <ng-container matColumnDef="3h">
+                    <th mat-header-cell *matHeaderCellDef> 3h </th>w
+                    <td mat-cell *matCellDef="let element"> {{element.precipitacao}} </td>
+                </ng-container>
+
+                <ng-container matColumnDef="6h">
+                    <th mat-header-cell *matHeaderCellDef> 6h </th>w
+                    <td mat-cell *matCellDef="let element"> {{element.direcaoVento}} </td>
+                </ng-container>
+
+                <ng-container matColumnDef="12h">
+                    <th mat-header-cell *matHeaderCellDef> 12h </th>w
+                    <td mat-cell *matCellDef="let element"> {{element.velocidadeVento}} </td>
+                </ng-container>
+
+                <ng-container matColumnDef="24h">
+                    <th mat-header-cell *matHeaderCellDef> 24h </th>w
+                    <td mat-cell *matCellDef="let element"> {{element.deficitPressaoVapor | transform}} </td>
+                </ng-container>
+
+                <ng-container matColumnDef="36h">
+                    <th mat-header-cell *matHeaderCellDef> 36h </th>w
+                    <td mat-cell *matCellDef="let element"> {{element.radSolar}} </td>
+                </ng-container>
+
+                <ng-container matColumnDef="No mês">
+                    <th mat-header-cell *matHeaderCellDef> No mês </th>w
+                    <td mat-cell *matCellDef="let element"> {{element.extra1}} </td>
+                </ng-container>
+
+                <tr class="fixed2" mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                <tr mat-row *matRowDef="let row; index as i; columns: displayedColumns;"
+                [ngClass]="{ 'gray-background': i % 2 !== 0 }"></tr>
+            </table>
+        </mat-card-content>
+    </mat-card>
+</div>

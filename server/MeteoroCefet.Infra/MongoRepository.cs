@@ -43,7 +43,6 @@ namespace MeteoroCefet.Infra
         {
             await Collection.ReplaceOneAsync(x => x.Id == id, newEntity);
         }
-
         public async Task<List<T>> GetPaginated(int numPagina, int tamanhoPaginacao)
         {
             return await Collection

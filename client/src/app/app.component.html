@@ -8,6 +8,7 @@
 
         <button class="buttonLinks" routerLink="" title="Home - ainda em desenvolvimento"> HOME </button>
         <button class="buttonLinks" routerLink="dados" title="Acompanhar os dados das estações meteorológicas em tempo real"> DADOS </button>
+        <button class="buttonLinks" routerLink="dados/chuva" title="Acompanhar os dados das estações meteorológicas em tempo real"> CHUVA </button>
         <button class="buttonLinks" routerLink="consulta" title="Realizar uma consulta específica ao Banco de Dados"> CONSULTA AO BD </button>
         <button class="buttonLinks" routerLink="estacoes" title="Mais informações sobre as estações"> ESTAÇÕES </button> 
 
@@ -32,6 +33,7 @@
 
             <button class="buttonMenu" routerLink="" title="Home - ainda em desenvolvimento"> HOME </button>
             <button class="buttonMenu" routerLink="dados" title="Ver os últimos 100 dados das estações meteorológicas"> DADOS </button> <br>
+            <button class="buttonMenu" routerLink="dados/chuva" title="Ver os últimos 100 dados das estações meteorológicas"> CHUVA </button> <br>
             <button class="buttonMenu" routerLink="consulta" title="Realizar uma consulta específica ao Banco de Dados"> CONSULTA </button> <br>
             <button class="buttonMenu" routerLink="estacoes" title="Mais informações sobre as estações"> ESTAÇÕES </button> <br>
             <button class="buttonMenu logado" *ngIf="!logado" (click)="openDialog()"> LOGIN </button>

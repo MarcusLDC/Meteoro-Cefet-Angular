@@ -8,6 +8,7 @@ import { AdminComponent } from './admin/admin.component';
 import { AuthService } from './shared/services/auth-services';
 import { HomeComponent } from './home/home.component';
 import { ConsultaGraficoPopupComponent } from './consulta-grafico-popup/consulta-grafico-popup.component';
+import { DadosChuvaComponent } from './dados-chuva/dados-chuva.component';
 
 const routes: Routes = [
   {path: "", component: HomeComponent},
@@ -17,6 +18,7 @@ const routes: Routes = [
   {path: "estacoes", component: EstacoesComponent},
   {path: "estacoes/editar/:id", component: EditarEstacaoComponent},
   {path: "admin", component: AdminComponent, canActivate: [AuthService]},
+  {path: "dados/chuva", component: DadosChuvaComponent}
 ];
 
 @NgModule({
