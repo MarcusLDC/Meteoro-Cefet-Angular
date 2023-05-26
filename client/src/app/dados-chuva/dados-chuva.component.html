@@ -8,19 +8,19 @@
 
                 <ng-container matColumnDef="ID">
                     <th mat-header-cell *matHeaderCellDef> ID da Estação </th>
-                    <td mat-cell *matCellDef="let element"> {{element.dataHora | date : 'dd/MM/yyyy HH:mm'}}h </td>
+                    <td mat-cell *matCellDef="let element"> {{element.id}} </td>
                 </ng-container>
 
                 <ng-container matColumnDef="Estação">
                     <th mat-header-cell *matHeaderCellDef> Nome da Estação </th>
-                    <td mat-cell *matCellDef="let element"> {{element.estacao}} </td>
+                    <td mat-cell *matCellDef="let element"> {{element.name}} </td>
                 </ng-container>
                 
                 <ng-container matColumnDef="Hora_Leitura">
                     <th mat-header-cell *matHeaderCellDef> Hora da Última Leitura </th>w
-                    <td mat-cell *matCellDef="let element"> {{element.temperaturaAr}} </td>
+                    <td mat-cell *matCellDef="let element"> {{element.lastRead}} </td>
                 </ng-container>
-
+<!-- 
                 <ng-container matColumnDef="5 min">
                     <th mat-header-cell *matHeaderCellDef> 5 min </th>w
                     <td mat-cell *matCellDef="let element"> {{element.tempPontoOrvalho}} </td>
@@ -33,7 +33,7 @@
 
                 <ng-container matColumnDef="30 min">
                     <th mat-header-cell *matHeaderCellDef> 30 min </th>
-                    <td mat-cell *matCellDef="let element"> {{element.umidadeRelativaAr}} </td> <!-- Obs: está trocado a URar pelo Extra2-->
+                    <td mat-cell *matCellDef="let element"> {{element.umidadeRelativaAr}} </td>
                 </ng-container>
 
                 <ng-container matColumnDef="1h">
@@ -64,11 +64,11 @@
                 <ng-container matColumnDef="36h">
                     <th mat-header-cell *matHeaderCellDef> 36h </th>w
                     <td mat-cell *matCellDef="let element"> {{element.radSolar}} </td>
-                </ng-container>
+                </ng-container> -->
 
                 <ng-container matColumnDef="No mês">
                     <th mat-header-cell *matHeaderCellDef> No mês </th>w
-                    <td mat-cell *matCellDef="let element"> {{element.extra1}} </td>
+                    <td mat-cell *matCellDef="let element"> {{element.values}} </td>
                 </ng-container>
 
                 <tr class="fixed2" mat-header-row *matHeaderRowDef="displayedColumns"></tr>

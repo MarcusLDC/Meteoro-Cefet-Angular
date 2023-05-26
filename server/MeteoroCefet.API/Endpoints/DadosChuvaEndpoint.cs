@@ -26,11 +26,9 @@ namespace MeteoroCefet.API.Endpoints
             {
                 Id = x.Key,
                 Name = estacaoRepository.GetNameByNumber(x.Key),
-                LastRead = x.First().DataHora.ToString("t", new CultureInfo("pt-BR")),
-                Values = x.Sum(y => y.Precipitacao)
+                LastRead = x.First().DataHora.AddHours(-3).ToString("t", new CultureInfo("pt-BR")),
+                Values = Math.Round(x.Sum(y => y.Precipitacao))
             }).ToList();
-
-            var a = result;
 
             return result;
         } 
