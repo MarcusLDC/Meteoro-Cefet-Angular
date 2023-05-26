@@ -24,5 +24,10 @@ namespace MeteoroCefet.Infra
             var update = Builders<Estacao>.Update.Set(x => x.Senha, senha);
             await Collection.UpdateOneAsync(y => y.Numero == numero, update);
         }
+        public string GetNameByNumber(int numero)
+        {
+            var estacao = Collection.Find(x => x.Numero == numero).First();
+            return estacao.Nome;
+        }
     }
 }

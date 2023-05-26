@@ -75,17 +75,32 @@
                         <th mat-header-cell *matHeaderCellDef> Data e Hora (BRT)</th>
                         <td mat-cell *matCellDef="let element"> {{element.dataHora | date : 'dd/MM/yyyy HH:mm'}}h </td>
                     </ng-container>
+
                     <form [formGroup]="form">
                         <ng-container matColumnDef="Estação">
+
                             <th mat-header-cell *matHeaderCellDef> Estação(ID)
-                                <select style="border-color: green;" #estacao formControlName="estacao" name="estacoes" id="estacoes" (change)="selectEstacoesHandler()">
+
+                                <!-- <mat-form-field #estacao appearance="outline" class="estacoesHandler" [formGroup]="form" name="estacoes" id="estacoes" (change)="selectEstacoesHandler()">
+                                    <mat-label>Estação(ID)</mat-label>
+                                    <mat-select formControlName="estacao" multiple>
+                                        <mat-option> Tudo </mat-option>
+                                        <mat-option *ngFor="let item of estacoes" [value]="item.numero">{{item.numero}}</mat-option>
+                                    </mat-select>
+                                </mat-form-field> -->
+
+                                <select #estacao style="border-color: rgb(0, 132, 255);" formControlName="estacao" name="estacoes" id="estacoes" (change)="selectEstacoesHandler()">
                                     <option> Tudo </option>
                                     <option *ngFor="let element of estacoes" [value]="element.numero"> {{element.numero}} </option>
                                 </select>
+
                             </th>
+
                             <td mat-cell *matCellDef="let element"> {{element.estacao}} </td>
+
                         </ng-container>
                     </form>
+                    
                     <ng-container matColumnDef="Temperatura Ar">
                         <th mat-header-cell *matHeaderCellDef> Temperatura Ar (°C) </th>w
                         <td mat-cell *matCellDef="let element"> {{element.temperaturaAr}} </td>
