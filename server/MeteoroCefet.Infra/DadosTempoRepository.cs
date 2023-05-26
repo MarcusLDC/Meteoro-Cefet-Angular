@@ -29,6 +29,16 @@ namespace MeteoroCefet.Infra
                 .ToListAsync();
         }
 
+        public async Task<List<DadosTempo>> GetLastEstacoes(List<int> numeroEstacao, int numPagina, int tamanhoPaginacao)
+        {
+            return await Collection
+                .Find(x => numeroEstacao.Contains(x.Estacao))
+                .SortByDescending(x => x.DataHora)
+                .Skip((numPagina - 1) * tamanhoPaginacao)
+                .Limit(tamanhoPaginacao)
+                .ToListAsync();
+        }
+
         public async Task<DateTime> GetStationLastReceivedDate(int numeroEstacao)
         {
             var last =  await Collection

@@ -22,7 +22,7 @@ export class HomeComponent {
   form2: FormGroup;
 
   dates: string[] = [];
-  intervalo: string = '30 minutos';
+  intervalo: string = '30 MINUTOS';
 
   model = new ConsultaModel;
   consultaDataArray: StationData[] = [];
