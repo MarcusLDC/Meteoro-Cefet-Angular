@@ -37,7 +37,7 @@ export class DadosChuvaComponent {
     this.atualizarDados();
     setInterval(() => {
       this.atualizarDados();
-    }, 120000);
+    }, 3600000);
   }
 
   private atualizarDados() {
@@ -45,7 +45,7 @@ export class DadosChuvaComponent {
       this.dataSource = estacoes.map(estacao => ({
         id: estacao.numero,
         name: estacao.nome,
-        lastRead: '',
+        lastRead: 'Nulo',
         cincoMinutos: -1,
         dezMinutos: -1,
         trintaMinutos: -1,
@@ -58,11 +58,16 @@ export class DadosChuvaComponent {
         mes: -1,
       }))
 
-      this.pegarDadosChuva(5);
+      this.pegarDadosChuva(5); // minutos para cada interavalo
       this.pegarDadosChuva(10);
       this.pegarDadosChuva(30);
       this.pegarDadosChuva(60);
-      this.pegarDadosChuva(43200);
+      this.pegarDadosChuva(180);
+      this.pegarDadosChuva(360);
+      this.pegarDadosChuva(720);
+      this.pegarDadosChuva(1440);
+      this.pegarDadosChuva(2160);
+      this.pegarDadosChuva(43200); // mes
 
     })
   }
@@ -70,28 +75,39 @@ export class DadosChuvaComponent {
   pegarDadosChuva(intervaloMinutos: number) {
     this.meteoroServices.getDadosChuva(intervaloMinutos).subscribe(dadosDTO => {
       dadosDTO.forEach(dto => {
+
         const index = this.dataSource.findIndex(item => item.id === dto.id);
+        const intervalo = this.intervaloMapeamento[intervaloMinutos];
+
         if (index !== -1) {
-          switch (intervaloMinutos) {
-            case 5:
-              this.dataSource[index].cincoMinutos = dto.value;
-              break;
-            case 10:
-              this.dataSource[index].dezMinutos = dto.value;
-              break;
-            case 30:
-              this.dataSource[index].trintaMinutos = dto.value;
-              break;
-            case 60:
-              this.dataSource[index].umaHora = dto.value;
-              break;
-            case 43200:
-              this.dataSource[index].mes = dto.value;
-              break;
-          }
-          this.dataSource[index].lastRead = dto.lastRead;
+           this.dataSource[index][intervalo] = dto.value;
+           this.dataSource[index].lastRead = dto.lastRead;
         }
+
       });
     });
+  }
+
+  private intervaloMapeamento: { [key: number]: string } = {
+    5: 'cincoMinutos',
+    10: 'dezMinutos',
+    30: 'trintaMinutos',
+    60: 'umaHora',
+    180: 'tresHoras',
+    360: 'seisHoras',
+    720: 'dozeHoras',
+    1440: 'umDia',
+    2160: 'umDiaMeio',
+    43200: 'mes'
+  };
+
+  carregarTexto(lido: string, valor: number): string {
+    if (valor === -1 && lido !== 'Nulo') {
+      return 'Carregando...';
+    } else if (lido === 'Nulo') {
+      return 'Nulo';
+    } else {
+      return valor.toString();
+    }
   }
 }

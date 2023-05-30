@@ -18,4 +18,5 @@ export interface DadosChuvaTable {
     umDia: number;
     umDiaMeio: number;
     mes: number;
+    [key: string]: number | string;
 }
