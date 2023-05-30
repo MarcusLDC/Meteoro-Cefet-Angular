@@ -45,7 +45,7 @@ export class DadosChuvaComponent {
       this.dataSource = estacoes.map(estacao => ({
         id: estacao.numero,
         name: estacao.nome,
-        lastRead: 'Nulo',
+        lastRead: 'x',
         cincoMinutos: -1,
         dezMinutos: -1,
         trintaMinutos: -1,
@@ -102,10 +102,10 @@ export class DadosChuvaComponent {
   };
 
   carregarTexto(lido: string, valor: number): string {
-    if (valor === -1 && lido !== 'Nulo') {
-      return 'Carregando...';
-    } else if (lido === 'Nulo') {
-      return 'Nulo';
+    if (valor === -1 && lido !== 'x') {
+      return '...';
+    } else if (lido === 'x') {
+      return 'x';
     } else {
       return valor.toString();
     }

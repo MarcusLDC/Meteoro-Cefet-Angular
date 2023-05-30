@@ -26,7 +26,7 @@ th.mat-sort-header-sorted {
     font-family: Roboto, "Helvetica Neue", sans-serif;
     color: rgb(66, 66, 66);
     padding-top: 70px;
-    max-width: 82%;
+    max-width: 84%;
     margin: auto;
     display: flex;
     flex-direction: column;
@@ -51,16 +51,18 @@ th.mat-sort-header-sorted {
     border-top-right-radius: 5px;
 }
 
-.cardContent{
-    padding: 13px;
-    font-size: 14px;
-    background-color: white;
-    border-bottom-left-radius: 5px;
-    border-bottom-right-radius: 5px;
+.cardContent table.mat-elevation-z8 td {
+    font-size: 12px !important;
+    font-weight: 400;
+}
+
+.cardContent table.mat-elevation-z8 th {
+    font-size: 14px !important;
+    font-weight: 500;
 }
 
 .center{
-    font-size: 16px;
+    font-size: 14px;
     text-align: center;
     font-weight: 500;
     background-color: rgb(0, 132, 255);
@@ -75,4 +77,19 @@ th.mat-sort-header-sorted {
 
 .gray-background {
     background-color: #ebebeb;
+}
+
+.half{
+    display: flex;
+    min-width: 1280px;
+}
+
+.card30{
+    width: 40%;
+    height: 70%;
+}
+
+.card70{
+    width: 60%;
+    height: 70%;
 }
