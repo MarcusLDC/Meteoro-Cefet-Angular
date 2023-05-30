@@ -10,7 +10,7 @@ import { NewUserDTO } from "./DTOs/new-user-DTO";
 import { RetornoDTO } from "./DTOs/retorno-DTO";
 import { FileModel } from "../models/file-model";
 import { ConsultaDTO } from "./DTOs/consulta-DTO";
-import { DadosChuva } from "../models/dados-chuva-model";
+import { DadosChuvaDTO } from "../models/dados-chuva-model";
 
 export type GeoData = { address: { city: string | null, town: string | null, state: string } };
 
@@ -58,9 +58,9 @@ export class MeteoroServices {
         return this.httpClient.post<DadosTempo[]>(endpoint, { numeroEstacao, numPagina })
     }
 
-    public getDadosChuva() {
+    public getDadosChuva(minutos: number) {
         const endpoint = `${environment.apiUrl}/dados/chuva`
-        return this.httpClient.get<DadosChuva[]>(endpoint)
+        return this.httpClient.post<DadosChuvaDTO[]>(endpoint, minutos)
     }
 
     // authentication required

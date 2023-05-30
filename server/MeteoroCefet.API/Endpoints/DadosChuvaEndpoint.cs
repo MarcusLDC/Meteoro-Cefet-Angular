@@ -10,45 +10,32 @@ namespace MeteoroCefet.API.Endpoints
     {
         public void DefineEndpoints(WebApplication app)
         {
-            app.MapGet("/dados/chuva", Handler);
+            app.MapPost("/dados/chuva", Handler);
         }
-        private static async Task<List<ChuvaAcumulada>> Handler([FromServices] DadosTempoRepository repository, [FromServices] EstacaoRepository estacaoRepository)
+        private static async Task<List<ChuvaAcumuladaDTO>> Handler([FromServices] DadosTempoRepository repository, [FromServices] EstacaoRepository estacaoRepository, [FromBody] int minutos)
         {
 
             var query = await repository.Collection
-                .Find(x => x.DataHora.Month >= DateTime.Now.Month)
+                .Find(x => x.DataHora >= DateTime.Now.AddMinutes(-minutos))
                 .SortBy(x => x.Estacao)
                 .ToListAsync();
 
             var grouped = query.GroupBy(x => x.Estacao).ToList();
 
-            var result = grouped.Select(x => new ChuvaAcumulada
+            var result = grouped.Select(x => new ChuvaAcumuladaDTO
             {
                 Id = x.Key,
-                Name = estacaoRepository.GetNameByNumber(x.Key),
                 LastRead = x.First().DataHora.AddHours(-3).ToString("t", new CultureInfo("pt-BR")),
-                Values = Math.Round(x.Sum(y => y.Precipitacao))
+                Value = Math.Round(x.Sum(y => y.Precipitacao)),
             }).ToList();
 
             return result;
         } 
-        public class ChuvaAcumulada
+        public class ChuvaAcumuladaDTO
         {
             public int Id { get; set; }
-            public string Name { get; set; }
             public string LastRead { get; set; }
-            public double Values { get; set; }
-
-            /*public int FiveMinutes { get; set; }
-            public int TenMinutes { get; set; }
-            public int ThirtyMinutes { get; set; }
-            public int OneHour { get; set; }
-            public int ThreeHours { get; set; }
-            public int SixHours { get; set; }
-            public int TwelveHours { get; set; }
-            public int OneDay { get; set; }
-            public int OneAndAHalfDays { get; set; }
-            public int OneMonth { get; set;}*/
+            public double Value { get; set; }
         }
     }
 }

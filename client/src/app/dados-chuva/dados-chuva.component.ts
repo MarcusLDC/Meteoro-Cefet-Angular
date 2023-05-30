@@ -1,9 +1,7 @@
 import { Component } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
-import { Estacao } from '../shared/models/estacao-model';
+import { FormBuilder } from '@angular/forms';
 import { MeteoroServices } from '../shared/services/meteoro-services';
-import { DadosTempo } from '../shared/models/dados-tempo-model';
-import { DadosChuva } from '../shared/models/dados-chuva-model';
+import { DadosChuvaTable } from '../shared/models/dados-chuva-model';
 
 @Component({
   selector: 'app-dados-chuva',
@@ -16,19 +14,19 @@ export class DadosChuvaComponent {
     'ID',
     'Estação',
     'Hora_Leitura',
-    // '5 min',
-    // '10 min',
-    // '30 min',
-    // '1h',
-    // '3h',
-    // '6h',
-    // '12h',
-    // '24h',
-    // '36h',
+    '5 min',
+    '10 min',
+    '30 min',
+    '1h',
+    '3h',
+    '6h',
+    '12h',
+    '24h',
+    '36h',
     'No mês',
   ];
 
-  dataSource: DadosChuva[] = [];
+  dataSource: DadosChuvaTable[] = [];
 
   constructor(private meteoroServices: MeteoroServices, private builder: FormBuilder) {
     
@@ -39,12 +37,77 @@ export class DadosChuvaComponent {
     this.atualizarDados();
     setInterval(() => {
       this.atualizarDados();
-    }, 60000);
+    }, 3600000);
   }
 
   private atualizarDados() {
-    this.meteoroServices.getDadosChuva().subscribe(x => {
-      this.dataSource = x;
+    this.meteoroServices.getEstacoes().subscribe(estacoes => {
+      this.dataSource = estacoes.map(estacao => ({
+        id: estacao.numero,
+        name: estacao.nome,
+        lastRead: 'Nulo',
+        cincoMinutos: -1,
+        dezMinutos: -1,
+        trintaMinutos: -1,
+        umaHora: -1,
+        tresHoras: -1,
+        seisHoras: -1,
+        dozeHoras: -1,
+        umDia: -1,
+        umDiaMeio: -1,
+        mes: -1,
+      }))
+
+      this.pegarDadosChuva(5); // minutos para cada interavalo
+      this.pegarDadosChuva(10);
+      this.pegarDadosChuva(30);
+      this.pegarDadosChuva(60);
+      this.pegarDadosChuva(180);
+      this.pegarDadosChuva(360);
+      this.pegarDadosChuva(720);
+      this.pegarDadosChuva(1440);
+      this.pegarDadosChuva(2160);
+      this.pegarDadosChuva(43200); // mes
+
     })
+  }
+
+  pegarDadosChuva(intervaloMinutos: number) {
+    this.meteoroServices.getDadosChuva(intervaloMinutos).subscribe(dadosDTO => {
+      dadosDTO.forEach(dto => {
+
+        const index = this.dataSource.findIndex(item => item.id === dto.id);
+        const intervalo = this.intervaloMapeamento[intervaloMinutos];
+
+        if (index !== -1) {
+           this.dataSource[index][intervalo] = dto.value;
+           this.dataSource[index].lastRead = dto.lastRead;
+        }
+
+      });
+    });
+  }
+
+  private intervaloMapeamento: { [key: number]: string } = {
+    5: 'cincoMinutos',
+    10: 'dezMinutos',
+    30: 'trintaMinutos',
+    60: 'umaHora',
+    180: 'tresHoras',
+    360: 'seisHoras',
+    720: 'dozeHoras',
+    1440: 'umDia',
+    2160: 'umDiaMeio',
+    43200: 'mes'
+  };
+
+  carregarTexto(lido: string, valor: number): string {
+    if (valor === -1 && lido !== 'Nulo') {
+      return 'Carregando...';
+    } else if (lido === 'Nulo') {
+      return 'Nulo';
+    } else {
+      return valor.toString();
+    }
   }
 }
