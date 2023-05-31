@@ -25,7 +25,7 @@ namespace MeteoroCefet.API.Endpoints
             var result = grouped.Select(x => new ChuvaAcumuladaDTO
             {
                 Id = x.Key,
-                LastRead = x.First().DataHora.AddHours(-3).ToString("t", new CultureInfo("pt-BR")),
+                LastRead = x.First().DataHora.AddHours(-3).ToString("g", new CultureInfo("pt-BR")),
                 Value = Math.Round(x.Select(y => y.Precipitacao).DefaultIfEmpty(0).Sum(), 1)
             }).ToList();
 
