@@ -34,10 +34,12 @@ export class DadosChuvaComponent {
 
   async ngOnInit(): Promise<void> {
     document.title = "Chuva - Monitoramento - LAPA - Monitoramento Ambiental - CoMet"
+
     this.atualizarDados();
     setInterval(() => {
       this.atualizarDados();
-    }, 3600000);
+    }, 120000);
+
   }
 
   private atualizarDados() {
@@ -58,7 +60,7 @@ export class DadosChuvaComponent {
         mes: -1,
       }))
 
-      this.pegarDadosChuva(5); // minutos para cada interavalo
+      this.pegarDadosChuva(5);
       this.pegarDadosChuva(10);
       this.pegarDadosChuva(30);
       this.pegarDadosChuva(60);
@@ -67,7 +69,7 @@ export class DadosChuvaComponent {
       this.pegarDadosChuva(720);
       this.pegarDadosChuva(1440);
       this.pegarDadosChuva(2160);
-      this.pegarDadosChuva(43200); // mes
+      // this.pegarDadosChuva(43200);
 
     })
   }
