@@ -2,6 +2,7 @@ import { Component} from '@angular/core';
 import { AuthService } from '../app/shared/services/auth-services';
 import { MatDialog } from '@angular/material/dialog';
 import { LoginModalComponent } from './login-modal/login-modal.component';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-root',
@@ -14,12 +15,10 @@ export class AppComponent {
   title = 'Meteoro Cefet';
   
   modalAberto = false;
-  buttonMenu!: HTMLElement | null;
-  divDropdown!: HTMLElement | null;
   logado: boolean = false;
   admin: boolean = false;
 
-  constructor(private auth: AuthService, public dialog: MatDialog){}
+  constructor(private auth: AuthService, public dialog: MatDialog, private router: Router){}
 
   async ngOnInit(): Promise<void> {
     

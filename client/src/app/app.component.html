@@ -1,46 +1,37 @@
+<mat-toolbar>
+    <span> 
+        <a href="http://meteoro.cefet-rj.br/" title="http://meteoro.cefet-rj.br/" class="mainLink"> LAPA - Monitoramento Ambiental - CoMet <mat-icon class="linkIcon">open_in_new</mat-icon></a> 
+    </span>
 
-<div class="container navBar">
-    <div class="left-column">
-        <p class="navBarLogo"> <a href="http://meteoro.cefet-rj.br/" title="http://meteoro.cefet-rj.br/" style="color: white; text-decoration: none;">
-            LAPA - Monitoramento Ambiental - CoMet </a> <p>
-    </div>
-    <div class="right-column">
+    <span class="spacer"></span>
 
-        <button class="buttonLinks" routerLink="" title="Home - ainda em desenvolvimento"> HOME </button>
-        <button class="buttonLinks" routerLink="dados" title="Acompanhar os dados das estações meteorológicas em tempo real"> DADOS </button>
-        <button class="buttonLinks" routerLink="dados/chuva" title="Acompanhar os dados das estações meteorológicas em tempo real"> CHUVA </button>
-        <button class="buttonLinks" routerLink="consulta" title="Realizar uma consulta específica ao Banco de Dados"> CONSULTA AO BD </button>
-        <button class="buttonLinks" routerLink="estacoes" title="Mais informações sobre as estações"> ESTAÇÕES </button> 
+    <button class="buttonLinks" routerLink="" title="Página inicial"> HOME </button>
+    <button class="buttonLinks" routerLink="dados" title="Acompanhar os dados das estações meteorológicas em tempo real"> DADOS </button>
+    <button class="buttonLinks" routerLink="dados/chuva" title="Acompanhar os dados de chuva"> CHUVA </button>
+    <button class="buttonLinks" routerLink="consulta" title="Realizar uma consulta específica ao Banco de Dados"> CONSULTA AO BD </button>
+    <button class="buttonLinks" routerLink="estacoes" title="Mais informações sobre as estações"> ESTAÇÕES </button> 
 
-        <button class="buttonLinks buttonEnd" *ngIf="!logado" (click)="openDialog()"> LOGIN </button>
+    <button class="buttonLinks" *ngIf="!logado" (click)="openDialog()"> LOGIN </button>
+    <button class="buttonLinks moderador" *ngIf="(logado && !admin)" (click)="openDialog()"> MODERADOR </button>
+    <button class="buttonLinks admin" *ngIf="(logado && admin)" (click)="openDialog()"> ADMINISTRADOR </button>
 
-        <button class="buttonLinks buttonEnd moderador" *ngIf="(logado && !admin)" (click)="openDialog()"> MODERADOR </button>
-        <button class="buttonLinks buttonEnd admin" *ngIf="(logado && admin)" (click)="openDialog()"> ADMINISTRADOR </button>
+    <button mat-icon-button [matMenuTriggerFor]="beforeMenu" class="menuButton"><mat-icon class="menuIcon">menu</mat-icon></button>
 
-    </div> 
-    <div class="logoDropdown esconder">
-        <p class="navBarLogo"> <a href="http://meteoro.cefet-rj.br/" title="http://meteoro.cefet-rj.br/" style="color: white;"> CoMet</a> <p>
-    </div>
-    <div class="menuDropdown esconder">
-        <div style="display:flex">
+    <mat-menu #beforeMenu="matMenu" xPosition="before">
 
-            <button class="buttonLinks logado admin" *ngIf="(logado && admin)" (click)="openDialog()"> ADMINISTRADOR </button>
-            <button class="buttonLinks logado moderador" *ngIf="(logado && !admin)" (click)="openDialog()"> MODERADOR </button>
-            <button mat-button [matMenuTriggerFor]="beforeMenu" class="menu"><img src="../assets/menu.png" height="30px" width="30px"></button>
+        <button class="buttonMenu" routerLink="" title="Página inicial"> HOME </button>
+        <button class="buttonMenu" routerLink="dados" title="Acompanhar os dados das estações meteorológicas em tempo real"> DADOS </button> <br>
+        <button class="buttonMenu" routerLink="dados/chuva" title="Acompanhar os dados de chuva"> CHUVA </button> <br>
+        <button class="buttonMenu" routerLink="consulta" title="Realizar uma consulta específica ao Banco de Dados"> CONSULTA </button> <br>
+        <button class="buttonMenu" routerLink="estacoes" title="Mais informações sobre as estações"> ESTAÇÕES </button> <br>
 
-        </div>
-        <mat-menu #beforeMenu="matMenu" xPosition="before">
+        <button class="buttonMenu" *ngIf="!logado" (click)="openDialog()"> LOGIN </button>
+        <button class="buttonMenu" style="color: rgb(0, 0, 255);" *ngIf="(logado && !admin)" (click)="openDialog()"> MODERADOR </button>
+        <button class="buttonMenu" style="color: rgb(0, 0, 255);" *ngIf="(logado && admin)" (click)="openDialog()"> ADMINISTRADOR </button>
 
-            <button class="buttonMenu" routerLink="" title="Home - ainda em desenvolvimento"> HOME </button>
-            <button class="buttonMenu" routerLink="dados" title="Ver os últimos 100 dados das estações meteorológicas"> DADOS </button> <br>
-            <button class="buttonMenu" routerLink="dados/chuva" title="Ver os últimos 100 dados das estações meteorológicas"> CHUVA </button> <br>
-            <button class="buttonMenu" routerLink="consulta" title="Realizar uma consulta específica ao Banco de Dados"> CONSULTA </button> <br>
-            <button class="buttonMenu" routerLink="estacoes" title="Mais informações sobre as estações"> ESTAÇÕES </button> <br>
-            <button class="buttonMenu logado" *ngIf="!logado" (click)="openDialog()"> LOGIN </button>
+    </mat-menu>
 
-        </mat-menu>
-    </div>
-</div>
+</mat-toolbar>
 
 <router-outlet></router-outlet>
 

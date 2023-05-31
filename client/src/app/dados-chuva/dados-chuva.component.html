@@ -1,80 +1,83 @@
 <div class="body">
-    <mat-card class="card blue">
-        <mat-card-header class="fixed center">
-            Lapa - Estações de monitoramento ambiental - Chuva Acumulada (mm)
-        </mat-card-header>
-        <mat-card-content>
-            <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+    <div class="half">
+        <mat-card class="card blue card70">
+            <mat-card-header class="fixed center">
+                Lapa - Estações de monitoramento ambiental - Chuva Acumulada (mm)
+            </mat-card-header>
+            <mat-card-content class="cardContent">
+                <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+    
+                    <ng-container matColumnDef="ID">
+                        <th mat-header-cell *matHeaderCellDef> ID Estação </th>
+                        <td mat-cell *matCellDef="let element"> {{element.id}} </td>
+                    </ng-container>
+    
+                    <ng-container matColumnDef="Estação">
+                        <th mat-header-cell *matHeaderCellDef> Nome Estação </th>
+                        <td mat-cell *matCellDef="let element"> {{element.name}} </td>
+                    </ng-container>
+                    
+                    <ng-container matColumnDef="Hora_Leitura">
+                        <th mat-header-cell *matHeaderCellDef> Hora Última Leitura </th>w
+                        <td mat-cell *matCellDef="let element"> {{element.lastRead}} </td>
+                    </ng-container>
+    
+                    <ng-container matColumnDef="5 min">
+                        <th mat-header-cell *matHeaderCellDef> 5min </th>w
+                        <td mat-cell *matCellDef="let element"> {{ carregarTexto(element.lastRead, element.cincoMinutos) }} </td>
+                    </ng-container>
+    
+                    <ng-container matColumnDef="10 min">
+                        <th mat-header-cell *matHeaderCellDef> 10min </th>w
+                        <td mat-cell *matCellDef="let element"> {{ carregarTexto(element.lastRead, element.dezMinutos) }} </td>
+                    </ng-container>
+    
+                    <ng-container matColumnDef="30 min">
+                        <th mat-header-cell *matHeaderCellDef> 30min </th>
+                        <td mat-cell *matCellDef="let element"> {{ carregarTexto(element.lastRead, element.trintaMinutos) }} </td>
+                    </ng-container>
+    
+                    <ng-container matColumnDef="1h">
+                        <th mat-header-cell *matHeaderCellDef> 1h </th>w
+                        <td mat-cell *matCellDef="let element"> {{ carregarTexto(element.lastRead, element.umaHora) }} </td>
+                    </ng-container>
+    
+                    <ng-container matColumnDef="3h">
+                        <th mat-header-cell *matHeaderCellDef> 3h </th>w
+                        <td mat-cell *matCellDef="let element"> {{ carregarTexto(element.lastRead, element.tresHoras) }} </td>
+                    </ng-container>
+    
+                    <ng-container matColumnDef="6h">
+                        <th mat-header-cell *matHeaderCellDef> 6h </th>w
+                        <td mat-cell *matCellDef="let element"> {{ carregarTexto(element.lastRead, element.seisHoras) }} </td>
+                    </ng-container>
+    
+                    <ng-container matColumnDef="12h">
+                        <th mat-header-cell *matHeaderCellDef> 12h </th>w
+                        <td mat-cell *matCellDef="let element"> {{ carregarTexto(element.lastRead, element.dozeHoras) }} </td>
+                    </ng-container>
+    
+                    <ng-container matColumnDef="24h">
+                        <th mat-header-cell *matHeaderCellDef> 24h </th>w
+                        <td mat-cell *matCellDef="let element"> {{ carregarTexto(element.lastRead, element.umDia) }} </td>
+                    </ng-container>
+    
+                    <ng-container matColumnDef="36h">
+                        <th mat-header-cell *matHeaderCellDef> 36h </th>w
+                        <td mat-cell *matCellDef="let element"> {{ carregarTexto(element.lastRead, element.umDiaMeio) }} </td>
+                    </ng-container>
+    
+                    <ng-container matColumnDef="No mês">
+                        <th mat-header-cell *matHeaderCellDef> Mês </th>w
+                        <td mat-cell *matCellDef="let element"> {{ carregarTexto(element.lastRead, element.mes) }} </td>
+                    </ng-container>
+    
+                    <tr class="fixed2" mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                    <tr mat-row *matRowDef="let row; index as i; columns: displayedColumns;"
+                    [ngClass]="{ 'gray-background': i % 2 !== 0 }"></tr>
+                </table>
+            </mat-card-content>
+        </mat-card>
 
-                <ng-container matColumnDef="ID">
-                    <th mat-header-cell *matHeaderCellDef> ID da Estação </th>
-                    <td mat-cell *matCellDef="let element"> {{element.id}} </td>
-                </ng-container>
-
-                <ng-container matColumnDef="Estação">
-                    <th mat-header-cell *matHeaderCellDef> Nome da Estação </th>
-                    <td mat-cell *matCellDef="let element"> {{element.name}} </td>
-                </ng-container>
-                
-                <ng-container matColumnDef="Hora_Leitura">
-                    <th mat-header-cell *matHeaderCellDef> Hora da Última Leitura </th>w
-                    <td mat-cell *matCellDef="let element"> {{element.lastRead}} </td>
-                </ng-container>
-
-                <ng-container matColumnDef="5 min">
-                    <th mat-header-cell *matHeaderCellDef> 5 min </th>w
-                    <td mat-cell *matCellDef="let element"> {{ carregarTexto(element.lastRead, element.cincoMinutos) }} </td>
-                </ng-container>
-
-                <ng-container matColumnDef="10 min">
-                    <th mat-header-cell *matHeaderCellDef> 10 min </th>w
-                    <td mat-cell *matCellDef="let element"> {{ carregarTexto(element.lastRead, element.dezMinutos) }} </td>
-                </ng-container>
-
-                <ng-container matColumnDef="30 min">
-                    <th mat-header-cell *matHeaderCellDef> 30 min </th>
-                    <td mat-cell *matCellDef="let element"> {{ carregarTexto(element.lastRead, element.trintaMinutos) }} </td>
-                </ng-container>
-
-                <ng-container matColumnDef="1h">
-                    <th mat-header-cell *matHeaderCellDef> 1h </th>w
-                    <td mat-cell *matCellDef="let element"> {{ carregarTexto(element.lastRead, element.umaHora) }} </td>
-                </ng-container>
-
-                <ng-container matColumnDef="3h">
-                    <th mat-header-cell *matHeaderCellDef> 3h </th>w
-                    <td mat-cell *matCellDef="let element"> {{ carregarTexto(element.lastRead, element.tresHoras) }} </td>
-                </ng-container>
-
-                <ng-container matColumnDef="6h">
-                    <th mat-header-cell *matHeaderCellDef> 6h </th>w
-                    <td mat-cell *matCellDef="let element"> {{ carregarTexto(element.lastRead, element.seisHoras) }} </td>
-                </ng-container>
-
-                <ng-container matColumnDef="12h">
-                    <th mat-header-cell *matHeaderCellDef> 12h </th>w
-                    <td mat-cell *matCellDef="let element"> {{ carregarTexto(element.lastRead, element.dozeHoras) }} </td>
-                </ng-container>
-
-                <ng-container matColumnDef="24h">
-                    <th mat-header-cell *matHeaderCellDef> 24h </th>w
-                    <td mat-cell *matCellDef="let element"> {{ carregarTexto(element.lastRead, element.umDia) }} </td>
-                </ng-container>
-
-                <ng-container matColumnDef="36h">
-                    <th mat-header-cell *matHeaderCellDef> 36h </th>w
-                    <td mat-cell *matCellDef="let element"> {{ carregarTexto(element.lastRead, element.umDiaMeio) }} </td>
-                </ng-container>
-
-                <ng-container matColumnDef="No mês">
-                    <th mat-header-cell *matHeaderCellDef> No mês </th>w
-                    <td mat-cell *matCellDef="let element"> {{ carregarTexto(element.lastRead, element.mes) }} </td>
-                </ng-container>
-
-                <tr class="fixed2" mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-                <tr mat-row *matRowDef="let row; index as i; columns: displayedColumns;"
-                [ngClass]="{ 'gray-background': i % 2 !== 0 }"></tr>
-            </table>
-        </mat-card-content>
-    </mat-card>
+    </div>
 </div>
