@@ -1,5 +1,19 @@
+<mat-toolbar>
+    <span> LAPA - Monitoramento Ambiental - CoMet </span>
 
-<div class="container navBar">
+    <span class="spacer"></span>
+
+    <button class="buttonLinks" routerLink="" title="Home - ainda em desenvolvimento"> HOME </button>
+    <button class="buttonLinks" routerLink="dados" title="Acompanhar os dados das estações meteorológicas em tempo real"> DADOS </button>
+    <button class="buttonLinks" routerLink="dados/chuva" title="Acompanhar os dados das estações meteorológicas em tempo real"> CHUVA </button>
+    <button class="buttonLinks" routerLink="consulta" title="Realizar uma consulta específica ao Banco de Dados"> CONSULTA AO BD </button>
+    <button class="buttonLinks" routerLink="estacoes" title="Mais informações sobre as estações"> ESTAÇÕES </button> 
+    
+    <button mat-icon-button><mat-icon style="vertical-align: top;">menu</mat-icon></button>
+
+</mat-toolbar>
+
+<!-- <div class="container navBar">
     <div class="left-column">
         <p class="navBarLogo"> <a href="http://meteoro.cefet-rj.br/" title="http://meteoro.cefet-rj.br/" style="color: white; text-decoration: none;">
             LAPA - Monitoramento Ambiental - CoMet </a> <p>
@@ -40,7 +54,7 @@
 
         </mat-menu>
     </div>
-</div>
+</div> -->
 
 <router-outlet></router-outlet>
 

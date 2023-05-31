@@ -45,6 +45,7 @@ import { ConsultaSettingsModalComponent } from './consulta/consulta-settings-mod
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { EstacaoSenhaModalComponent } from './admin/estacao-senha-modal/estacao-senha-modal.component';
 import { DadosChuvaComponent } from './dados-chuva/dados-chuva.component';
+import { MatToolbarModule } from '@angular/material/toolbar';
 
 @NgModule({
   declarations: [
@@ -100,6 +101,7 @@ import { DadosChuvaComponent } from './dados-chuva/dados-chuva.component';
     MatRadioModule,
     NgxColorsModule,
     FlexLayoutModule,
+    MatToolbarModule,
   ],
   providers: [
     DatePipe,
