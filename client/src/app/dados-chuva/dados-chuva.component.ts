@@ -103,6 +103,13 @@ export class DadosChuvaComponent {
     43200: 'mes'
   };
 
+  isNull(valor: number){
+    console.log(valor)
+    if(valor == -1)
+      return true
+    return false
+  }
+
   carregarTexto(lido: string, valor: number): string {
     if (valor === -1 && lido !== 'x') {
       return '...';

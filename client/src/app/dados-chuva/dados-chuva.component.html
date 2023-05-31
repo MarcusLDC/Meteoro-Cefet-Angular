@@ -8,68 +8,79 @@
                 <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
     
                     <ng-container matColumnDef="ID">
-                        <th mat-header-cell *matHeaderCellDef> ID Estação </th>
+                        <th mat-header-cell *matHeaderCellDef> ID </th>
                         <td mat-cell *matCellDef="let element"> {{element.id}} </td>
                     </ng-container>
     
                     <ng-container matColumnDef="Estação">
-                        <th mat-header-cell *matHeaderCellDef> Nome Estação </th>
+                        <th mat-header-cell *matHeaderCellDef> Nome </th>
                         <td mat-cell *matCellDef="let element"> {{element.name}} </td>
                     </ng-container>
                     
                     <ng-container matColumnDef="Hora_Leitura">
-                        <th mat-header-cell *matHeaderCellDef> Hora Última Leitura </th>w
-                        <td mat-cell *matCellDef="let element" style="color: blue;"> {{element.lastRead}} </td>
+                        <th mat-header-cell *matHeaderCellDef> Data_Última_Leitura </th>
+                        <td mat-cell *matCellDef="let element" 
+                        [ngStyle]="{'color': isNull(element.cincoMinutos) ? 'red' : 'blue'}"> {{element.lastRead}} </td>
                     </ng-container>
     
                     <ng-container matColumnDef="5 min">
-                        <th mat-header-cell *matHeaderCellDef> 5min </th>w
-                        <td mat-cell *matCellDef="let element"> {{ carregarTexto(element.lastRead, element.cincoMinutos) }} </td>
+                        <th mat-header-cell *matHeaderCellDef> 5min </th>
+                        <td mat-cell *matCellDef="let element" 
+                        [ngStyle]="{'color': isNull(element.cincoMinutos) ? 'red' : 'inherit'}"> {{ carregarTexto(element.lastRead, element.cincoMinutos) }} </td>
                     </ng-container>
     
                     <ng-container matColumnDef="10 min">
-                        <th mat-header-cell *matHeaderCellDef> 10min </th>w
-                        <td mat-cell *matCellDef="let element"> {{ carregarTexto(element.lastRead, element.dezMinutos) }} </td>
+                        <th mat-header-cell *matHeaderCellDef> 10min </th>
+                        <td mat-cell *matCellDef="let element"
+                        [ngStyle]="{'color': isNull(element.cincoMinutos) ? 'red' : 'inherit'}"> {{ carregarTexto(element.lastRead, element.dezMinutos) }} </td>
                     </ng-container>
     
                     <ng-container matColumnDef="30 min">
                         <th mat-header-cell *matHeaderCellDef> 30min </th>
-                        <td mat-cell *matCellDef="let element"> {{ carregarTexto(element.lastRead, element.trintaMinutos) }} </td>
+                        <td mat-cell *matCellDef="let element"
+                        [ngStyle]="{'color': isNull(element.cincoMinutos) ? 'red' : 'inherit'}"> {{ carregarTexto(element.lastRead, element.trintaMinutos) }} </td>
                     </ng-container>
     
                     <ng-container matColumnDef="1h">
-                        <th mat-header-cell *matHeaderCellDef> 1h </th>w
-                        <td mat-cell *matCellDef="let element"> {{ carregarTexto(element.lastRead, element.umaHora) }} </td>
+                        <th mat-header-cell *matHeaderCellDef> 1h </th>
+                        <td mat-cell *matCellDef="let element"
+                        [ngStyle]="{'color': isNull(element.cincoMinutos) ? 'red' : 'inherit'}"> {{ carregarTexto(element.lastRead, element.umaHora) }} </td>
                     </ng-container>
     
                     <ng-container matColumnDef="3h">
-                        <th mat-header-cell *matHeaderCellDef> 3h </th>w
-                        <td mat-cell *matCellDef="let element"> {{ carregarTexto(element.lastRead, element.tresHoras) }} </td>
+                        <th mat-header-cell *matHeaderCellDef> 3h </th>
+                        <td mat-cell *matCellDef="let element"
+                        [ngStyle]="{'color': isNull(element.cincoMinutos) ? 'red' : 'inherit'}"> {{ carregarTexto(element.lastRead, element.tresHoras) }} </td>
                     </ng-container>
     
                     <ng-container matColumnDef="6h">
-                        <th mat-header-cell *matHeaderCellDef> 6h </th>w
-                        <td mat-cell *matCellDef="let element"> {{ carregarTexto(element.lastRead, element.seisHoras) }} </td>
+                        <th mat-header-cell *matHeaderCellDef> 6h </th>
+                        <td mat-cell *matCellDef="let element"
+                        [ngStyle]="{'color': isNull(element.cincoMinutos) ? 'red' : 'inherit'}"> {{ carregarTexto(element.lastRead, element.seisHoras) }} </td>
                     </ng-container>
     
                     <ng-container matColumnDef="12h">
-                        <th mat-header-cell *matHeaderCellDef> 12h </th>w
-                        <td mat-cell *matCellDef="let element"> {{ carregarTexto(element.lastRead, element.dozeHoras) }} </td>
+                        <th mat-header-cell *matHeaderCellDef> 12h </th>
+                        <td mat-cell *matCellDef="let element"
+                        [ngStyle]="{'color': isNull(element.cincoMinutos) ? 'red' : 'inherit'}"> {{ carregarTexto(element.lastRead, element.dozeHoras) }} </td>
                     </ng-container>
     
                     <ng-container matColumnDef="24h">
-                        <th mat-header-cell *matHeaderCellDef> 24h </th>w
-                        <td mat-cell *matCellDef="let element"> {{ carregarTexto(element.lastRead, element.umDia) }} </td>
+                        <th mat-header-cell *matHeaderCellDef> 24h </th>
+                        <td mat-cell *matCellDef="let element"
+                        [ngStyle]="{'color': isNull(element.cincoMinutos) ? 'red' : 'inherit'}"> {{ carregarTexto(element.lastRead, element.umDia) }} </td>
                     </ng-container>
     
                     <ng-container matColumnDef="36h">
-                        <th mat-header-cell *matHeaderCellDef> 36h </th>w
-                        <td mat-cell *matCellDef="let element"> {{ carregarTexto(element.lastRead, element.umDiaMeio) }} </td>
+                        <th mat-header-cell *matHeaderCellDef> 36h </th>
+                        <td mat-cell *matCellDef="let element"
+                        [ngStyle]="{'color': isNull(element.cincoMinutos) ? 'red' : 'inherit'}"> {{ carregarTexto(element.lastRead, element.umDiaMeio) }} </td>
                     </ng-container>
     
                     <ng-container matColumnDef="No mês">
-                        <th mat-header-cell *matHeaderCellDef> Mês </th>w
-                        <td mat-cell *matCellDef="let element"> {{ carregarTexto(element.lastRead, element.mes) }} </td>
+                        <th mat-header-cell *matHeaderCellDef> Mês </th>
+                        <td mat-cell *matCellDef="let element"
+                        [ngStyle]="{'color': isNull(element.cincoMinutos) ? 'red' : 'inherit'}"> {{ carregarTexto(element.lastRead, element.mes) }} </td>
                     </ng-container>
     
                     <tr class="fixed2" mat-header-row *matHeaderRowDef="displayedColumns"></tr>
