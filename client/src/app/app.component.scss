@@ -23,106 +23,60 @@
   color: white;
   font-size: 16px;
   background-color: inherit;
-  border: 0;
-  padding: 8px;
-  margin: 0px 5px;
+  padding: 0 10px;
+  border: 1px;
+  border-radius: 50px;
+}
+
+.buttonLinks:hover {
+  background-color: #04070c;
 }
 
 .buttonMenu{
-  border: 1px;
+  border: 5px;
+  border-radius: 50px;
   width: 100%;
-  color: rgb(0, 0, 0);
-  padding: 15px 15px;
+  color: black;
+  padding: 10px 15px;
   text-align: center;
-  font-size: 15px;
+  font-size: 16px;
   display: inline-block;
   background-color: #ffffff;
 }
 
-.buttonEnd{
-  margin-right: 13.5%;
-}
-
-.buttonLinks:hover {
-  background-color: #070e18;
-}
-
 .buttonMenu:hover{
-  background-color: #dadada;
+  background-color: #c4c4c4;
 }
 
-.container {
-  display: flex;
-  justify-content: space-between;
+@media (max-width: 1090px) {
+
+  button.menuButton {
+    display: block !important;
+  }
+
+  .buttonLinks {
+    display: none;
+  }
+
 }
 
-.left-column {
-  width: 50%;
-}
-
-.right-column {
-  width: 50%;
-  text-align: end;
-}
-
-.navBarLogo{
-  margin-top: 15px;
-  margin-left: 15%;
-  font-size: 15px;
-}
-
-.menuDropdown{
-  padding: 0px;
-}
-
-.logoDropdown{
-  margin-left: 5%;
-}
-
-.esconder {
+.menuButton{
   display: none;
 }
 
-.admin{
-  background-color: #121d2e;
-  color: rgb(255, 187, 0);
-  font-size: 16px;
+.menuIcon{
+  font-size: 25px;
+  vertical-align: top;
 }
 
-.admin:hover{
-  background-color: #070e18;
+.linkIcon{
+  margin-bottom: 2px;
+  font-size: 10px;
 }
 
-.moderador{
-  background-color: #121d2e;
-  color: rgb(0, 255, 106);
-  font-size: 16px;
-}
-
-.moderador:hover{
-  background-color: #070e18;
-}
-
-.left{
-  float: left;
-}
-
-@media screen and (max-width: 1400px) {
-  .right-column{
-    display: none;
-  }
-  .menuDropdown{
-    display: block;
-  }
-}
-
-@media screen and (max-width: 750px) {
-  .left-column{
-    display: none;
-  }
-  .logoDropdown{
-    display: block;
-  }
+.mainLink{
+  color: white; 
+  text-decoration: none;
 }
 
 footer{
@@ -135,4 +89,16 @@ footer{
   height: 23px;
   z-index: 999; 
   text-align: center;
+}
+
+.admin{
+  color: rgb(255, 199, 45);
+}
+
+.moderador{
+  color: rgb(0, 255, 106);
+}
+
+.isPage{
+  background-color: #0b121f
 }
