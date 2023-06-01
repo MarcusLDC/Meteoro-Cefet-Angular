@@ -69,7 +69,7 @@
             <mat-card-header class="fixed center" *ngIf="!estacaoSelecionada">
                 Lapa - Estações de monitoramento ambiental
             </mat-card-header>
-            <mat-card-content>
+            <mat-card-content class="tableContent">
                 <table *ngIf="dataSource!.length > 0"  mat-table [dataSource]="dataSource" class="mat-elevation-z8">
                     <ng-container matColumnDef="Data e Hora">
                         <th mat-header-cell *matHeaderCellDef> Data e Hora (BRT)</th>

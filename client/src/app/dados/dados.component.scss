@@ -28,7 +28,7 @@ th.mat-sort-header-sorted {
     position: sticky;
     top: 73px; 
     width: 100%;
-    background-color: rgb(236, 236, 236);
+    background-color: rgb(222, 240, 255);
     z-index: 999; 
 }
 
@@ -135,19 +135,20 @@ th.mat-sort-header-sorted {
 }
 
 .borderBottom{
-    border-bottom: 2px solid rgb(220, 238, 255);
+    border-bottom: 2px solid rgb(173, 214, 252);
 }
 
 
 .gray-background {
-    background-color: #ebebeb;
+    background-color: rgb(235, 245, 253);
 }
 
 .paginator{
-    background-color: #121d2e;
-    padding: 2px;
+    background-color: rgb(21, 76, 255);
+    padding: 1.5px;
     min-width: 1280px;
     max-height: 40px;
+    font-size: 8px;
 }
 
 .paginatorContent{
@@ -177,4 +178,18 @@ p{
     color: #fff;
     border-radius: 3px;
     padding: 5px;
+}
+
+.tableContent{
+
+}
+
+.tableContent table.mat-elevation-z8 td {
+    font-size: 12px !important;
+    font-weight: 500;
+}
+
+.tableContent table.mat-elevation-z8 th {
+    font-size: 14px !important;
+    font-weight: 500;
 }
