@@ -85,7 +85,7 @@
     
                     <tr class="fixed2" mat-header-row *matHeaderRowDef="displayedColumns"></tr>
                     <tr mat-row *matRowDef="let row; index as i; columns: displayedColumns;"
-                    [ngClass]="{ 'gray-background': i % 2 !== 0 }"></tr>
+                    [ngClass]="{ 'change-background': i % 2 !== 0 }"></tr>
                 </table>
             </mat-card-content>
         </mat-card>

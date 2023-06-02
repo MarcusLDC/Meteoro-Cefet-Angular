@@ -11,14 +11,7 @@ th.mat-sort-header-sorted {
     position: sticky;
     top: 73px; 
     width: 100%;
-    background-color: rgb(236, 236, 236);
-    z-index: 999; 
-}
-
-.fixed3 {
-    position: sticky;
-    bottom: 20px;
-    width: 100%;
+    background-color: rgb(235, 224, 255);
     z-index: 999; 
 }
 
@@ -42,7 +35,7 @@ th.mat-sort-header-sorted {
 }
 
 .blue{
-    background-color: rgb(0, 132, 255) !important;
+    background-color: RGB(149, 117, 205) !important;
 }
 
 .cardHeader{
@@ -53,7 +46,7 @@ th.mat-sort-header-sorted {
 
 .cardContent table.mat-elevation-z8 td {
     font-size: 12px !important;
-    font-weight: 400;
+    font-weight: 500;
 }
 
 .cardContent table.mat-elevation-z8 th {
@@ -65,7 +58,7 @@ th.mat-sort-header-sorted {
     font-size: 14px;
     text-align: center;
     font-weight: 500;
-    background-color: rgb(0, 132, 255);
+    background-color: RGB(149, 117, 205);
     color: rgb(255, 255, 255);
 }
 
@@ -75,8 +68,12 @@ th.mat-sort-header-sorted {
     color: black;
 }
 
-.gray-background {
-    background-color: #ebebeb;
+.change-background {
+    background-color: rgb(242, 235, 255);
+}
+
+.change-background:hover {
+    background-color: rgb(242, 235, 255) !important;
 }
 
 .half{

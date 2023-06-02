@@ -192,7 +192,8 @@ export class DadosComponent implements OnInit {
           {direction: 'bottom',
             permanent: estacao.status == 0,
             offset: [-7, 0],
-            opacity: 0.9
+            opacity: 0.9,
+            className: 'tooltip'
           })
         .addTo(this.map).on('click', () => {
           this.setSelectedEstacao(String(estacao.numero));
@@ -208,8 +209,8 @@ export class DadosComponent implements OnInit {
   private createIcon(caminho: string) {
     var icone = L.icon({
       iconUrl: caminho,
-      iconSize: [25, 35],
-      iconAnchor: [20, 35],
+      iconSize: [18, 25],
+      iconAnchor: [15, 25],
       popupAnchor: [0, -30]
     });
     return icone;
