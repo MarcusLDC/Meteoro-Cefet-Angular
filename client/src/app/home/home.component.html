@@ -4,8 +4,8 @@
 
             <mat-card class="card">
                 <mat-card-header class="header justifyMiddle lightblue">
-                    ID: {{estacaoSelecionada?.numero}} - Estação de Monitoramento  - {{estacaoSelecionada?.nome}} <br>
-                    Última Atualização: {{this.dadosRelatorio[0].dataHora | date : 'dd/MM/yyyy HH:mm'}} horas
+                    Estação de Monitoramento ID: {{estacaoSelecionada?.numero}} - {{estacaoSelecionada?.nome}} <br>
+                    Última Atualização: {{this.dadosRelatorio[0].dataHora | date : 'dd/MM/yyyy - HH:mm'}}h
                 </mat-card-header>
                 <mat-card-content class="relatorio">
                 
@@ -62,12 +62,12 @@
                     <mat-card-header class="header justifyMiddle white" [formGroup]="form">
                         
                         <button mat-raised-button class="button" *ngIf="paginator != 2" [ngStyle]="{ 'background-color': 'RGB(85, 139, 47)'}" (click)="previousPage()"> 
-                            <span *ngIf="paginator == 0"> < Últimas 48 horas </span>
-                            <span *ngIf="paginator == 1"> < Últimas 72 horas </span>
+                            <span style="color:white" *ngIf="paginator == 0"> < Últimas 48 horas </span>
+                            <span style="color:white" *ngIf="paginator == 1"> < Últimas 72 horas </span>
                         </button>
 
                         <button mat-raised-button disabled class="button" *ngIf="paginator == 2"> 
-                            <span> Últimas 72 horas </span>
+                            <span style="color:white"> Últimas 72 horas </span>
                         </button>
 
                         <span> Estação </span>
@@ -76,12 +76,12 @@
                         </select>
 
                         <button mat-raised-button class="button" *ngIf="paginator != 0" [ngStyle]="{ 'background-color': 'RGB(85, 139, 47)'}" (click)="nextPage()"> 
-                            <span *ngIf="paginator == 1"> Últimas 24 horas > </span>
-                            <span *ngIf="paginator == 2"> Últimas 48 horas > </span>
+                            <span style="color:white" *ngIf="paginator == 1"> Últimas 24 horas > </span>
+                            <span style="color:white" *ngIf="paginator == 2"> Últimas 48 horas > </span>
                         </button>
 
                         <button mat-raised-button disabled class="button" *ngIf="paginator == 0" style="color: black;"> 
-                            <span> Últimas 24 horas </span>
+                            <span style="color:white"> Últimas 24 horas </span>
                         </button>
 
                     </mat-card-header>

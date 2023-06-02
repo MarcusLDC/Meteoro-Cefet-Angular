@@ -12,6 +12,7 @@
   justify-content: space-between;
   align-items: center;
   padding: 0 8%;
+  width: 100%;
 }
 
 .spacer {
@@ -62,11 +63,13 @@
     font-size: 12px;
   }
 
-  footer{
-    font-size: 10px;
-    font-weight: 400;
-  }
+}
 
+@media (max-width: 700px){
+  footer{
+    font-size: 8px;
+    font-weight: 500;
+  }
 }
 
 .menuButton{

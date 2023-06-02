@@ -11,14 +11,7 @@ th.mat-sort-header-sorted {
     position: sticky;
     top: 73px; 
     width: 100%;
-    background-color: rgb(236, 236, 236);
-    z-index: 999; 
-}
-
-.fixed3 {
-    position: sticky;
-    bottom: 20px;
-    width: 100%;
+    background-color: rgb(215, 194, 255);
     z-index: 999; 
 }
 
@@ -42,7 +35,7 @@ th.mat-sort-header-sorted {
 }
 
 .blue{
-    background-color: rgb(0, 132, 255) !important;
+    background-color: RGB(149, 117, 205) !important;
 }
 
 .cardHeader{
@@ -51,21 +44,11 @@ th.mat-sort-header-sorted {
     border-top-right-radius: 5px;
 }
 
-.cardContent table.mat-elevation-z8 td {
-    font-size: 12px !important;
-    font-weight: 400;
-}
-
-.cardContent table.mat-elevation-z8 th {
-    font-size: 14px !important;
-    font-weight: 500;
-}
-
 .center{
     font-size: 14px;
     text-align: center;
     font-weight: 500;
-    background-color: rgb(0, 132, 255);
+    background-color: RGB(149, 117, 205);
     color: rgb(255, 255, 255);
 }
 
@@ -73,10 +56,6 @@ th.mat-sort-header-sorted {
     font-size: 14px;
     font-weight: 500;
     color: black;
-}
-
-.gray-background {
-    background-color: #ebebeb;
 }
 
 .half{

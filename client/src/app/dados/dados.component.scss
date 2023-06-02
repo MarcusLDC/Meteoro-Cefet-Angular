@@ -28,8 +28,8 @@ th.mat-sort-header-sorted {
     position: sticky;
     top: 73px; 
     width: 100%;
-    background-color: rgb(222, 240, 255);
-    z-index: 999; 
+    background-color: rgb(215, 194, 255);
+    z-index: 999;
 }
 
 .fixed3 {
@@ -71,7 +71,7 @@ th.mat-sort-header-sorted {
 }
 
 .blue{
-    background-color: rgb(0, 132, 255) !important;
+    background-color: RGB(149, 117, 205) !important;
 }
 
 .card30{
@@ -101,10 +101,8 @@ th.mat-sort-header-sorted {
 
 .center{
     font-size: 16px;
-    text-align: center;
     font-weight: 500;
     min-width: 1280px;
-    background-color: rgb(0, 132, 255);
     color: rgb(255, 255, 255);
 }
 
@@ -135,20 +133,14 @@ th.mat-sort-header-sorted {
 }
 
 .borderBottom{
-    border-bottom: 2px solid rgb(173, 214, 252);
-}
-
-
-.gray-background {
-    background-color: rgb(235, 245, 253);
+    border-bottom: 2px solid RGB(149, 117, 205);
 }
 
 .paginator{
-    background-color: rgb(21, 76, 255);
+    background-color: #161B22;
     padding: 1.5px;
     min-width: 1280px;
     max-height: 40px;
-    font-size: 8px;
 }
 
 .paginatorContent{
@@ -157,10 +149,13 @@ th.mat-sort-header-sorted {
 
 .paginatorContent button{
     flex-grow: 1;
+    font-size: 14px;
+    font-weight: 500;
+    height: 30px;
 }
 
 button.active {
-    background-color: rgb(0, 132, 255);
+    background-color: RGB(149, 117, 205);
     color: white;
 }
 
@@ -173,23 +168,14 @@ p{
     margin-bottom: 15px;
 }
 
-.custom-tooltip {
-    background-color: #69b3e2;
-    color: #fff;
-    border-radius: 3px;
-    padding: 5px;
+.tooltip {
+    font-size: 10px !important; 
+}
+  
+.ng-tooltip.tooltip {
+    font-size: 10px !important; 
 }
 
 .tableContent{
-
-}
-
-.tableContent table.mat-elevation-z8 td {
-    font-size: 12px !important;
-    font-weight: 500;
-}
-
-.tableContent table.mat-elevation-z8 th {
-    font-size: 14px !important;
-    font-weight: 500;
+    color: black;
 }

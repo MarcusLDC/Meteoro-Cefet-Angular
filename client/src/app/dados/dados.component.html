@@ -63,10 +63,10 @@
             </mat-card>
         </div>
         <mat-card class="card blue">
-            <mat-card-header class="fixed center" *ngIf="estacaoSelecionada">
+            <mat-card-header class="fixed center tableHeader" *ngIf="estacaoSelecionada">
                 ID: {{estacaoSelecionada.numero}} - Estação de monitoramento ambiental {{estacaoSelecionada.nome}} 
             </mat-card-header>
-            <mat-card-header class="fixed center" *ngIf="!estacaoSelecionada">
+            <mat-card-header class="fixed center tableHeader" *ngIf="!estacaoSelecionada">
                 Lapa - Estações de monitoramento ambiental
             </mat-card-header>
             <mat-card-content class="tableContent">
@@ -89,7 +89,7 @@
                                     </mat-select>
                                 </mat-form-field> -->
 
-                                <select #estacao style="border-color: rgb(0, 132, 255);" formControlName="estacao" name="estacoes" id="estacoes" (change)="selectEstacoesHandler()">
+                                <select #estacao style="border-color: rgb(255, 136, 0);" formControlName="estacao" name="estacoes" id="estacoes" (change)="selectEstacoesHandler()">
                                     <option> Tudo </option>
                                     <option *ngFor="let element of estacoes" [value]="element.numero"> {{element.numero}} </option>
                                 </select>
@@ -183,17 +183,17 @@
         
                     <tr class="fixed2" mat-header-row *matHeaderRowDef="displayedColumns"></tr>
                     <tr mat-row *matRowDef="let row; index as i; columns: displayedColumns;"
-                    [ngClass]="{ 'gray-background': i % 2 !== 0 }"></tr>
+                    [ngClass]="{ 'table-background': i % 2 !== 0 }"></tr>
                 </table>
             </mat-card-content>
         </mat-card>
         <mat-card class="paginator fixed3">
             <mat-card-content class="paginatorContent">
-                <button mat-flat-button (click)="previousPage()" class="customButton"> < Página Anterior </button>
+                <button mat-flat-button (click)="previousPage()" class="customButton"> << Página Anterior </button>
 
                 <button mat-flat-button (click)="setPage(page)" *ngFor="let page of pages" [ngClass]="{ 'active': paginator === page }" class="customButton">{{page}}</button>
 
-                <button mat-flat-button (click)="nextPage()" class="customButton" style="float:right"> <span> Próxima Página > </span></button>
+                <button mat-flat-button (click)="nextPage()" class="customButton" style="float:right"> <span> Próxima Página >> </span></button>
             </mat-card-content>
         </mat-card>
     </div>
