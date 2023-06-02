@@ -30,7 +30,7 @@ export class ConsultaGraficoComponent implements AfterViewInit{
 
   @ViewChild ('graph') graphCanvas!: ElementRef;
   
-  constructor(private localStorage: LocalStorageServices) { Chart.register(ChartDataLabels); }
+  constructor(private localStorage: LocalStorageServices) { Chart.register(ChartDataLabels) }
 
   async ngAfterViewInit(): Promise<void> {
 
@@ -100,6 +100,8 @@ export class ConsultaGraficoComponent implements AfterViewInit{
             },
             display: 'auto',
             formatter: function(value, context) {
+              if(datasets[context.datasetIndex].suffix == 'mm')
+                return value.toFixed(1)
               return value.toFixed(0);
             },
           },
@@ -118,17 +120,22 @@ export class ConsultaGraficoComponent implements AfterViewInit{
         scales: {
           left: {
             position: 'left',
-            display: datasets.map(x => x.yAxisID == 'left').some(x => x)
+            display: datasets.map(x => x.yAxisID == 'left').some(x => x),
+            min: undefined
           },
           right: {
             position: 'right',
-            display: datasets.map(x => x.yAxisID == 'right').some(x => x)
+            display: datasets.map(x => x.yAxisID == 'right').some(x => x),
+            min: undefined
           },
         },
         elements:{
           line:{
             tension: 0.5,
             borderWidth: 2
+          },
+          bar: {
+            borderWidth: 0.5,
           },
         }
       }
