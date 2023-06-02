@@ -28,8 +28,8 @@ th.mat-sort-header-sorted {
     position: sticky;
     top: 73px; 
     width: 100%;
-    background-color: rgb(235, 224, 255);
-    z-index: 999; 
+    background-color: rgb(215, 194, 255);
+    z-index: 999;
 }
 
 .fixed3 {
@@ -101,10 +101,8 @@ th.mat-sort-header-sorted {
 
 .center{
     font-size: 16px;
-    text-align: center;
     font-weight: 500;
     min-width: 1280px;
-    background-color: RGB(149, 117, 205);
     color: rgb(255, 255, 255);
 }
 
@@ -136,15 +134,6 @@ th.mat-sort-header-sorted {
 
 .borderBottom{
     border-bottom: 2px solid RGB(149, 117, 205);
-}
-
-
-.change-background {
-    background-color: rgb(242, 235, 255);
-}
-
-.change-background:hover {
-    background-color: rgb(242, 235, 255) !important;
 }
 
 .paginator{
@@ -188,15 +177,5 @@ p{
 }
 
 .tableContent{
-    
-}
-
-.tableContent table.mat-elevation-z8 td {
-    font-size: 12px !important;
-    font-weight: 500;
-}
-
-.tableContent table.mat-elevation-z8 th {
-    font-size: 14px !important;
-    font-weight: 500;
+    color: black;
 }

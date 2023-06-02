@@ -13,6 +13,29 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
     margin: auto;
 }
 
+.tableHeader{
+    background-color: rgb(149, 117, 205);
+    text-align: center;
+}
+
+.table-background {
+    background-color: rgb(226, 210, 255) !important;
+}
+
+.table-background:hover {
+    background-color: rgb(226, 210, 255) !important;
+}
+
+.tableContent table.mat-elevation-z8 td {
+    font-size: 12px !important;
+    font-weight: 500 !important;
+}
+
+.tableContent table.mat-elevation-z8 th {
+    font-size: 14px !important;
+    font-weight: 500 !important;
+}
+
 select{
     margin-left: 5px;
     border-radius: 5px; 

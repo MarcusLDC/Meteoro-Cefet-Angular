@@ -1,10 +1,10 @@
 <div class="body">
     <div class="half">
         <mat-card class="card blue card70">
-            <mat-card-header class="fixed center">
+            <mat-card-header class="fixed center tableHeader">
                 Lapa - Estações de monitoramento ambiental - Chuva Acumulada (mm)
             </mat-card-header>
-            <mat-card-content class="cardContent">
+            <mat-card-content class="tableContent">
                 <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
     
                     <ng-container matColumnDef="ID">
@@ -85,7 +85,7 @@
     
                     <tr class="fixed2" mat-header-row *matHeaderRowDef="displayedColumns"></tr>
                     <tr mat-row *matRowDef="let row; index as i; columns: displayedColumns;"
-                    [ngClass]="{ 'change-background': i % 2 !== 0 }"></tr>
+                    [ngClass]="{ 'table-background': i % 2 !== 0 }"></tr>
                 </table>
             </mat-card-content>
         </mat-card>

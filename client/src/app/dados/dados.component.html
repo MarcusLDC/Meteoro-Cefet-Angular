@@ -63,10 +63,10 @@
             </mat-card>
         </div>
         <mat-card class="card blue">
-            <mat-card-header class="fixed center" *ngIf="estacaoSelecionada">
+            <mat-card-header class="fixed center tableHeader" *ngIf="estacaoSelecionada">
                 ID: {{estacaoSelecionada.numero}} - Estação de monitoramento ambiental {{estacaoSelecionada.nome}} 
             </mat-card-header>
-            <mat-card-header class="fixed center" *ngIf="!estacaoSelecionada">
+            <mat-card-header class="fixed center tableHeader" *ngIf="!estacaoSelecionada">
                 Lapa - Estações de monitoramento ambiental
             </mat-card-header>
             <mat-card-content class="tableContent">
@@ -183,7 +183,7 @@
         
                     <tr class="fixed2" mat-header-row *matHeaderRowDef="displayedColumns"></tr>
                     <tr mat-row *matRowDef="let row; index as i; columns: displayedColumns;"
-                    [ngClass]="{ 'change-background': i % 2 !== 0 }"></tr>
+                    [ngClass]="{ 'table-background': i % 2 !== 0 }"></tr>
                 </table>
             </mat-card-content>
         </mat-card>

@@ -11,7 +11,7 @@ th.mat-sort-header-sorted {
     position: sticky;
     top: 73px; 
     width: 100%;
-    background-color: rgb(235, 224, 255);
+    background-color: rgb(215, 194, 255);
     z-index: 999; 
 }
 
@@ -44,16 +44,6 @@ th.mat-sort-header-sorted {
     border-top-right-radius: 5px;
 }
 
-.cardContent table.mat-elevation-z8 td {
-    font-size: 12px !important;
-    font-weight: 500;
-}
-
-.cardContent table.mat-elevation-z8 th {
-    font-size: 14px !important;
-    font-weight: 500;
-}
-
 .center{
     font-size: 14px;
     text-align: center;
@@ -66,14 +56,6 @@ th.mat-sort-header-sorted {
     font-size: 14px;
     font-weight: 500;
     color: black;
-}
-
-.change-background {
-    background-color: rgb(242, 235, 255);
-}
-
-.change-background:hover {
-    background-color: rgb(242, 235, 255) !important;
 }
 
 .half{
