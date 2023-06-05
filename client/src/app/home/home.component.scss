@@ -18,23 +18,25 @@
     padding: 10px;
     min-height: 60px;
     text-align: center;
+    border-top-right-radius: 4px;
+    border-top-left-radius: 4px;
 }
 
 .left-tile {
     text-align: right;
-    border: 1px solid #ccc;
+    border: 1px solid rgb(230, 216, 255);
     padding-right: 16px;
 }
   
 .right-tile {
     text-align: left;
-    border: 1px solid #ccc;
+    border: 1px solid rgb(230, 216, 255);
     border-left: 0px;
     padding-left: 16px;
 }
 
 .gray-background{
-    background-color: rgb(240, 240, 240);
+    background-color: rgb(247, 242, 255);
 }
 
 .div20{

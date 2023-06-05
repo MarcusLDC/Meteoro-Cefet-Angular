@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { DatePipe } from '@angular/common';
+import { FormBuilder, FormGroup } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Estacao, Status } from '../shared/models/estacao-model';
 import { AuthService } from '../shared/services/auth-services';
@@ -26,7 +27,7 @@ export class EditarEstacaoComponent {
   estacaoEditada: Estacao | undefined;
   status = Status;
 
-  constructor(private route: ActivatedRoute, private builder: FormBuilder, private meteoroServices: MeteoroServices, private auth: AuthService, private router: Router) {
+  constructor(private datePipe: DatePipe, private route: ActivatedRoute, private builder: FormBuilder, private meteoroServices: MeteoroServices, private auth: AuthService, private router: Router) {
     document.title = "Editar Estações - CoMet - LAPA - Monitoramento Ambiental"
     this.form = builder.group({
       nome: [null],
@@ -35,6 +36,12 @@ export class EditarEstacaoComponent {
       longitude: [null],
       altitude: [null],
       altura: [null],
+      inicio: [null],
+      fim: [null],
+      operador: [null],
+      modelo: [null],
+      sensores: [null],
+      calibracao: [null],
     });
     this.meteoroServices.getEstacoes().subscribe(x => {
       this.estacoes = x
@@ -46,7 +53,13 @@ export class EditarEstacaoComponent {
             latitude: this.estacaoSelecionada.latitude, 
             longitude: this.estacaoSelecionada.longitude, 
             altitude: this.estacaoSelecionada.altitude, 
-            altura: this.estacaoSelecionada.altura
+            altura: this.estacaoSelecionada.altura,
+            inicio: this.datePipe.transform(this.estacaoSelecionada.dataInicio, 'dd/MM/yyyy'),
+            fim: this.datePipe.transform(this.estacaoSelecionada.dataFim, 'dd/MM/yyyy'),
+            operador: this.estacaoSelecionada.operador,
+            modelo: this.estacaoSelecionada.modelo,
+            sensores: this.estacaoSelecionada.tiposDeSensores,
+            calibracao: this.datePipe.transform(this.estacaoSelecionada.ultimaCalibracao, 'dd/MM/yyyy'),
           });
       });
     });
@@ -63,20 +76,26 @@ export class EditarEstacaoComponent {
 
     if(this.estacaoSelecionada != undefined){
       this.estacaoEditada = {
-
         id: this.estacaoSelecionada.id, // dados imutáveis
         senha: this.estacaoSelecionada.senha,
         numero: this.estacaoSelecionada.numero,
-        dataInicio: this.estacaoSelecionada.dataInicio, 
         ultimaModificacao: new Date(), // fim-dados imutáveis
 
-        nome: this.form.value.nome, 
+        nome: this.form.value.nome,
+        dataInicio: this.estacaoSelecionada.dataInicio, //ajeitar
+        dataFim: this.estacaoSelecionada.dataFim, // ajeitar
         status: this.form.value.status, 
         latitude: this.form.value.latitude,
         longitude: this.form.value.longitude,
         altitude: this.form.value.altitude,
-        altura: this.form.value.altura
+        altura: this.form.value.altura,
+        operador: this.form.value.operador,
+        modelo: this.form.value.modelo,
+        tiposDeSensores: this.form.value.sensores,
+        ultimaCalibracao: this.estacaoSelecionada.ultimaCalibracao // ajeitar
+
       }
+      
       if(window.confirm('Deseja confirmar essa ação?')) {
         this.meteoroServices.editarEstacao(this.estacaoEditada).subscribe();
         alert('Estação editada com sucesso!');

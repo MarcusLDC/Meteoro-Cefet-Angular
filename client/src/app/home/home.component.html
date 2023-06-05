@@ -4,8 +4,8 @@
 
             <mat-card class="card">
                 <mat-card-header class="header justifyMiddle lightblue">
-                    Estação de Monitoramento ID: {{estacaoSelecionada?.numero}} - {{estacaoSelecionada?.nome}} <br>
-                    Última Atualização: {{this.dadosRelatorio[0].dataHora | date : 'dd/MM/yyyy - HH:mm'}}h
+                    Estação de Monitoramento {{estacaoSelecionada?.nome}} <br>
+                    Última Atualização {{this.dadosRelatorio[0].dataHora | date : 'dd/MM/yyyy - HH:mm'}}h
                 </mat-card-header>
                 <mat-card-content class="relatorio">
                 
