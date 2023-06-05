@@ -3,6 +3,7 @@ export interface Estacao{
     senha: string;
     numero: number;
     dataInicio: Date;
+    dataFim: Date;
     nome: string;
     latitude: number;
     longitude: number;
@@ -10,6 +11,10 @@ export interface Estacao{
     altura: number;
     status: Status;
     ultimaModificacao: Date;
+    operador: string;
+    modelo: string;
+    tiposDeSensores: string;
+    ultimaCalibracao: Date;
 }
 
 export enum Status{
