@@ -29,11 +29,13 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 .tableContent table.mat-elevation-z8 td {
     font-size: 12px !important;
     font-weight: 500 !important;
+    border: 0;
 }
 
 .tableContent table.mat-elevation-z8 th {
     font-size: 14px !important;
     font-weight: 500 !important;
+    border: 0;
 }
 
 select{

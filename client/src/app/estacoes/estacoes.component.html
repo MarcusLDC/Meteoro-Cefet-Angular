@@ -22,36 +22,39 @@
                     <mat-icon style="color:green">settings_input_antenna</mat-icon>
                   </mat-expansion-panel-header>
 
-                  <div>
-                    <strong> Nome: </strong> {{ item.nome }} <br />
-                    <strong> Latitude: </strong> {{ item.latitude.toFixed(6) }}
-                    <br />
-                    <strong> Longitude: </strong> {{ item.longitude.toFixed(6) }}
-                    <br />
-                    <strong> Altitude: </strong> {{ item.altitude }}m <br />
-                    <strong> Altura </strong> {{ item.altura }}m <br />
-                    <strong> Status: </strong>
-                    <span
-                      [ngStyle]="{
-                        color:
-                          status[item.status] == 'Desligada'
-                            ? 'red'
-                            : status[item.status] == 'Funcionando'
-                            ? 'green'
-                            : 'blue'
-                      }"
-                      *ngIf="status[item.status]"
-                    >
-                      {{ status[item.status] }} </span
-                    ><br /><br />
-                    <span *ngIf="logado">
-                      <strong> Última modificação: </strong>
-                      {{ item.ultimaModificacao | date : "dd/MM/yyyy" }} ,
-                      {{ item.ultimaModificacao | date : "HH:mm" }} <br />
-                    </span>
-                    <button mat-raised-button color="warn" class="botao" *ngIf="logado" [routerLink]="['editar', item.numero]">
-                      Editar<mat-icon>assignment_ind</mat-icon>
-                    </button>
+                  <div class="divided">
+                    
+                    <div class="divLeft">
+                      <strong> Nome: </strong> {{ item.nome }} <br />
+                      <strong> Latitude: </strong> {{ item.latitude.toFixed(6) }}<br />
+                      <strong> Longitude: </strong> {{ item.longitude.toFixed(6) }}<br />
+                      <strong> Altitude: </strong> {{ item.altitude }}m <br />
+                      <strong> Altura </strong> {{ item.altura }}m <br />
+                      <strong> Status: </strong>
+                      <span [ngStyle]="{color: status[item.status] == 'Desligada' ? 'red' : status[item.status] == 'Funcionando' ? 'green' : 'blue'}" *ngIf="status[item.status]">
+                        {{ status[item.status] }} </span> <br/><br/>
+
+                      <span *ngIf="logado">
+                        <strong> Última modificação: </strong>
+                        {{ item.ultimaModificacao | date : "dd/MM/yyyy" }} ,
+                        {{ item.ultimaModificacao | date : "HH:mm" }} <br />
+                      </span>
+
+                      <button mat-raised-button color="warn" class="botao" *ngIf="logado" [routerLink]="['editar', item.numero]">
+                        Editar<mat-icon>assignment_ind</mat-icon>
+                      </button>
+
+                    </div>
+
+                    <div class="divRight">
+                      <strong> Operador: </strong> {{ item.operador }} <br/>
+                      <strong> Modelo: </strong> {{ item.modelo }} <br/>
+                      <strong> Inicio da Operação: </strong> {{ item.dataInicio | date : "dd/MM/yyyy" }}<br/>
+                      <strong> Fim da Operação : </strong> {{ item.dataFim | date : "dd/MM/yyyy" }} <br />
+                      <strong> Última Calibração: </strong> {{ item.ultimaCalibracao | date : "dd/MM/yyyy" }} <br />
+                      <strong> Tipos de Sensores: </strong> {{ item.tiposDeSensores }}
+                    </div>
+
                   </div>
 
                 </mat-expansion-panel>
@@ -79,30 +82,46 @@
                     </mat-panel-description>
                     <mat-icon style="color:blue">settings_input_antenna</mat-icon>
                   </mat-expansion-panel-header>
-                  <strong> Nome: </strong> {{ item.nome }} <br />
-                  <strong> Lat.: </strong> {{ item.latitude.toFixed(6) }} <br />
-                  <strong> Lon.: </strong> {{ item.longitude.toFixed(6) }}
-                  <br />
-                  <strong> Altitude: </strong> {{ item.altitude }}m <br />
-                  <strong> Altura </strong> {{ item.altura }}m <br />
-                  <strong> Status: </strong>
-                  <span [ngStyle]="{ color: status[item.status] == 'Desligada'? 'red': status[item.status] == 'Funcionando' ? 'green' : 'blue'}" *ngIf="status[item.status]">
-                    {{ status[item.status] }} </span
-                  ><br />
-                  <span *ngIf="logado">
-                    <strong> Última modificação: </strong>
-                    {{ item.ultimaModificacao | date : "dd/MM/yyyy" }} ,
-                    {{ item.ultimaModificacao | date : "HH:mm" }} <br />
-                  </span>
-                  <button
-                    mat-raised-button
-                    color="warn"
-                    class="botao"
-                    *ngIf="logado"
-                    [routerLink]="['editar', item.numero]"
-                  >
-                    Editar<mat-icon>assignment_ind</mat-icon>
-                  </button>
+
+                  <div class="divided">
+
+                    <div class="divLeft">
+                      <strong> Nome: </strong> {{ item.nome }} <br />
+                      <strong> Lat.: </strong> {{ item.latitude.toFixed(6) }} <br />
+                      <strong> Lon.: </strong> {{ item.longitude.toFixed(6) }}
+                      <br />
+                      <strong> Altitude: </strong> {{ item.altitude }}m <br />
+                      <strong> Altura </strong> {{ item.altura }}m <br />
+                      <strong> Status: </strong>
+                      <span [ngStyle]="{ color: status[item.status] == 'Desligada'? 'red': status[item.status] == 'Funcionando' ? 'green' : 'blue'}" *ngIf="status[item.status]">
+                        {{ status[item.status] }} </span
+                      ><br />
+                      <span *ngIf="logado">
+                        <strong> Última modificação: </strong>
+                        {{ item.ultimaModificacao | date : "dd/MM/yyyy" }} ,
+                        {{ item.ultimaModificacao | date : "HH:mm" }} <br />
+                      </span>
+                      <button
+                        mat-raised-button
+                        color="warn"
+                        class="botao"
+                        *ngIf="logado"
+                        [routerLink]="['editar', item.numero]"
+                      >
+                        Editar<mat-icon>assignment_ind</mat-icon>
+                      </button>
+                    </div>
+
+                    <div class="divRight">
+                      <strong> Operador: </strong> {{ item.operador }} <br/>
+                      <strong> Modelo: </strong> {{ item.modelo }} <br/>
+                      <strong> Inicio da Operação: </strong> {{ item.dataInicio | date : "dd/MM/yyyy" }}<br/>
+                      <strong> Fim da Operação : </strong> {{ item.dataFim | date : "dd/MM/yyyy" }} <br />
+                      <strong> Última Calibração: </strong> {{ item.ultimaCalibracao | date : "dd/MM/yyyy" }} <br />
+                      <strong> Tipos de Sensores: </strong> {{ item.tiposDeSensores }}
+                    </div>
+
+                  </div>          
                 </mat-expansion-panel>
               </ng-container>
             </ng-container>
@@ -129,38 +148,44 @@
                     </mat-panel-description>
                     <mat-icon style="color:red">settings_input_antenna</mat-icon>
                   </mat-expansion-panel-header>
-                  <strong> Nome: </strong> {{ item.nome }} <br />
-                  <strong> Lat.: </strong> {{ item.latitude.toFixed(6) }} <br />
-                  <strong> Lon.: </strong> {{ item.longitude.toFixed(6) }}
-                  <br />
-                  <strong> Altitude: </strong> {{ item.altitude }}m <br />
-                  <strong> Altura </strong> {{ item.altura }}m <br />
-                  <strong> Status: </strong>
-                  <span
-                    [ngStyle]="{
-                      color:
-                        status[item.status] == 'Desligada'
-                          ? 'red'
-                          : status[item.status] == 'Funcionando'
-                          ? 'green'
-                          : 'blue'
-                    }"
-                    *ngIf="status[item.status]"
-                  >
-                    {{ status[item.status] }} </span
-                  ><br />
-                  <span *ngIf="logado">
-                    <br> <strong> Última modificação: </strong>
-                    {{ item.ultimaModificacao | date : "dd/MM/yyyy" }} ,
-                    {{ item.ultimaModificacao | date : "HH:mm" }} <br />
-                  </span>
-                  <button
-                    mat-raised-button
-                    color="warn"
-                    class="botao"
-                    *ngIf="logado"
-                    [routerLink]="['editar', item.numero]"> Editar<mat-icon>assignment_ind</mat-icon>
-                  </button>
+
+                  <div class="divided">
+
+                    <div class="divLeft">
+                      <strong> Nome: </strong> {{ item.nome }} <br />
+                      <strong> Lat.: </strong> {{ item.latitude.toFixed(6) }} <br />
+                      <strong> Lon.: </strong> {{ item.longitude.toFixed(6) }}
+                      <br />
+                      <strong> Altitude: </strong> {{ item.altitude }}m <br />
+                      <strong> Altura </strong> {{ item.altura }}m <br />
+                      <strong> Status: </strong>
+                      <span [ngStyle]="{color:status[item.status] == 'Desligada'? 'red': status[item.status] == 'Funcionando'? 'green': 'blue'}" *ngIf="status[item.status]">
+                        {{ status[item.status] }} </span><br />
+
+                      <span *ngIf="logado">
+                        <br> <strong> Última modificação: </strong>
+                        {{ item.ultimaModificacao | date : "dd/MM/yyyy" }} ,
+                        {{ item.ultimaModificacao | date : "HH:mm" }} <br />
+                      </span>
+                      <button
+                        mat-raised-button
+                        color="warn"
+                        class="botao"
+                        *ngIf="logado"
+                        [routerLink]="['editar', item.numero]"> Editar<mat-icon>assignment_ind</mat-icon>
+                      </button>
+                    </div>
+
+                    <div class="divRight">
+                      <strong> Operador: </strong> {{ item.operador }} <br/>
+                      <strong> Modelo: </strong> {{ item.modelo }} <br/>
+                      <strong> Inicio da Operação: </strong> {{ item.dataInicio | date : "dd/MM/yyyy" }}<br/>
+                      <strong> Fim da Operação : </strong> {{ item.dataFim | date : "dd/MM/yyyy" }} <br />
+                      <strong> Última Calibração: </strong> {{ item.ultimaCalibracao | date : "dd/MM/yyyy" }} <br />
+                      <strong> Tipos de Sensores: </strong> {{ item.tiposDeSensores }}
+                    </div>
+                  </div>
+                   
                 </mat-expansion-panel>
               </ng-container>
             </ng-container>
