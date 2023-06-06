@@ -25,3 +25,16 @@
     padding-left: 400px;
     color: green;
 }
+
+.divided{
+    margin: auto;
+    display: flex;
+}
+
+.divLeft{
+    width: 33%;
+}
+
+.divRight{
+    width: 67%;
+}

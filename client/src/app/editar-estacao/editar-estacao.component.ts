@@ -46,21 +46,21 @@ export class EditarEstacaoComponent {
     this.meteoroServices.getEstacoes().subscribe(x => {
       this.estacoes = x
       this.route.params.subscribe(params => {
-          this.estacaoSelecionada = this.estacoes.find(item => item.numero === Number(params['id'])) as Estacao; // busca a estação que veio pelo id da rota
-          this.form.patchValue({
-            nome: this.estacaoSelecionada.nome, 
-            status: this.estacaoSelecionada.status, 
-            latitude: this.estacaoSelecionada.latitude, 
-            longitude: this.estacaoSelecionada.longitude, 
-            altitude: this.estacaoSelecionada.altitude, 
-            altura: this.estacaoSelecionada.altura,
-            inicio: this.datePipe.transform(this.estacaoSelecionada.dataInicio, 'dd/MM/yyyy'),
-            fim: this.datePipe.transform(this.estacaoSelecionada.dataFim, 'dd/MM/yyyy'),
-            operador: this.estacaoSelecionada.operador,
-            modelo: this.estacaoSelecionada.modelo,
-            sensores: this.estacaoSelecionada.tiposDeSensores,
-            calibracao: this.datePipe.transform(this.estacaoSelecionada.ultimaCalibracao, 'dd/MM/yyyy'),
-          });
+        this.estacaoSelecionada = this.estacoes.find(item => item.numero === Number(params['id'])) as Estacao; // busca a estação que veio pelo id da rota
+        this.form.patchValue({
+          nome: this.estacaoSelecionada.nome, 
+          status: this.estacaoSelecionada.status, 
+          latitude: this.estacaoSelecionada.latitude, 
+          longitude: this.estacaoSelecionada.longitude, 
+          altitude: this.estacaoSelecionada.altitude, 
+          altura: this.estacaoSelecionada.altura,
+          inicio: this.datePipe.transform(this.estacaoSelecionada.dataInicio, 'dd/MM/yyyy'),
+          fim: this.datePipe.transform(this.estacaoSelecionada.dataFim, 'dd/MM/yyyy'),
+          operador: this.estacaoSelecionada.operador,
+          modelo: this.estacaoSelecionada.modelo,
+          sensores: this.estacaoSelecionada.tiposDeSensores,
+          calibracao: this.datePipe.transform(this.estacaoSelecionada.ultimaCalibracao, 'dd/MM/yyyy'),
+        });          
       });
     });
   }
@@ -82,8 +82,8 @@ export class EditarEstacaoComponent {
         ultimaModificacao: new Date(), // fim-dados imutáveis
 
         nome: this.form.value.nome,
-        dataInicio: this.estacaoSelecionada.dataInicio, //ajeitar
-        dataFim: this.estacaoSelecionada.dataFim, // ajeitar
+        dataInicio: this.convertToISODate(this.form.value.inicio), //ajeitar
+        dataFim: this.convertToISODate(this.form.value.fim), // ajeitar
         status: this.form.value.status, 
         latitude: this.form.value.latitude,
         longitude: this.form.value.longitude,
@@ -92,7 +92,7 @@ export class EditarEstacaoComponent {
         operador: this.form.value.operador,
         modelo: this.form.value.modelo,
         tiposDeSensores: this.form.value.sensores,
-        ultimaCalibracao: this.estacaoSelecionada.ultimaCalibracao // ajeitar
+        ultimaCalibracao: this.convertToISODate(this.form.value.calibracao) // ajeitar
 
       }
       
@@ -102,5 +102,16 @@ export class EditarEstacaoComponent {
         this.router.navigate(['/estacoes']);
       }
     }
+  }
+
+  convertToISODate(dateString: string) {
+    const parts = dateString.split('/');
+    const day = parseInt(parts[0], 10);
+    const month = parseInt(parts[1], 10) - 1; // meses em JavaScript são baseados em zero
+    const year = parseInt(parts[2], 10);
+  
+    const date = new Date(year, month, day);
+  
+    return date;
   }
 }
