@@ -12,7 +12,17 @@
                     <ng-container *ngFor="let relatorio of relatorios; let i=index" >
                         <mat-grid-list cols="2" style="display: flex;" rowHeight="40px" [ngClass]="{ 'gray-background': i % 2 !== 0 }">
                             <mat-grid-tile class="left-tile"> {{relatorio.nome}} </mat-grid-tile>
-                            <mat-grid-tile class="right-tile"> {{relatorio.valor}}{{relatorio.sufixo}} </mat-grid-tile>
+                            <mat-grid-tile class="right-tile"> 
+                                <span [ngStyle]="{'color': relatorio.corValor}">
+                                    {{relatorio.valor}}
+                                </span>
+                                <ng-container *ngIf="relatorio.valor2 != -9999"> 
+                                    / <span [ngStyle]="{'color': relatorio.corValor2}">
+                                    {{relatorio.valor2}}
+                                    </span>
+                                </ng-container>  
+                                {{relatorio.sufixo}} 
+                            </mat-grid-tile>
                         </mat-grid-list>
                     </ng-container>
                     
