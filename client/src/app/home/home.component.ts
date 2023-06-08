@@ -170,11 +170,11 @@ export class HomeComponent {
           this.dadosRelatorio = x;
 
           if(this.dadosRelatorio[0].temperaturaAr < tempArMin)
-            tempArMin = this.dadosRelatorio[0].temperaturaAr
+            tempArMin = +this.dadosRelatorio[0].temperaturaAr.toFixed(1)
           if(this.dadosRelatorio[0].temperaturaAr > tempArMax)
-            tempArMax = this.dadosRelatorio[0].temperaturaAr
+            tempArMax = +this.dadosRelatorio[0].temperaturaAr.toFixed(1)
           if(this.dadosRelatorio[0].umidadeRelativaAr < umidadeMin)
-            umidadeMin = this.dadosRelatorio[0].umidadeRelativaAr
+            umidadeMin = +this.dadosRelatorio[0].umidadeRelativaAr.toFixed(0)
 
           this.relatorios = [];
           this.relatorios.push({
