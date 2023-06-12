@@ -30,19 +30,25 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
     font-size: 12px !important;
     font-weight: 500 !important;
     border: 0;
+    text-align: center;
 }
 
 .tableContent table.mat-elevation-z8 th {
-    font-size: 14px !important;
+    font-size: 12px !important;
     font-weight: 500 !important;
     border: 0;
+    text-align: center;
 }
 
 select{
     margin-left: 5px;
     border-radius: 5px; 
     border-width: 1.5px; 
-    border-style: solid; 
+    border-style: solid;
+}
+
+p{
+    margin-bottom: 12px !important;
 }
 
 mat-icon {

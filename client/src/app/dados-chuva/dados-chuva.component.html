@@ -18,7 +18,7 @@
                     </ng-container>
                     
                     <ng-container matColumnDef="Hora_Leitura">
-                        <th mat-header-cell *matHeaderCellDef> Data_Última_Leitura </th>
+                        <th mat-header-cell *matHeaderCellDef style="color: blue"> Data_Última_Leitura </th>
                         <td mat-cell *matCellDef="let element" 
                         [ngStyle]="{'color': isNull(element.cincoMinutos) ? 'red' : 'blue'}"> {{element.lastRead}} </td>
                     </ng-container>

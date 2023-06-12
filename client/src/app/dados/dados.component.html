@@ -17,18 +17,23 @@
                 <mat-card-content class="cardContent">
                     <div class="container">
                         <div>
-                            <p> <span class="subtitle"> Responsável: </span> LAPA\CoMet/CEFET-RJ </p>
-                            <p> <span class="subtitle"> Nome: </span> <span style="color:rgb(0, 110, 255)"> {{estacaoSelecionada.nome}} </span> - <span class="subtitle"> ID: </span> <span style="color:rgb(0, 110, 255)">{{estacaoSelecionada.numero}}</span></p>
-                            <p> <span class="subtitle"> Desde: </span> {{estacaoSelecionada.dataInicio | date : 'MM/yyyy'}}
+                            <p> <span class="subtitle"> Responsável: </span> 
+                                <span class="subtitle" style="color:rgb(0, 110, 255)"> LAPA\CoMet/CEFET-RJ </span></p>
+
+                            <p> <span class="subtitle"> Nome: </span> <span class="subtitle" style="color:rgb(0, 110, 255)"> {{estacaoSelecionada.nome}} </span> 
+                                - <span class="subtitle"> ID: </span> <span class="subtitle" style="color:rgb(0, 110, 255)">{{estacaoSelecionada.numero}}</span></p>
+                            <p> <span class="subtitle"> Desde: <span style="font-weight: 400;"> {{estacaoSelecionada.dataInicio | date : 'MM/yyyy'}} </span> </span>
                             <p> <span class="subtitle"> Status: </span> 
-                                <span [ngStyle]="{ 'color': status[estacaoSelecionada.status] == 'Desligada' ? 'red' : status[estacaoSelecionada.status] == 'Funcionando' ? 'green' : 'blue' }" *ngIf="status[estacaoSelecionada.status]"> {{status[estacaoSelecionada.status]}}</span> </p>
+                                <span class="subtitle" [ngStyle]="{ 'color': status[estacaoSelecionada.status] == 'Desligada' ? 'red' : status[estacaoSelecionada.status] == 'Funcionando' ? 'green' : 'blue' }" *ngIf="status[estacaoSelecionada.status]"> {{status[estacaoSelecionada.status]}}</span> </p>
                             <p class="borderBottom"> </p>
-                            <p> <span class="subtitle"> Coordenadas: </span> <span style="color:rgb(0, 110, 255)"> {{estacaoSelecionada.latitude | degrees}} </span> <strong>{{estacaoSelecionada.latitude < 0 ? 'S' : 'N'}}</strong> - 
-                                                                <span style="color:rgb(0, 110, 255)"> {{estacaoSelecionada.longitude | degrees}} </span> <strong>{{estacaoSelecionada.longitude < 0 ? 'W' : 'E' }}</strong> </p>
-                            <p> <span class="subtitle"> Altitude: </span> {{estacaoSelecionada.altitude}}m </p>
-                            <p> <span class="subtitle"> Altura: </span> {{estacaoSelecionada.altura}}m </p>
-                                <span class="subtitle"> Ultima atualização: </span>{{firstDataHora | date : 'dd/MM/yyyy HH:mm'}}h
-                            ({{firstDataHora | date : "HH:mm":"+0000"}}h - UTC)
+                            <p> <span class="subtitle"> Coordenadas: 
+                                <span style="color:rgb(0, 110, 255)"> {{estacaoSelecionada.latitude | degrees}} </span> <strong>{{estacaoSelecionada.latitude < 0 ? 'S' : 'N'}}</strong> - 
+                                <span style="color:rgb(0, 110, 255)"> {{estacaoSelecionada.longitude | degrees}} </span> <strong>{{estacaoSelecionada.longitude < 0 ? 'W' : 'E' }}</strong> </span> 
+                            </p>
+                            <p> <span class="subtitle"> Altitude: <span style="font-weight: 400;"> {{estacaoSelecionada.altitude}}m </span> </span> </p>
+                            <p> <span class="subtitle"> Altura: <span style="font-weight: 400;"> {{estacaoSelecionada.altura}}m </span> </span> </p>
+                                <span class="subtitle"> Ultima atualização: <span style="font-weight: 400;"> {{firstDataHora | date : 'dd/MM/yyyy HH:mm'}}h
+                            ({{firstDataHora | date : "HH:mm":"+0000"}}h - UTC) </span> </span>
                         </div>
                     </div>
                 </mat-card-content>
@@ -43,15 +48,19 @@
                 <mat-card-content class="cardContent">
                     <div class="container">
                         <div>
-                            <p> <span class="subtitle"> Número de estações: </span> {{numEstacoes}} </p> 
-                            <p> <span class="subtitle"> Número total de dados coletados: </span> {{numDados}} </p>
-                            <p> <span class="subtitle"> Responsável: </span> LAPA\CoMet/CEFET-RJ </p>
-                            <p> <span class="subtitle"> Desde: </span> 02/23
+
+                            <p> <span class="subtitle"> Número de estações: <span style="font-weight: 400;"> {{numEstacoes}} </span></span></p> 
+                            <p> <span class="subtitle"> Número total de dados coletados: <span style="font-weight: 400;"> {{numDados}} </span></span></p>
+                            <p> <span class="subtitle"> Responsável: </span> <span class="subtitle" style="color:rgb(0, 110, 255)"> LAPA\CoMet/CEFET-RJ </span></p>
+                            <p> <span class="subtitle"> Desde: <span style="font-weight: 400;"> 02/23 </span></span>
+
                             <p class="borderBottom"> </p>
-                            <p> <span class="subtitle"> Estações  </span> <span style="color:green"> Funcionando: {{funcionando}} </span> </p>
-                            <p> <span class="subtitle"> Estações  </span> <span style="color:red"> Desligadas: {{desligadas}} </span> </p>
-                            <p> <span class="subtitle"> Estações  </span> <span style="color:blue"> Em Manutenção: {{manutencao}} </span> </p>
+                            
+                            <p> <span class="subtitle"> Estações  </span> <span class="subtitle" style="color:green"> Funcionando: {{funcionando}} </span> </p>
+                            <p> <span class="subtitle"> Estações  </span> <span class="subtitle" style="color:red"> Desligadas: {{desligadas}} </span> </p>
+                            <p> <span class="subtitle"> Estações  </span> <span class="subtitle" style="color:blue"> Em Manutenção: {{manutencao}} </span> </p>
                             <span class="subtitle"> Algumas estações ainda não possuem localização no mapa </span>
+
                         </div>
                     </div>
                 </mat-card-content>
