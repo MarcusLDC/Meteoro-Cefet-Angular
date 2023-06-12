@@ -180,70 +180,34 @@ export class HomeComponent {
           this.relatorios.push({
             nome: "Temperatura do Ar", 
             valor: +this.dadosRelatorio[0].temperaturaAr.toFixed(1),
-            corValor: 'black',
+            corValor: 'green',
             valor2: -9999,
-            corValor2: 'black',
+            corValor2: 'green',
             sufixo: "°C"})
 
-          if(this.paginator == 0 && tempAr){
+          if(tempAr && umidade){
             this.relatorios.push({
-              nome: "Temp. do Ar - Min/Max - Dia",
+              nome: "Temperatura do Ar - Min/Max",
               valor: tempArMin,
               corValor: 'blue',
               valor2: tempArMax,
               corValor2: 'red',
               sufixo: "°C"
             })
-            this.relatorios.push({nome: "Umidade do Ar - Min/Atual - Dia", 
+            this.relatorios.push({nome: "Umidade do Ar - Min/Atual", 
             valor: umidadeMin,
-            corValor: 'purple',
+            corValor: 'blue',
             valor2: +this.dadosRelatorio[0].umidadeRelativaAr.toFixed(0),
             corValor2: 'green',
             sufixo: "%"
             })
           }
-          if(this.paginator == 1 && tempAr){
-            this.relatorios.push({
-              nome: "Temp. do Ar - Min/Max - 48h", 
-              valor: tempArMin,
-              corValor: 'blue',
-              valor2: tempArMax,
-              corValor2: 'red',
-              sufixo: "°C"
-            })
-            this.relatorios.push({
-              nome: "Umidade do Ar - Min/Atual - 48h", 
-              valor: umidadeMin,
-              corValor: 'purple', 
-              valor2: +this.dadosRelatorio[0].umidadeRelativaAr.toFixed(0),
-              corValor2: 'green', 
-              sufixo: "%"
-            })
-          }
-          if(this.paginator == 2 && tempAr){
-            this.relatorios.push({
-              nome: "Temp. - Min/Max - 72h", 
-              valor: tempArMin,
-              corValor: 'blue',
-              valor2: tempArMax,
-              corValor2: 'red',
-              sufixo: "°C"
-            })
-            this.relatorios.push({
-              nome: "Umidade do Ar - Min/Atual - 72h", 
-              valor: umidadeMin,
-              corValor: 'purple',
-              valor2: +this.dadosRelatorio[0].umidadeRelativaAr.toFixed(0),
-              corValor2: 'green', 
-              sufixo: "%"
-            })
-          }
           this.relatorios.push({
             nome: "Ponto de Orvalho", 
             valor: +this.dadosRelatorio[0].tempPontoOrvalho.toFixed(1),
-            corValor: 'black',
+            corValor: 'green',
             valor2: -9999,
-            corValor2: 'black', 
+            corValor2: 'green', 
             sufixo: "°C"
           })
         })

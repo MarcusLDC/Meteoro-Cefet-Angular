@@ -3,9 +3,9 @@
         <div class="fixed2 div20">
 
             <mat-card class="card">
-                <mat-card-header class="header justifyMiddle lightblue">
+                <mat-card-header class="header lightblue">
                     Estação de Monitoramento {{estacaoSelecionada?.nome}} <br>
-                    Última Atualização {{this.dadosRelatorio[0].dataHora | date : 'dd/MM/yyyy - HH:mm'}}h
+                    <span class="destaque"> Última Atualização: {{this.dadosRelatorio[0].dataHora | date : 'dd/MM/yyyy - HH:mm'}}h </span>
                 </mat-card-header>
                 <mat-card-content class="relatorio">
                 
@@ -20,8 +20,10 @@
                                     / <span [ngStyle]="{'color': relatorio.corValor2}">
                                     {{relatorio.valor2}}
                                     </span>
-                                </ng-container>  
-                                {{relatorio.sufixo}} 
+                                </ng-container>
+                                <span [ngStyle]="{'color': relatorio.corValor2}">
+                                    {{relatorio.sufixo}} 
+                                </span>
                             </mat-grid-tile>
                         </mat-grid-list>
                     </ng-container>
