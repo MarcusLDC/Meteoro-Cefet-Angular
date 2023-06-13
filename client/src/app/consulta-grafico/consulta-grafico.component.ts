@@ -121,12 +121,20 @@ export class ConsultaGraficoComponent implements AfterViewInit{
           left: {
             position: 'left',
             display: datasets.map(x => x.yAxisID == 'left').some(x => x),
-            min: undefined
+            min: (
+              Math.min(...datasets.map(x => x.data).flat()) > 11 ?  
+              Math.min(...datasets.map(x => x.data).flat()) - 10 : 
+              undefined
+            )
           },
           right: {
             position: 'right',
             display: datasets.map(x => x.yAxisID == 'right').some(x => x),
-            min: undefined
+            min: (
+              Math.min(...datasets.map(x => x.data).flat()) > 11 ?  
+              Math.min(...datasets.map(x => x.data).flat()) - 10 : 
+              undefined
+            )
           },
         },
         elements:{
