@@ -122,8 +122,8 @@ export class ConsultaGraficoComponent implements AfterViewInit{
             position: 'left',
             display: datasets.map(x => x.yAxisID == 'left').some(x => x),
             min: (
-              Math.min(...datasets.map(x => x.data).flat()) > 11 ?  
-              Math.min(...datasets.map(x => x.data).flat()) - 10 : 
+              Math.min(...datasets.filter(y => y.yAxisID == 'left').map(x => x.data).flat()) > 1 ?  
+              Math.min(...datasets.filter(y => y.yAxisID == 'left').map(x => x.data).flat()) - 0.2 : 
               undefined
             )
           },
@@ -131,8 +131,8 @@ export class ConsultaGraficoComponent implements AfterViewInit{
             position: 'right',
             display: datasets.map(x => x.yAxisID == 'right').some(x => x),
             min: (
-              Math.min(...datasets.map(x => x.data).flat()) > 11 ?  
-              Math.min(...datasets.map(x => x.data).flat()) - 10 : 
+              Math.min(...datasets.filter(y => y.yAxisID == 'right').map(x => x.data).flat()) > 1 ?  
+              Math.min(...datasets.filter(y => y.yAxisID == 'right').map(x => x.data).flat()) - 0.2 : 
               undefined
             )
           },
@@ -148,6 +148,10 @@ export class ConsultaGraficoComponent implements AfterViewInit{
         }
       }
     })
+
+    const a = datasets.filter(y => y.yAxisID == 'right').map(x => x.data)
+
+    console.log(a)
 
     const title = this.chart.options.plugins?.title?.text!.toString()
     this.estacao = title?.substring(0, title?.indexOf("de")).trim();
