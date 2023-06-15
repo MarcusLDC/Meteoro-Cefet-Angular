@@ -55,7 +55,9 @@ namespace MeteoroCefet.Application.Features
             return new Data
             {
                 Points = getMeasures.Select(measure => measure(dadosTempos)).ToList(),
-                Date = date.ToString("g", new CultureInfo("pt-BR"))
+                Date = (date.Hour == 0 && date.Minute < 30) ? 
+                date.ToString("g", new CultureInfo("pt-BR")) : 
+                date.ToString("t", new CultureInfo("pt-BR"))
             };
         }
 
