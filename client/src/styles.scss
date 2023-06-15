@@ -1,10 +1,15 @@
 /* You can add global styles to this file, and also import other style files */
 
-html, body { height: 100%;}
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
-
 /* Importing Bootstrap SCSS file. */
 @import 'bootstrap/scss/bootstrap';
+
+html, body { height: 100%;}
+
+body { 
+    margin: 0; 
+    font-family: Roboto, "Helvetica Neue", sans-serif;
+    background-color: #fdfdfd;
+}
 
 .body{
     padding-top: 70px;
@@ -19,11 +24,11 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 }
 
 .table-background {
-    background-color: rgb(226, 210, 255) !important;
+    background-color: rgb(240, 232, 255) !important;
 }
 
 .table-background:hover {
-    background-color: rgb(226, 210, 255) !important;
+    background-color: rgb(240, 232, 255) !important;
 }
 
 .tableContent table.mat-elevation-z8 td {

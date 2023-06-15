@@ -34,7 +34,14 @@
             <mat-card class="card">
                 
                 <mat-card-header class="header justifyMiddle">
-                    Variáveis dos Gráficos
+                    <mat-card-header class="header justifyMiddle white" [formGroup]="form">
+                    
+                        <span> Estação Selecionada </span>
+                        <select style="border-color: green;" formControlName="estacao" (change)="selectEstacoesHandler()">
+                            <option *ngFor="let element of estacoes" [value]="element.numero"> {{element.numero}} </option>
+                        </select> 
+
+                    </mat-card-header>
                 </mat-card-header>
 
                 <mat-card-content [formGroup]="form2">
@@ -61,43 +68,40 @@
                     <div class="flex-container">
                         <div class="item"><mat-checkbox color="primary" formControlName="bateria"></mat-checkbox>Bateria</div>
                     </div>
+
+                    <div class="button-container">
+
+                        <button mat-flat-button class="button" *ngIf="paginator != 2" [ngStyle]="{ 'background-color': 'RGB(85, 139, 47)'}" (click)="previousPage()"> 
+                            <span style="color:white" *ngIf="paginator == 0"> < Últimas 48 horas </span>
+                            <span style="color:white" *ngIf="paginator == 1"> < Últimas 72 horas </span>
+                        </button>
+            
+                        <button mat-flat-button disabled class="button" *ngIf="paginator == 2"> 
+                            <span style="color:white"> Últimas 72 horas </span>
+                        </button>
+            
+                        <button mat-flat-button class="button" *ngIf="paginator != 0" [ngStyle]="{ 'background-color': 'RGB(85, 139, 47)'}" (click)="nextPage()"> 
+                            <span style="color:white" *ngIf="paginator == 1"> Últimas 24 horas > </span>
+                            <span style="color:white" *ngIf="paginator == 2"> Últimas 48 horas > </span>
+                        </button>
+            
+                        <button mat-flat-button disabled class="button" *ngIf="paginator == 0" style="color: black;"> 
+                            <span style="color:white"> Últimas 24 horas </span>
+                        </button>
+
+                    </div>
+
                 </mat-card-content>
             </mat-card>
 
             <mat-card class="card"> 
-                <button mat-raised-button color="warn" (click)="baixarZip()"> Baixar Gráficos (ZIP) </button>
+                <button mat-raised-button color="warn" class="baixar" (click)="baixarZip()"> Baixar Gráficos (ZIP) </button>
             </mat-card>
+
         </div>
+
         <div class="div80">
             <div>
-                <mat-card class="card border fixed">
-                    <mat-card-header class="header justifyMiddle white" [formGroup]="form">
-                        
-                        <button mat-raised-button class="button" *ngIf="paginator != 2" [ngStyle]="{ 'background-color': 'RGB(85, 139, 47)'}" (click)="previousPage()"> 
-                            <span style="color:white" *ngIf="paginator == 0"> < Últimas 48 horas </span>
-                            <span style="color:white" *ngIf="paginator == 1"> < Últimas 72 horas </span>
-                        </button>
-
-                        <button mat-raised-button disabled class="button" *ngIf="paginator == 2"> 
-                            <span style="color:white"> Últimas 72 horas </span>
-                        </button>
-
-                        <span> Estação </span>
-                        <select style="border-color: green;" formControlName="estacao" (change)="selectEstacoesHandler()">
-                            <option *ngFor="let element of estacoes" [value]="element.numero"> {{element.numero}} </option>
-                        </select>
-
-                        <button mat-raised-button class="button" *ngIf="paginator != 0" [ngStyle]="{ 'background-color': 'RGB(85, 139, 47)'}" (click)="nextPage()"> 
-                            <span style="color:white" *ngIf="paginator == 1"> Últimas 24 horas > </span>
-                            <span style="color:white" *ngIf="paginator == 2"> Últimas 48 horas > </span>
-                        </button>
-
-                        <button mat-raised-button disabled class="button" *ngIf="paginator == 0" style="color: black;"> 
-                            <span style="color:white"> Últimas 24 horas </span>
-                        </button>
-
-                    </mat-card-header>
-                </mat-card>
                 <div class="card graphs">
                     <ng-container *ngFor="let consultaData of consultaDataArray">
                         <div>
