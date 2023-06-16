@@ -15,7 +15,7 @@
 .header{
     font-size: 15px;
     font-weight: 500;
-    padding: 10px;
+    padding: 6px;
     text-align: center;
     border-top-right-radius: 4px;
     border-top-left-radius: 4px;
@@ -29,13 +29,13 @@
 
 .left-tile {
     text-align: right;
-    border: 1px solid rgb(230, 216, 255);
+    border: 1px solid rgb(194, 159, 255);
     padding-right: 16px;
 }
   
 .right-tile {
     text-align: left;
-    border: 1px solid rgb(230, 216, 255);
+    border: 1px solid rgb(194, 159, 255);
     border-left: 0px;
     padding-left: 16px;
 }
@@ -111,6 +111,8 @@ span {
     color:white;
     font-size: 10px;
     flex: 1;
+    margin-top: 5px;
+    margin-bottom: 10px;
 }
 
 .justifyMiddle{
@@ -118,12 +120,18 @@ span {
     justify-content: center;
 }
 
-.baixar{
-    font-size: 12px;
-}
-
 .button-container {
     display: flex;
     justify-content: space-between;
     width: 100%;
+}
+
+.divButtonsLeft{
+    margin-left: 27px; 
+    margin-right: 20px;
+}
+
+.divButtonsRight{
+    margin-right: 27px; 
+    margin-left: 20px;
 }
