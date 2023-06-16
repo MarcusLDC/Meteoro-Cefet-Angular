@@ -111,7 +111,7 @@ export class ConsultaGraficoComponent implements AfterViewInit{
                 size: 10,
                 weight: 'bold',
               },
-            }
+            },
           },
         },
         responsive: true,
@@ -134,7 +134,7 @@ export class ConsultaGraficoComponent implements AfterViewInit{
               Math.min(...datasets.filter(y => y.yAxisID == 'right').map(x => x.data).flat()) > 1 ?  
               Math.min(...datasets.filter(y => y.yAxisID == 'right').map(x => x.data).flat()) - 0.2 : 
               undefined
-            )
+            ),
           },
         },
         elements:{
@@ -148,10 +148,6 @@ export class ConsultaGraficoComponent implements AfterViewInit{
         }
       }
     })
-
-    const a = datasets.filter(y => y.yAxisID == 'right').map(x => x.data)
-
-    console.log(a)
 
     const title = this.chart.options.plugins?.title?.text!.toString()
     this.estacao = title?.substring(0, title?.indexOf("de")).trim();

@@ -15,27 +15,27 @@
 .header{
     font-size: 15px;
     font-weight: 500;
-    padding: 10px;
-    min-height: 60px;
+    padding: 6px;
     text-align: center;
     border-top-right-radius: 4px;
     border-top-left-radius: 4px;
 }
 
 .destaque{
-    font-weight: 700 !important;
+    font-weight: 500 !important;
+    font-size: 14px !important;
     text-decoration: underline;
 }
 
 .left-tile {
     text-align: right;
-    border: 1px solid rgb(230, 216, 255);
+    border: 1px solid rgb(194, 159, 255);
     padding-right: 16px;
 }
   
 .right-tile {
     text-align: left;
-    border: 1px solid rgb(230, 216, 255);
+    border: 1px solid rgb(194, 159, 255);
     border-left: 0px;
     padding-left: 16px;
 }
@@ -69,7 +69,6 @@
 }
 
 .flex-container {
-    font-size: 14px;
     display: flex;
     justify-content: space-between;
 }
@@ -77,6 +76,7 @@
 .item {
     flex: 1;
     margin: 0 16px;
+    font-size: 12px;
 }
 
 .title{
@@ -88,7 +88,7 @@
 
 .relatorio{
     font-weight: 500;
-    font-size: 14px;
+    font-size: 12px;
 }
 
 .divided{
@@ -109,16 +109,29 @@ span {
 
 .button{
     color:white;
-    margin: 0px 30px;
-    font-size: 12px;
-}
-
-.border{
-    padding: 1px;
-    background-color: #ccc;
+    font-size: 10px;
+    flex: 1;
+    margin-top: 5px;
+    margin-bottom: 10px;
 }
 
 .justifyMiddle{
     display: flex;
     justify-content: center;
+}
+
+.button-container {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+}
+
+.divButtonsLeft{
+    margin-left: 27px; 
+    margin-right: 20px;
+}
+
+.divButtonsRight{
+    margin-right: 27px; 
+    margin-left: 20px;
 }
