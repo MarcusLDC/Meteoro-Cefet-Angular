@@ -63,13 +63,12 @@ export class HomeComponent {
     this.form2.controls['tempAr'].disable();
     this.form2.controls['indiceCalor'].disable();
     this.form2.controls['tempOrv'].disable();
-    this.form2.controls['umidadeRelativa'].disable();
 
   }
 
   async ngOnInit() : Promise<void>{
 
-    this.form.patchValue({estacao: 100})
+    this.form.patchValue({estacao: 2})
 
     this.atualizarDados();
     setInterval(() => {

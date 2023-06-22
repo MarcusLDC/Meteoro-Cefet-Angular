@@ -72,26 +72,26 @@
                     <div class="button-container">
 
                         <div class="divButtonsLeft">
-                            <button mat-flat-button class="button" *ngIf="paginator != 2" [ngStyle]="{ 'background-color': 'RGB(85, 139, 47)'}" (click)="previousPage()"> 
-                                <span style="color:white" *ngIf="paginator == 0"> < Últimas 48 horas </span>
-                                <span style="color:white" *ngIf="paginator == 1"> < Últimas 72 horas </span>
+                            <button mat-flat-button class="button" *ngIf="paginator != 2" [ngStyle]="{ 'background-color': 'rgb(76, 175, 80)'}" (click)="previousPage()"> 
+                                <span style="color:white" *ngIf="paginator == 0"> < ÚLTIMAS 48 HORAS </span>
+                                <span style="color:white" *ngIf="paginator == 1"> < ÚLTIMAS 72 HORAS </span>
                             </button>
                 
                             <button mat-flat-button disabled class="button" *ngIf="paginator == 2"> 
-                                <span style="color:white"> Últimas 72 horas </span>
+                                <span style="color:white"> ÚLTIMAS 72 HORAS </span>
                             </button>
                         </div>
                         
-                        <button mat-raised-button color="warn" class="button" (click)="baixarZip()"> Baixar Gráficos (ZIP) </button>
+                        <button mat-raised-button [ngStyle]="{ 'background-color': 'RGB(244, 67, 54)'}" class="button" (click)="baixarZip()"> Baixar Gráficos </button>
                         
                         <div class="divButtonsRight">
-                            <button mat-flat-button class="button" *ngIf="paginator != 0" [ngStyle]="{ 'background-color': 'RGB(85, 139, 47)'}" (click)="nextPage()"> 
-                                <span style="color:white" *ngIf="paginator == 1"> Últimas 24 horas > </span>
-                                <span style="color:white" *ngIf="paginator == 2"> Últimas 48 horas > </span>
+                            <button mat-flat-button class="button" *ngIf="paginator != 0" [ngStyle]="{ 'background-color': 'rgb(76, 175, 80)'}" (click)="nextPage()"> 
+                                <span style="color:white" *ngIf="paginator == 1"> ÚLTIMAS 24 HORAS > </span>
+                                <span style="color:white" *ngIf="paginator == 2"> ÚLTIMAS 48 HORAS > </span>
                             </button>
                 
                             <button mat-flat-button disabled class="button" *ngIf="paginator == 0" style="color: black;"> 
-                                <span style="color:white"> Últimas 24 horas </span>
+                                <span style="color:white"> ÚLTIMAS 24 HORAS </span>
                             </button>
                         </div>
                         
