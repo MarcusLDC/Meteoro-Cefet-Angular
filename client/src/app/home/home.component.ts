@@ -69,7 +69,7 @@ export class HomeComponent {
 
   async ngOnInit() : Promise<void>{
 
-    this.form.patchValue({estacao: 66})
+    this.form.patchValue({estacao: 100})
 
     this.atualizarDados();
     setInterval(() => {
