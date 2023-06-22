@@ -37,7 +37,7 @@
                     <mat-card-header class="header justifyMiddle" [formGroup]="form">
                     
                         <span> Estação Selecionada </span>
-                        <select style="border-color: green;" formControlName="estacao" (change)="selectEstacoesHandler()">
+                        <select class="estacaoSelect" formControlName="estacao" (change)="selectEstacoesHandler()">
                             <option *ngFor="let element of estacoes" [value]="element.numero"> {{element.numero}} - {{element.nome}}</option>
                         </select> 
 
