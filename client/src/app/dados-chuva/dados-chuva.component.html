@@ -20,7 +20,7 @@
                     <ng-container matColumnDef="Hora_Leitura">
                         <th mat-header-cell *matHeaderCellDef style="color: #9C27B0"> Data_Última_Leitura </th>
                         <td mat-cell *matCellDef="let element" 
-                        [ngStyle]="{'color': isNull(element.cincoMinutos) ? 'red' : '#9C27B0'}"> {{element.lastRead}} </td>
+                        [ngStyle]="{'color': isNull(element.umDiaMeio) ? 'red' : '#9C27B0'}"> {{element.lastRead}} </td>
                     </ng-container>
     
                     <ng-container matColumnDef="5 min">
@@ -32,49 +32,49 @@
                     <ng-container matColumnDef="10 min">
                         <th mat-header-cell *matHeaderCellDef> 10min </th>
                         <td mat-cell *matCellDef="let element"
-                        [ngStyle]="{'color': isNull(element.cincoMinutos) ? 'red' : 'inherit'}"> {{ carregarTexto(element.lastRead, element.dezMinutos) }} </td>
+                        [ngStyle]="{'color': isNull(element.dezMinutos) ? 'red' : 'inherit'}"> {{ carregarTexto(element.lastRead, element.dezMinutos) }} </td>
                     </ng-container>
     
                     <ng-container matColumnDef="30 min">
                         <th mat-header-cell *matHeaderCellDef> 30min </th>
                         <td mat-cell *matCellDef="let element"
-                        [ngStyle]="{'color': isNull(element.cincoMinutos) ? 'red' : 'inherit'}"> {{ carregarTexto(element.lastRead, element.trintaMinutos) }} </td>
+                        [ngStyle]="{'color': isNull(element.trintaMinutos) ? 'red' : 'inherit'}"> {{ carregarTexto(element.lastRead, element.trintaMinutos) }} </td>
                     </ng-container>
     
                     <ng-container matColumnDef="1h">
                         <th mat-header-cell *matHeaderCellDef> 1h </th>
                         <td mat-cell *matCellDef="let element"
-                        [ngStyle]="{'color': isNull(element.cincoMinutos) ? 'red' : 'inherit'}"> {{ carregarTexto(element.lastRead, element.umaHora) }} </td>
+                        [ngStyle]="{'color': isNull(element.umaHora) ? 'red' : 'inherit'}"> {{ carregarTexto(element.lastRead, element.umaHora) }} </td>
                     </ng-container>
     
                     <ng-container matColumnDef="3h">
                         <th mat-header-cell *matHeaderCellDef> 3h </th>
                         <td mat-cell *matCellDef="let element"
-                        [ngStyle]="{'color': isNull(element.cincoMinutos) ? 'red' : 'inherit'}"> {{ carregarTexto(element.lastRead, element.tresHoras) }} </td>
+                        [ngStyle]="{'color': isNull(element.tresHoras) ? 'red' : 'inherit'}"> {{ carregarTexto(element.lastRead, element.tresHoras) }} </td>
                     </ng-container>
     
                     <ng-container matColumnDef="6h">
                         <th mat-header-cell *matHeaderCellDef> 6h </th>
                         <td mat-cell *matCellDef="let element"
-                        [ngStyle]="{'color': isNull(element.cincoMinutos) ? 'red' : 'inherit'}"> {{ carregarTexto(element.lastRead, element.seisHoras) }} </td>
+                        [ngStyle]="{'color': isNull(element.seisHoras) ? 'red' : 'inherit'}"> {{ carregarTexto(element.lastRead, element.seisHoras) }} </td>
                     </ng-container>
     
                     <ng-container matColumnDef="12h">
                         <th mat-header-cell *matHeaderCellDef> 12h </th>
                         <td mat-cell *matCellDef="let element"
-                        [ngStyle]="{'color': isNull(element.cincoMinutos) ? 'red' : 'inherit'}"> {{ carregarTexto(element.lastRead, element.dozeHoras) }} </td>
+                        [ngStyle]="{'color': isNull(element.dozeHoras) ? 'red' : 'inherit'}"> {{ carregarTexto(element.lastRead, element.dozeHoras) }} </td>
                     </ng-container>
     
                     <ng-container matColumnDef="24h">
                         <th mat-header-cell *matHeaderCellDef> 24h </th>
                         <td mat-cell *matCellDef="let element"
-                        [ngStyle]="{'color': isNull(element.cincoMinutos) ? 'red' : 'inherit'}"> {{ carregarTexto(element.lastRead, element.umDia) }} </td>
+                        [ngStyle]="{'color': isNull(element.umDia) ? 'red' : 'inherit'}"> {{ carregarTexto(element.lastRead, element.umDia) }} </td>
                     </ng-container>
     
                     <ng-container matColumnDef="36h">
                         <th mat-header-cell *matHeaderCellDef> 36h </th>
                         <td mat-cell *matCellDef="let element"
-                        [ngStyle]="{'color': isNull(element.cincoMinutos) ? 'red' : 'inherit'}"> {{ carregarTexto(element.lastRead, element.umDiaMeio) }} </td>
+                        [ngStyle]="{'color': isNull(element.umDiaMeio) ? 'red' : 'inherit'}"> {{ carregarTexto(element.lastRead, element.umDiaMeio) }} </td>
                     </ng-container>
     
                     <ng-container matColumnDef="No mês">
