@@ -5,18 +5,35 @@
                 <p class="title"> Dados originais - Estação de ID: ({{estacaoSelecionada.numero}})</p>
             </mat-card-header>
             <mat-card-content class="cardContent">
-                <div style="display: flex; flex-flow: row nowrap;">
-                    <div style="padding-right: 20px;">
-                        <strong> Nome: </strong> {{estacaoSelecionada.nome}} <br><br>
-                        <strong> Latitude: </strong> {{estacaoSelecionada.latitude}} <br><br>
+                <div style="display: flex; flex-wrap: wrap;">
+                    
+                    <div style="padding-right: 30px;">
+                        <strong> Nome: </strong> {{estacaoSelecionada.nome}} <br>
+                        <strong> Latitude: </strong> {{estacaoSelecionada.latitude}} <br>
                         <strong> Longitude: </strong> {{estacaoSelecionada.longitude}} <br>
+                        <strong> Data Inicio: </strong> {{estacaoSelecionada.dataInicio | date : 'dd/MM/yyyy'}} <br>
                     </div>
-                    <div style="display: inline-block; vertical-align: top;">
-                            <strong> Altura: </strong> {{estacaoSelecionada.altura}}m <br><br>
-                            <strong> Altitude: </strong> {{estacaoSelecionada.altitude}}m <br><br>
-                            <strong> Status: </strong> <span [ngStyle]="{ 'color': status[estacaoSelecionada.status] == 'Desligada' ? 'red' : status[estacaoSelecionada.status] == 'Funcionando' ? 'green' : 'blue' }" *ngIf="status[estacaoSelecionada.status]">{{status[estacaoSelecionada.status]}}</span> <br>
+           
+                    <br>
+
+                    <div style="padding-right: 30px;">
+                        <strong> Altura: </strong> {{estacaoSelecionada.altura}}m <br>
+                        <strong> Altitude: </strong> {{estacaoSelecionada.altitude}}m <br>
+                        <strong> Status: </strong> <span [ngStyle]="{ 'color': status[estacaoSelecionada.status] == 'Desligada' ? 'red' : status[estacaoSelecionada.status] == 'Funcionando' ? 'green' : 'blue' }" 
+                        *ngIf="status[estacaoSelecionada.status]">{{status[estacaoSelecionada.status]}}</span> <br>
+                        <strong> Data Fim: </strong> {{estacaoSelecionada.dataFim | date : 'dd/MM/yyyy'}} <br>
                     </div>
-                </div>  
+                    
+                    <br>
+
+                    <div style="padding-right: 30px;">
+                        <strong> Operador: </strong> {{estacaoSelecionada.operador}} <br>
+                        <strong> Modelo: </strong> {{estacaoSelecionada.modelo}} <br>
+                        <strong> Tipos de Sensores: </strong> {{estacaoSelecionada.tiposDeSensores}} <br>
+                        <strong> Ultima Calibração: </strong> {{estacaoSelecionada.ultimaCalibracao | date : 'dd/MM/yyyy'}} <br>
+                    </div>
+                    
+                </div> 
             </mat-card-content>
         </mat-card>
         <mat-card class="card">
@@ -25,6 +42,7 @@
                 <p class="subtitle"> Tudo que não for editado permanecerá com o mesmo valor do dado original</p>
             </mat-card-header>
             <mat-card-content [formGroup]="form">
+
                 <mat-form-field appearance="outline" class="padded">
                     <mat-label>Nome:</mat-label>
                     <input formControlName="nome" matInput>
@@ -34,6 +52,11 @@
                     <mat-select formControlName="status">
                         <mat-option *ngFor="let item of statusList" [value]="item.value">{{item.name}}</mat-option>
                     </mat-select>
+                </mat-form-field>
+
+                <mat-form-field appearance="outline" class="padded">
+                    <mat-label>Operador:</mat-label>
+                    <input formControlName="operador" matInput>
                 </mat-form-field>
 
                 <br>
@@ -47,6 +70,11 @@
                     <input formControlName="longitude" matInput>
                 </mat-form-field>
 
+                <mat-form-field appearance="outline" class="padded">
+                    <mat-label>Tipos de Sensores:</mat-label>
+                    <input formControlName="sensores" matInput>
+                </mat-form-field>
+                
                 <br>
 
                 <mat-form-field appearance="outline" class="padded">
@@ -57,13 +85,7 @@
                     <mat-label>Altura:</mat-label>
                     <input formControlName="altura" matInput>
                 </mat-form-field>
-
-                <br>
-
-                <mat-form-field appearance="outline" class="padded">
-                    <mat-label>Operador:</mat-label>
-                    <input formControlName="operador" matInput>
-                </mat-form-field>
+                
                 <mat-form-field appearance="outline" class="padded">
                     <mat-label>Modelo:</mat-label>
                     <input formControlName="modelo" matInput>
@@ -79,17 +101,11 @@
                     <mat-label>Data Fim:</mat-label>
                     <input formControlName="fim" matInput>
                 </mat-form-field>
-
-                <br>
-
-                <mat-form-field appearance="outline" class="padded">
-                    <mat-label>Tipos de Sensores:</mat-label>
-                    <input formControlName="sensores" matInput>
-                </mat-form-field>
                 <mat-form-field appearance="outline" class="padded">
                     <mat-label>Última calibração:</mat-label>
                     <input formControlName="calibracao" matInput>
                 </mat-form-field>
+
             </mat-card-content>
 
             <mat-card-actions>
