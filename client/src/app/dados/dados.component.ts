@@ -63,7 +63,7 @@ export class DadosComponent implements OnInit {
 
   constructor(private meteoroServices: MeteoroServices, private localStorage: LocalStorageServices, private builder: FormBuilder) {
     this.form = builder.group({
-      estacao: [[66], Validators.required]
+      estacao: ['Tudo', Validators.required]
     });
   }
 
@@ -72,11 +72,6 @@ export class DadosComponent implements OnInit {
     
     this.meteoroServices.getEstacoes().subscribe(x => {
       this.estacoes = x;
-
-      const estacaoNums = this.estacoes.map(x => x.numero)
-
-      this.form.get('estacao')?.setValue([66]);
-      
       this.setSelectedEstacao((this.form.get('estacao')?.value));
       this.numEstacoes = this.estacoes.length;
     });
@@ -85,9 +80,7 @@ export class DadosComponent implements OnInit {
 
     let estacaoStorage = await this.localStorage.get<string>('estacao') ?? 'Tudo';
 
-    this.form.valueChanges.subscribe(() => {
-      this.atualizarDados();
-    })
+    this.form.get('estacao')?.setValue(estacaoStorage);
 
     this.atualizarDados();
     setInterval(() => {
@@ -102,10 +95,17 @@ export class DadosComponent implements OnInit {
   }
 
   private atualizarDados() {
-    this.meteoroServices.getDadosEstacoes(this.form.get('estacao')?.value, this.paginator).subscribe(x => {
-      this.dataSource = x,
-      this.firstDataHora = this.dataSource[0].dataHora;
-    });
+    if (this.form.get('estacao')?.value == 'Tudo') {
+      this.meteoroServices.getDados(this.paginator).subscribe(x => {
+        this.dataSource = x;
+      });
+    }
+    else {
+      this.meteoroServices.getDadosEstacao(Number(this.form.get('estacao')?.value), this.paginator).subscribe(x => {
+        this.dataSource = x,
+          this.firstDataHora = this.dataSource[0].dataHora;
+      });
+    }
   }
 
   public nextPage() {
@@ -128,7 +128,7 @@ export class DadosComponent implements OnInit {
   }
 
   private setSelectedEstacao(num: string) {
-    //this.estacaoSelecionada = this.estacoes.find(x => x.numero === Number(num));
+    this.estacaoSelecionada = this.estacoes.find(x => x.numero === Number(num));
     this.paginator = 1;
     this.GenerateMap();
   }
