@@ -88,20 +88,19 @@
                     <form [formGroup]="form">
                         <ng-container matColumnDef="Estação">
 
-                            <th mat-header-cell *matHeaderCellDef> Estação(ID)
+                            <th mat-header-cell *matHeaderCellDef>
 
-                                <!-- <mat-form-field #estacao appearance="outline" class="estacoesHandler" [formGroup]="form" name="estacoes" id="estacoes" (change)="selectEstacoesHandler()">
+                                <mat-form-field #estacao appearance="outline" class="estacoesHandler" [formGroup]="form" name="estacoes" id="estacoes">
                                     <mat-label>Estação(ID)</mat-label>
-                                    <mat-select formControlName="estacao" multiple>
-                                        <mat-option> Tudo </mat-option>
+                                    <mat-select formControlName="estacao" (change)="selectEstacoesHandler()" multiple>
                                         <mat-option *ngFor="let item of estacoes" [value]="item.numero">{{item.numero}}</mat-option>
                                     </mat-select>
-                                </mat-form-field> -->
+                                </mat-form-field>
 
-                                <select #estacao style="border-color: rgb(255, 136, 0);" formControlName="estacao" name="estacoes" id="estacoes" (change)="selectEstacoesHandler()">
+                                <!-- <select #estacao style="border-color: rgb(255, 136, 0);" formControlName="estacao" name="estacoes" id="estacoes" (change)="selectEstacoesHandler()">
                                     <option> Tudo </option>
                                     <option *ngFor="let element of estacoes" [value]="element.numero"> {{element.numero}} </option>
-                                </select>
+                                </select> -->
 
                             </th>
 
