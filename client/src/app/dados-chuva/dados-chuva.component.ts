@@ -1,7 +1,9 @@
 import { Component } from '@angular/core';
-import { FormBuilder } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MeteoroServices } from '../shared/services/meteoro-services';
 import { DadosChuvaTable } from '../shared/models/dados-chuva-model';
+import { Estacao } from '../shared/models/estacao-model';
+import * as L from 'leaflet';
 
 @Component({
   selector: 'app-dados-chuva',
@@ -28,25 +30,41 @@ export class DadosChuvaComponent {
 
   dataSource: DadosChuvaTable[] = [];
 
+  form: FormGroup;
+  estacoes: Estacao[] = [];
+
+  map: any;
+  criado: boolean = true;
+
   constructor(private meteoroServices: MeteoroServices, private builder: FormBuilder) {
-    
+    this.form = builder.group({
+      estacao: [Validators.required]
+    });
+
   }
 
   async ngOnInit(): Promise<void> {
     document.title = "Chuva - Monitoramento - LAPA - Monitoramento Ambiental - CoMet"
 
     this.atualizarDados();
+    
+    this.pegarDadosChuva(43200);
+
     setInterval(() => {
       this.atualizarDados();
     }, 120000);
 
   }
 
-  private atualizarDados() {
-    this.meteoroServices.getEstacoes().subscribe(estacoes => {
-      this.dataSource = estacoes.map(estacao => ({
-        id: estacao.numero,
-        name: estacao.nome,
+  private async atualizarDados() {
+
+    this.meteoroServices.getEstacoes().subscribe( x => {
+
+      this.estacoes = x;
+
+      this.dataSource = x.map(x => ({
+        id: x.numero,
+        name: x.nome,
         lastRead: 'x',
         cincoMinutos: -1,
         dezMinutos: -1,
@@ -69,7 +87,8 @@ export class DadosChuvaComponent {
       this.pegarDadosChuva(720);
       this.pegarDadosChuva(1440);
       this.pegarDadosChuva(2160);
-      // this.pegarDadosChuva(43200);
+
+      this.GenerateMap();
 
     })
   }
@@ -104,7 +123,6 @@ export class DadosChuvaComponent {
   };
 
   isNull(valor: number){
-    console.log(valor)
     if(valor == -1)
       return true
     return false
@@ -118,5 +136,69 @@ export class DadosChuvaComponent {
     } else {
       return valor.toString();
     }
+  }
+
+  private GenerateMap() {
+    if (this.map != undefined && this.criado) {
+      this.map.remove();
+      this.criado = false;
+    }
+    this.criado = true;
+    this.map = L.map('map', { scrollWheelZoom: false, }).setView([this.getMiddleLatitude(), this.getMiddleLongitude()], 7);
+    this.tileLayer();
+    this.markAll();
+  }
+
+  private tileLayer() {
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, ' +
+        '<a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, ' +
+        'Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
+      maxZoom: 19
+    }).addTo(this.map);
+  }
+
+  private markAll() {
+    this.estacoes.forEach(estacao => {
+      this.meteoroServices.getDadosEstacao(estacao.numero, 1).subscribe(x => {
+  
+        var icone = x[0].precipitacao > 0 ? this.createIcon('assets/markerVerde.png') : this.createIcon('assets/markerVermelho.png')
+        let tooltipContent1 = x[0].precipitacao > 0 ? x[0].precipitacao.toString() + 'mm': 'Sem chuva'
+
+        L.marker([estacao.latitude, estacao.longitude], { icon: icone })
+        .bindTooltip(tooltipContent1, 
+          {direction: 'bottom',
+            permanent: x[0].precipitacao > 0,
+            offset: [-7, 0],
+            opacity: 0.9,
+            className: 'tooltip'
+          })
+        .addTo(this.map);
+      });
+    });
+  }
+
+  private getMiddleLatitude() { 
+    return this.getMiddleCoordinates(this.estacoes.map(x => x.latitude));
+  }
+
+  private getMiddleLongitude() {
+    return this.getMiddleCoordinates(this.estacoes.map(x => x.longitude));
+  }
+
+  private getMiddleCoordinates(coordenadas: number[]) {
+    let coordenadasReais = coordenadas.filter(x => x != 0)
+    let somaCoordenadas = coordenadasReais.reduce((a, b) => a + b, 0)
+    return somaCoordenadas / coordenadasReais.length;
+  }
+
+  private createIcon(caminho: string) {
+    var icone = L.icon({
+      iconUrl: caminho,
+      iconSize: [18, 25],
+      iconAnchor: [15, 25],
+      popupAnchor: [0, -30]
+    });
+    return icone;
   }
 }
