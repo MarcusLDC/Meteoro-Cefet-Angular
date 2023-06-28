@@ -1,4 +1,15 @@
+<head>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.4.0/dist/leaflet.css" />
+    <script src="https://unpkg.com/leaflet@1.4.0/dist/leaflet.js"></script>
+    <script src="https://api.windy.com/assets/map-forecast/libBoot.js"></script>
+</head>
+
 <div class="body">
+    <mat-card class="card blue temp">
+        <div class="map" id="map" src="https://api.windy.com/assets/map-forecast/libBoot.js">
+            <app-map></app-map>
+        </div>
+    </mat-card>
     <div class="half">
         <mat-card class="card blue card70">
             <mat-card-header class="fixed center tableHeader">
@@ -80,7 +91,7 @@
                     <ng-container matColumnDef="No mês">
                         <th mat-header-cell *matHeaderCellDef> Mês </th>
                         <td mat-cell *matCellDef="let element"
-                        [ngStyle]="{'color': isNull(element.cincoMinutos) ? 'red' : 'inherit'}"> {{ carregarTexto(element.lastRead, element.mes) }} </td>
+                        [ngStyle]="{'color': isNull(element.mes) ? 'red' : 'inherit'}"> {{ carregarTexto(element.lastRead, element.mes) }} </td>
                     </ng-container>
     
                     <tr class="fixed2" mat-header-row *matHeaderRowDef="displayedColumns"></tr>
@@ -89,6 +100,10 @@
                 </table>
             </mat-card-content>
         </mat-card>
-
+        <!-- <mat-card class="card blue card30">
+            <div class="map" id="map" src="https://api.windy.com/assets/map-forecast/libBoot.js">
+                <app-map></app-map>
+            </div>
+        </mat-card> -->
     </div>
 </div>
