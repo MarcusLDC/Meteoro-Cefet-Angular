@@ -209,8 +209,8 @@ export class DadosComponent implements OnInit {
   private createIcon(caminho: string) {
     var icone = L.icon({
       iconUrl: caminho,
-      iconSize: [18, 25],
-      iconAnchor: [15, 25],
+      iconSize: [18, 30],
+      iconAnchor: [16, 25],
       popupAnchor: [0, -30]
     });
     return icone;

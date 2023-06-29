@@ -15,16 +15,6 @@ th.mat-sort-header-sorted {
     z-index: 999; 
 }
 
-.body{
-    font-family: Roboto, "Helvetica Neue", sans-serif;
-    color: rgb(66, 66, 66);
-    padding-top: 70px;
-    max-width: 84%;
-    margin: auto;
-    display: flex;
-    flex-direction: column;
-}
-
 .container {
     display: block;
     background-color: transparent;
@@ -46,7 +36,7 @@ th.mat-sort-header-sorted {
     font-weight: 500;
     background-color: rgb(149, 117, 205);
     color: rgb(255, 255, 255);
-    min-width: 1280px;
+    min-width: 1260px;
 }
 
 .subtitle{
@@ -59,12 +49,13 @@ th.mat-sort-header-sorted {
     width: 100%;
     height: 100%;
     border-radius: 5px;
-    min-width: 1280px;
+    min-width: 1260px;
 }
 
 .temp{
     min-width: 1280px;
     height: 400px !important;
+    margin-bottom: 10px;
 }
 
 .half{
