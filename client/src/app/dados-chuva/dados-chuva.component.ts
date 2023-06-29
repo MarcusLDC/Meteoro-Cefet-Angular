@@ -52,7 +52,7 @@ export class DadosChuvaComponent {
 
     setInterval(() => {
       this.atualizarDados();
-    }, 120000);
+    }, 240000);
 
   }
 
@@ -162,7 +162,7 @@ export class DadosChuvaComponent {
     this.estacoes.forEach(estacao => {
       this.meteoroServices.getDadosEstacao(estacao.numero, 1).subscribe(x => {
   
-        var icone = x[0].precipitacao > 0 ? this.createIcon('assets/markerVerde.png') : this.createIcon('assets/markerVermelho.png')
+        var icone = x[0].precipitacao > 0 ? this.createIcon('assets/markerVerde.png') : this.createIcon('assets/markerLaranja.png')
         let tooltipContent1 = x[0].precipitacao > 0 ? x[0].precipitacao.toString() + 'mm': 'Sem chuva'
 
         L.marker([estacao.latitude, estacao.longitude], { icon: icone })
@@ -195,7 +195,7 @@ export class DadosChuvaComponent {
   private createIcon(caminho: string) {
     var icone = L.icon({
       iconUrl: caminho,
-      iconSize: [18, 25],
+      iconSize: [18, 30],
       iconAnchor: [15, 25],
       popupAnchor: [0, -30]
     });
