@@ -5,6 +5,7 @@ import { MeteoroServices } from '../shared/services/meteoro-services';
 import { LocalStorageServices } from '../shared/services/local-storage-services';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import * as L from 'leaflet';
+import { direction } from 'html2canvas/dist/types/css/property-descriptors/direction';
 
 @Component({
   selector: 'app-dados',
@@ -185,16 +186,17 @@ export class DadosComponent implements OnInit {
         this.manutencao = this.estacoes.filter(x => x.status == 2).length;
   
         var icone = estacao.status == 0 ? this.createIcon('assets/markerVerde.png') : estacao.status == 1 ? this.createIcon('assets/markerVermelho.png') : this.createIcon('assets/markerAzul.png')
-        let tooltipContent1 = estacao.status == 0 ? x[0].temperaturaAr.toString() + '°C': 'OFF'
+        const tooltipContentBottom = estacao.status == 0 ? "ID: " + estacao.numero + "<br>" + x[0].temperaturaAr.toString() + '°C': estacao.numero + "-" + 'OFF'
 
         L.marker([estacao.latitude, estacao.longitude], { icon: icone })
-        .bindTooltip(tooltipContent1, 
+        .bindTooltip(tooltipContentBottom, 
           {direction: 'bottom',
-            permanent: estacao.status == 0,
+            permanent: false,
             offset: [-7, 0],
             opacity: 0.9,
             className: 'tooltip'
-          })
+          }
+        )
         .addTo(this.map).on('click', () => {
           this.setSelectedEstacao(String(estacao.numero));
           this.form.setValue({ estacao: String(estacao.numero) });
@@ -211,7 +213,7 @@ export class DadosComponent implements OnInit {
       iconUrl: caminho,
       iconSize: [18, 30],
       iconAnchor: [16, 25],
-      popupAnchor: [0, -30]
+      popupAnchor: [0, -20]
     });
     return icone;
   }

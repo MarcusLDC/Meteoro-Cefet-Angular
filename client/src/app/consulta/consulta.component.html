@@ -26,8 +26,12 @@
 
             <div class='container' [formGroup]="form">
                 <label class="destaque"> Consultar via: </label>
-                <mat-checkbox color="warn" formControlName="tabela"> Tabela </mat-checkbox> <label class="destaque" style="margin-left: 10px;"> ou </label>
-                <mat-checkbox color="warn" formControlName="grafico"> Gráfico </mat-checkbox>
+                <mat-checkbox color="warn" formControlName="tabela"> 
+                    <span style="text-decoration: underline;">Tabela</span>
+                </mat-checkbox> <label class="destaque" style="margin-left: 10px;"> ou </label>
+                <mat-checkbox color="warn" formControlName="grafico"> 
+                    <span style="text-decoration: underline;">Gráfico</span> 
+                </mat-checkbox>
                 <ng-container *ngIf="this.form.get('grafico')?.value"> <span style="color:blue;"> (Escolha uma ou duas unidades de medida por gráfico) </span></ng-container> 
             </div>
 

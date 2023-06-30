@@ -44,7 +44,7 @@ export class HomeComponent {
 
     this.form2 = builder.group({
       tempAr: [true, Validators.required],
-      tempOrv: [true, Validators.required],
+      tempOrv: [false, Validators.required],
       chuva: [false, Validators.required],
       direcaoVento: [false, Validators.required],
       velocidadeVento: [false, Validators.required],
@@ -52,7 +52,7 @@ export class HomeComponent {
       bateria: [false, Validators.required],
       radiacao: [false, Validators.required],
       pressaoATM: [false, Validators.required],
-      indiceCalor: [true, Validators.required],
+      indiceCalor: [false, Validators.required],
       umidadeRelativa: [true, Validators.required],  // Fim-Checkboxes
     })
 
@@ -61,8 +61,6 @@ export class HomeComponent {
     });
 
     this.form2.controls['tempAr'].disable();
-    this.form2.controls['indiceCalor'].disable();
-    this.form2.controls['tempOrv'].disable();
 
   }
 
