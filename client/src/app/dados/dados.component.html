@@ -73,10 +73,10 @@
         </div>
         <mat-card class="card blue">
             <mat-card-header class="fixed center tableHeader" *ngIf="estacaoSelecionada">
-                ID: {{estacaoSelecionada.numero}} - Estação de monitoramento ambiental {{estacaoSelecionada.nome}} 
+                ID: {{estacaoSelecionada.numero}} - Monitoramento Ambiental {{estacaoSelecionada.nome}} 
             </mat-card-header>
             <mat-card-header class="fixed center tableHeader" *ngIf="!estacaoSelecionada">
-                Lapa - Estações de monitoramento ambiental
+                Monitoramento Ambiental - LAPA
             </mat-card-header>
             <mat-card-content class="tableContent">
                 <table *ngIf="dataSource!.length > 0"  mat-table [dataSource]="dataSource" class="mat-elevation-z8">
@@ -126,7 +126,7 @@
         
                     <ng-container matColumnDef="Umidade Relativa Ar">
                         <th mat-header-cell *matHeaderCellDef> Umidade Relativa Ar (%) </th>
-                        <td mat-cell *matCellDef="let element"> {{element.umidadeRelativaAr}} </td> <!-- Obs: está trocado a URar pelo Extra2-->
+                        <td mat-cell *matCellDef="let element"> {{element.umidadeRelativaAr | number:'1.0-0'}} </td> <!-- Obs: está trocado a URar pelo Extra2-->
                     </ng-container>
         
                     <ng-container matColumnDef="Pressão">

@@ -41,6 +41,7 @@ body {
     font-weight: 500 !important;
     border: 0;
     text-align: center;
+    border-right: 1px solid rgb(231, 219, 255) !important;
 }
 
 .tableContent table.mat-elevation-z8 th {
@@ -48,11 +49,12 @@ body {
     font-weight: 500 !important;
     border: 0;
     text-align: center;
+    border-right: 1px solid rgb(219, 200, 255) !important;
 }
 
 select{
-    margin-left: 6px;
-    border-radius: 6px; 
+    margin-left: 4px;
+    border-radius: 8px; 
     border-width: 2px;
     border-style: solid;
 }
