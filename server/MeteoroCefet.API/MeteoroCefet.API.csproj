@@ -10,6 +10,7 @@
 
   <ItemGroup>
     <Compile Remove="Endpoints\Login.cs" />
+    <Compile Remove="Endpoints\NewNovoDadoTempoEndpoint.cs" />
     <Compile Remove="Endpoints\NovoCadastroEndpoint.cs" />
   </ItemGroup>
 
