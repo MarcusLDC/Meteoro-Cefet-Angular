@@ -16,7 +16,7 @@ namespace MeteoroCefet.API.Endpoints
         {
 
             var query = await repository.Collection
-                .Find(x => x.DataHora >= DateTime.Now.AddMinutes(-minutos))
+                .Find(x => x.DataHora >= DateTime.Now.AddMinutes(-minutos) && x.DataHora.Month == DateTime.Today.Month)
                 .SortBy(x => x.Estacao)
                 .ToListAsync();
 
