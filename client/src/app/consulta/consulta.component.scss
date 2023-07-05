@@ -17,9 +17,11 @@
 }
 
 .colorPicker{
+    font-size: 13px;
     padding-left: 20px;
     display: flex;
     align-items: center;
+    width: 40px; 
 }
 
 p, h1{
@@ -93,11 +95,11 @@ label { margin-left: 5px; margin-right: 5px;}
 }
 
 .card{
-    padding: 10px;
     margin: 10px;
     background-color: rgb(185, 185, 185);
-    padding: 1px;
     border: 2px solid RGB(149, 117, 205);
+    border-bottom-left-radius: 2px;
+    border-bottom-right-radius: 2px;
 }
 
 .consulta{
@@ -136,4 +138,12 @@ label { margin-left: 5px; margin-right: 5px;}
 .grafico{
     display: flex;
     min-width: 1690px;
+}
+
+.center{
+    font-size: 14px;
+    text-align: center;
+    font-weight: 500;
+    background-color: rgb(149, 117, 205);
+    color: rgb(255, 255, 255);
 }

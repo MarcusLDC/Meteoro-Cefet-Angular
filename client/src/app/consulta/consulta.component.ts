@@ -49,8 +49,8 @@ export class ConsultaComponent{
   ];
 
   tiposDoGrafico = [
-    { value: 'line', key: 'Linha'},
-    { value: 'bar', key: 'Barra'},
+    { value: 'line', key: 'LINHA'},
+    { value: 'bar', key: 'BARRA'},
   ];
 
   constructor(public dialog: MatDialog, private builder: FormBuilder, private meteoroServices: MeteoroServices, private localStorage: LocalStorageServices) {

@@ -1,11 +1,12 @@
 <div class="body">
     <mat-card class="card">
+        <mat-card-header class="center tableHeader">
+            Consulta Tempo e Clima - LAPA
+        </mat-card-header>
         <mat-card-content class="consulta">
-            
             <div class="container"> 
-
                 <mat-form-field class="padded" appearance="outline" [formGroup]="form">
-                    <mat-label class="destaque">Insira o intervalo de datas</mat-label>
+                    <mat-label class="destaque">Insira o intervalo de data</mat-label>
                         <mat-date-range-input [min]="minDate" [max]="maxDate" [rangePicker]="picker">
                             <input matInput>
                             <input formControlName="periodoInicio" matStartDate placeholder="Data Inicial" readonly>
@@ -27,12 +28,12 @@
             <div class='container' [formGroup]="form">
                 <label class="destaque"> Consultar via: </label>
                 <mat-checkbox color="warn" formControlName="tabela"> 
-                    <span style="text-decoration: underline;">Tabela</span>
+                    <span style="text-decoration: underline;">TABELA</span>
                 </mat-checkbox> <label class="destaque" style="margin-left: 10px;"> ou </label>
-                <mat-checkbox color="warn" formControlName="grafico"> 
-                    <span style="text-decoration: underline;">Gráfico</span> 
+                <mat-checkbox color="primary" formControlName="grafico"> 
+                    <span style="text-decoration: underline; color: rgb(182, 0, 182); font-weight: 500; margin-right: 10px;">GRÁFICO</span> 
                 </mat-checkbox>
-                <ng-container *ngIf="this.form.get('grafico')?.value"> <span style="color:blue;"> (Escolha uma ou duas unidades de medida por gráfico) </span></ng-container> 
+                <ng-container *ngIf="this.form.get('grafico')?.value"> <span style="color:blue;"> (Escolha até duas unidades de medida distintas por gráfico) </span></ng-container> 
             </div>
 
             <div class='container' [formGroup]="form">
@@ -305,7 +306,7 @@
                 <ng-container *ngIf="this.form.get('grafico')?.value" [formGroup]="form2">
 
                     <div class='container preferencias' *ngIf="this.form.get('tempAr')?.value || this.form.get('tempMin')?.value || this.form.get('tempMax')?.value || this.form.get('tempOrv')?.value || this.form.get('indiceCalor')?.value">
-                        <label class="destaque"> Preferência Temperaturas (°C) </label> <br>
+                        <label class="destaque"> Posição das Temperaturas (°C) </label> <br>
                         <mat-radio-group formControlName="tempArSide" (change)="atualizarUnidadesSimilares(['tempArSide', 'tempMinSide', 'tempMaxSide', 'tempOrvSide', 'indiceCalorSide'], $event.value)">
                             <mat-radio-button color="warn" value="left"> Esquerda </mat-radio-button>
                             <mat-radio-button color="primary" value="right"> Direita </mat-radio-button>
@@ -313,7 +314,7 @@
                     </div>
 
                     <div class='container preferencias' *ngIf="this.form.get('umidadeRelativa')?.value">
-                        <label class="destaque"> Preferência Umidade (%) </label> <br>
+                        <label class="destaque"> Posição da Umidade (%) </label> <br>
                         <mat-radio-group formControlName="umidadeRelativaSide">
                             <mat-radio-button color="warn" value="left"> Esquerda </mat-radio-button>
                             <mat-radio-button color="primary" value="right"> Direita </mat-radio-button>
@@ -321,7 +322,7 @@
                     </div>
 
                     <div class='container preferencias' *ngIf="this.form.get('chuva')?.value">
-                        <label class="destaque"> Preferência Chuva (mm) </label> <br>
+                        <label class="destaque"> Posição da Chuva (mm) </label> <br>
                         <mat-radio-group formControlName="chuvaSide">
                             <mat-radio-button color="warn" value="left"> Esquerda </mat-radio-button>
                             <mat-radio-button color="primary" value="right"> Direita </mat-radio-button>
@@ -329,7 +330,7 @@
                     </div>
 
                     <div class='container preferencias' *ngIf="this.form.get('pressaoATM')?.value">
-                        <label class="destaque"> Preferência Pressão (hPa) </label> <br>
+                        <label class="destaque"> Posição da Pressão (hPa) </label> <br>
                         <mat-radio-group formControlName="pressaoATMSide">
                             <mat-radio-button color="warn" value="left"> Esquerda </mat-radio-button>
                             <mat-radio-button color="primary" value="right"> Direita </mat-radio-button>
@@ -337,7 +338,7 @@
                     </div>
 
                     <div class='container preferencias' *ngIf="this.form.get('direcaoVento')?.value">
-                        <label class="destaque"> Preferência Direção do Vento (°) </label> <br>
+                        <label class="destaque"> Posição da Direção do Vento (°) </label> <br>
                         <mat-radio-group formControlName="direcaoVentoSide">
                             <mat-radio-button color="warn" value="left"> Esquerda </mat-radio-button>
                             <mat-radio-button color="primary" value="right"> Direita </mat-radio-button>
@@ -345,7 +346,7 @@
                     </div>
 
                     <div class='container preferencias' *ngIf="this.form.get('velocidadeVento')?.value || this.form.get('velocidadeVentoMax')?.value">
-                        <label class="destaque"> Preferência Velocidade do Vento (m/s) </label> <br>
+                        <label class="destaque"> Posição da Velocidade do Vento (m/s) </label> <br>
                         <mat-radio-group formControlName="velocidadeVentoSide" (change)="atualizarUnidadesSimilares(['velocidadeVentoSide', 'velocidadeVentoMaxSide'], $event.value)">
                             <mat-radio-button color="warn" value="left"> Esquerda </mat-radio-button>
                             <mat-radio-button color="primary" value="right"> Direita </mat-radio-button>
@@ -353,7 +354,7 @@
                     </div>
 
                     <div class='container preferencias' *ngIf="this.form.get('radiacao')?.value">
-                        <label class="destaque"> Preferência Radiação Solar (W/m²) </label> <br>
+                        <label class="destaque"> Posição da Radiação Solar (W/m²) </label> <br>
                         <mat-radio-group formControlName="radiacaoSide">
                             <mat-radio-button color="warn" value="left"> Esquerda </mat-radio-button>
                             <mat-radio-button color="primary" value="right"> Direita </mat-radio-button>
@@ -361,7 +362,7 @@
                     </div>
 
                     <div class='container preferencias' *ngIf="this.form.get('bateria')?.value">
-                        <label class="destaque"> Preferência Bateria (v) </label> <br>
+                        <label class="destaque"> Posição da Bateria (v) </label> <br>
                         <mat-radio-group formControlName="bateriaSide">
                             <mat-radio-button color="warn" value="left"> Esquerda </mat-radio-button>
                             <mat-radio-button color="primary" value="right"> Direita </mat-radio-button>
@@ -400,6 +401,6 @@
             
             <span class="warning consulta" *ngIf="spinnerValue != 100"> Preencha pelo menos uma opção em cada grupo </span> 
         </ng-container>
-        <span class="warning consulta" *ngIf="!this.form.get('tabela')?.value && !this.form.get('grafico')?.value" > > Para aparecerem todas as opções escolha entre tabela ou gráfico < </span>
+        <span class="warning consulta" *ngIf="!this.form.get('tabela')?.value && !this.form.get('grafico')?.value" > > Para que todas as opções apareçam, escolha entre tabela ou gráfico. < </span>
     </mat-card>
 </div>
