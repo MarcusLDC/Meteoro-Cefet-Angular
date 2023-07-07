@@ -218,6 +218,8 @@ export class HomeComponent {
 
   public async baixarZip() {
 
+    // let canvases: any;
+
     // this.consultaGraficoElements.forEach(element => {
     //   canvases.push(element.nativeElement.querySelector('.graphCanvas'))
     // })
