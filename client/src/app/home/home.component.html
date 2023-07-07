@@ -5,7 +5,9 @@
             <mat-card class="card">
                 <mat-card-header class="header lightblue">
                     Estação de Monitoramento {{estacaoSelecionada?.nome}} <br>
-                    <span class="destaque"> Última Atualização: {{this.dadosRelatorio[0].dataHora | date : 'dd/MM/yyyy - HH:mm'}}h </span>
+                    <span class="destaque" *ngIf="this.dadosRelatorio && this.dadosRelatorio[0]"> 
+                        Última Atualização: {{this.dadosRelatorio[0].dataHora | date : 'dd/MM/yyyy - HH:mm'}}h 
+                    </span>
                 </mat-card-header>
                 <mat-card-content class="relatorio">
                 
@@ -33,15 +35,12 @@
 
             <mat-card class="card mainColor">
                 
-                <mat-card-header class="header justifyMiddle">
-                    <mat-card-header class="header justifyMiddle" [formGroup]="form">
-                    
-                        <span> Estação Selecionada </span>
-                        <select class="estacaoSelect" formControlName="estacao" (change)="selectEstacoesHandler()">
-                            <option *ngFor="let element of estacoes" [value]="element.numero"> {{element.numero}} - {{element.nome}}</option>
-                        </select> 
-
-                    </mat-card-header>
+                <mat-card-header class="header justifyMiddle" style="border-top-right-radius: 0px;
+                border-top-left-radius: 0px;" [formGroup]="form">
+                    <span style="padding-right: 10px;"> Estação Selecionada </span>
+                    <select class="estacaoSelect" style="border-width: 1px;" formControlName="estacao" (change)="selectEstacoesHandler()">
+                        <option *ngFor="let element of estacoes" [value]="element.numero"> {{element.numero}} - {{element.nome}}</option>
+                    </select> 
                 </mat-card-header>
 
                 <mat-card-content [formGroup]="form2">
@@ -103,9 +102,9 @@
         </div>
 
         <div class="div80">
-            <div class="card mainColor graphs">
+            <div class="card graphs mainColor">
                 <ng-container *ngFor="let consultaData of consultaDataArray">
-                    <div>
+                    <div class="mainColor">
                         <app-consulta-grafico #consultaGrafico id="consultaGrafico" *ngIf="consultaData"
                             [dates]="dates" 
                             [stationData]="consultaData"

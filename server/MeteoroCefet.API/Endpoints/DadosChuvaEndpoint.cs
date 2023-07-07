@@ -1,6 +1,7 @@
 ﻿using MeteoroCefet.Domain.Entities;
 using MeteoroCefet.Infra;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.IdentityModel.Tokens;
 using MongoDB.Driver;
 using System.Globalization;
 
@@ -12,13 +13,19 @@ namespace MeteoroCefet.API.Endpoints
         {
             app.MapPost("/dados/chuva", Handler);
         }
-        private static async Task<List<ChuvaAcumuladaDTO>> Handler([FromServices] DadosTempoRepository repository, [FromServices] EstacaoRepository estacaoRepository, [FromBody] int minutos)
+        private static async Task<List<ChuvaAcumuladaDTO>> Handler([FromServices] DadosTempoRepository repository, [FromServices] EstacaoRepository estacaoRepository, 
+            [FromBody] ChuvaParams p)
         {
 
             var query = await repository.Collection
-                .Find(x => x.DataHora >= DateTime.Now.AddMinutes(-minutos) && x.DataHora.Month == DateTime.Today.Month)
+                .Find(x => x.DataHora >= DateTime.Now.AddMinutes(-p.Minutos) && (p.Minutos <= 2880 || x.DataHora.Month == DateTime.Today.Month))
                 .SortBy(x => x.Estacao)
                 .ToListAsync();
+
+            if (!p.NumeroEstacao.IsNullOrEmpty())
+            {
+                query = query.Where(x => p.NumeroEstacao.Contains(x.Estacao)).ToList();
+            }
 
             var grouped = query.GroupBy(x => x.Estacao).ToList();
 
@@ -30,12 +37,15 @@ namespace MeteoroCefet.API.Endpoints
             }).ToList();
 
             return result;
-        } 
+        }
+
         public class ChuvaAcumuladaDTO
         {
             public int Id { get; set; }
             public string LastRead { get; set; }
             public double Value { get; set; }
         }
+
+        private record ChuvaParams(List<int> NumeroEstacao, int Minutos);
     }
 }

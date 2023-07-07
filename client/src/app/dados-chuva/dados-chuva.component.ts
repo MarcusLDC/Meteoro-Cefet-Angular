@@ -48,8 +48,6 @@ export class DadosChuvaComponent {
 
     this.atualizarDados();
     
-    this.pegarDadosChuva(43200);
-
     setInterval(() => {
       this.atualizarDados();
     }, 240000);
@@ -87,6 +85,7 @@ export class DadosChuvaComponent {
       this.pegarDadosChuva(720);
       this.pegarDadosChuva(1440);
       this.pegarDadosChuva(2160);
+      this.pegarDadosChuva(43200);
 
       this.GenerateMap();
 
@@ -94,7 +93,7 @@ export class DadosChuvaComponent {
   }
 
   pegarDadosChuva(intervaloMinutos: number) {
-    this.meteoroServices.getDadosChuva(intervaloMinutos).subscribe(dadosDTO => {
+    this.meteoroServices.getDadosChuva([], intervaloMinutos).subscribe(dadosDTO => {
       dadosDTO.forEach(dto => {
 
         const index = this.dataSource.findIndex(item => item.id === dto.id);

@@ -63,9 +63,9 @@ export class MeteoroServices {
         return this.httpClient.post<DadosTempo[]>(endpoint, { numeroEstacao, numPagina })
     }
 
-    public getDadosChuva(minutos: number) {
+    public getDadosChuva(numeroEstacao: number[], minutos: number) {
         const endpoint = `${environment.apiUrl}/dados/chuva`
-        return this.httpClient.post<DadosChuvaDTO[]>(endpoint, minutos)
+        return this.httpClient.post<DadosChuvaDTO[]>(endpoint, { numeroEstacao, minutos })
     }
 
     // authentication required
