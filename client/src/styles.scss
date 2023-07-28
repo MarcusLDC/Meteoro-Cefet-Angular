@@ -5,9 +5,21 @@
 
 html, body { height: 100%;}
 
+@font-face {
+    font-family: 'Roboto';
+    src: url(assets/fonts/Roboto-Medium.ttf);
+}
+
+@font-face {
+    font-family: 'Mat-Icons';
+    font-style: normal;
+    font-weight: 400;
+    src: url(assets/fonts/mat-icons.woff2);
+}
+
 body { 
     margin: 0; 
-    font-family: Roboto, "Helvetica Neue", sans-serif;
+    font-family: 'Roboto';
     background-color: #fdfdfd;
 }
 
@@ -69,6 +81,17 @@ p{
 
 mat-icon {
     vertical-align: middle;
+    font-family: 'Mat-Icons';
+    font-weight: normal;
+    font-style: normal;
+    font-size: 24px;
+    line-height: 1;
+    letter-spacing: normal;
+    text-transform: none;
+    display: inline-block;
+    white-space: nowrap;
+    word-wrap: normal;
+    direction: ltr;
 }
 
 mat-expansion-panel{
