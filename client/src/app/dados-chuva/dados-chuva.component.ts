@@ -4,6 +4,7 @@ import { MeteoroServices } from '../shared/services/meteoro-services';
 import { DadosChuvaTable } from '../shared/models/dados-chuva-model';
 import { Estacao } from '../shared/models/estacao-model';
 import * as L from 'leaflet';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-dados-chuva',
@@ -36,7 +37,7 @@ export class DadosChuvaComponent {
   map: any;
   criado: boolean = true;
 
-  constructor(private meteoroServices: MeteoroServices, private builder: FormBuilder) {
+  constructor(private meteoroServices: MeteoroServices, private builder: FormBuilder, private httpClient: HttpClient) {
     this.form = builder.group({
       estacao: [Validators.required]
     });
@@ -76,7 +77,9 @@ export class DadosChuvaComponent {
         mes: -1,
       }))
 
-      this.pegarDadosChuva(5);
+      this.pegarDadosTempo();
+
+      this.pegarDadosChuva(5);  
       this.pegarDadosChuva(10);
       this.pegarDadosChuva(30);
       this.pegarDadosChuva(60);
@@ -92,8 +95,8 @@ export class DadosChuvaComponent {
     })
   }
 
-  pegarDadosChuva(intervaloMinutos: number) {
-    this.meteoroServices.getDadosChuva([], intervaloMinutos).subscribe(dadosDTO => {
+  pegarDadosChuva(intervaloMinutos: number) { // função que pega os dados de chuva
+    this.meteoroServices.getDadosChuva([], intervaloMinutos).subscribe(dadosDTO => { // se não passar nenhum parâmetro para estações, será de todas 
       dadosDTO.forEach(dto => {
 
         const index = this.dataSource.findIndex(item => item.id === dto.id);
@@ -199,5 +202,46 @@ export class DadosChuvaComponent {
       popupAnchor: [0, -30]
     });
     return icone;
+  }
+
+  pegarDadosTempo() {
+
+    const agora = new Date() ; 
+    
+    agora.setHours(0,0,0,0);
+
+    const request = {
+      periodoInicio : new Date(agora.getTime()),
+      periodoFim : new Date(agora.getTime()),
+      estacao : ['66'],
+      intervalo : '1 minuto',
+      tempAr : true,
+      tempMin : false,
+      tempMax : false,
+      tempOrv : false,
+      chuva : false,
+      direcaoVento : false,
+      velocidadeVento : false,
+      velocidadeVentoMax: false,
+      bateria: false,
+      radiacao: false,
+      pressaoATM: false,
+      indiceCalor : false,
+      umidadeRelativa : false
+    };
+
+    this.meteoroServices.consultarGrafico(request).subscribe(x => console.log(x.stationData[0].fields[0].values))
+    
+    fetch('https://meteoro-cefet-back.fly.dev/consulta/grafico', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(request)
+    })
+    .then(response => response.json())
+    .then(dados => {
+      console.log(dados)
+    });
   }
 }
