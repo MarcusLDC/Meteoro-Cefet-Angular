@@ -38,6 +38,8 @@ export class DadosComponent implements OnInit {
     'Extra2',
     'Extra3',
     'Extra4',
+    'Extra5',
+    'Extra6',
     'Bateria',
     'Status',
   ];

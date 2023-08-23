@@ -32,6 +32,8 @@
         public double Extra2 { get; set; }
         public double Extra3 { get; set; }
         public double Extra4 { get; set; }
+        public double Extra5 { get; set; }
+        public double Extra6 { get; set; }
 
         public string? Status { get; set; }
     }
