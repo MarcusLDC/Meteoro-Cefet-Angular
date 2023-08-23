@@ -17,6 +17,12 @@
         public string Modelo { get; set; } // new
         public string TiposDeSensores { get; set; } // new
         public DateTime UltimaCalibracao { get; set; } // new
+        public string ExtraNome1 { get; set; } = "Extra1";
+        public string ExtraNome2 { get; set; } = "Extra2";
+        public string ExtraNome3 { get; set; } = "Extra3";
+        public string ExtraNome4 { get; set; } = "Extra4";
+        public string ExtraNome5 { get; set; } = "Extra5";
+        public string ExtraNome6 { get; set; } = "Extra6";
     }
     public enum Status 
     { 

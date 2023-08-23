@@ -77,8 +77,6 @@ export class DadosChuvaComponent {
         mes: -1,
       }))
 
-      // this.pegarDadosTempo();
-
       this.pegarDadosChuva(5);  
       this.pegarDadosChuva(10);
       this.pegarDadosChuva(30);
@@ -203,45 +201,4 @@ export class DadosChuvaComponent {
     });
     return icone;
   }
-
-  // pegarDadosTempo() {
-
-  //   const agora = new Date() ; 
-    
-  //   agora.setHours(0,0,0,0);
-
-  //   const request = {
-  //     periodoInicio : new Date(agora.getTime()),
-  //     periodoFim : new Date(agora.getTime()),
-  //     estacao : ['66'],
-  //     intervalo : '1 minuto',
-  //     tempAr : true,
-  //     tempMin : false,
-  //     tempMax : false,
-  //     tempOrv : false,
-  //     chuva : false,
-  //     direcaoVento : false,
-  //     velocidadeVento : false,
-  //     velocidadeVentoMax: false,
-  //     bateria: false,
-  //     radiacao: false,
-  //     pressaoATM: false,
-  //     indiceCalor : false,
-  //     umidadeRelativa : false
-  //   };
-
-  //   this.meteoroServices.consultarGrafico(request).subscribe(x => console.log(x.stationData[0].fields[0].values))
-    
-  //   fetch('https://meteoro-cefet-back.fly.dev/consulta/grafico', {
-  //     method: 'POST',
-  //     headers: {
-  //       'Content-Type': 'application/json'
-  //     },
-  //     body: JSON.stringify(request)
-  //   })
-  //   .then(response => response.json())
-  //   .then(dados => {
-  //     console.log(dados)
-  //   });
-  // }
 }
