@@ -42,6 +42,12 @@ export class EditarEstacaoComponent {
       modelo: [null],
       sensores: [null],
       calibracao: [null],
+      extra1: [null],
+      extra2: [null],
+      extra3: [null],
+      extra4: [null],
+      extra5: [null],
+      extra6: [null],
     });
     this.meteoroServices.getEstacoes().subscribe(x => {
       this.estacoes = x
@@ -60,6 +66,12 @@ export class EditarEstacaoComponent {
           modelo: this.estacaoSelecionada.modelo,
           sensores: this.estacaoSelecionada.tiposDeSensores,
           calibracao: this.datePipe.transform(this.estacaoSelecionada.ultimaCalibracao, 'dd/MM/yyyy'),
+          extra1: this.estacaoSelecionada.extraNome1,
+          extra2: this.estacaoSelecionada.extraNome2,
+          extra3: this.estacaoSelecionada.extraNome3,
+          extra4: this.estacaoSelecionada.extraNome4,
+          extra5: this.estacaoSelecionada.extraNome5,
+          extra6: this.estacaoSelecionada.extraNome6,
         });          
       });
     });
@@ -92,7 +104,14 @@ export class EditarEstacaoComponent {
         operador: this.form.value.operador,
         modelo: this.form.value.modelo,
         tiposDeSensores: this.form.value.sensores,
-        ultimaCalibracao: this.convertToISODate(this.form.value.calibracao) // ajeitar
+        ultimaCalibracao: this.convertToISODate(this.form.value.calibracao), // ajeitar
+
+        extraNome1: this.form.value.extra1,
+        extraNome2: this.form.value.extra2,
+        extraNome3: this.form.value.extra3,
+        extraNome4: this.form.value.extra4,
+        extraNome5: this.form.value.extra5,
+        extraNome6: this.form.value.extra6,
 
       }
       

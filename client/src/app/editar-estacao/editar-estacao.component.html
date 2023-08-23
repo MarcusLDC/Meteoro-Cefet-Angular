@@ -12,6 +12,13 @@
                         <strong> Latitude: </strong> {{estacaoSelecionada.latitude}} <br>
                         <strong> Longitude: </strong> {{estacaoSelecionada.longitude}} <br>
                         <strong> Data Inicio: </strong> {{estacaoSelecionada.dataInicio | date : 'dd/MM/yyyy'}} <br>
+
+                        <br>
+
+                        <strong> Extra1: </strong> {{estacaoSelecionada.extraNome1}} <br>
+                        <strong> Extra2: </strong> {{estacaoSelecionada.extraNome2}} <br>
+                        <strong> Extra3: </strong> {{estacaoSelecionada.extraNome3}} <br>
+
                     </div>
            
                     <br>
@@ -22,6 +29,13 @@
                         <strong> Status: </strong> <span [ngStyle]="{ 'color': status[estacaoSelecionada.status] == 'Desligada' ? 'red' : status[estacaoSelecionada.status] == 'Funcionando' ? 'green' : 'blue' }" 
                         *ngIf="status[estacaoSelecionada.status]">{{status[estacaoSelecionada.status]}}</span> <br>
                         <strong> Data Fim: </strong> {{estacaoSelecionada.dataFim | date : 'dd/MM/yyyy'}} <br>
+
+                        <br>
+
+                        <strong> Extra1: </strong> {{estacaoSelecionada.extraNome1}} <br>
+                        <strong> Extra2: </strong> {{estacaoSelecionada.extraNome2}} <br>
+                        <strong> Extra3: </strong> {{estacaoSelecionada.extraNome3}} <br>
+
                     </div>
                     
                     <br>
@@ -32,7 +46,7 @@
                         <strong> Tipos de Sensores: </strong> {{estacaoSelecionada.tiposDeSensores}} <br>
                         <strong> Ultima Calibração: </strong> {{estacaoSelecionada.ultimaCalibracao | date : 'dd/MM/yyyy'}} <br>
                     </div>
-                    
+          
                 </div> 
             </mat-card-content>
         </mat-card>
@@ -59,6 +73,16 @@
                     <input formControlName="operador" matInput>
                 </mat-form-field>
 
+                <mat-form-field appearance="outline" class="padded">
+                    <mat-label>Extra1:</mat-label>
+                    <input formControlName="extra1" matInput>
+                </mat-form-field>
+
+                <mat-form-field appearance="outline" class="padded">
+                    <mat-label>Extra4:</mat-label>
+                    <input formControlName="extra4" matInput>
+                </mat-form-field>
+
                 <br>
 
                 <mat-form-field appearance="outline" class="padded">
@@ -75,6 +99,16 @@
                     <input formControlName="sensores" matInput>
                 </mat-form-field>
                 
+                <mat-form-field appearance="outline" class="padded">
+                    <mat-label>Extra2:</mat-label>
+                    <input formControlName="extra2" matInput>
+                </mat-form-field>
+
+                <mat-form-field appearance="outline" class="padded">
+                    <mat-label>Extra5:</mat-label>
+                    <input formControlName="extra5" matInput>
+                </mat-form-field>
+
                 <br>
 
                 <mat-form-field appearance="outline" class="padded">
@@ -89,6 +123,16 @@
                 <mat-form-field appearance="outline" class="padded">
                     <mat-label>Modelo:</mat-label>
                     <input formControlName="modelo" matInput>
+                </mat-form-field>
+
+                <mat-form-field appearance="outline" class="padded">
+                    <mat-label>Extra3:</mat-label>
+                    <input formControlName="extra3" matInput>
+                </mat-form-field>
+
+                <mat-form-field appearance="outline" class="padded">
+                    <mat-label>Extra6:</mat-label>
+                    <input formControlName="extra6" matInput>
                 </mat-form-field>
 
                 <br>
