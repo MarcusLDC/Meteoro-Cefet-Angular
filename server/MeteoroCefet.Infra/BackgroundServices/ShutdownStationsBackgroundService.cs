@@ -87,7 +87,9 @@ namespace MeteoroCefet.Infra.BackgroundServices
 
             var timedOut = lastReceivedDate < scheduled;
 
-            if (timedOut && (station.Status != Status.Manutencao))
+            if (station.Status == Status.Manutencao) return;
+
+            if (timedOut)
             {
                 await _estacaoRepository.AlterarStatus(stationNumber, Status.Desligada);
                 _log.LogInformation("Desligando estação {number}", stationNumber);
