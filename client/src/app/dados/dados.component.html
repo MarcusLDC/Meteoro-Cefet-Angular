@@ -160,62 +160,32 @@
                     </ng-container>
         
                     <ng-container matColumnDef="Extra1">
-                        <ng-container *ngIf="estacaoSelecionada">
-                            <th mat-header-cell *matHeaderCellDef> {{estacaoSelecionada.extraNome1}} </th>
-                        </ng-container>
-                        <ng-container *ngIf="!estacaoSelecionada">
-                            <th mat-header-cell *matHeaderCellDef> Extra1 </th>
-                        </ng-container>
+                        <th mat-header-cell *matHeaderCellDef> {{this.campo_extra1}} </th>
                         <td mat-cell *matCellDef="let element"> {{element.extra1}} </td>
                     </ng-container>
         
                     <ng-container matColumnDef="Extra2">
-                        <ng-container *ngIf="estacaoSelecionada">
-                            <th mat-header-cell *matHeaderCellDef> {{estacaoSelecionada.extraNome2}} </th>
-                        </ng-container>
-                        <ng-container *ngIf="!estacaoSelecionada">
-                            <th mat-header-cell *matHeaderCellDef> Extra2 </th>
-                        </ng-container>
+                        <th mat-header-cell *matHeaderCellDef> {{this.campo_extra2}} </th>
                         <td mat-cell *matCellDef="let element"> {{element.extra2}} </td>
                     </ng-container>
         
                     <ng-container matColumnDef="Extra3">
-                        <ng-container *ngIf="estacaoSelecionada">
-                            <th mat-header-cell *matHeaderCellDef> {{estacaoSelecionada.extraNome3}} </th>
-                        </ng-container>
-                        <ng-container *ngIf="!estacaoSelecionada">
-                            <th mat-header-cell *matHeaderCellDef> Extra3 </th>
-                        </ng-container>
+                        <th mat-header-cell *matHeaderCellDef> {{this.campo_extra3}} </th>
                         <td mat-cell *matCellDef="let element"> {{element.extra3}} </td>
                     </ng-container>
         
                     <ng-container matColumnDef="Extra4">
-                        <ng-container *ngIf="estacaoSelecionada">
-                            <th mat-header-cell *matHeaderCellDef> {{estacaoSelecionada.extraNome4}} </th>
-                        </ng-container>
-                        <ng-container *ngIf="!estacaoSelecionada">
-                            <th mat-header-cell *matHeaderCellDef> Extra4 </th>
-                        </ng-container>
+                        <th mat-header-cell *matHeaderCellDef> {{this.campo_extra4}} </th>
                         <td mat-cell *matCellDef="let element"> {{element.extra4}} </td>
                     </ng-container>
 
                     <ng-container matColumnDef="Extra5">
-                        <ng-container *ngIf="estacaoSelecionada">
-                            <th mat-header-cell *matHeaderCellDef> {{estacaoSelecionada.extraNome5}} </th>
-                        </ng-container>
-                        <ng-container *ngIf="!estacaoSelecionada">
-                            <th mat-header-cell *matHeaderCellDef> Extra5 </th>
-                        </ng-container>
+                        <th mat-header-cell *matHeaderCellDef> {{this.campo_extra5}} </th>
                         <td mat-cell *matCellDef="let element"> {{element.extra5}} </td>
                     </ng-container>
 
                     <ng-container matColumnDef="Extra6">
-                        <ng-container *ngIf="estacaoSelecionada">
-                            <th mat-header-cell *matHeaderCellDef> {{estacaoSelecionada.extraNome6}} </th>
-                        </ng-container>
-                        <ng-container *ngIf="!estacaoSelecionada">
-                            <th mat-header-cell *matHeaderCellDef> Extra6 </th>
-                        </ng-container>
+                        <th mat-header-cell *matHeaderCellDef> {{this.campo_extra6}} </th>
                         <td mat-cell *matCellDef="let element"> {{element.extra6}} </td>
                     </ng-container>
         
