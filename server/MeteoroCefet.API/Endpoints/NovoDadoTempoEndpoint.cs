@@ -61,7 +61,7 @@ namespace MeteoroCefet.API.Endpoints
                 return;
             }
 
-            if (estacao.Status == Status.Desligada)
+            if (estacao.Status != Status.Funcionando)
             {
                 await estacaoRepository.AlterarStatus(estacao.Numero, Status.Funcionando);
                 shutdownServices.ScheduleStationShutdown(dado.Estacao);
