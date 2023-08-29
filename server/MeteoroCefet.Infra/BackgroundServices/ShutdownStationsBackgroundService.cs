@@ -83,9 +83,11 @@ namespace MeteoroCefet.Infra.BackgroundServices
             var lastReceivedDate = await _dadosRepository.GetStationLastReceivedDate(stationNumber);
             _log.LogInformation("Agendamento das {scheduled}, Verificando estação {numero}, ultimo dado recebido em {last}", scheduled, stationNumber, lastReceivedDate);
 
+            var station = _estacaoRepository.Collection.Find(x => x.Numero == stationNumber).First();
+
             var timedOut = lastReceivedDate < scheduled;
 
-            if (timedOut)
+            if (timedOut && (station.Status != Status.Manutencao))
             {
                 await _estacaoRepository.AlterarStatus(stationNumber, Status.Desligada);
                 _log.LogInformation("Desligando estação {number}", stationNumber);

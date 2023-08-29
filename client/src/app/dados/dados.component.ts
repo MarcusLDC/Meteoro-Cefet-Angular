@@ -44,6 +44,13 @@ export class DadosComponent implements OnInit {
     'Status',
   ];
 
+  campo_extra1: string = "Extra1";
+  campo_extra2: string = "Extra2";
+  campo_extra3: string = "Extra3";
+  campo_extra4: string = "Extra4";
+  campo_extra5: string = "Extra5";
+  campo_extra6: string = "Extra6";
+
   form: FormGroup;
   dataSource: DadosTempo[] = [];
   estacoes: Estacao[] = [];
@@ -101,12 +108,24 @@ export class DadosComponent implements OnInit {
     if (this.form.get('estacao')?.value == 'Tudo') {
       this.meteoroServices.getDados(this.paginator).subscribe(x => {
         this.dataSource = x;
+        this.campo_extra1 = "Extra1";
+        this.campo_extra2 = "Extra2";
+        this.campo_extra3 = "Extra3";
+        this.campo_extra4 = "Extra4";
+        this.campo_extra5 = "Extra5";
+        this.campo_extra6 = "Extra6";
       });
     }
     else {
       this.meteoroServices.getDadosEstacao(Number(this.form.get('estacao')?.value), this.paginator).subscribe(x => {
         this.dataSource = x,
-          this.firstDataHora = this.dataSource[0].dataHora;
+        this.firstDataHora = this.dataSource[0].dataHora;
+        this.campo_extra1 = this.estacaoSelecionada!.extraNome1;
+        this.campo_extra2 = this.estacaoSelecionada!.extraNome2;
+        this.campo_extra3 = this.estacaoSelecionada!.extraNome3;
+        this.campo_extra4 = this.estacaoSelecionada!.extraNome4;
+        this.campo_extra5 = this.estacaoSelecionada!.extraNome5;
+        this.campo_extra6 = this.estacaoSelecionada!.extraNome6;
       });
     }
   }
