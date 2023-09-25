@@ -77,6 +77,14 @@ export class ConsultaComponent{
       pressaoATM: [false, Validators.required],
       indiceCalor: [false, Validators.required],
       umidadeRelativa: [false, Validators.required],  // Fim-Checkboxes
+
+      campo_extra1: [false, Validators.required],
+      campo_extra2: [false, Validators.required],
+      campo_extra3: [false, Validators.required],
+      campo_extra4: [false, Validators.required],
+      campo_extra5: [false, Validators.required],
+      campo_extra6: [false, Validators.required],
+
     });
 
     this.form2 = this.builder.group({

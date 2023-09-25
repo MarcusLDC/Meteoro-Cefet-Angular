@@ -76,7 +76,7 @@ export class ConsultaGraficoComponent implements AfterViewInit{
               weight: "bold",
             },
             color: 'black',
-            text: `ESTAÇÃO DE ID ${this.stationData.station} - COM INTERVALO DE ${this.intervalo}` //${this.dates[0]}h à ${this.dates[this.dates.length-1]}h -
+            text: `ESTAÇÃO DE ID ${this.stationData.station} - INTERVALO DE ${this.intervalo}` //${this.dates[0]}h à ${this.dates[this.dates.length-1]}h -
           },
           datalabels: {
             color: function(context) {
@@ -148,16 +148,6 @@ export class ConsultaGraficoComponent implements AfterViewInit{
         }
       }
     })
-
-    const title = this.chart.options.plugins?.title?.text!.toString()
-    this.estacao = title?.substring(0, title?.indexOf("de")).trim();
-    this.titulo = title?.substring(title!.indexOf("de") + 3).trim();
-
     return this.chart;
-  }
-
-  private graficoToPNG(){
-    const canvas = this.graphCanvas.nativeElement;
-    return canvas.toDataURL('image/png');
   }
 }
