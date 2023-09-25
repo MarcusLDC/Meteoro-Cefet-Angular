@@ -48,5 +48,15 @@ namespace MeteoroCefet.Infra
 
             return last.DataHora;
         }
+
+        public async Task DeleteOutOfRangeHumidityData()
+        {
+            var filter = Builders<DadosTempo>.Filter.Or(
+                Builders<DadosTempo>.Filter.Lt(x => x.UmidadeRelativaAr, 0),
+                Builders<DadosTempo>.Filter.Gt(x => x.UmidadeRelativaAr, 100)
+            );
+
+            await Collection.DeleteManyAsync(filter);
+        }
     }
 }

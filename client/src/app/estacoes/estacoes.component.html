@@ -37,6 +37,10 @@
                       <span [ngStyle]="{color: status[item.status] == 'Desligada' ? 'red' : status[item.status] == 'Funcionando' ? 'green' : 'blue'}" *ngIf="status[item.status]">
                         {{ status[item.status] }} </span> <br/><br/>
 
+                      <strong> Extra_1: </strong> {{ item.extraNome1 }} <br />
+                      <strong> Extra_2: </strong> {{ item.extraNome2 }} <br />
+                      <strong> Extra_3: </strong> {{ item.extraNome3 }} <br /> <br />
+
                       <span *ngIf="logado">
                         <strong> Última modificação: </strong>
                         {{ item.ultimaModificacao | date : "dd/MM/yyyy" }} ,
@@ -55,7 +59,10 @@
                       <strong> Inicio da Operação: </strong> {{ item.dataInicio | date : "dd/MM/yyyy" }}<br/>
                       <strong> Fim da Operação : </strong> {{ item.dataFim | date : "dd/MM/yyyy" }} <br />
                       <strong> Última Calibração: </strong> {{ item.ultimaCalibracao | date : "dd/MM/yyyy" }} <br />
-                      <strong> Tipos de Sensores: </strong> {{ item.tiposDeSensores }}
+                      <strong> Tipos de Sensores: </strong> {{ item.tiposDeSensores }} <br /> <br/>
+                      <strong> Extra_4: </strong> {{ item.extraNome4 }} <br />
+                      <strong> Extra_5: </strong> {{ item.extraNome5 }} <br />
+                      <strong> Extra_6: </strong> {{ item.extraNome6 }} <br />
                     </div>
 
                   </div>
@@ -99,6 +106,11 @@
                       <span [ngStyle]="{ color: status[item.status] == 'Desligada'? 'red': status[item.status] == 'Funcionando' ? 'green' : 'blue'}" *ngIf="status[item.status]">
                         {{ status[item.status] }} </span
                       ><br />
+
+                      <strong> Extra_1: </strong> {{ item.extraNome1 }} <br />
+                      <strong> Extra_2: </strong> {{ item.extraNome2 }} <br />
+                      <strong> Extra_3: </strong> {{ item.extraNome3 }} <br /> <br />
+                      
                       <span *ngIf="logado">
                         <strong> Última modificação: </strong>
                         {{ item.ultimaModificacao | date : "dd/MM/yyyy" }} ,
@@ -121,7 +133,10 @@
                       <strong> Inicio da Operação: </strong> {{ item.dataInicio | date : "dd/MM/yyyy" }}<br/>
                       <strong> Fim da Operação : </strong> {{ item.dataFim | date : "dd/MM/yyyy" }} <br />
                       <strong> Última Calibração: </strong> {{ item.ultimaCalibracao | date : "dd/MM/yyyy" }} <br />
-                      <strong> Tipos de Sensores: </strong> {{ item.tiposDeSensores }}
+                      <strong> Tipos de Sensores: </strong> {{ item.tiposDeSensores }} <br />
+                      <strong> Extra_4: </strong> {{ item.extraNome4 }} <br />
+                      <strong> Extra_5: </strong> {{ item.extraNome5 }} <br />
+                      <strong> Extra_6: </strong> {{ item.extraNome6 }} <br />
                     </div>
 
                   </div>          
@@ -163,7 +178,11 @@
                       <strong> Altura </strong> {{ item.altura }}m <br />
                       <strong> Status: </strong>
                       <span [ngStyle]="{color:status[item.status] == 'Desligada'? 'red': status[item.status] == 'Funcionando'? 'green': 'blue'}" *ngIf="status[item.status]">
-                        {{ status[item.status] }} </span><br />
+                        {{ status[item.status] }} </span><br /> <br/>
+
+                      <strong> Extra_1: </strong> {{ item.extraNome1 }} <br />
+                      <strong> Extra_2: </strong> {{ item.extraNome2 }} <br />
+                      <strong> Extra_3: </strong> {{ item.extraNome3 }} <br /> <br /> 
 
                       <span *ngIf="logado">
                         <br> <strong> Última modificação: </strong>
@@ -185,7 +204,10 @@
                       <strong> Inicio da Operação: </strong> {{ item.dataInicio | date : "dd/MM/yyyy" }}<br/>
                       <strong> Fim da Operação : </strong> {{ item.dataFim | date : "dd/MM/yyyy" }} <br />
                       <strong> Última Calibração: </strong> {{ item.ultimaCalibracao | date : "dd/MM/yyyy" }} <br />
-                      <strong> Tipos de Sensores: </strong> {{ item.tiposDeSensores }}
+                      <strong> Tipos de Sensores: </strong> {{ item.tiposDeSensores }} <br /> <br/>
+                      <strong> Extra_4: </strong> {{ item.extraNome4 }} <br />
+                      <strong> Extra_5: </strong> {{ item.extraNome5 }} <br />
+                      <strong> Extra_6: </strong> {{ item.extraNome6 }} <br />
                     </div>
                   </div>
                    

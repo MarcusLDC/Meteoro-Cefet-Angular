@@ -23,7 +23,44 @@
         public string ExtraNome4 { get; set; } = "Extra4";
         public string ExtraNome5 { get; set; } = "Extra5";
         public string ExtraNome6 { get; set; } = "Extra6";
-    }
+
+        public int TempMin { get; set; }
+        public int TempMax { get; set; }
+        public int UmidadeMin { get; set; }
+        public int UmidadeMax { get; set; }
+        public int IndiceCalorMin { get; set; }
+        public int IndiceCalorMax { get; set; }
+        public int PontoOrvalhoMin { get; set; }
+        public int PontoOrvalhoMax { get; set; }
+        public int PressaoMin { get; set; }
+        public int PressaoMax { get; set; }
+        public int ChuvaMin { get; set; }
+        public int ChuvaMax { get; set; }
+        public int DirecaoVentoMin { get; set; }
+        public int DirecaoVentoMax { get; set; }
+        public int VelocidadeVentoMin { get; set; }
+        public int VelocidadeVentoMax { get; set; }
+        public int DeficitPressaoVaporMin { get; set; }
+        public int DeficitPressaoVaporMax { get; set; }
+
+        public int Extra1Min { get; set; }
+        public int Extra1Max { get; set; }
+        public int Extra2Min { get; set; }
+        public int Extra2Max { get; set; }
+        public int Extra3Min { get; set; }
+        public int Extra3Max { get; set; }
+        public int Extra4Min { get; set; }
+        public int Extra4Max { get; set; }
+        public int Extra5Min { get; set; }
+        public int Extra5Max { get; set; }
+        public int Extra6Min { get; set; }
+        public int Extra6Max { get; set; }
+
+        public int RadiacaoSolarMin { get; set; }
+        public int RadiacaoSolarMax { get; set; }
+        public int BateriaMin { get; set; }
+        public int BateriaMax { get; set; }
+    } 
     public enum Status 
     { 
         Funcionando, 

@@ -301,6 +301,130 @@
                             </ng-container>
                         </div>
                     </div>
+                    
+                    <div class="extras"> -------- Extras -------- </div>
+
+                    <div class="container" [formGroup]="form">
+                        <div class="row">
+                            <div class="col-sm">
+                                <mat-checkbox formControlName="tempAr"> Campo Extra 1 <span *ngIf="this.form.get('grafico')?.value">(°C)</span> </mat-checkbox>
+                                
+                                <div class="colorPicker" *ngIf="this.form.get('grafico')?.value">
+                                    <ng-container *ngIf="this.form.get('tempAr')?.value">
+                                        <ng-container [formGroup]="form4"> 
+                                            <ngx-colors formControlName="tempArColor" class="colorPicker" ngx-colors-trigger mode="rgba"> Cor </ngx-colors>
+                                        </ng-container>
+                                        <ng-cointainer [formGroup]="form3">
+                                            <span class="formato">
+                                                <select formControlName="tempArType">
+                                                    <option *ngFor="let tipo of tiposDoGrafico" [value]="tipo.value"> {{tipo.key}} </option>
+                                                </select>
+                                            </span>
+                                        </ng-cointainer>    
+                                    </ng-container>
+                                </div>
+                                
+                            </div>
+                            <div class="col-sm">
+                                <mat-checkbox formControlName="indiceCalor"> Campo Extra 2 <span *ngIf="this.form.get('grafico')?.value">(°C)</span> </mat-checkbox>
+
+                                <div class="colorPicker" *ngIf="this.form.get('grafico')?.value">
+                                    <ng-container *ngIf="this.form.get('indiceCalor')?.value">
+                                        <ng-container [formGroup]="form4"> 
+                                            <ngx-colors formControlName="indiceCalorColor" class="colorPicker" ngx-colors-trigger mode="rgba"> Cor </ngx-colors>
+                                        </ng-container>
+                                        <ng-container [formGroup]="form3">
+                                            <span class="formato">
+                                                <select formControlName="indiceCalorType">
+                                                    <option *ngFor="let tipo of tiposDoGrafico" [value]="tipo.value"> {{tipo.key}} </option>
+                                                </select>
+                                            </span>
+                                        </ng-container>
+                                    </ng-container>
+                                </div>
+
+                            </div>
+                            <div class="col-sm">
+                                <mat-checkbox formControlName="pressaoATM"> Campo Extra 3 <span *ngIf="this.form.get('grafico')?.value">(hPa)</span></mat-checkbox>
+
+                                <div class="colorPicker" *ngIf="this.form.get('grafico')?.value">
+                                    <ng-container *ngIf="this.form.get('pressaoATM')?.value">
+                                        <ng-container [formGroup]="form4"> 
+                                            <ngx-colors formControlName="pressaoATMColor" class="colorPicker" ngx-colors-trigger mode="rgba"> Cor </ngx-colors>
+                                        </ng-container>
+                                        <ng-container [formGroup]="form3">
+                                            <span class="formato">
+                                                <select formControlName="pressaoATMType">
+                                                    <option *ngFor="let tipo of tiposDoGrafico" [value]="tipo.value"> {{tipo.key}} </option>
+                                                </select>
+                                            </span>
+                                        </ng-container>
+                                    </ng-container>
+                                </div>
+
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-sm">
+                                <mat-checkbox formControlName="tempMin"> Campo Extra 4 <span *ngIf="this.form.get('grafico')?.value">(°C)</span> </mat-checkbox>
+
+                                <div class="colorPicker" *ngIf="this.form.get('grafico')?.value">
+                                    <ng-container *ngIf="this.form.get('tempMin')?.value">
+                                        <ng-container [formGroup]="form4"> 
+                                            <ngx-colors formControlName="tempMinColor" class="colorPicker" ngx-colors-trigger mode="rgba"> Cor </ngx-colors>
+                                        </ng-container>
+                                        <ng-container [formGroup]="form3">
+                                            <span class="formato">
+                                                <select formControlName="tempMinType">
+                                                    <option *ngFor="let tipo of tiposDoGrafico" [value]="tipo.value"> {{tipo.key}} </option>
+                                                </select>
+                                            </span>
+                                        </ng-container>
+                                    </ng-container>
+                                </div>
+
+                            </div>
+                            <div class="col-sm">
+                                <mat-checkbox formControlName="umidadeRelativa"> Campo Extra 5 <span *ngIf="this.form.get('grafico')?.value">(%)</span></mat-checkbox>
+
+                                <div class="colorPicker" *ngIf="this.form.get('grafico')?.value">
+                                    <ng-container *ngIf="this.form.get('umidadeRelativa')?.value">
+                                        <ng-container [formGroup]="form4"> 
+                                            <ngx-colors formControlName="umidadeRelativaColor" class="colorPicker" ngx-colors-trigger mode="rgba"> Cor </ngx-colors>
+                                        </ng-container>
+                                        <ng-container [formGroup]="form3">
+                                            <span class="formato">
+                                                <select formControlName="umidadeRelativaType">
+                                                    <option *ngFor="let tipo of tiposDoGrafico" [value]="tipo.value"> {{tipo.key}} </option>
+                                                </select>
+                                            </span>
+                                        </ng-container>
+                                    </ng-container>
+                                </div>
+
+                            </div>
+                            <div class="col-sm">
+                                <mat-checkbox formControlName="velocidadeVento"> Campo Extra 6 <span *ngIf="this.form.get('grafico')?.value">(m/s)</span></mat-checkbox>
+
+                                <div class="colorPicker" *ngIf="this.form.get('grafico')?.value">
+                                    <ng-container *ngIf="this.form.get('velocidadeVento')?.value">
+                                        <ng-container [formGroup]="form4"> 
+                                            <ngx-colors formControlName="velocidadeVentoColor" class="colorPicker" ngx-colors-trigger mode="rgba"> Cor </ngx-colors>
+                                        </ng-container>
+                                        <ng-container [formGroup]="form3">
+                                            <span class="formato">
+                                                <select formControlName="velocidadeVentoType">
+                                                    <option *ngFor="let tipo of tiposDoGrafico" [value]="tipo.value"> {{tipo.key}} </option>
+                                                </select>
+                                            </span>
+                                        </ng-container>
+                                    </ng-container>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
                 </div>
 
                 <ng-container *ngIf="this.form.get('grafico')?.value" [formGroup]="form2">

@@ -2,7 +2,7 @@
     <div *ngIf="(estacaoSelecionada && logado)">
         <mat-card class="card">
             <mat-card-header>
-                <p class="title"> Dados originais - Estação de ID: ({{estacaoSelecionada.numero}})</p>
+                <p class="title"> Dados originais - Estação de ID: ({{estacaoSelecionada.numero}}) - {{estacaoSelecionada.nome}} </p>
             </mat-card-header>
             <mat-card-content class="cardContent">
                 <div style="display: flex; flex-wrap: wrap;">
@@ -50,115 +50,338 @@
                 </div> 
             </mat-card-content>
         </mat-card>
-        <mat-card class="card">
-            <mat-card-header>
-                <p class="title"> Editar dados para a Estação de ID: ({{estacaoSelecionada.numero}})</p>
-                <p class="subtitle"> Tudo que não for editado permanecerá com o mesmo valor do dado original</p>
-            </mat-card-header>
-            <mat-card-content [formGroup]="form">
-
-                <mat-form-field appearance="outline" class="padded">
-                    <mat-label>Nome:</mat-label>
-                    <input formControlName="nome" matInput>
-                </mat-form-field>
-                <mat-form-field  appearance="outline" class="padded">
-                    <mat-label>Status:</mat-label>
-                    <mat-select formControlName="status">
-                        <mat-option *ngFor="let item of statusList" [value]="item.value">{{item.name}}</mat-option>
-                    </mat-select>
-                </mat-form-field>
-
-                <mat-form-field appearance="outline" class="padded">
-                    <mat-label>Operador:</mat-label>
-                    <input formControlName="operador" matInput>
-                </mat-form-field>
-
-                <mat-form-field appearance="outline" class="padded">
-                    <mat-label>Campo_Extra1:</mat-label>
-                    <input formControlName="extra1" matInput>
-                </mat-form-field>
-
-                <mat-form-field appearance="outline" class="padded">
-                    <mat-label>Campo_Extra4:</mat-label>
-                    <input formControlName="extra4" matInput>
-                </mat-form-field>
-
-                <br>
-
-                <mat-form-field appearance="outline" class="padded">
-                    <mat-label>Latitude:</mat-label>
-                    <input formControlName="latitude" matInput>
-                </mat-form-field>
-                <mat-form-field appearance="outline" class="padded">
-                    <mat-label>Longitude:</mat-label>
-                    <input formControlName="longitude" matInput>
-                </mat-form-field>
-
-                <mat-form-field appearance="outline" class="padded">
-                    <mat-label>Tipos de Sensores:</mat-label>
-                    <input formControlName="sensores" matInput>
-                </mat-form-field>
-                
-                <mat-form-field appearance="outline" class="padded">
-                    <mat-label>Campo_Extra2:</mat-label>
-                    <input formControlName="extra2" matInput>
-                </mat-form-field>
-
-                <mat-form-field appearance="outline" class="padded">
-                    <mat-label>Campo_Extra5:</mat-label>
-                    <input formControlName="extra5" matInput>
-                </mat-form-field>
-
-                <br>
-
-                <mat-form-field appearance="outline" class="padded">
-                    <mat-label>Altitude:</mat-label>
-                    <input formControlName="altitude" matInput>
-                </mat-form-field>
-                <mat-form-field appearance="outline" class="padded">
-                    <mat-label>Altura:</mat-label>
-                    <input formControlName="altura" matInput>
-                </mat-form-field>
-                
-                <mat-form-field appearance="outline" class="padded">
-                    <mat-label>Modelo:</mat-label>
-                    <input formControlName="modelo" matInput>
-                </mat-form-field>
-
-                <mat-form-field appearance="outline" class="padded">
-                    <mat-label>Campo_Extra3:</mat-label>
-                    <input formControlName="extra3" matInput>
-                </mat-form-field>
-
-                <mat-form-field appearance="outline" class="padded">
-                    <mat-label>Campo_Extra6:</mat-label>
-                    <input formControlName="extra6" matInput>
-                </mat-form-field>
-
-                <br>
-
-                <mat-form-field appearance="outline" class="padded">
-                    <mat-label>Data Inicio:</mat-label>
-                    <input formControlName="inicio" matInput>
-                </mat-form-field>
-                <mat-form-field appearance="outline" class="padded">
-                    <mat-label>Data Fim:</mat-label>
-                    <input formControlName="fim" matInput>
-                </mat-form-field>
-                <mat-form-field appearance="outline" class="padded">
-                    <mat-label>Última calibração:</mat-label>
-                    <input formControlName="calibracao" matInput>
-                </mat-form-field>
-
-            </mat-card-content>
-
-            <mat-card-actions>
-                <button mat-raised-button color="warn" class="botao" (click)="confirmar()"> Confirmar </button>
-                <button mat-raised-button class="botao" routerLink="/estacoes"> Cancelar </button>
-            </mat-card-actions>
-
-        </mat-card>
     </div>
+
+    <mat-tab-group class="card" *ngIf="(estacaoSelecionada && logado)">
+        <mat-tab>
+          <ng-template mat-tab-label>
+            <mat-icon class="example-tab-icon">toc</mat-icon>
+            <span> Configurar Dados </span>
+          </ng-template>
+
+          <mat-accordion>
+            <mat-card>
+                <mat-card-header>
+                    <p class="title"> Editando dados para a Estação de ID: ({{estacaoSelecionada.numero}}) - {{estacaoSelecionada.nome}} </p>
+                    <p class="subtitle"> Tudo que não for editado permanecerá com o mesmo valor do dado original</p>
+                </mat-card-header>
+                <mat-card-content [formGroup]="form">
+    
+                    <mat-form-field appearance="outline" class="padded">
+                        <mat-label>Nome:</mat-label>
+                        <input formControlName="nome" matInput>
+                    </mat-form-field>
+                    <mat-form-field  appearance="outline" class="padded">
+                        <mat-label>Status:</mat-label>
+                        <mat-select formControlName="status">
+                            <mat-option *ngFor="let item of statusList" [value]="item.value">{{item.name}}</mat-option>
+                        </mat-select>
+                    </mat-form-field>
+    
+                    <mat-form-field appearance="outline" class="padded">
+                        <mat-label>Operador:</mat-label>
+                        <input formControlName="operador" matInput>
+                    </mat-form-field>
+    
+                    <mat-form-field appearance="outline" class="padded">
+                        <mat-label>Campo_Extra1:</mat-label>
+                        <input formControlName="extra1" matInput>
+                    </mat-form-field>
+    
+                    <mat-form-field appearance="outline" class="padded">
+                        <mat-label>Campo_Extra4:</mat-label>
+                        <input formControlName="extra4" matInput>
+                    </mat-form-field>
+    
+                    <br>
+    
+                    <mat-form-field appearance="outline" class="padded">
+                        <mat-label>Latitude:</mat-label>
+                        <input formControlName="latitude" matInput>
+                    </mat-form-field>
+                    <mat-form-field appearance="outline" class="padded">
+                        <mat-label>Longitude:</mat-label>
+                        <input formControlName="longitude" matInput>
+                    </mat-form-field>
+    
+                    <mat-form-field appearance="outline" class="padded">
+                        <mat-label>Tipos de Sensores:</mat-label>
+                        <input formControlName="sensores" matInput>
+                    </mat-form-field>
+                    
+                    <mat-form-field appearance="outline" class="padded">
+                        <mat-label>Campo_Extra2:</mat-label>
+                        <input formControlName="extra2" matInput>
+                    </mat-form-field>
+    
+                    <mat-form-field appearance="outline" class="padded">
+                        <mat-label>Campo_Extra5:</mat-label>
+                        <input formControlName="extra5" matInput>
+                    </mat-form-field>
+    
+                    <br>
+    
+                    <mat-form-field appearance="outline" class="padded">
+                        <mat-label>Altitude:</mat-label>
+                        <input formControlName="altitude" matInput>
+                    </mat-form-field>
+                    <mat-form-field appearance="outline" class="padded">
+                        <mat-label>Altura:</mat-label>
+                        <input formControlName="altura" matInput>
+                    </mat-form-field>
+                    
+                    <mat-form-field appearance="outline" class="padded">
+                        <mat-label>Modelo:</mat-label>
+                        <input formControlName="modelo" matInput>
+                    </mat-form-field>
+    
+                    <mat-form-field appearance="outline" class="padded">
+                        <mat-label>Campo_Extra3:</mat-label>
+                        <input formControlName="extra3" matInput>
+                    </mat-form-field>
+    
+                    <mat-form-field appearance="outline" class="padded">
+                        <mat-label>Campo_Extra6:</mat-label>
+                        <input formControlName="extra6" matInput>
+                    </mat-form-field>
+    
+                    <br>
+    
+                    <mat-form-field appearance="outline" class="padded">
+                        <mat-label>Data Inicio:</mat-label>
+                        <input formControlName="inicio" matInput>
+                    </mat-form-field>
+                    <mat-form-field appearance="outline" class="padded">
+                        <mat-label>Data Fim:</mat-label>
+                        <input formControlName="fim" matInput>
+                    </mat-form-field>
+                    <mat-form-field appearance="outline" class="padded">
+                        <mat-label>Última calibração:</mat-label>
+                        <input formControlName="calibracao" matInput>
+                    </mat-form-field>
+    
+                </mat-card-content>
+    
+                <br>
+
+                <mat-card-actions>
+                    <button mat-raised-button color="warn" class="botao" (click)="confirmarDados()"> Confirmar </button>
+                    <button mat-raised-button class="botao" routerLink="/estacoes"> Cancelar </button>
+                </mat-card-actions>
+    
+            </mat-card>
+          </mat-accordion>
+
+        </mat-tab>
+
+        <mat-tab>
+            <ng-template mat-tab-label>
+              <mat-icon class="example-tab-icon">insert_chart</mat-icon>
+              <span> Configurar Limites </span>
+            </ng-template>
+            <mat-accordion>
+                <mat-card>
+                    <mat-card-header>
+                        <p class="title"> Editando limites para a Estação de ID: ({{estacaoSelecionada.numero}}) - {{estacaoSelecionada.nome}} </p>
+                        <p class="subtitle"> Tudo que não for editado permanecerá com o mesmo valor do dado original</p>
+                    </mat-card-header>
+                    <mat-card-content [formGroup]="form2">
+        
+                        <mat-form-field appearance="outline" class="padded limit">
+                            <mat-label>Temp. Min:</mat-label>
+                            <input formControlName="tempMin" matInput>
+                        </mat-form-field>
+        
+                        <mat-form-field appearance="outline" class="padded limit">
+                            <mat-label>Temp. Max:</mat-label>
+                            <input formControlName="tempMax" matInput>
+                        </mat-form-field>
+        
+                        <mat-form-field appearance="outline" class="padded limit">
+                            <mat-label>Umidade Min:</mat-label>
+                            <input formControlName="umidadeMin" matInput>
+                        </mat-form-field>
+        
+                        <mat-form-field appearance="outline" class="padded limit">
+                            <mat-label>Umidade Max:</mat-label>
+                            <input formControlName="umidadeMax" matInput>
+                        </mat-form-field>
+
+                        <mat-form-field appearance="outline" class="padded limit">
+                            <mat-label>Indice Min:</mat-label>
+                            <input formControlName="indiceCalorMin" matInput>
+                        </mat-form-field>
+        
+                        <mat-form-field appearance="outline" class="padded limit">
+                            <mat-label>Indice Max:</mat-label>
+                            <input formControlName="indiceCalorMax" matInput>
+                        </mat-form-field>
+        
+                        <br>
+        
+                        <mat-form-field appearance="outline" class="padded limit">
+                            <mat-label>Ponto Orvalho Min:</mat-label>
+                            <input formControlName="pontoOrvalhoMin" matInput>
+                        </mat-form-field>
+        
+                        <mat-form-field appearance="outline" class="padded limit">
+                            <mat-label>Ponto Orvalho Max:</mat-label>
+                            <input formControlName="pontoOrvalhoMax" matInput>
+                        </mat-form-field>
+        
+                        <mat-form-field appearance="outline" class="padded limit">
+                            <mat-label>Pressão Min:</mat-label>
+                            <input formControlName="pressaoMin" matInput>
+                        </mat-form-field>
+        
+                        <mat-form-field appearance="outline" class="padded limit">
+                            <mat-label>Pressão Max:</mat-label>
+                            <input formControlName="pressaoMax" matInput>
+                        </mat-form-field>
+
+                        <mat-form-field appearance="outline" class="padded limit">
+                            <mat-label>Chuva Min:</mat-label>
+                            <input formControlName="chuvaMin" matInput>
+                        </mat-form-field>
+        
+                        <mat-form-field appearance="outline" class="padded limit">
+                            <mat-label>Chuva Max:</mat-label>
+                            <input formControlName="chuvaMax" matInput>
+                        </mat-form-field>
+
+                        <br>
+
+                        <mat-form-field appearance="outline" class="padded limit">
+                            <mat-label>Direção Vento Min:</mat-label>
+                            <input formControlName="direcaoVentoMin" matInput>
+                        </mat-form-field>
+        
+                        <mat-form-field appearance="outline" class="padded limit">
+                            <mat-label>Direção Vento Max:</mat-label>
+                            <input formControlName="direcaoVentoMax" matInput>
+                        </mat-form-field>
+        
+                        <mat-form-field appearance="outline" class="padded limit">
+                            <mat-label>Vel. Vento Min:</mat-label>
+                            <input formControlName="velocidadeVentoMin" matInput>
+                        </mat-form-field>
+        
+                        <mat-form-field appearance="outline" class="padded limit">
+                            <mat-label>Vel. Vento Max:</mat-label>
+                            <input formControlName="velocidadeVentoMax" matInput>
+                        </mat-form-field>
+
+                        <mat-form-field appearance="outline" class="padded limit">
+                            <mat-label>Deficit Pressão Vapor Min:</mat-label>
+                            <input formControlName="deficitPressaoVaporMin" matInput>
+                        </mat-form-field>
+        
+                        <mat-form-field appearance="outline" class="padded limit">
+                            <mat-label>Deficit Pressão Vapor Max:</mat-label>
+                            <input formControlName="deficitPressaoVaporMax" matInput>
+                        </mat-form-field>
+
+                        <br>
+
+                        <mat-form-field appearance="outline" class="padded limit">
+                            <mat-label>Extra1 Min:</mat-label>
+                            <input formControlName="extra1Min" matInput>
+                        </mat-form-field>
+        
+                        <mat-form-field appearance="outline" class="padded limit">
+                            <mat-label>Extra1 Max:</mat-label>
+                            <input formControlName="extra1Max" matInput>
+                        </mat-form-field>
+        
+                        <mat-form-field appearance="outline" class="padded limit">
+                            <mat-label>Extra2 Min:</mat-label>
+                            <input formControlName="extra2Min" matInput>
+                        </mat-form-field>
+        
+                        <mat-form-field appearance="outline" class="padded limit">
+                            <mat-label>Extra2 Max:</mat-label>
+                            <input formControlName="extra2Max" matInput>
+                        </mat-form-field>
+
+                        <mat-form-field appearance="outline" class="padded limit">
+                            <mat-label>Extra3 Min:</mat-label>
+                            <input formControlName="extra3Min" matInput>
+                        </mat-form-field>
+        
+                        <mat-form-field appearance="outline" class="padded limit">
+                            <mat-label>Extra3 Max:</mat-label>
+                            <input formControlName="extra3Max" matInput>
+                        </mat-form-field>
+
+                        <br>
+
+                        <mat-form-field appearance="outline" class="padded limit">
+                            <mat-label>Extra4 Min:</mat-label>
+                            <input formControlName="extra4Min" matInput>
+                        </mat-form-field>
+        
+                        <mat-form-field appearance="outline" class="padded limit">
+                            <mat-label>Extra4 Max:</mat-label>
+                            <input formControlName="extra4Max" matInput>
+                        </mat-form-field>
+        
+                        <mat-form-field appearance="outline" class="padded limit">
+                            <mat-label>Extra5 Min:</mat-label>
+                            <input formControlName="extra5Min" matInput>
+                        </mat-form-field>
+        
+                        <mat-form-field appearance="outline" class="padded limit">
+                            <mat-label>Extra5 Max:</mat-label>
+                            <input formControlName="extra5Max" matInput>
+                        </mat-form-field>
+
+                        <mat-form-field appearance="outline" class="padded limit">
+                            <mat-label>Extra6 Min:</mat-label>
+                            <input formControlName="extra6Min" matInput>
+                        </mat-form-field>
+        
+                        <mat-form-field appearance="outline" class="padded limit">
+                            <mat-label>Extra6 Max:</mat-label>
+                            <input formControlName="extra6Max" matInput>
+                        </mat-form-field>
+
+                        <br>
+
+                        <mat-form-field appearance="outline" class="padded limit">
+                            <mat-label>Radiação Solar Min:</mat-label>
+                            <input formControlName="radiacaoSolarMin" matInput>
+                        </mat-form-field>
+        
+                        <mat-form-field appearance="outline" class="padded limit">
+                            <mat-label>Radiação Solar Max:</mat-label>
+                            <input formControlName="radiacaoSolarMax" matInput>
+                        </mat-form-field>
+        
+                        <mat-form-field appearance="outline" class="padded limit">
+                            <mat-label>Bateria Min:</mat-label>
+                            <input formControlName="bateriaMin" matInput>
+                        </mat-form-field>
+        
+                        <mat-form-field appearance="outline" class="padded limit">
+                            <mat-label>Bateria Max:</mat-label>
+                            <input formControlName="bateriaMax" matInput>
+                        </mat-form-field>
+        
+                    </mat-card-content>
+
+                    <br>
+
+                    <mat-card-actions>
+                        <button mat-raised-button color="warn" class="botao" (click)="confirmarLimites()"> Confirmar </button>
+                        <button mat-raised-button class="botao" routerLink="/estacoes"> Cancelar </button>
+                    </mat-card-actions>
+        
+                </mat-card>
+            </mat-accordion>
+        </mat-tab>
+
+    </mat-tab-group>
+
     <mat-card class="card" *ngIf="(!estacaoSelecionada || !logado)">
         <mat-card-content class="cardContent">
             <p> A estação não existe ou você não está logado como administrador</p>

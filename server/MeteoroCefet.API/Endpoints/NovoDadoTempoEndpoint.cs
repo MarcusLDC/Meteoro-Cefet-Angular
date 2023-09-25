@@ -54,14 +54,14 @@ namespace MeteoroCefet.API.Endpoints
 
             if (estacao is null)
             {
-                var novaEstacao = new Estacao { Numero = dado.Estacao, DataInicio = dado.DataHora, Status = Status.Funcionando};
+                var novaEstacao = new Estacao { Numero = dado.Estacao, DataInicio = dado.DataHora, Status = Status.Funcionando, UltimaModificacao = dado.DataHora };
                 await estacaoRepository.Add(novaEstacao);
                 shutdownServices.ScheduleStationShutdown(dado.Estacao);
                 log.LogInformation("Nova estação adicionada: {estacao}", novaEstacao);
                 return;
             }
 
-            if (estacao.Status != Status.Funcionando)
+            if (estacao.Status == Status.Desligada)
             {
                 await estacaoRepository.AlterarStatus(estacao.Numero, Status.Funcionando);
                 shutdownServices.ScheduleStationShutdown(dado.Estacao);
