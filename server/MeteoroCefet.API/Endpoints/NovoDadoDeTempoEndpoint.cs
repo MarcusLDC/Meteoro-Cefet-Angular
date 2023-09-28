@@ -3,6 +3,7 @@ using MeteoroCefet.Infra.BackgroundServices;
 using MeteoroCefet.Infra;
 using Microsoft.AspNetCore.Mvc;
 using MongoDB.Driver;
+using CsvHelper.TypeConversion;
 
 namespace MeteoroCefet.API.Endpoints
 {
@@ -13,7 +14,7 @@ namespace MeteoroCefet.API.Endpoints
             app.MapPost("dados/novo", Handler);
         }
 
-        private static async Task<Guid> Handler([FromServices] DadosTempoRepository dadosTempoRepository, [FromServices] EstacaoRepository estacaoRepository, [FromServices] ILogger<NovoDadoTempoEndpoint> log, [FromServices] ShutdownStationsBackgroundService shutdownServices, HttpRequest req)
+        private static async Task<Guid> Handler([FromServices] DadosTempoRepository dadosTempoRepository, [FromServices] EstacaoRepository estacaoRepository, [FromServices] ILogger<NovoDadoDeTempoEndpoint> log, [FromServices] ShutdownStationsBackgroundService shutdownServices, HttpRequest req)
         {
             var msg = req.Form["msg"];
             var key = req.Form["key"];
@@ -47,10 +48,67 @@ namespace MeteoroCefet.API.Endpoints
 
             await StationGuarantees(estacaoRepository, log, shutdownServices, dado); //tem que mover esses serviços para uma classe Service / Handler
 
-            return await dadosTempoRepository.Add(dado);
+            return await dadosTempoRepository.Add(await ChecarLimites(estacaoRepository, dado));
         }
 
-        private static async Task StationGuarantees(EstacaoRepository estacaoRepository, ILogger<NovoDadoTempoEndpoint> log, ShutdownStationsBackgroundService shutdownServices, DadosTempo dado)
+        private async static Task<DadosTempo> ChecarLimites(EstacaoRepository estacaoRepository, DadosTempo dado)
+        {
+            var estacao = await estacaoRepository.Collection.Find(x => x.Numero == dado.Estacao).FirstOrDefaultAsync();
+
+            if (estacao is null)
+            {
+                return dado;
+            }
+
+            var novoDado = new DadosTempo
+            {
+                DataHora = dado.DataHora,
+                Estacao = dado.Estacao,
+
+                TemperaturaAr = (dado.TemperaturaAr <= estacao.TempMax && dado.TemperaturaAr >= estacao.TempMin) ? dado.TemperaturaAr : 0,
+
+                UmidadeRelativaAr = (dado.UmidadeRelativaAr <= estacao.UmidadeMax && dado.UmidadeRelativaAr >= estacao.UmidadeMin) ? dado.UmidadeRelativaAr : 0,
+
+                Pressao = (dado.Pressao <= estacao.PressaoMax && dado.Pressao >= estacao.PressaoMin) ? dado.Pressao : 0,
+
+                RadSolar = (dado.RadSolar <= estacao.RadiacaoSolarMax && dado.RadSolar >= estacao.RadiacaoSolarMin) ? dado.RadSolar : 0,
+
+                Precipitacao = (dado.Precipitacao <= estacao.ChuvaMax && dado.Precipitacao >= estacao.ChuvaMin) ? dado.Precipitacao : 0,
+
+                DirecaoVento = (dado.DirecaoVento <= estacao.DirecaoVentoMax && dado.DirecaoVento >= estacao.DirecaoVentoMin) ? dado.DirecaoVento : 0,
+
+                VelocidadeVento = (dado.VelocidadeVento <= estacao.VelocidadeVentoMax && dado.VelocidadeVento >= estacao.VelocidadeVentoMin) ? dado.VelocidadeVento : 0,
+
+                TempPontoOrvalho = (dado.TempPontoOrvalho <= estacao.PontoOrvalhoMax && dado.TempPontoOrvalho >= estacao.PontoOrvalhoMin) ? dado.TempPontoOrvalho : 0,
+
+                IndiceCalor = (dado.IndiceCalor <= estacao.IndiceCalorMax && dado.IndiceCalor >= estacao.IndiceCalorMin) ? dado.IndiceCalor : 0,
+
+                DeficitPressaoVapor = (dado.DeficitPressaoVapor <= estacao.DeficitPressaoVaporMax && dado.DeficitPressaoVapor >= estacao.DeficitPressaoVaporMin) ? dado.DeficitPressaoVapor : 0,
+
+                Bateria = (dado.Bateria <= estacao.BateriaMax && dado.Bateria >= estacao.BateriaMin) ? dado.Bateria : 0,
+
+
+                Extra1 = (dado.Extra1 <= estacao.Extra1Max && dado.Extra1 >= estacao.Extra1Min) ? dado.Extra1 : 0,
+
+                Extra2 = (dado.Extra2 <= estacao.Extra2Max && dado.Extra2 >= estacao.Extra2Min) ? dado.Extra2 : 0,
+
+                Extra3 = (dado.Extra3 <= estacao.Extra3Max && dado.Extra3 >= estacao.Extra3Min) ? dado.Extra3 : 0,
+
+                Extra4 = (dado.Extra4 <= estacao.Extra4Max && dado.Extra4 >= estacao.Extra4Min) ? dado.Extra4 : 0,
+
+                Extra5 = (dado.Extra5 <= estacao.Extra5Max && dado.Extra5 >= estacao.Extra5Min) ? dado.Extra5 : 0,
+
+                Extra6 = (dado.Extra6 <= estacao.Extra6Max && dado.Extra6 >= estacao.Extra6Min) ? dado.Extra6 : 0,
+
+                Status = dado.Status
+            };
+
+            Console.WriteLine(novoDado);
+
+            return novoDado;
+        }
+
+        private static async Task StationGuarantees(EstacaoRepository estacaoRepository, ILogger<NovoDadoDeTempoEndpoint> log, ShutdownStationsBackgroundService shutdownServices, DadosTempo dado)
         {
             var estacao = await estacaoRepository.Collection.Find(x => x.Numero == dado.Estacao).FirstOrDefaultAsync();
 
