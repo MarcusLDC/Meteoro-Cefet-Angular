@@ -6,14 +6,14 @@ using MongoDB.Driver;
 
 namespace MeteoroCefet.API.Endpoints
 {
-    public class NovoDadoTempoEndpoint : IEndpointDefinition
+    public class NovoDadoTempoOldEndpoint : IEndpointDefinition
     {
         public void DefineEndpoints(WebApplication app)
         {
             app.MapPost("dados/new", Handler);
         }
 
-        private static async Task<Guid> Handler([FromServices] DadosTempoRepository dadosTempoRepository, [FromServices] EstacaoRepository estacaoRepository, [FromServices] ILogger<NovoDadoTempoEndpoint> log, [FromServices] ShutdownStationsBackgroundService shutdownServices, HttpRequest req)
+        private static async Task<Guid> Handler([FromServices] DadosTempoRepository dadosTempoRepository, [FromServices] EstacaoRepository estacaoRepository, [FromServices] ILogger<NovoDadoTempoOldEndpoint> log, [FromServices] ShutdownStationsBackgroundService shutdownServices, HttpRequest req)
         {
             var msg = req.Form["msg"];
             var key = req.Form["key"];
@@ -48,7 +48,7 @@ namespace MeteoroCefet.API.Endpoints
             return await dadosTempoRepository.Add(dado);
         }
 
-        private static async Task StationGuarantees(EstacaoRepository estacaoRepository, ILogger<NovoDadoTempoEndpoint> log, ShutdownStationsBackgroundService shutdownServices, DadosTempo dado)
+        private static async Task StationGuarantees(EstacaoRepository estacaoRepository, ILogger<NovoDadoTempoOldEndpoint> log, ShutdownStationsBackgroundService shutdownServices, DadosTempo dado)
         {
             var estacao = await estacaoRepository.Collection.Find(x => x.Numero == dado.Estacao).FirstOrDefaultAsync();
 
