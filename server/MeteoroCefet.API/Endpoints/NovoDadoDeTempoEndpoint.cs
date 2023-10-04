@@ -53,11 +53,9 @@ namespace MeteoroCefet.API.Endpoints
 
         private async static Task<DadosTempo> ChecarLimites(EstacaoRepository estacaoRepository, ILogger<NovoDadoDeTempoEndpoint> log, DadosTempo dado)
         {
-            log.LogInformation("Dentro da funcao");
-
             var estacao = await estacaoRepository.Collection.Find(x => x.Numero == dado.Estacao).FirstOrDefaultAsync();
 
-            log.LogInformation("Checando limites na estacao: {estacao}", estacao.Numero);
+            log.LogInformation("Checando limites na estacao: {estacao}", estacao);
 
             if (estacao is null)
             {
