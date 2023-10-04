@@ -48,17 +48,21 @@ namespace MeteoroCefet.API.Endpoints
 
             await StationGuarantees(estacaoRepository, log, shutdownServices, dado); //tem que mover esses serviços para uma classe Service / Handler
 
-            return await dadosTempoRepository.Add(await ChecarLimites(estacaoRepository, dado));
+            return await dadosTempoRepository.Add(await ChecarLimites(estacaoRepository, log, dado));
         }
 
-        private async static Task<DadosTempo> ChecarLimites(EstacaoRepository estacaoRepository, DadosTempo dado)
+        private async static Task<DadosTempo> ChecarLimites(EstacaoRepository estacaoRepository, ILogger<NovoDadoDeTempoEndpoint> log, DadosTempo dado)
         {
             var estacao = await estacaoRepository.Collection.Find(x => x.Numero == dado.Estacao).FirstOrDefaultAsync();
+
+            log.LogInformation("Checando limites na estacao: {estacao}", estacao.Numero);
 
             if (estacao is null)
             {
                 return dado;
             }
+
+            log.LogInformation("Dado Original de Temperatura: {temperatura} - {limiteMin} Min e {limiteMax} Max", dado.TemperaturaAr, estacao.TempMin, estacao.TempMax);
 
             var novoDado = new DadosTempo
             {
@@ -103,7 +107,7 @@ namespace MeteoroCefet.API.Endpoints
                 Status = dado.Status
             };
 
-            Console.WriteLine(novoDado);
+            log.LogInformation("Dado Novo de Temperatura: {temperatura} - {limiteMin} Min e {limiteMax} Max", novoDado.TemperaturaAr, estacao.TempMin, estacao.TempMax);
 
             return novoDado;
         }
