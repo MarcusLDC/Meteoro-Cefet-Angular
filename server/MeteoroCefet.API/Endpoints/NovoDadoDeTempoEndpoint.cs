@@ -55,7 +55,7 @@ namespace MeteoroCefet.API.Endpoints
         {
             var estacao = await estacaoRepository.Collection.Find(x => x.Numero == dado.Estacao).FirstOrDefaultAsync();
 
-            log.LogInformation("Checando limites na estacao: {estacao}", estacao.Numero);
+            log.LogInformation("Checando limites na estacao: {estacao}", estacao);
 
             if (estacao is null)
             {
