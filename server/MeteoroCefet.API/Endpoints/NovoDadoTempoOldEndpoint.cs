@@ -66,40 +66,56 @@ namespace MeteoroCefet.API.Endpoints
                 DataHora = dado.DataHora,
                 Estacao = dado.Estacao,
 
-                TemperaturaAr = (dado.TemperaturaAr <= estacao.TempMax && dado.TemperaturaAr >= estacao.TempMin) ? dado.TemperaturaAr : 0,
+                TemperaturaAr = (estacao.TempMax == 0 && estacao.TempMin == 0) ? dado.TemperaturaAr :
+                    (dado.TemperaturaAr <= estacao.TempMax && dado.TemperaturaAr >= estacao.TempMin) ? dado.TemperaturaAr : 0,
 
-                UmidadeRelativaAr = (dado.UmidadeRelativaAr <= estacao.UmidadeMax && dado.UmidadeRelativaAr >= estacao.UmidadeMin) ? dado.UmidadeRelativaAr : 0,
+                UmidadeRelativaAr = (estacao.UmidadeMax == 0 && estacao.UmidadeMin == 0) ? dado.UmidadeRelativaAr :
+                    (dado.UmidadeRelativaAr <= estacao.UmidadeMax && dado.UmidadeRelativaAr >= estacao.UmidadeMin) ? dado.UmidadeRelativaAr : 0,
 
-                Pressao = (dado.Pressao <= estacao.PressaoMax && dado.Pressao >= estacao.PressaoMin) ? dado.Pressao : 0,
+                Pressao = (estacao.PressaoMax == 0 && estacao.PressaoMin == 0) ? dado.Pressao :
+                    (dado.Pressao <= estacao.PressaoMax && dado.Pressao >= estacao.PressaoMin) ? dado.Pressao : 0,
 
-                RadSolar = (dado.RadSolar <= estacao.RadiacaoSolarMax && dado.RadSolar >= estacao.RadiacaoSolarMin) ? dado.RadSolar : 0,
+                RadSolar = (estacao.RadiacaoSolarMax == 0 && estacao.RadiacaoSolarMin == 0) ? dado.RadSolar :
+                    (dado.RadSolar <= estacao.RadiacaoSolarMax && dado.RadSolar >= estacao.RadiacaoSolarMin) ? dado.RadSolar : 0,
 
-                Precipitacao = (dado.Precipitacao <= estacao.ChuvaMax && dado.Precipitacao >= estacao.ChuvaMin) ? dado.Precipitacao : 0,
+                Precipitacao = (estacao.ChuvaMax == 0 && estacao.ChuvaMin == 0) ? dado.Precipitacao :
+                    (dado.Precipitacao <= estacao.ChuvaMax && dado.Precipitacao >= estacao.ChuvaMin) ? dado.Precipitacao : 0,
 
-                DirecaoVento = (dado.DirecaoVento <= estacao.DirecaoVentoMax && dado.DirecaoVento >= estacao.DirecaoVentoMin) ? dado.DirecaoVento : 0,
+                DirecaoVento = (estacao.DirecaoVentoMax == 0 && estacao.DirecaoVentoMin == 0) ? dado.DirecaoVento :
+                    (dado.DirecaoVento <= estacao.DirecaoVentoMax && dado.DirecaoVento >= estacao.DirecaoVentoMin) ? dado.DirecaoVento : 0,
 
-                VelocidadeVento = (dado.VelocidadeVento <= estacao.VelocidadeVentoMax && dado.VelocidadeVento >= estacao.VelocidadeVentoMin) ? dado.VelocidadeVento : 0,
+                VelocidadeVento = (estacao.VelocidadeVentoMax == 0 && estacao.VelocidadeVentoMin == 0) ? dado.VelocidadeVento :
+                     (dado.VelocidadeVento <= estacao.VelocidadeVentoMax && dado.VelocidadeVento >= estacao.VelocidadeVentoMin) ? dado.VelocidadeVento : 0,
 
-                TempPontoOrvalho = (dado.TempPontoOrvalho <= estacao.PontoOrvalhoMax && dado.TempPontoOrvalho >= estacao.PontoOrvalhoMin) ? dado.TempPontoOrvalho : 0,
+                TempPontoOrvalho = (estacao.PontoOrvalhoMax == 0 && estacao.PontoOrvalhoMin == 0) ? dado.TempPontoOrvalho :
+                     (dado.TempPontoOrvalho <= estacao.PontoOrvalhoMax && dado.TempPontoOrvalho >= estacao.PontoOrvalhoMin) ? dado.TempPontoOrvalho : 0,
 
-                IndiceCalor = (dado.IndiceCalor <= estacao.IndiceCalorMax && dado.IndiceCalor >= estacao.IndiceCalorMin) ? dado.IndiceCalor : 0,
+                IndiceCalor = (estacao.IndiceCalorMax == 0 && estacao.IndiceCalorMin == 0) ? dado.IndiceCalor :
+                    (dado.IndiceCalor <= estacao.IndiceCalorMax && dado.IndiceCalor >= estacao.IndiceCalorMin) ? dado.IndiceCalor : 0,
 
-                DeficitPressaoVapor = (dado.DeficitPressaoVapor <= estacao.DeficitPressaoVaporMax && dado.DeficitPressaoVapor >= estacao.DeficitPressaoVaporMin) ? dado.DeficitPressaoVapor : 0,
+                DeficitPressaoVapor = (estacao.DeficitPressaoVaporMax == 0 && estacao.DeficitPressaoVaporMin == 0) ? dado.DeficitPressaoVapor :
+                    (dado.DeficitPressaoVapor <= estacao.DeficitPressaoVaporMax && dado.DeficitPressaoVapor >= estacao.DeficitPressaoVaporMin) ? dado.DeficitPressaoVapor : 0,
 
-                Bateria = (dado.Bateria <= estacao.BateriaMax && dado.Bateria >= estacao.BateriaMin) ? dado.Bateria : 0,
+                Bateria = (estacao.BateriaMax == 0 && estacao.BateriaMin == 0) ? dado.Bateria :
+                    (dado.Bateria <= estacao.BateriaMax && dado.Bateria >= estacao.BateriaMin) ? dado.Bateria : 0,
 
+                Extra1 = (estacao.Extra1Max == 0 && estacao.Extra1Min == 0) ? dado.Extra1 :
+                    (dado.Extra1 <= estacao.Extra1Max && dado.Extra1 >= estacao.Extra1Min) ? dado.Extra1 : 0,
 
-                Extra1 = (dado.Extra1 <= estacao.Extra1Max && dado.Extra1 >= estacao.Extra1Min) ? dado.Extra1 : 0,
+                Extra2 = (estacao.Extra2Max == 0 && estacao.Extra2Min == 0) ? dado.Extra2 :
+                    (dado.Extra2 <= estacao.Extra2Max && dado.Extra2 >= estacao.Extra2Min) ? dado.Extra2 : 0,
 
-                Extra2 = (dado.Extra2 <= estacao.Extra2Max && dado.Extra2 >= estacao.Extra2Min) ? dado.Extra2 : 0,
+                Extra3 = (estacao.Extra3Max == 0 && estacao.Extra3Min == 0) ? dado.Extra3 :
+                    (dado.Extra3 <= estacao.Extra3Max && dado.Extra3 >= estacao.Extra3Min) ? dado.Extra3 : 0,
+        
+                Extra4 = (estacao.Extra4Max == 0 && estacao.Extra4Min == 0) ? dado.Extra4 :
+                    (dado.Extra4 <= estacao.Extra4Max && dado.Extra4 >= estacao.Extra4Min) ? dado.Extra4 : 0,
 
-                Extra3 = (dado.Extra3 <= estacao.Extra3Max && dado.Extra3 >= estacao.Extra3Min) ? dado.Extra3 : 0,
+                Extra5 = (estacao.Extra5Max == 0 && estacao.Extra5Min == 0) ? dado.Extra5 :
+                    (dado.Extra5 <= estacao.Extra5Max && dado.Extra5 >= estacao.Extra5Min) ? dado.Extra5 : 0,
 
-                Extra4 = (dado.Extra4 <= estacao.Extra4Max && dado.Extra4 >= estacao.Extra4Min) ? dado.Extra4 : 0,
-
-                Extra5 = (dado.Extra5 <= estacao.Extra5Max && dado.Extra5 >= estacao.Extra5Min) ? dado.Extra5 : 0,
-
-                Extra6 = (dado.Extra6 <= estacao.Extra6Max && dado.Extra6 >= estacao.Extra6Min) ? dado.Extra6 : 0,
+                Extra6 = (estacao.Extra6Max == 0 && estacao.Extra6Min == 0) ? dado.Extra6 :
+                    (dado.Extra6 <= estacao.Extra6Max && dado.Extra6 >= estacao.Extra6Min) ? dado.Extra6 : 0,
 
                 Status = dado.Status
             };
