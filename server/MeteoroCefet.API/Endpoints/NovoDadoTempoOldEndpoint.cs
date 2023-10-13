@@ -52,14 +52,10 @@ namespace MeteoroCefet.API.Endpoints
         {
             var estacao = await estacaoRepository.Collection.Find(x => x.Numero == dado.Estacao).FirstOrDefaultAsync();
 
-            log.LogInformation("Checando limites na estacao: {estacao}", estacao.Numero);
-
             if (estacao is null)
             {
                 return dado;
             }
-
-            log.LogInformation("Dado Original {dado}: ", dado);
 
             var novoDado = new DadosTempo
             {
@@ -119,8 +115,6 @@ namespace MeteoroCefet.API.Endpoints
 
                 Status = dado.Status
             };
-
-            log.LogInformation("Dado Novo {dado}: ", novoDado);
 
             return novoDado;
         }
