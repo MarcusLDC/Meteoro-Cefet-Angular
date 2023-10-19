@@ -25,8 +25,16 @@ export class EstacaoExcluirModalComponent {
   public async confirmar(){
     let senha: string = await this.form.get('senha')?.value;
     let numeroEstacao: number = this.data.numeroEstacao;
-    this.meteoroServices.excluirEstacao(numeroEstacao, senha).subscribe(x => alert(x))
-    location.reload()
+    this.meteoroServices.excluirEstacao(numeroEstacao, senha).subscribe(x => {
+      if(!x.exists)
+        alert("Estação não existe");
+      if(!x.senha)
+        alert("Confirmação de senha incorreta!");
+      if(x.sucess)
+        alert("Estação excluída com sucesso!");
+      location.reload();
+    })
+    
   }
 
   public closeDialog(): void {

@@ -25,8 +25,11 @@ export class EstacaoSenhaModalComponent {
   public async confirmar(){
     let senha: string = await this.form.get('senha')?.value;
     let numeroEstacao: number = this.data.numeroEstacao;
-    this.meteoroServices.alterarSenhaEstacao(numeroEstacao, senha).subscribe(x => alert(x))
-    location.reload()
+    this.meteoroServices.alterarSenhaEstacao(numeroEstacao, senha).subscribe(x => {
+      if(x)
+        alert("Senha Alterada!");
+      location.reload();
+    });
   }
 
   public closeDialog(): void {

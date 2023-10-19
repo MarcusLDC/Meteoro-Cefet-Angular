@@ -11,6 +11,7 @@ import { RetornoDTO } from "./DTOs/retorno-DTO";
 import { FileModel } from "../models/file-model";
 import { ConsultaDTO } from "./DTOs/consulta-DTO";
 import { DadosChuvaDTO } from "../models/dados-chuva-model";
+import { PasswordConfirmationDTO } from "./DTOs/password-confirmation-DTO";
 
 export type GeoData = { address: { city: string | null, town: string | null, state: string } };
 
@@ -40,12 +41,12 @@ export class MeteoroServices {
 
     public alterarSenhaEstacao(numero: number, senha: string){
         const endpoint = `${environment.apiUrl}/estacoes/alterarSenha`
-        return this.httpClient.post<string>(endpoint, { numero, senha })
+        return this.httpClient.post<boolean>(endpoint, { numero, senha })
     }
     
     public excluirEstacao(numero: number, senha: string){
         const endpoint = `${environment.apiUrl}/estacao/delete`
-        return this.httpClient.post<string>(endpoint, { numero, senha })
+        return this.httpClient.post<PasswordConfirmationDTO>(endpoint, { numero, senha })
     }
 
     public getDados(numPagina: number) {

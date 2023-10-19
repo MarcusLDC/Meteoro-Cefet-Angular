@@ -11,11 +11,11 @@ namespace MeteoroCefet.API.Endpoints
             app.MapPost("/estacoes/alterarSenha", Handler)//.RequireAuthorization("RequireAdmin")
                                                           ;
         }
-        private static async Task<string> Handler([FromServices] ILogger<EditarEstacaoEndpoint> log, [FromServices] EstacaoRepository repository, [FromBody] AlterarSenhaEstacaoParams novaSenha)
+        private static async Task<bool> Handler([FromServices] ILogger<AlterarSenhaEstacaoEndpoint> log, [FromServices] EstacaoRepository repository, [FromBody] AlterarSenhaEstacaoParams novaSenha)
         {
             await repository.ReplaceSenha(novaSenha.Numero, novaSenha.Senha);
 
-            return "Senha Alterada!";
+            return true;
         }
         private record AlterarSenhaEstacaoParams(int Numero, string Senha);
     }
