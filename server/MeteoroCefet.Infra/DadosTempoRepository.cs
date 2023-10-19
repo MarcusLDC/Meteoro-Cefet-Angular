@@ -49,14 +49,14 @@ namespace MeteoroCefet.Infra
             return last.DataHora;
         }
 
-        public async Task DeleteOutOfRangeHumidityData()
+        public async Task<bool> DeleteDataByStation(int numeroEstacao)
         {
-            var filter = Builders<DadosTempo>.Filter.Or(
-                Builders<DadosTempo>.Filter.Lt(x => x.UmidadeRelativaAr, 0),
-                Builders<DadosTempo>.Filter.Gt(x => x.UmidadeRelativaAr, 100)
-            );
+            await Collection
+                .Find(x => x.Estacao.Equals(numeroEstacao))
+                .SortByDescending(x => x.DataHora)
+                .ToListAsync();
 
-            await Collection.DeleteManyAsync(filter);
+            return true;
         }
     }
 }

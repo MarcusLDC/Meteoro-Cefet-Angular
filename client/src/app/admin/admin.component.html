@@ -71,7 +71,9 @@
                                 </mat-panel-description>
                                 <mat-icon>vpn_key</mat-icon>
                             </mat-expansion-panel-header>
-                            <button mat-raised-button color="warn" (click)="openDialog(item.numero)"> Alterar Senha </button>
+                            <button mat-raised-button color="warn" (click)="openAlterarSenhaDialog(item.numero, item.nome)"> ALTERAR SENHA </button>
+                            <button mat-raised-button color="warn" (click)="openExcluirDialog(item.numero, item.senha, item.nome)" style="float:right"> EXCLUIR ESTAÇÃO </button>
+                            <button mat-raised-button color="warn" style="float:right; margin-right: 10px;"> EXCLUIR DADOS </button>
                         </mat-expansion-panel>
                     </mat-accordion>
                 </mat-tab>

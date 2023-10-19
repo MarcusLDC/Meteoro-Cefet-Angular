@@ -1,12 +1,13 @@
 <mat-card class="card">
     <mat-card-header class="title">
-        <span style="color:rgb(43, 129, 22)"> ALTERANDO SENHA </span> <br> <br> 
+        <span style="color:red"> EXCLUINDO ESTAÇÃO </span> <br> <br> 
         Estação {{this.data.numeroEstacao}} <br> <br> 
         {{this.data.nomeEstacao}}
     </mat-card-header>
+        
     <mat-card-content [formGroup]="form">
         <mat-form-field appearance="outline">
-            <mat-label> Nova Senha: </mat-label>
+            <mat-label> Confirme a Senha: </mat-label>
             <input matInput formControlName="senha">
         </mat-form-field>
     </mat-card-content>

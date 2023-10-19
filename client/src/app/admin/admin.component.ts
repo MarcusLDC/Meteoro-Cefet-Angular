@@ -7,6 +7,7 @@ import { UserService } from '../shared/services/user-services';
 import { Estacao } from '../shared/models/estacao-model';
 import { MatDialog } from '@angular/material/dialog';
 import { EstacaoSenhaModalComponent } from './estacao-senha-modal/estacao-senha-modal.component';
+import { EstacaoExcluirModalComponent } from './estacao-excluir-modal/estacao-excluir-modal.component';
 
 @Component({
   selector: 'app-admin',
@@ -42,13 +43,13 @@ export class AdminComponent {
     }
   }
 
-  openDialog(numeroEstacao: number) {
+  openAlterarSenhaDialog(numeroEstacao: number, nome: string) {
     if(this.modalAberto)
       return;
 
     var dialogRef = this.dialog.open(EstacaoSenhaModalComponent, {
       width: '300px',
-      data: {numeroEstacao: numeroEstacao}
+      data: {numeroEstacao: numeroEstacao, nomeEstacao: nome}
     });
 
     this.modalAberto = true;
@@ -57,4 +58,21 @@ export class AdminComponent {
       this.modalAberto = false;
     });
   }
+
+  openExcluirDialog(numeroEstacao: number, senha: string, nome: string) {
+    if(this.modalAberto)
+      return;
+
+    var dialogRef = this.dialog.open(EstacaoExcluirModalComponent, {
+      width: '300px',
+      data: {numeroEstacao: numeroEstacao, senhaEstacao: senha, nomeEstacao: nome}
+    });
+
+    this.modalAberto = true;
+
+    dialogRef.afterClosed().subscribe(() => {
+      this.modalAberto = false;
+    });
+  }
+
 }
