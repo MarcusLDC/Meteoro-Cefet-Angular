@@ -40,7 +40,12 @@ export class MeteoroServices {
 
     public alterarSenhaEstacao(numero: number, senha: string){
         const endpoint = `${environment.apiUrl}/estacoes/alterarSenha`
-        return this.httpClient.post<any>(endpoint, { numero, senha })
+        return this.httpClient.post<string>(endpoint, { numero, senha })
+    }
+    
+    public excluirEstacao(numero: number, senha: string){
+        const endpoint = `${environment.apiUrl}/estacao/delete`
+        return this.httpClient.post<string>(endpoint, { numero, senha })
     }
 
     public getDados(numPagina: number) {

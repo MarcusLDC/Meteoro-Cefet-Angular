@@ -130,7 +130,13 @@ namespace MeteoroCefet.API.Endpoints
 
             if (estacao is null)
             {
-                var novaEstacao = new Estacao { Numero = dado.Estacao, DataInicio = dado.DataHora, Status = Status.Funcionando, UltimaModificacao = dado.DataHora };
+                var novaEstacao = new Estacao { 
+                    Numero = dado.Estacao, 
+                    DataInicio = dado.DataHora, 
+                    Status = Status.Funcionando,
+                    UltimaModificacao = dado.DataHora,
+                    Senha = "estacao_lapa_" + dado.Estacao
+                };
                 await estacaoRepository.Add(novaEstacao);
                 shutdownServices.ScheduleStationShutdown(dado.Estacao);
                 log.LogInformation("Nova estação adicionada: {estacao}", novaEstacao);

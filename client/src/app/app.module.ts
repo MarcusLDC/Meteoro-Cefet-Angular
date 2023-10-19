@@ -46,6 +46,7 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 import { EstacaoSenhaModalComponent } from './admin/estacao-senha-modal/estacao-senha-modal.component';
 import { DadosChuvaComponent } from './dados-chuva/dados-chuva.component';
 import { MatToolbarModule } from '@angular/material/toolbar';
+import { EstacaoExcluirModalComponent } from './admin/estacao-excluir-modal/estacao-excluir-modal.component';
 
 @NgModule({
   declarations: [
@@ -64,6 +65,7 @@ import { MatToolbarModule } from '@angular/material/toolbar';
     ConsultaSettingsModalComponent,
     EstacaoSenhaModalComponent,
     DadosChuvaComponent,
+    EstacaoExcluirModalComponent,
   ],
   imports: [
     BrowserModule,

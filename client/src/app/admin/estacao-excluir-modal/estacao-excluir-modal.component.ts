@@ -4,28 +4,28 @@ import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { MeteoroServices } from 'src/app/shared/services/meteoro-services';
 
 @Component({
-  selector: 'app-estacao-senha-modal',
-  templateUrl: './estacao-senha-modal.component.html',
-  styleUrls: ['./estacao-senha-modal.component.scss']
+  selector: 'app-estacao-excluir-modal',
+  templateUrl: './estacao-excluir-modal.component.html',
+  styleUrls: ['./estacao-excluir-modal.component.scss']
 })
-export class EstacaoSenhaModalComponent {
+export class EstacaoExcluirModalComponent {
 
   form: FormGroup;
 
-  constructor(private builder: FormBuilder, private meteoroServices: MeteoroServices,  public dialogRef: MatDialogRef<EstacaoSenhaModalComponent>,  
-    @Inject(MAT_DIALOG_DATA) public data: { numeroEstacao: number, nomeEstacao: string}) {
+  constructor(private builder: FormBuilder, private meteoroServices: MeteoroServices,  public dialogRef: MatDialogRef<EstacaoExcluirModalComponent>, 
+              @Inject(MAT_DIALOG_DATA) public data: { numeroEstacao: number, senhaEstacao: string, nomeEstacao: string}) {
 
     this.form = builder.group({
       senha: [null, Validators.required],
     });
 
-    document.title = "Alterando Senha"
+    document.title = "Excluindo Estação"
   }
 
   public async confirmar(){
     let senha: string = await this.form.get('senha')?.value;
     let numeroEstacao: number = this.data.numeroEstacao;
-    this.meteoroServices.alterarSenhaEstacao(numeroEstacao, senha).subscribe(x => alert(x))
+    this.meteoroServices.excluirEstacao(numeroEstacao, senha).subscribe(x => alert(x))
     location.reload()
   }
 
