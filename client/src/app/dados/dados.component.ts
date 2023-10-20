@@ -118,7 +118,18 @@ export class DadosComponent implements OnInit {
     }
     else {
       this.meteoroServices.getDadosEstacao(Number(this.form.get('estacao')?.value), this.paginator).subscribe(x => {
-        this.dataSource = x,
+        this.dataSource = x
+        
+        const randomIndex = Math.floor(Math.random() * this.estacoes.length);
+        const randomStation: string = this.estacoes[randomIndex].numero.toString()
+
+        if(this.dataSource.length == 0){
+          this.setSelectedEstacao(randomStation);
+          this.localStorage.set('estacao', this.estacoes[randomIndex].numero);
+          alert("Nenhum dado na estação escolhida")
+          location.reload()
+        }
+
         this.firstDataHora = this.dataSource[0].dataHora;
         this.campo_extra1 = this.estacaoSelecionada!.extraNome1;
         this.campo_extra2 = this.estacaoSelecionada!.extraNome2;

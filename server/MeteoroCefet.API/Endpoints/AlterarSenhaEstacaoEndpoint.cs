@@ -8,8 +8,7 @@ namespace MeteoroCefet.API.Endpoints
     {
         public void DefineEndpoints(WebApplication app)
         {
-            app.MapPost("/estacoes/alterarSenha", Handler)//.RequireAuthorization("RequireAdmin")
-                                                          ;
+            app.MapPost("/estacoes/alterarSenha", Handler).RequireAuthorization("RequireAdmin");
         }
         private static async Task<bool> Handler([FromServices] ILogger<AlterarSenhaEstacaoEndpoint> log, [FromServices] EstacaoRepository repository, [FromBody] AlterarSenhaEstacaoParams novaSenha)
         {
