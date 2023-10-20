@@ -26,7 +26,8 @@ namespace MeteoroCefet.Infra
         }
         public async Task<bool> DeleteStation(int numero)
         {
-            var estacao = await Collection.Find(x => x.Numero == numero).FirstOrDefaultAsync();
+
+            await Collection.FindOneAndDeleteAsync(x => x.Numero == numero);
 
             return true;
         }

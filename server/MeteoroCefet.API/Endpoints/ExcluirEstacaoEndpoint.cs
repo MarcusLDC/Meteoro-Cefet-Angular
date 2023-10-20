@@ -36,7 +36,9 @@ namespace MeteoroCefet.API.Endpoints
 
             excluir.Senha = true;
 
-            excluir.Sucess = await estacaoRepository.DeleteStation(p.Numero) && await dadosTempoRepository.DeleteDataByStation(p.Numero);
+            excluir.Sucess =  await dadosTempoRepository.DeleteDataByStation(p.Numero);
+
+            excluir.Sucess = await estacaoRepository.DeleteStation(p.Numero);
 
             log.LogInformation("Tentativa de exclusão da estacao {estacao}, resultado : {resultado}", p.Numero, excluir.Sucess);
 

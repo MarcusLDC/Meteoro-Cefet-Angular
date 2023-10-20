@@ -52,9 +52,7 @@ namespace MeteoroCefet.Infra
         public async Task<bool> DeleteDataByStation(int numeroEstacao)
         {
             await Collection
-                .Find(x => x.Estacao.Equals(numeroEstacao))
-                .SortByDescending(x => x.DataHora)
-                .ToListAsync();
+                .DeleteManyAsync(x => x.Estacao.Equals(numeroEstacao));
 
             return true;
         }
