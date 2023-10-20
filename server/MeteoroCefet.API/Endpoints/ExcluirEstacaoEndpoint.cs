@@ -10,8 +10,7 @@ namespace MeteoroCefet.API.Endpoints
     {
         public void DefineEndpoints(WebApplication app)
         {
-            app.MapPost("estacao/delete", Handler)//.RequireAuthorization("RequireAdmin")
-                                                  ;
+            app.MapPost("estacao/delete", Handler).RequireAuthorization("RequireAdmin");
         }
 
         private static async Task<ExcluirEstacaoDTO> Handler([FromServices] ILogger<ExcluirEstacaoEndpoint> log, EstacaoRepository estacaoRepository, DadosTempoRepository dadosTempoRepository, [FromBody] ExcluirEstacaoParams p)
