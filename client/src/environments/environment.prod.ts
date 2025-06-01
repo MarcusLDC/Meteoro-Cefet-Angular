@@ -1,5 +1,6 @@
 export const environment = {
     production: true, 
-    apiUrl: "https://meteoro-cefet-back.fly.dev"
+    apiUrl: "http://localhost/api/"
+    // apiUrl: "https://meteoro-cefet-back.fly.dev"
 }
  

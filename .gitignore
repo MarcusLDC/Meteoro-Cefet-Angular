@@ -7,3 +7,6 @@ obj
 bin
 .env
 /server/MeteoroCefet.API/Endpoints/LoginEndpoint.cs
+nginx-proxy
+import-mongo-db.txt
+backup**
